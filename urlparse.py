@@ -40,28 +40,28 @@ __all__ = ["urlparse", "urlunparse", "urljoin", "urldefrag",
            "DefragResultBytes", "ParseResultBytes", "SplitResultBytes"]
 
 # A classification of schemes ('' means apply by default)
-uses_relative = ['ftp', 'http', 'gopher', 'nntp', 'imap',
+uses_relative = {'ftp', 'http', 'gopher', 'nntp', 'imap',
                  'wais', 'file', 'https', 'shttp', 'mms',
                  'prospero', 'rtsp', 'rtspu', '', 'sftp',
-                 'svn', 'svn+ssh', 'ws', 'wss']
-uses_netloc = ['ftp', 'http', 'gopher', 'nntp', 'telnet',
+                 'svn', 'svn+ssh', 'ws', 'wss'}
+uses_netloc = {'ftp', 'http', 'gopher', 'nntp', 'telnet',
                'imap', 'wais', 'file', 'mms', 'https', 'shttp',
                'snews', 'prospero', 'rtsp', 'rtspu', 'rsync', '',
                'svn', 'svn+ssh', 'sftp', 'nfs', 'git', 'git+ssh',
-               'ws', 'wss']
-uses_params = ['ftp', 'hdl', 'prospero', 'http', 'imap',
+               'ws', 'wss'}
+uses_params = {'ftp', 'hdl', 'prospero', 'http', 'imap',
                'https', 'shttp', 'rtsp', 'rtspu', 'sip', 'sips',
-               'mms', '', 'sftp', 'tel']
+               'mms', '', 'sftp', 'tel'}
 
 # These are not actually used anymore, but should stay for backwards
 # compatibility.  (They are undocumented, but have a public-looking name.)
-non_hierarchical = ['gopher', 'hdl', 'mailto', 'news',
-                    'telnet', 'wais', 'imap', 'snews', 'sip', 'sips']
-uses_query = ['http', 'wais', 'imap', 'https', 'shttp', 'mms',
-              'gopher', 'rtsp', 'rtspu', 'sip', 'sips', '']
-uses_fragment = ['ftp', 'hdl', 'http', 'gopher', 'news',
+non_hierarchical = {'gopher', 'hdl', 'mailto', 'news',
+                    'telnet', 'wais', 'imap', 'snews', 'sip', 'sips'}
+uses_query = {'http', 'wais', 'imap', 'https', 'shttp', 'mms',
+              'gopher', 'rtsp', 'rtspu', 'sip', 'sips', ''}
+uses_fragment = {'ftp', 'hdl', 'http', 'gopher', 'news',
                  'nntp', 'wais', 'https', 'shttp', 'snews',
-                 'file', 'prospero', '']
+                 'file', 'prospero', ''}
 
 # Characters valid in scheme names
 scheme_chars = ('abcdefghijklmnopqrstuvwxyz'
@@ -158,7 +158,7 @@ class _NetlocResultMixinBase(object):
         port = self._hostinfo[1]
         if port is not None:
             port = int(port, 10)
-            if not ( 0 <= port <= 65535):
+            if not (0 <= port <= 65535):
                 raise ValueError("Port out of range 0-65535")
         return port
 
