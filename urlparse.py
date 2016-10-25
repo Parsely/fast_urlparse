@@ -42,18 +42,24 @@ __all__ = ["urlparse", "urlunparse", "urljoin", "urldefrag",
 
 
 # A classification of schemes ('' means apply by default)
-uses_relative = {'ftp', 'http', 'gopher', 'nntp', 'imap',
-                 'wais', 'file', 'https', 'shttp', 'mms',
-                 'prospero', 'rtsp', 'rtspu', '', 'sftp',
-                 'svn', 'svn+ssh', 'ws', 'wss'}
-uses_netloc = {'ftp', 'http', 'gopher', 'nntp', 'telnet',
-               'imap', 'wais', 'file', 'mms', 'https', 'shttp',
-               'snews', 'prospero', 'rtsp', 'rtspu', 'rsync', '',
-               'svn', 'svn+ssh', 'sftp', 'nfs', 'git', 'git+ssh',
-               'ws', 'wss'}
-uses_params = {'ftp', 'hdl', 'prospero', 'http', 'imap',
-               'https', 'shttp', 'rtsp', 'rtspu', 'sip', 'sips',
-               'mms', '', 'sftp', 'tel'}
+uses_relative_str = {'ftp', 'http', 'gopher', 'nntp', 'imap',
+                     'wais', 'file', 'https', 'shttp', 'mms',
+                     'prospero', 'rtsp', 'rtspu', '', 'sftp',
+                     'svn', 'svn+ssh', 'ws', 'wss'}
+uses_netloc_str = {'ftp', 'http', 'gopher', 'nntp', 'telnet',
+                   'imap', 'wais', 'file', 'mms', 'https', 'shttp',
+                   'snews', 'prospero', 'rtsp', 'rtspu', 'rsync', '',
+                   'svn', 'svn+ssh', 'sftp', 'nfs', 'git', 'git+ssh',
+                   'ws', 'wss'}
+uses_params_str = {'ftp', 'hdl', 'prospero', 'http', 'imap',
+                   'https', 'shttp', 'rtsp', 'rtspu', 'sip', 'sips',
+                   'mms', '', 'sftp', 'tel'}
+uses_relative_bytes = {scheme.encode('ascii') for scheme in uses_relative_str}
+uses_netloc_bytes = {scheme.encode('ascii') for scheme in uses_netloc_str}
+uses_params_bytes = {scheme.encode('ascii') for scheme in uses_params_str}
+uses_relative = uses_relative_str
+uses_netloc = uses_netloc_str
+uses_params = uses_params_str
 
 # These are not actually used anymore, but should stay for backwards
 # compatibility.  (They are undocumented, but have a public-looking name.)
@@ -364,11 +370,13 @@ def urlparse(url, scheme='', allow_fragments=True):
         slash = b'/'
         blank = b''
         result_type = ParseResultBytes
+        uses_params = uses_params_bytes
     else:
         semicolon = ';'
         slash = '/'
         blank = ''
-        result_type = ParseResultBytes
+        result_type = ParseResult
+        uses_params = uses_params_str
     splitresult = urlsplit(url, scheme, allow_fragments)
     scheme, netloc, url, query, fragment = splitresult
     if scheme in uses_params and semicolon in url:
@@ -419,6 +427,10 @@ def urlsplit(url, scheme='', allow_fragments=True):
         double_slash = b'//',
         netloc_delimiters = b'/?#'
         result_type = SplitResultBytes
+        scheme_chars = (b'abcdefghijklmnopqrstuvwxyz'
+                        b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                        b'0123456789'
+                        b'+-.')
     else:
         blank = ''
         colon = ':'
@@ -431,6 +443,10 @@ def urlsplit(url, scheme='', allow_fragments=True):
         double_slash = '//'
         netloc_delimiters = '/?#'
         result_type = SplitResult
+        scheme_chars = ('abcdefghijklmnopqrstuvwxyz'
+                        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                        '0123456789'
+                        '+-.')
     key = url, scheme, allow_fragments, type(url), type(scheme)
     cached = _parse_cache.get(key, None)
     if cached:
@@ -440,10 +456,10 @@ def urlsplit(url, scheme='', allow_fragments=True):
     netloc = query = fragment = blank
     i = url.find(colon)
     if i > 0:
-        if url[:i] == http: # optimize the common case
+        if url.startswith(http, i):  # optimize the common case
             scheme = url[:i].lower()
             url = url[i+1:]
-            if url[:2] == double_slash:
+            if url.startswith(double_slash):
                 netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)
                 if ((l_bracket in netloc and r_bracket not in netloc) or
                         (r_bracket in netloc and l_bracket not in netloc)):
@@ -466,7 +482,7 @@ def urlsplit(url, scheme='', allow_fragments=True):
                 # not a port number
                 scheme, url = url[:i].lower(), rest
 
-    if url[:2] == double_slash:
+    if url.startswith(double_slash):
         netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)
         if ((l_bracket in netloc and r_bracket not in netloc) or
                 (r_bracket in netloc and l_bracket not in netloc)):
@@ -490,7 +506,7 @@ def urlunparse(components):
         if isinstance(url, bytes):
             url = b"%s;%s" % (url, params)
         else:
-            url = b"%s;%s" % (url, params)
+            url = "%s;%s" % (url, params)
     return urlunsplit((scheme, netloc, url, query, fragment))
 
 
@@ -508,6 +524,7 @@ def urlunsplit(components):
         colon = b':'
         question_mark = b'?'
         pound = b'#'
+        uses_netloc = uses_netloc_bytes
     else:
         slash = '/'
         double_slash = '//'
@@ -515,6 +532,7 @@ def urlunsplit(components):
         colon = ':'
         question_mark = '?'
         pound = '#'
+        uses_netloc = uses_netloc_str
     if netloc or (scheme and scheme in uses_netloc and
                   not url.startswith(double_slash)):
         if url and not url.startswith(slash):
@@ -537,18 +555,33 @@ def urljoin(base, url, allow_fragments=True):
     if not url:
         return base
 
-    base, url, _coerce_result = _coerce_args(base, url)
+    if isinstance(url, bytes):
+        slash = b'/'
+        double_slash = b'//'
+        blank = b''
+        colon = b':'
+        question_mark = b'?'
+        pound = b'#'
+        uses_netloc = uses_netloc_bytes
+    else:
+        slash = '/'
+        double_slash = '//'
+        blank = ''
+        colon = ':'
+        question_mark = '?'
+        pound = '#'
+        uses_netloc = uses_netloc_str
+
     bscheme, bnetloc, bpath, bparams, bquery, bfragment = \
-            urlparse(base, '', allow_fragments)
+            urlparse(base, blank, allow_fragments)
     scheme, netloc, path, params, query, fragment = \
             urlparse(url, bscheme, allow_fragments)
 
     if scheme != bscheme or scheme not in uses_relative:
-        return _coerce_result(url)
+        return url
     if scheme in uses_netloc:
         if netloc:
-            return _coerce_result(urlunparse((scheme, netloc, path,
-                                              params, query, fragment)))
+            return urlunparse((scheme, netloc, path, params, query, fragment))
         netloc = bnetloc
 
     if not path and not params:
@@ -556,20 +589,19 @@ def urljoin(base, url, allow_fragments=True):
         params = bparams
         if not query:
             query = bquery
-        return _coerce_result(urlunparse((scheme, netloc, path,
-                                          params, query, fragment)))
+        return urlunparse((scheme, netloc, path, params, query, fragment))
 
-    base_parts = bpath.split('/')
-    if base_parts[-1] != '':
+    base_parts = bpath.split(slash)
+    if base_parts[-1] != blank:
         # the last item is not a directory, so will not be taken into account
         # in resolving the relative path
         del base_parts[-1]
 
     # for rfc3986, ignore all base path should the first character be root.
-    if path[:1] == '/':
-        segments = path.split('/')
+    if path.startswith(slash):
+        segments = path.split(slash)
     else:
-        segments = base_parts + path.split('/')
+        segments = base_parts + path.split(slash)
         # filter out elements that would cause redundant slashes on re-joining
         # the resolved_path
         segments[1:-1] = filter(None, segments[1:-1])
@@ -591,11 +623,11 @@ def urljoin(base, url, allow_fragments=True):
 
     if segments[-1] in ('.', '..'):
         # do some post-processing here. if the last segment was a relative dir,
-        # then we need to append the trailing '/'
-        resolved_path.append('')
+        # then we need to append the trailing slash
+        resolved_path.append(blank)
 
-    return _coerce_result(urlunparse((scheme, netloc, '/'.join(
-        resolved_path) or '/', params, query, fragment)))
+    return urlunparse((scheme, netloc, slash.join(resolved_path) or slash,
+                       params, query, fragment))
 
 
 def urldefrag(url):
