@@ -1019,19 +1019,6 @@ def urlencode(query, doseq=False, safe='', encoding=None, errors=None,
                         l.append(k + '=' + elt)
     return '&'.join(l)
 
-def to_bytes(url):
-    """to_bytes(u"URL") --> 'URL'."""
-    # Most URL schemes require ASCII. If that changes, the conversion
-    # can be relaxed.
-    # XXX get rid of to_bytes()
-    if isinstance(url, str):
-        try:
-            url = url.encode("ASCII").decode()
-        except UnicodeError:
-            raise UnicodeError("URL " + repr(url) +
-                               " contains non-ASCII characters")
-    return url
-
 def unwrap(url):
     """unwrap('<URL:type://host/path>') --> 'type://host/path'."""
     url = str(url).strip()
