@@ -340,39 +340,41 @@ _fix_result_transcoding()
 del _fix_result_transcoding
 
 
-def urlparse(bytes url, bytes scheme=b'', bool allow_fragments=True):
+def urlparse(url, scheme='', allow_fragments=True):
     """Parse a URL into 6 components:
     <scheme>://<netloc>/<path>;<params>?<query>#<fragment>
     Return a 6-tuple: (scheme, netloc, path, params, query, fragment).
     Note that we don't break the components up in smaller bits
     (e.g. netloc is a single string) and we don't expand % escapes."""
-    splitresult = urlsplit(url, scheme, allow_fragments)
+    if isinstance(url, bytes):
+        if scheme == '':
+            scheme = b''
+        return _urlparse_bytes(url, scheme, allow_fragments)
+    return _urlparse_str(url, scheme, allow_fragments)
+
+
+def _urlparse_bytes(bytes url, bytes scheme=b'', bool allow_fragments=True):
+    splitresult = _urlsplit_bytes(url, scheme, allow_fragments)
     scheme, netloc, url, query, fragment = splitresult
     if scheme in uses_params_bytes and b';' in url:
-        url, params = _splitparams(url, semicolon=b';', slash=b'/',
+        url, params = _splitparams_bytes(url, semicolon=b';', slash=b'/',
                                    blank=b'')
     else:
         params = b''
     return ParseResultBytes(scheme, netloc, url, params, query, fragment)
 
 
-def urlparse(str url, str scheme='', bool allow_fragments=True):
-    """Parse a URL into 6 components:
-    <scheme>://<netloc>/<path>;<params>?<query>#<fragment>
-    Return a 6-tuple: (scheme, netloc, path, params, query, fragment).
-    Note that we don't break the components up in smaller bits
-    (e.g. netloc is a single string) and we don't expand % escapes."""
-    splitresult = urlsplit(url, scheme, allow_fragments)
+def _urlparse_str(str url, str scheme='', bool allow_fragments=True):
+    splitresult = _urlsplit_str(url, scheme, allow_fragments)
     scheme, netloc, url, query, fragment = splitresult
     if scheme in uses_params_str and ';' in url:
-        url, params = _splitparams(url, semicolon=';', slash='/',
-                                   blank='')
+        url, params = _splitparams_str(url, semicolon=';', slash='/', blank='')
     else:
         params = ''
     return ParseResult(scheme, netloc, url, params, query, fragment)
 
 
-def _splitparams(bytes url, bytes semicolon, bytes slash, bytes blank):
+def _splitparams_bytes(bytes url, bytes semicolon, bytes slash, bytes blank):
     if slash in url:
         i = url.find(semicolon, url.rfind(slash))
         if i < 0:
@@ -381,7 +383,7 @@ def _splitparams(bytes url, bytes semicolon, bytes slash, bytes blank):
         i = url.find(semicolon)
     return url[:i], url[i+1:]
 
-def _splitparams(str url, str semicolon, str slash, str blank):
+def _splitparams_str(str url, str semicolon, str slash, str blank):
     if slash in url:
         i = url.find(semicolon, url.rfind(slash))
         if i < 0:
@@ -400,12 +402,20 @@ def _splitnetloc(url, start=0, *, delimiters):
     return url[start:delim], url[delim:]   # return (domain, rest)
 
 
-def urlsplit(bytes url, bytes scheme=b'', bool allow_fragments=True):
+def urlsplit(url, scheme='', allow_fragments=True):
     """Parse a URL into 5 components:
     <scheme>://<netloc>/<path>?<query>#<fragment>
     Return a 5-tuple: (scheme, netloc, path, query, fragment).
     Note that we don't break the components up in smaller bits
     (e.g. netloc is a single string) and we don't expand % escapes."""
+    if isinstance(url, bytes):
+        if scheme == '':
+            scheme = b''
+        return _urlsplit_bytes(url, scheme, allow_fragments)
+    return _urlsplit_str(url, scheme, allow_fragments)
+
+
+def _urlsplit_bytes(bytes url, bytes scheme=b'', bool allow_fragments=True):
     key = url, scheme, allow_fragments, type(url), type(scheme)
     cached = _parse_cache.get(key, None)
     if cached:
@@ -458,12 +468,7 @@ def urlsplit(bytes url, bytes scheme=b'', bool allow_fragments=True):
     return v
 
 
-def urlsplit(str url, str scheme='', bool allow_fragments=True):
-    """Parse a URL into 5 components:
-    <scheme>://<netloc>/<path>?<query>#<fragment>
-    Return a 5-tuple: (scheme, netloc, path, query, fragment).
-    Note that we don't break the components up in smaller bits
-    (e.g. netloc is a single string) and we don't expand % escapes."""
+def _urlsplit_str(str url, str scheme='', bool allow_fragments=True):
     key = url, scheme, allow_fragments, type(url), type(scheme)
     cached = _parse_cache.get(key, None)
     if cached:
