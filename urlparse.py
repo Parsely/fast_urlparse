@@ -30,6 +30,7 @@ test_urlparse.py provides a good indicator of parsing behavior.
 import collections
 import re
 import sys
+from collections import namedtuple
 
 
 __all__ = ["urlparse", "urlunparse", "urljoin", "urldefrag",
@@ -39,19 +40,26 @@ __all__ = ["urlparse", "urlunparse", "urljoin", "urldefrag",
            "DefragResult", "ParseResult", "SplitResult",
            "DefragResultBytes", "ParseResultBytes", "SplitResultBytes"]
 
+
 # A classification of schemes ('' means apply by default)
-uses_relative = {'ftp', 'http', 'gopher', 'nntp', 'imap',
-                 'wais', 'file', 'https', 'shttp', 'mms',
-                 'prospero', 'rtsp', 'rtspu', '', 'sftp',
-                 'svn', 'svn+ssh', 'ws', 'wss'}
-uses_netloc = {'ftp', 'http', 'gopher', 'nntp', 'telnet',
-               'imap', 'wais', 'file', 'mms', 'https', 'shttp',
-               'snews', 'prospero', 'rtsp', 'rtspu', 'rsync', '',
-               'svn', 'svn+ssh', 'sftp', 'nfs', 'git', 'git+ssh',
-               'ws', 'wss'}
-uses_params = {'ftp', 'hdl', 'prospero', 'http', 'imap',
-               'https', 'shttp', 'rtsp', 'rtspu', 'sip', 'sips',
-               'mms', '', 'sftp', 'tel'}
+uses_relative_str = {'ftp', 'http', 'gopher', 'nntp', 'imap',
+                     'wais', 'file', 'https', 'shttp', 'mms',
+                     'prospero', 'rtsp', 'rtspu', '', 'sftp',
+                     'svn', 'svn+ssh', 'ws', 'wss'}
+uses_netloc_str = {'ftp', 'http', 'gopher', 'nntp', 'telnet',
+                   'imap', 'wais', 'file', 'mms', 'https', 'shttp',
+                   'snews', 'prospero', 'rtsp', 'rtspu', 'rsync', '',
+                   'svn', 'svn+ssh', 'sftp', 'nfs', 'git', 'git+ssh',
+                   'ws', 'wss'}
+uses_params_str = {'ftp', 'hdl', 'prospero', 'http', 'imap',
+                   'https', 'shttp', 'rtsp', 'rtspu', 'sip', 'sips',
+                   'mms', '', 'sftp', 'tel'}
+uses_relative_bytes = {scheme.encode('ascii') for scheme in uses_relative_str}
+uses_netloc_bytes = {scheme.encode('ascii') for scheme in uses_netloc_str}
+uses_params_bytes = {scheme.encode('ascii') for scheme in uses_params_str}
+uses_relative = uses_relative_str
+uses_netloc = uses_netloc_str
+uses_params = uses_params_str
 
 # These are not actually used anymore, but should stay for backwards
 # compatibility.  (They are undocumented, but have a public-looking name.)
@@ -223,8 +231,6 @@ class _NetlocResultMixinBytes(_NetlocResultMixinBase, _ResultMixinBytes):
         return hostname, port
 
 
-from collections import namedtuple
-
 _DefragResultBase = namedtuple('DefragResult', 'url fragment')
 _SplitResultBase = namedtuple(
     'SplitResult', 'scheme netloc path query fragment')
@@ -349,38 +355,56 @@ def _fix_result_transcoding():
 _fix_result_transcoding()
 del _fix_result_transcoding
 
+
 def urlparse(url, scheme='', allow_fragments=True):
     """Parse a URL into 6 components:
     <scheme>://<netloc>/<path>;<params>?<query>#<fragment>
     Return a 6-tuple: (scheme, netloc, path, params, query, fragment).
     Note that we don't break the components up in smaller bits
     (e.g. netloc is a single string) and we don't expand % escapes."""
-    url, scheme, _coerce_result = _coerce_args(url, scheme)
+    allow_fragments = bool(allow_fragments)
+    if isinstance(url, bytes):
+        if scheme == '':
+            scheme = b''
+        semicolon = b';'
+        slash = b'/'
+        blank = b''
+        result_type = ParseResultBytes
+        uses_params = uses_params_bytes
+    else:
+        semicolon = ';'
+        slash = '/'
+        blank = ''
+        result_type = ParseResult
+        uses_params = uses_params_str
     splitresult = urlsplit(url, scheme, allow_fragments)
     scheme, netloc, url, query, fragment = splitresult
-    if scheme in uses_params and ';' in url:
-        url, params = _splitparams(url)
+    if scheme in uses_params and semicolon in url:
+        url, params = _splitparams(url, semicolon=semicolon, slash=slash,
+                                   blank=blank)
     else:
-        params = ''
-    result = ParseResult(scheme, netloc, url, params, query, fragment)
-    return _coerce_result(result)
+        params = blank
+    return result_type(scheme, netloc, url, params, query, fragment)
 
-def _splitparams(url):
-    if '/'  in url:
-        i = url.find(';', url.rfind('/'))
+
+def _splitparams(url, *, semicolon, slash, blank):
+    if slash in url:
+        i = url.find(semicolon, url.rfind(slash))
         if i < 0:
-            return url, ''
+            return url, blank
     else:
-        i = url.find(';')
+        i = url.find(semicolon)
     return url[:i], url[i+1:]
 
-def _splitnetloc(url, start=0):
+
+def _splitnetloc(url, start=0, *, delimiters):
     delim = len(url)   # position of end of domain part of url, default is end
-    for c in '/?#':    # look for delimiters; the order is NOT important
+    for c in delimiters:  # look for delimiters; the order is NOT important
         wdelim = url.find(c, start)        # find first of this delim
         if wdelim >= 0:                    # if found
             delim = min(delim, wdelim)     # use earliest delim position
     return url[start:delim], url[delim:]   # return (domain, rest)
+
 
 def urlsplit(url, scheme='', allow_fragments=True):
     """Parse a URL into 5 components:
@@ -388,32 +412,65 @@ def urlsplit(url, scheme='', allow_fragments=True):
     Return a 5-tuple: (scheme, netloc, path, query, fragment).
     Note that we don't break the components up in smaller bits
     (e.g. netloc is a single string) and we don't expand % escapes."""
-    url, scheme, _coerce_result = _coerce_args(url, scheme)
     allow_fragments = bool(allow_fragments)
+    if isinstance(url, bytes):
+        if scheme == '':
+            scheme = b''
+        blank = b''
+        colon = b':'
+        http = b'http'
+        l_bracket = b'['
+        r_bracket = b']'
+        pound = b'#'
+        question_mark = b'?'
+        digits = b'0123456789'
+        double_slash = b'//',
+        netloc_delimiters = b'/?#'
+        result_type = SplitResultBytes
+        scheme_chars = (b'abcdefghijklmnopqrstuvwxyz'
+                        b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                        b'0123456789'
+                        b'+-.')
+    else:
+        blank = ''
+        colon = ':'
+        http = 'http'
+        l_bracket = '['
+        r_bracket = ']'
+        pound = '#'
+        question_mark = '?'
+        digits = '0123456789'
+        double_slash = '//'
+        netloc_delimiters = '/?#'
+        result_type = SplitResult
+        scheme_chars = ('abcdefghijklmnopqrstuvwxyz'
+                        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                        '0123456789'
+                        '+-.')
     key = url, scheme, allow_fragments, type(url), type(scheme)
     cached = _parse_cache.get(key, None)
     if cached:
-        return _coerce_result(cached)
+        return cached
     if len(_parse_cache) >= MAX_CACHE_SIZE: # avoid runaway growth
         clear_cache()
-    netloc = query = fragment = ''
-    i = url.find(':')
+    netloc = query = fragment = blank
+    i = url.find(colon)
     if i > 0:
-        if url[:i] == 'http': # optimize the common case
+        if url.startswith(http, i):  # optimize the common case
             scheme = url[:i].lower()
             url = url[i+1:]
-            if url[:2] == '//':
-                netloc, url = _splitnetloc(url, 2)
-                if (('[' in netloc and ']' not in netloc) or
-                        (']' in netloc and '[' not in netloc)):
+            if url.startswith(double_slash):
+                netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)
+                if ((l_bracket in netloc and r_bracket not in netloc) or
+                        (r_bracket in netloc and l_bracket not in netloc)):
                     raise ValueError("Invalid IPv6 URL")
-            if allow_fragments and '#' in url:
-                url, fragment = url.split('#', 1)
-            if '?' in url:
-                url, query = url.split('?', 1)
-            v = SplitResult(scheme, netloc, url, query, fragment)
+            if allow_fragments and pound in url:
+                url, fragment = url.split(pound, 1)
+            if question_mark in url:
+                url, query = url.split(question_mark, 1)
+            v = result_type(scheme, netloc, url, query, fragment)
             _parse_cache[key] = v
-            return _coerce_result(v)
+            return v
         for c in url[:i]:
             if c not in scheme_chars:
                 break
@@ -421,33 +478,37 @@ def urlsplit(url, scheme='', allow_fragments=True):
             # make sure "url" is not actually a port number (in which case
             # "scheme" is really part of the path)
             rest = url[i+1:]
-            if not rest or any(c not in '0123456789' for c in rest):
+            if not rest or any(c not in digits for c in rest):
                 # not a port number
                 scheme, url = url[:i].lower(), rest
 
-    if url[:2] == '//':
-        netloc, url = _splitnetloc(url, 2)
-        if (('[' in netloc and ']' not in netloc) or
-                (']' in netloc and '[' not in netloc)):
+    if url.startswith(double_slash):
+        netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)
+        if ((l_bracket in netloc and r_bracket not in netloc) or
+                (r_bracket in netloc and l_bracket not in netloc)):
             raise ValueError("Invalid IPv6 URL")
-    if allow_fragments and '#' in url:
-        url, fragment = url.split('#', 1)
-    if '?' in url:
-        url, query = url.split('?', 1)
-    v = SplitResult(scheme, netloc, url, query, fragment)
+    if allow_fragments and pound in url:
+        url, fragment = url.split(pound, 1)
+    if question_mark in url:
+        url, query = url.split(question_mark, 1)
+    v = result_type(scheme, netloc, url, query, fragment)
     _parse_cache[key] = v
-    return _coerce_result(v)
+    return v
+
 
 def urlunparse(components):
     """Put a parsed URL back together again.  This may result in a
     slightly different, but equivalent URL, if the URL that was parsed
     originally had redundant delimiters, e.g. a ? with an empty query
     (the draft states that these are equivalent)."""
-    scheme, netloc, url, params, query, fragment, _coerce_result = (
-                                                  _coerce_args(*components))
+    scheme, netloc, url, params, query, fragment = components
     if params:
-        url = "%s;%s" % (url, params)
-    return _coerce_result(urlunsplit((scheme, netloc, url, query, fragment)))
+        if isinstance(url, bytes):
+            url = b"%s;%s" % (url, params)
+        else:
+            url = "%s;%s" % (url, params)
+    return urlunsplit((scheme, netloc, url, query, fragment))
+
 
 def urlunsplit(components):
     """Combine the elements of a tuple as returned by urlsplit() into a
@@ -455,18 +516,36 @@ def urlunsplit(components):
     This may result in a slightly different, but equivalent URL, if the URL that
     was parsed originally had unnecessary delimiters (for example, a ? with an
     empty query; the RFC states that these are equivalent)."""
-    scheme, netloc, url, query, fragment, _coerce_result = (
-                                          _coerce_args(*components))
-    if netloc or (scheme and scheme in uses_netloc and url[:2] != '//'):
-        if url and url[:1] != '/': url = '/' + url
-        url = '//' + (netloc or '') + url
+    scheme, netloc, url, query, fragment = components
+    if isinstance(url, bytes):
+        slash = b'/'
+        double_slash = b'//'
+        blank = b''
+        colon = b':'
+        question_mark = b'?'
+        pound = b'#'
+        uses_netloc = uses_netloc_bytes
+    else:
+        slash = '/'
+        double_slash = '//'
+        blank = ''
+        colon = ':'
+        question_mark = '?'
+        pound = '#'
+        uses_netloc = uses_netloc_str
+    if netloc or (scheme and scheme in uses_netloc and
+                  not url.startswith(double_slash)):
+        if url and not url.startswith(slash):
+            url = slash + url
+        url = double_slash + (netloc or blank) + url
     if scheme:
-        url = scheme + ':' + url
+        url = scheme + colon + url
     if query:
-        url = url + '?' + query
+        url = url + question_mark + query
     if fragment:
-        url = url + '#' + fragment
-    return _coerce_result(url)
+        url = url + pound + fragment
+    return url
+
 
 def urljoin(base, url, allow_fragments=True):
     """Join a base URL and a possibly relative URL to form an absolute
@@ -476,18 +555,33 @@ def urljoin(base, url, allow_fragments=True):
     if not url:
         return base
 
-    base, url, _coerce_result = _coerce_args(base, url)
+    if isinstance(url, bytes):
+        slash = b'/'
+        double_slash = b'//'
+        blank = b''
+        colon = b':'
+        question_mark = b'?'
+        pound = b'#'
+        uses_netloc = uses_netloc_bytes
+    else:
+        slash = '/'
+        double_slash = '//'
+        blank = ''
+        colon = ':'
+        question_mark = '?'
+        pound = '#'
+        uses_netloc = uses_netloc_str
+
     bscheme, bnetloc, bpath, bparams, bquery, bfragment = \
-            urlparse(base, '', allow_fragments)
+            urlparse(base, blank, allow_fragments)
     scheme, netloc, path, params, query, fragment = \
             urlparse(url, bscheme, allow_fragments)
 
     if scheme != bscheme or scheme not in uses_relative:
-        return _coerce_result(url)
+        return url
     if scheme in uses_netloc:
         if netloc:
-            return _coerce_result(urlunparse((scheme, netloc, path,
-                                              params, query, fragment)))
+            return urlunparse((scheme, netloc, path, params, query, fragment))
         netloc = bnetloc
 
     if not path and not params:
@@ -495,20 +589,19 @@ def urljoin(base, url, allow_fragments=True):
         params = bparams
         if not query:
             query = bquery
-        return _coerce_result(urlunparse((scheme, netloc, path,
-                                          params, query, fragment)))
+        return urlunparse((scheme, netloc, path, params, query, fragment))
 
-    base_parts = bpath.split('/')
-    if base_parts[-1] != '':
+    base_parts = bpath.split(slash)
+    if base_parts[-1] != blank:
         # the last item is not a directory, so will not be taken into account
         # in resolving the relative path
         del base_parts[-1]
 
     # for rfc3986, ignore all base path should the first character be root.
-    if path[:1] == '/':
-        segments = path.split('/')
+    if path.startswith(slash):
+        segments = path.split(slash)
     else:
-        segments = base_parts + path.split('/')
+        segments = base_parts + path.split(slash)
         # filter out elements that would cause redundant slashes on re-joining
         # the resolved_path
         segments[1:-1] = filter(None, segments[1:-1])
@@ -530,11 +623,11 @@ def urljoin(base, url, allow_fragments=True):
 
     if segments[-1] in ('.', '..'):
         # do some post-processing here. if the last segment was a relative dir,
-        # then we need to append the trailing '/'
-        resolved_path.append('')
+        # then we need to append the trailing slash
+        resolved_path.append(blank)
 
-    return _coerce_result(urlunparse((scheme, netloc, '/'.join(
-        resolved_path) or '/', params, query, fragment)))
+    return urlunparse((scheme, netloc, slash.join(resolved_path) or slash,
+                       params, query, fragment))
 
 
 def urldefrag(url):
@@ -552,6 +645,7 @@ def urldefrag(url):
         frag = ''
         defrag = url
     return _coerce_result(DefragResult(defrag, frag))
+
 
 _hexdig = '0123456789ABCDEFabcdef'
 _hextobyte = None
