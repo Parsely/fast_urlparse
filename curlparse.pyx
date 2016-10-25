@@ -409,13 +409,22 @@ cdef list _splitparams_str(str url, str semicolon, str slash, str blank):
     return result
 
 
-def _splitnetloc(url, start=0, *, delimiters):
+cdef _splitnetloc_str(str url, int start=0, str delimiters=''):
     delim = len(url)   # position of end of domain part of url, default is end
     for c in delimiters:  # look for delimiters; the order is NOT important
         wdelim = url.find(c, start)        # find first of this delim
         if wdelim >= 0:                    # if found
             delim = min(delim, wdelim)     # use earliest delim position
-    return url[start:delim], url[delim:]   # return (domain, rest)
+    return url[start:delim], url[delim:]
+
+
+cdef _splitnetloc_bytes(bytes url, int start=0, bytes delimiters=b''):
+    delim = len(url)   # position of end of domain part of url, default is end
+    for c in delimiters:  # look for delimiters; the order is NOT important
+        wdelim = url.find(c, start)        # find first of this delim
+        if wdelim >= 0:                    # if found
+            delim = min(delim, wdelim)     # use earliest delim position
+    return url[start:delim], url[delim:]
 
 
 def urlsplit(url, scheme=None, allow_fragments=True):
@@ -447,7 +456,7 @@ cdef _urlsplit_bytes(bytes url, bytes scheme=b'', bool allow_fragments=True):
             scheme = url[:i].lower()
             url = url[i+1:]
             if url.startswith(b'//'):
-                netloc, url = _splitnetloc(url, 2, delimiters=b'/?#')
+                netloc, url = _splitnetloc_bytes(url, 2, delimiters=b'/?#')
                 if ((b'[' in netloc and b']' not in netloc) or
                         (b']' in netloc and b'[' not in netloc)):
                     raise ValueError("Invalid IPv6 URL")
@@ -473,7 +482,7 @@ cdef _urlsplit_bytes(bytes url, bytes scheme=b'', bool allow_fragments=True):
                 scheme, url = url[:i].lower(), rest
 
     if url.startswith(b'//'):
-        netloc, url = _splitnetloc(url, 2, delimiters=b'/?#')
+        netloc, url = _splitnetloc_bytes(url, 2, delimiters=b'/?#')
         if ((b'[' in netloc and b']' not in netloc) or
                 (b']' in netloc and b'[' not in netloc)):
             raise ValueError("Invalid IPv6 URL")
@@ -500,7 +509,7 @@ cdef _urlsplit_str(str url, str scheme='', bool allow_fragments=True):
             scheme = url[:i].lower()
             url = url[i+1:]
             if url.startswith('//'):
-                netloc, url = _splitnetloc(url, 2, delimiters='/?#')
+                netloc, url = _splitnetloc_str(url, 2, delimiters='/?#')
                 if (('[' in netloc and ']' not in netloc) or
                         (']' in netloc and '[' not in netloc)):
                     raise ValueError("Invalid IPv6 URL")
@@ -526,7 +535,7 @@ cdef _urlsplit_str(str url, str scheme='', bool allow_fragments=True):
                 scheme, url = url[:i].lower(), rest
 
     if url.startswith('//'):
-        netloc, url = _splitnetloc(url, 2, delimiters='/?#')
+        netloc, url = _splitnetloc_str(url, 2, delimiters='/?#')
         if (('[' in netloc and ']' not in netloc) or
                 (']' in netloc and '[' not in netloc)):
             raise ValueError("Invalid IPv6 URL")
