@@ -581,12 +581,14 @@ def urljoin(base, url, allow_fragments=True):
         dot = b'.'
         double_dot = b'..'
         uses_netloc = uses_netloc_bytes
+        uses_relative = uses_relative_bytes
     else:
         slash = '/'
         blank = ''
         dot = '.'
         double_dot = '..'
         uses_netloc = uses_netloc_str
+        uses_relative = uses_relative_str
 
     bscheme, bnetloc, bpath, bparams, bquery, bfragment = \
             urlparse(base, blank, allow_fragments)
@@ -715,7 +717,13 @@ def unquote(string, encoding='utf-8', errors='replace'):
 
     unquote('abc%20def') -> 'abc def'.
     """
-    if '%' not in string:
+    if isinstance(string, bytes):
+        percent = b'%'
+        blank = b''
+    else:
+        percent = '%'
+        blank = ''
+    if percent not in string:
         string.split
         return string
     if encoding is None:
@@ -728,7 +736,7 @@ def unquote(string, encoding='utf-8', errors='replace'):
     for i in range(1, len(bits), 2):
         append(unquote_to_bytes(bits[i]).decode(encoding, errors))
         append(bits[i + 1])
-    return ''.join(res)
+    return blank.join(res)
 
 def parse_qs(qs, keep_blank_values=False, strict_parsing=False,
              encoding='utf-8', errors='replace'):
@@ -788,29 +796,29 @@ def parse_qsl(qs, keep_blank_values=False, strict_parsing=False,
     if isinstance(qs, bytes):
         ampersand = b'&'
         semicolon = b';'
-        equalsign = b'='
-        emptystr = b''
-        plus = b'+'
+        equal = b'='
+        blank = b''
         space = b' '
+        plus = b'+'
     else:
         ampersand = '&'
         semicolon = ';'
-        equalsign = '='
-        emptystr = ''
-        plus = '+'
+        equal = '='
+        blank = ''
         space = ' '
+        plus = '+'
     pairs = [s2 for s1 in qs.split(ampersand) for s2 in s1.split(semicolon)]
     r = []
     for name_value in pairs:
         if not name_value and not strict_parsing:
             continue
-        nv = name_value.split(equalsign, 1)
+        nv = name_value.split(equal, 1)
         if len(nv) != 2:
             if strict_parsing:
                 raise ValueError("bad query field: %r" % (name_value,))
             # Handle case of a control-name with no equal sign
             if keep_blank_values:
-                nv.append(emptystr)
+                nv.append(blank)
             else:
                 continue
         if len(nv[1]) or keep_blank_values:
@@ -827,7 +835,13 @@ def unquote_plus(string, encoding='utf-8', errors='replace'):
 
     unquote_plus('%7e/abc+def') -> '~/abc def'
     """
-    string = string.replace('+', ' ')
+    if isinstance(string, bytes):
+        space = b' '
+        plus = b'+'
+    else:
+        space = ' '
+        plus = '+'
+    string = string.replace(plus, space)
     return unquote(string, encoding, errors)
 
 _ALWAYS_SAFE = frozenset(b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -908,17 +922,20 @@ def quote_plus(string, safe='', encoding=None, errors=None):
     HTML form values. Plus signs in the original string are escaped unless
     they are included in safe. It also does not have safe default to '/'.
     """
-    # Check if ' ' in string, where string may either be a str or bytes.  If
-    # there are no spaces, the regular quote will produce the right answer.
-    if ((isinstance(string, str) and ' ' not in string) or
-        (isinstance(string, bytes) and b' ' not in string)):
-        return quote(string, safe, encoding, errors)
-    if isinstance(safe, str):
+    if isinstance(string, str):
         space = ' '
+        plus = '+'
     else:
         space = b' '
+        plus = b'+'
+        if not safe:
+            safe = b''
+    # Check if ' ' in string, where string may either be a str or bytes.  If
+    # there are no spaces, the regular quote will produce the right answer.
+    if space not in string:
+        return quote(string, safe, encoding, errors)
     string = quote(string, safe + space, encoding, errors)
-    return string.replace(' ', '+')
+    return string.replace(space, plus)
 
 def quote_from_bytes(bs, safe='/'):
     """Like quote(), but accepts a bytes object rather than a str, and does
@@ -1021,19 +1038,6 @@ def urlencode(query, doseq=False, safe='', encoding=None, errors=None,
                             elt = quote_via(str(elt), safe, encoding, errors)
                         l.append(k + '=' + elt)
     return '&'.join(l)
-
-def to_bytes(url):
-    """to_bytes(u"URL") --> 'URL'."""
-    # Most URL schemes require ASCII. If that changes, the conversion
-    # can be relaxed.
-    # XXX get rid of to_bytes()
-    if isinstance(url, str):
-        try:
-            url = url.encode("ASCII").decode()
-        except UnicodeError:
-            raise UnicodeError("URL " + repr(url) +
-                               " contains non-ASCII characters")
-    return url
 
 def unwrap(url):
     """unwrap('<URL:type://host/path>') --> 'type://host/path'."""
