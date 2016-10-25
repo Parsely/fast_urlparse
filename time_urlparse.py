@@ -7,7 +7,7 @@ result = timeit.timeit(
     number=100000
 )
 
-print('Fast: {}'.format(result))
+print('fast_urlparse: {}'.format(result))
 
 result = timeit.timeit(
     'urlparse.clear_cache(); urlparse.urlparse(url)',
@@ -15,4 +15,4 @@ result = timeit.timeit(
     number=100000
 )
 
-print('Slow: {}'.format(result))
+print('urllib.parse: {}'.format(result))
