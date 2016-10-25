@@ -5,7 +5,7 @@ setup(name="urlparse",
       install_requires=[
             'cython'
       ],
-      ext_modules=cythonize('urlparse.pyx'))  # Should be .pyx but can be .py
+      ext_modules=cythonize('curlparse.pyx'))  # Should be .pyx but can be .py
 
 # To build this...
 # python setup.py build_ext --inplace
