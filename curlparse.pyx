@@ -362,9 +362,9 @@ def urlparse(bytes url, str scheme='', bool allow_fragments=True):
     Return a 6-tuple: (scheme, netloc, path, params, query, fragment).
     Note that we don't break the components up in smaller bits
     (e.g. netloc is a single string) and we don't expand % escapes."""
-    semicolon = b';'
-    slash = b'/'
-    blank = b''
+    cdef bytes semicolon = b';'
+    cdef bytes slash = b'/'
+    cdef bytes blank = b''
     result_type = ParseResultBytes
     uses_params = uses_params_bytes
     splitresult = urlsplit(url, scheme, allow_fragments)
@@ -383,9 +383,9 @@ def urlparse(str url, str scheme='', bool allow_fragments=True):
     Return a 6-tuple: (scheme, netloc, path, params, query, fragment).
     Note that we don't break the components up in smaller bits
     (e.g. netloc is a single string) and we don't expand % escapes."""
-    semicolon = ';'
-    slash = '/'
-    blank = ''
+    cdef str semicolon = ';'
+    cdef str slash = '/'
+    cdef str blank = ''
     result_type = ParseResult
     uses_params = uses_params_str
     splitresult = urlsplit(url, scheme, allow_fragments)
@@ -398,7 +398,16 @@ def urlparse(str url, str scheme='', bool allow_fragments=True):
     return result_type(scheme, netloc, url, params, query, fragment)
 
 
-def _splitparams(url, *, semicolon, slash, blank):
+def _splitparams(bytes url, bytes semicolon, bytes slash, bytes blank):
+    if slash in url:
+        i = url.find(semicolon, url.rfind(slash))
+        if i < 0:
+            return url, blank
+    else:
+        i = url.find(semicolon)
+    return url[:i], url[i+1:]
+
+def _splitparams(str url, str semicolon, str slash, str blank):
     if slash in url:
         i = url.find(semicolon, url.rfind(slash))
         if i < 0:
