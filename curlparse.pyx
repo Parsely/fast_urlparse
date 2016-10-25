@@ -30,6 +30,7 @@ test_urlparse.py provides a good indicator of parsing behavior.
 import collections
 import re
 import sys
+import functools
 from collections import namedtuple
 from cpython cimport bool
 
@@ -77,15 +78,13 @@ scheme_chars = ('abcdefghijklmnopqrstuvwxyz'
                 '0123456789'
                 '+-.')
 
-# XXX: Consider replacing with functools.lru_cache
 MAX_CACHE_SIZE = 20
-_parse_cache = {}
+MAX_QUOTERS_SIZE = 500
 
 def clear_cache():
     """Clear the parse cache and the quoters cache."""
-    _parse_cache.clear()
-    _safe_quoters.clear()
-
+    urlsplit.cache_clear()
+    quote_from_bytes.cache_clear()
 
 # Helpers for bytes handling
 # For 3.2, we deliberately require applications that
@@ -427,6 +426,7 @@ cdef _splitnetloc_bytes(bytes url, int start=0, bytes delimiters=b''):
     return url[start:delim], url[delim:]
 
 
+@functools.lru_cache(MAX_CACHE_SIZE)
 def urlsplit(url, scheme=None, allow_fragments=True):
     """Parse a URL into 5 components:
     <scheme>://<netloc>/<path>?<query>#<fragment>
@@ -443,12 +443,6 @@ def urlsplit(url, scheme=None, allow_fragments=True):
 
 
 cdef _urlsplit_bytes(bytes url, bytes scheme=b'', bool allow_fragments=True):
-    key = url, scheme, allow_fragments, type(url), type(scheme)
-    cached = _parse_cache.get(key, None)
-    if cached:
-        return cached
-    if len(_parse_cache) >= MAX_CACHE_SIZE: # avoid runaway growth
-        clear_cache()
     netloc = query = fragment = b''
     i = url.find(b':')
     if i > 0:
@@ -465,7 +459,6 @@ cdef _urlsplit_bytes(bytes url, bytes scheme=b'', bool allow_fragments=True):
             if b'?' in url:
                 url, query = url.split(b'?', 1)
             v = SplitResultBytes(scheme, netloc, url, query, fragment)
-            _parse_cache[key] = v
             return v
         for c in url[:i]:
             if c not in (b'abcdefghijklmnopqrstuvwxyz'
@@ -491,17 +484,10 @@ cdef _urlsplit_bytes(bytes url, bytes scheme=b'', bool allow_fragments=True):
     if b'?' in url:
         url, query = url.split(b'?', 1)
     v = SplitResultBytes(scheme, netloc, url, query, fragment)
-    _parse_cache[key] = v
     return v
 
 
 cdef _urlsplit_str(str url, str scheme='', bool allow_fragments=True):
-    key = url, scheme, allow_fragments, type(url), type(scheme)
-    cached = _parse_cache.get(key, None)
-    if cached:
-        return cached
-    if len(_parse_cache) >= MAX_CACHE_SIZE: # avoid runaway growth
-        clear_cache()
     netloc = query = fragment = ''
     i = url.find(':')
     if i > 0:
@@ -518,7 +504,6 @@ cdef _urlsplit_str(str url, str scheme='', bool allow_fragments=True):
             if '?' in url:
                 url, query = url.split('?', 1)
             v = SplitResult(scheme, netloc, url, query, fragment)
-            _parse_cache[key] = v
             return v
         for c in url[:i]:
             if c not in ('abcdefghijklmnopqrstuvwxyz'
@@ -544,7 +529,6 @@ cdef _urlsplit_str(str url, str scheme='', bool allow_fragments=True):
     if '?' in url:
         url, query = url.split('?', 1)
     v = SplitResult(scheme, netloc, url, query, fragment)
-    _parse_cache[key] = v
     return v
 
 
@@ -881,7 +865,6 @@ _ALWAYS_SAFE = frozenset(b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
                          b'0123456789'
                          b'_.-')
 _ALWAYS_SAFE_BYTES = bytes(_ALWAYS_SAFE)
-_safe_quoters = {}
 
 class Quoter(collections.defaultdict):
     """A mapping from bytes (in range(0,256)) to strings.
@@ -969,6 +952,8 @@ def quote_plus(string, safe='', encoding=None, errors=None):
     string = quote(string, safe + space, encoding, errors)
     return string.replace(space, plus)
 
+
+@functools.lru_cache(maxsize=MAX_QUOTERS_SIZE)
 def quote_from_bytes(bs, safe='/'):
     """Like quote(), but accepts a bytes object rather than a str, and does
     not perform string-to-bytes encoding.  It always returns an ASCII string.
@@ -985,10 +970,7 @@ def quote_from_bytes(bs, safe='/'):
         safe = bytes([c for c in safe if c < 128])
     if not bs.rstrip(_ALWAYS_SAFE_BYTES + safe):
         return bs.decode()
-    try:
-        quoter = _safe_quoters[safe]
-    except KeyError:
-        _safe_quoters[safe] = quoter = Quoter(safe).__getitem__
+    quoter = Quoter(safe).__getitem__
     return ''.join([quoter(char) for char in bs])
 
 def urlencode(query, doseq=False, safe='', encoding=None, errors=None,
