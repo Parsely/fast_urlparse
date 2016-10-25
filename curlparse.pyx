@@ -340,20 +340,22 @@ _fix_result_transcoding()
 del _fix_result_transcoding
 
 
-def urlparse(url, scheme='', allow_fragments=True):
+def urlparse(url, scheme=None, allow_fragments=True):
     """Parse a URL into 6 components:
     <scheme>://<netloc>/<path>;<params>?<query>#<fragment>
     Return a 6-tuple: (scheme, netloc, path, params, query, fragment).
     Note that we don't break the components up in smaller bits
     (e.g. netloc is a single string) and we don't expand % escapes."""
     if isinstance(url, bytes):
-        if scheme == '':
+        if scheme is None:
             scheme = b''
         return _urlparse_bytes(url, scheme, allow_fragments)
+    if scheme is None:
+        scheme = ''
     return _urlparse_str(url, scheme, allow_fragments)
 
 
-def _urlparse_bytes(bytes url, bytes scheme=b'', bool allow_fragments=True):
+cdef _urlparse_bytes(bytes url, bytes scheme=b'', bool allow_fragments=True):
     splitresult = _urlsplit_bytes(url, scheme, allow_fragments)
     scheme, netloc, url, query, fragment = splitresult
     if scheme in uses_params_bytes and b';' in url:
@@ -364,7 +366,7 @@ def _urlparse_bytes(bytes url, bytes scheme=b'', bool allow_fragments=True):
     return ParseResultBytes(scheme, netloc, url, params, query, fragment)
 
 
-def _urlparse_str(str url, str scheme='', bool allow_fragments=True):
+cdef _urlparse_str(str url, str scheme='', bool allow_fragments=True):
     splitresult = _urlsplit_str(url, scheme, allow_fragments)
     scheme, netloc, url, query, fragment = splitresult
     if scheme in uses_params_str and ';' in url:
@@ -402,20 +404,22 @@ def _splitnetloc(url, start=0, *, delimiters):
     return url[start:delim], url[delim:]   # return (domain, rest)
 
 
-def urlsplit(url, scheme='', allow_fragments=True):
+def urlsplit(url, scheme=None, allow_fragments=True):
     """Parse a URL into 5 components:
     <scheme>://<netloc>/<path>?<query>#<fragment>
     Return a 5-tuple: (scheme, netloc, path, query, fragment).
     Note that we don't break the components up in smaller bits
     (e.g. netloc is a single string) and we don't expand % escapes."""
     if isinstance(url, bytes):
-        if scheme == '':
+        if scheme is None:
             scheme = b''
         return _urlsplit_bytes(url, scheme, allow_fragments)
+    if scheme is None:
+        scheme = ''
     return _urlsplit_str(url, scheme, allow_fragments)
 
 
-def _urlsplit_bytes(bytes url, bytes scheme=b'', bool allow_fragments=True):
+cdef _urlsplit_bytes(bytes url, bytes scheme=b'', bool allow_fragments=True):
     key = url, scheme, allow_fragments, type(url), type(scheme)
     cached = _parse_cache.get(key, None)
     if cached:
@@ -468,7 +472,7 @@ def _urlsplit_bytes(bytes url, bytes scheme=b'', bool allow_fragments=True):
     return v
 
 
-def _urlsplit_str(str url, str scheme='', bool allow_fragments=True):
+cdef _urlsplit_str(str url, str scheme='', bool allow_fragments=True):
     key = url, scheme, allow_fragments, type(url), type(scheme)
     cached = _parse_cache.get(key, None)
     if cached:
