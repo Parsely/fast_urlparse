@@ -356,25 +356,20 @@ _fix_result_transcoding()
 del _fix_result_transcoding
 
 
-def urlparse(bytes url, str scheme='', bool allow_fragments=True):
+def urlparse(bytes url, bytes scheme=b'', bool allow_fragments=True):
     """Parse a URL into 6 components:
     <scheme>://<netloc>/<path>;<params>?<query>#<fragment>
     Return a 6-tuple: (scheme, netloc, path, params, query, fragment).
     Note that we don't break the components up in smaller bits
     (e.g. netloc is a single string) and we don't expand % escapes."""
-    cdef bytes semicolon = b';'
-    cdef bytes slash = b'/'
-    cdef bytes blank = b''
-    result_type = ParseResultBytes
-    uses_params = uses_params_bytes
     splitresult = urlsplit(url, scheme, allow_fragments)
     scheme, netloc, url, query, fragment = splitresult
-    if scheme in uses_params and semicolon in url:
-        url, params = _splitparams(url, semicolon=semicolon, slash=slash,
-                                   blank=blank)
+    if scheme in uses_params_bytes and b';' in url:
+        url, params = _splitparams(url, semicolon=b';', slash=b'/',
+                                   blank=b'')
     else:
-        params = blank
-    return result_type(scheme, netloc, url, params, query, fragment)
+        params = b''
+    return ParseResultBytes(scheme, netloc, url, params, query, fragment)
 
 
 def urlparse(str url, str scheme='', bool allow_fragments=True):
@@ -383,19 +378,14 @@ def urlparse(str url, str scheme='', bool allow_fragments=True):
     Return a 6-tuple: (scheme, netloc, path, params, query, fragment).
     Note that we don't break the components up in smaller bits
     (e.g. netloc is a single string) and we don't expand % escapes."""
-    cdef str semicolon = ';'
-    cdef str slash = '/'
-    cdef str blank = ''
-    result_type = ParseResult
-    uses_params = uses_params_str
     splitresult = urlsplit(url, scheme, allow_fragments)
     scheme, netloc, url, query, fragment = splitresult
-    if scheme in uses_params and semicolon in url:
-        url, params = _splitparams(url, semicolon=semicolon, slash=slash,
-                                   blank=blank)
+    if scheme in uses_params_str and ';' in url:
+        url, params = _splitparams(url, semicolon=';', slash='/',
+                                   blank='')
     else:
-        params = blank
-    return result_type(scheme, netloc, url, params, query, fragment)
+        params = ''
+    return ParseResult(scheme, netloc, url, params, query, fragment)
 
 
 def _splitparams(bytes url, bytes semicolon, bytes slash, bytes blank):
