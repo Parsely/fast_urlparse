@@ -557,19 +557,15 @@ def urljoin(base, url, allow_fragments=True):
 
     if isinstance(url, bytes):
         slash = b'/'
-        double_slash = b'//'
         blank = b''
-        colon = b':'
-        question_mark = b'?'
-        pound = b'#'
+        dot = b'.'
+        double_dot = b'..'
         uses_netloc = uses_netloc_bytes
     else:
         slash = '/'
-        double_slash = '//'
         blank = ''
-        colon = ':'
-        question_mark = '?'
-        pound = '#'
+        dot = '.'
+        double_dot = '..'
         uses_netloc = uses_netloc_str
 
     bscheme, bnetloc, bpath, bparams, bquery, bfragment = \
@@ -609,19 +605,19 @@ def urljoin(base, url, allow_fragments=True):
     resolved_path = []
 
     for seg in segments:
-        if seg == '..':
+        if seg == double_dot:
             try:
                 resolved_path.pop()
             except IndexError:
                 # ignore any .. segments that would otherwise cause an IndexError
                 # when popped from resolved_path if resolving for rfc3986
                 pass
-        elif seg == '.':
+        elif seg == dot:
             continue
         else:
             resolved_path.append(seg)
 
-    if segments[-1] in ('.', '..'):
+    if segments[-1] in (dot, double_dot):
         # do some post-processing here. if the last segment was a relative dir,
         # then we need to append the trailing slash
         resolved_path.append(blank)
@@ -637,14 +633,21 @@ def urldefrag(url):
     the URL contained no fragments, the second element is the
     empty string.
     """
-    url, _coerce_result = _coerce_args(url)
-    if '#' in url:
-        s, n, p, a, q, frag = urlparse(url)
-        defrag = urlunparse((s, n, p, a, q, ''))
+    if isinstance(url, bytes):
+        blank = b''
+        pound = b'#'
+        result_type = DefragResultBytes
     else:
-        frag = ''
+        blank = ''
+        pound = '#'
+        result_type = DefragResult
+    if pound in url:
+        s, n, p, a, q, frag = urlparse(url)
+        defrag = urlunparse((s, n, p, a, q, blank))
+    else:
+        frag = blank
         defrag = url
-    return _coerce_result(DefragResult(defrag, frag))
+    return result_type(defrag, frag)
 
 
 _hexdig = '0123456789ABCDEFabcdef'
