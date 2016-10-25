@@ -359,8 +359,9 @@ cdef _urlparse_bytes(bytes url, bytes scheme=b'', bool allow_fragments=True):
     splitresult = _urlsplit_bytes(url, scheme, allow_fragments)
     scheme, netloc, url, query, fragment = splitresult
     if scheme in uses_params_bytes and b';' in url:
-        url, params = _splitparams_bytes(url, semicolon=b';', slash=b'/',
-                                   blank=b'')
+        splitted = _splitparams_bytes(url, semicolon=b';', slash=b'/', blank=b'')
+        url = splitted[0]
+        params = splitted[1]
     else:
         params = b''
     return ParseResultBytes(scheme, netloc, url, params, query, fragment)
@@ -370,29 +371,42 @@ cdef _urlparse_str(str url, str scheme='', bool allow_fragments=True):
     splitresult = _urlsplit_str(url, scheme, allow_fragments)
     scheme, netloc, url, query, fragment = splitresult
     if scheme in uses_params_str and ';' in url:
-        url, params = _splitparams_str(url, semicolon=';', slash='/', blank='')
+        splitted = _splitparams_str(url, semicolon=';', slash='/', blank='')
+        url = splitted[0]
+        params = splitted[1]
     else:
         params = ''
     return ParseResult(scheme, netloc, url, params, query, fragment)
 
 
-def _splitparams_bytes(bytes url, bytes semicolon, bytes slash, bytes blank):
+cdef list _splitparams_bytes(bytes url, bytes semicolon, bytes slash, bytes blank):
+    cdef list result = []
     if slash in url:
         i = url.find(semicolon, url.rfind(slash))
         if i < 0:
-            return url, blank
+            result.append(url)
+            result.append(blank)
+            return result
     else:
         i = url.find(semicolon)
-    return url[:i], url[i+1:]
+    result.append(url[:i])
+    result.append(url[i+1:])
+    return result
 
-def _splitparams_str(str url, str semicolon, str slash, str blank):
+
+cdef list _splitparams_str(str url, str semicolon, str slash, str blank):
+    cdef list result = []
     if slash in url:
         i = url.find(semicolon, url.rfind(slash))
         if i < 0:
+            result.append(url)
+            result.append(blank)
             return url, blank
     else:
         i = url.find(semicolon)
-    return url[:i], url[i+1:]
+    result.append(url[:i])
+    result.append(url[i+1:])
+    return result
 
 
 def _splitnetloc(url, start=0, *, delimiters):
