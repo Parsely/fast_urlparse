@@ -31,7 +31,7 @@ import collections
 import re
 import sys
 from collections import namedtuple
-
+from cpython cimport bool
 
 __all__ = ["urlparse", "urlunparse", "urljoin", "urldefrag",
            "urlsplit", "urlunsplit", "urlencode", "parse_qs",
@@ -356,27 +356,38 @@ _fix_result_transcoding()
 del _fix_result_transcoding
 
 
-def urlparse(url, scheme='', allow_fragments=True):
+def urlparse(bytes url, str scheme='', bool allow_fragments=True):
     """Parse a URL into 6 components:
     <scheme>://<netloc>/<path>;<params>?<query>#<fragment>
     Return a 6-tuple: (scheme, netloc, path, params, query, fragment).
     Note that we don't break the components up in smaller bits
     (e.g. netloc is a single string) and we don't expand % escapes."""
-    allow_fragments = bool(allow_fragments)
-    if isinstance(url, bytes):
-        if scheme == '':
-            scheme = b''
-        semicolon = b';'
-        slash = b'/'
-        blank = b''
-        result_type = ParseResultBytes
-        uses_params = uses_params_bytes
+    semicolon = b';'
+    slash = b'/'
+    blank = b''
+    result_type = ParseResultBytes
+    uses_params = uses_params_bytes
+    splitresult = urlsplit(url, scheme, allow_fragments)
+    scheme, netloc, url, query, fragment = splitresult
+    if scheme in uses_params and semicolon in url:
+        url, params = _splitparams(url, semicolon=semicolon, slash=slash,
+                                   blank=blank)
     else:
-        semicolon = ';'
-        slash = '/'
-        blank = ''
-        result_type = ParseResult
-        uses_params = uses_params_str
+        params = blank
+    return result_type(scheme, netloc, url, params, query, fragment)
+
+
+def urlparse(str url, str scheme='', bool allow_fragments=True):
+    """Parse a URL into 6 components:
+    <scheme>://<netloc>/<path>;<params>?<query>#<fragment>
+    Return a 6-tuple: (scheme, netloc, path, params, query, fragment).
+    Note that we don't break the components up in smaller bits
+    (e.g. netloc is a single string) and we don't expand % escapes."""
+    semicolon = ';'
+    slash = '/'
+    blank = ''
+    result_type = ParseResult
+    uses_params = uses_params_str
     splitresult = urlsplit(url, scheme, allow_fragments)
     scheme, netloc, url, query, fragment = splitresult
     if scheme in uses_params and semicolon in url:
