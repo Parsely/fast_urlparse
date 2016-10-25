@@ -762,28 +762,39 @@ def parse_qsl(qs, keep_blank_values=False, strict_parsing=False,
 
     Returns a list, as G-d intended.
     """
-    qs, _coerce_result = _coerce_args(qs)
-    pairs = [s2 for s1 in qs.split('&') for s2 in s1.split(';')]
+    if isinstance(qs, bytes):
+        ampersand = b'&'
+        semicolon = b';'
+        equalsign = b'='
+        emptystr = b''
+        plus = b'+'
+        space = b' '
+    else:
+        ampersand = '&'
+        semicolon = ';'
+        equalsign = '='
+        emptystr = ''
+        plus = '+'
+        space = ' '
+    pairs = [s2 for s1 in qs.split(ampersand) for s2 in s1.split(semicolon)]
     r = []
     for name_value in pairs:
         if not name_value and not strict_parsing:
             continue
-        nv = name_value.split('=', 1)
+        nv = name_value.split(equalsign, 1)
         if len(nv) != 2:
             if strict_parsing:
                 raise ValueError("bad query field: %r" % (name_value,))
             # Handle case of a control-name with no equal sign
             if keep_blank_values:
-                nv.append('')
+                nv.append(emptystr)
             else:
                 continue
         if len(nv[1]) or keep_blank_values:
-            name = nv[0].replace('+', ' ')
+            name = nv[0].replace(plus, space)
             name = unquote(name, encoding=encoding, errors=errors)
-            name = _coerce_result(name)
-            value = nv[1].replace('+', ' ')
+            value = nv[1].replace(plus, space)
             value = unquote(value, encoding=encoding, errors=errors)
-            value = _coerce_result(value)
             r.append((name, value))
     return r
 
