@@ -2,7 +2,10 @@ from distutils.core import setup
 from Cython.Build import cythonize
 
 setup(name="urlparse",
-      ext_modules=cythonize('urlparse.py'))  # Change to .pyx when we have one
+      install_requires=[
+            'cython'
+      ],
+      ext_modules=cythonize('urlparse.pyx'))  # Should be .pyx but can be .py
 
 # To build this...
 # python setup.py build_ext --inplace
