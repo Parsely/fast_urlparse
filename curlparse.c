@@ -1738,7 +1738,7 @@ static const char __pyx_k_Parameters_for_last_path_elemen[] = "\nParameters for 
 static const char __pyx_k_ResultMixinStr_encode_locals_ge[] = "_ResultMixinStr.encode.<locals>.genexpr";
 static const char __pyx_k_The_hierarchical_path_such_as_t[] = "\nThe hierarchical path, such as the path to a file to download.\n";
 static const char __pyx_k_The_query_component_that_contai[] = "\nThe query component, that contains non-hierarchical data, that along with data\nin path component, identifies a resource in the scope of URI's scheme and\nnetwork location.\n";
-static const char __pyx_k_Users_irina_repos_fast_urlparse[] = "/Users/irina/repos/fast_urlparse/curlparse.pyx";
+static const char __pyx_k_Users_dan_repos_parsely_fast_ur[] = "/Users/dan/repos/parsely/fast_urlparse/curlparse.pyx";
 static const char __pyx_k_not_a_valid_non_string_sequence[] = "not a valid non-string sequence or mapping object";
 static const char __pyx_k_quote_from_bytes_expected_bytes[] = "quote_from_bytes() expected bytes";
 static const char __pyx_k_scheme_netloc_path_params_query[] = "scheme netloc path params query fragment";
@@ -1826,7 +1826,7 @@ static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_kp_s_URL;
 static PyObject *__pyx_kp_s_URL_2;
 static PyObject *__pyx_n_s_UnicodeError;
-static PyObject *__pyx_kp_s_Users_irina_repos_fast_urlparse;
+static PyObject *__pyx_kp_s_Users_dan_repos_parsely_fast_ur;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_kp_b__10;
 static PyObject *__pyx_kp_s__10;
@@ -23508,7 +23508,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_URL, __pyx_k_URL, sizeof(__pyx_k_URL), 0, 0, 1, 0},
   {&__pyx_kp_s_URL_2, __pyx_k_URL_2, sizeof(__pyx_k_URL_2), 0, 0, 1, 0},
   {&__pyx_n_s_UnicodeError, __pyx_k_UnicodeError, sizeof(__pyx_k_UnicodeError), 0, 0, 1, 1},
-  {&__pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_k_Users_irina_repos_fast_urlparse, sizeof(__pyx_k_Users_irina_repos_fast_urlparse), 0, 0, 1, 0},
+  {&__pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_k_Users_dan_repos_parsely_fast_ur, sizeof(__pyx_k_Users_dan_repos_parsely_fast_ur), 0, 0, 1, 0},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_kp_b__10, __pyx_k__10, sizeof(__pyx_k__10), 0, 0, 0, 0},
   {&__pyx_kp_s__10, __pyx_k__10, sizeof(__pyx_k__10), 0, 0, 1, 0},
@@ -24393,7 +24393,7 @@ static int __Pyx_InitCachedConstants(void) {
  *     """Clear the parse cache and the quoters cache."""
  *     _parse_cache.clear()
  */
-  __pyx_codeobj__78 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_clear_cache, 84, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__78)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_codeobj__78 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_clear_cache, 84, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__78)) __PYX_ERR(0, 84, __pyx_L1_error)
 
   /* "curlparse.pyx":99
  * _implicit_errors = 'strict'
@@ -24405,7 +24405,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__79 = PyTuple_Pack(1, __pyx_n_s_obj); if (unlikely(!__pyx_tuple__79)) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__79);
   __Pyx_GIVEREF(__pyx_tuple__79);
-  __pyx_codeobj__80 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__79, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_noop, 99, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__80)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_codeobj__80 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__79, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_noop, 99, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__80)) __PYX_ERR(0, 99, __pyx_L1_error)
 
   /* "curlparse.pyx":102
  *     return obj
@@ -24417,7 +24417,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__81 = PyTuple_Pack(3, __pyx_n_s_obj, __pyx_n_s_encoding, __pyx_n_s_errors); if (unlikely(!__pyx_tuple__81)) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__81);
   __Pyx_GIVEREF(__pyx_tuple__81);
-  __pyx_codeobj__82 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__81, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_encode_result, 102, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__82)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_codeobj__82 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__81, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_encode_result, 102, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__82)) __PYX_ERR(0, 102, __pyx_L1_error)
 
   /* "curlparse.pyx":106
  *     return obj.encode(encoding, errors)
@@ -24429,7 +24429,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__83 = PyTuple_Pack(5, __pyx_n_s_args, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__83)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__83);
   __Pyx_GIVEREF(__pyx_tuple__83);
-  __pyx_codeobj__84 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__83, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_decode_args, 106, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__84)) __PYX_ERR(0, 106, __pyx_L1_error)
+  __pyx_codeobj__84 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__83, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_decode_args, 106, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__84)) __PYX_ERR(0, 106, __pyx_L1_error)
 
   /* "curlparse.pyx":110
  *     return tuple(x.decode(encoding, errors) if x else '' for x in args)
@@ -24441,7 +24441,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__85 = PyTuple_Pack(3, __pyx_n_s_args, __pyx_n_s_str_input, __pyx_n_s_arg); if (unlikely(!__pyx_tuple__85)) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__85);
   __Pyx_GIVEREF(__pyx_tuple__85);
-  __pyx_codeobj__86 = (PyObject*)__Pyx_PyCode_New(0, 0, 3, 0, CO_VARARGS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__85, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_coerce_args, 110, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__86)) __PYX_ERR(0, 110, __pyx_L1_error)
+  __pyx_codeobj__86 = (PyObject*)__Pyx_PyCode_New(0, 0, 3, 0, CO_VARARGS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__85, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_coerce_args, 110, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__86)) __PYX_ERR(0, 110, __pyx_L1_error)
 
   /* "curlparse.pyx":131
  *     __slots__ = ()
@@ -24453,7 +24453,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__87 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__87)) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__87);
   __Pyx_GIVEREF(__pyx_tuple__87);
-  __pyx_codeobj__88 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__87, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_encode, 131, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__88)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __pyx_codeobj__88 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__87, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_encode, 131, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__88)) __PYX_ERR(0, 131, __pyx_L1_error)
   __pyx_tuple__89 = PyTuple_Pack(2, ((PyObject*)__pyx_n_s_ascii), ((PyObject*)__pyx_n_s_strict)); if (unlikely(!__pyx_tuple__89)) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__89);
   __Pyx_GIVEREF(__pyx_tuple__89);
@@ -24468,7 +24468,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__90 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__90)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__90);
   __Pyx_GIVEREF(__pyx_tuple__90);
-  __pyx_codeobj__91 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__90, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_decode, 139, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__91)) __PYX_ERR(0, 139, __pyx_L1_error)
+  __pyx_codeobj__91 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__90, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_decode, 139, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__91)) __PYX_ERR(0, 139, __pyx_L1_error)
   __pyx_tuple__92 = PyTuple_Pack(2, ((PyObject*)__pyx_n_s_ascii), ((PyObject*)__pyx_n_s_strict)); if (unlikely(!__pyx_tuple__92)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__92);
   __Pyx_GIVEREF(__pyx_tuple__92);
@@ -24483,7 +24483,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__93 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__93)) __PYX_ERR(0, 148, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__93);
   __Pyx_GIVEREF(__pyx_tuple__93);
-  __pyx_codeobj__94 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__93, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_username, 148, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__94)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_codeobj__94 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__93, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_username, 148, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__94)) __PYX_ERR(0, 148, __pyx_L1_error)
 
   /* "curlparse.pyx":152
  * 
@@ -24495,7 +24495,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__95 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__95)) __PYX_ERR(0, 152, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__95);
   __Pyx_GIVEREF(__pyx_tuple__95);
-  __pyx_codeobj__96 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__95, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_password, 152, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__96)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_codeobj__96 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__95, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_password, 152, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__96)) __PYX_ERR(0, 152, __pyx_L1_error)
 
   /* "curlparse.pyx":156
  * 
@@ -24507,7 +24507,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__97 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_hostname); if (unlikely(!__pyx_tuple__97)) __PYX_ERR(0, 156, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__97);
   __Pyx_GIVEREF(__pyx_tuple__97);
-  __pyx_codeobj__98 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__97, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_hostname, 156, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__98)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_codeobj__98 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__97, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_hostname, 156, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__98)) __PYX_ERR(0, 156, __pyx_L1_error)
 
   /* "curlparse.pyx":165
  * 
@@ -24519,7 +24519,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__99 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_port); if (unlikely(!__pyx_tuple__99)) __PYX_ERR(0, 165, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__99);
   __Pyx_GIVEREF(__pyx_tuple__99);
-  __pyx_codeobj__100 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__99, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_port, 165, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__100)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __pyx_codeobj__100 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__99, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_port, 165, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__100)) __PYX_ERR(0, 165, __pyx_L1_error)
 
   /* "curlparse.pyx":178
  * 
@@ -24531,7 +24531,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__101 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_netloc, __pyx_n_s_userinfo_2, __pyx_n_s_have_info, __pyx_n_s_hostinfo_2, __pyx_n_s_username, __pyx_n_s_have_password, __pyx_n_s_password); if (unlikely(!__pyx_tuple__101)) __PYX_ERR(0, 178, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__101);
   __Pyx_GIVEREF(__pyx_tuple__101);
-  __pyx_codeobj__102 = (PyObject*)__Pyx_PyCode_New(1, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__101, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_userinfo, 178, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__102)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_codeobj__102 = (PyObject*)__Pyx_PyCode_New(1, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__101, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_userinfo, 178, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__102)) __PYX_ERR(0, 178, __pyx_L1_error)
 
   /* "curlparse.pyx":190
  * 
@@ -24543,7 +24543,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__104 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_netloc, __pyx_n_s__103, __pyx_n_s_hostinfo_2, __pyx_n_s_have_open_br, __pyx_n_s_bracketed, __pyx_n_s_hostname, __pyx_n_s_port); if (unlikely(!__pyx_tuple__104)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__104);
   __Pyx_GIVEREF(__pyx_tuple__104);
-  __pyx_codeobj__105 = (PyObject*)__Pyx_PyCode_New(1, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__104, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_hostinfo, 190, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__105)) __PYX_ERR(0, 190, __pyx_L1_error)
+  __pyx_codeobj__105 = (PyObject*)__Pyx_PyCode_New(1, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__104, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_hostinfo, 190, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__105)) __PYX_ERR(0, 190, __pyx_L1_error)
 
   /* "curlparse.pyx":208
  * 
@@ -24555,7 +24555,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__106 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_netloc, __pyx_n_s_userinfo_2, __pyx_n_s_have_info, __pyx_n_s_hostinfo_2, __pyx_n_s_username, __pyx_n_s_have_password, __pyx_n_s_password); if (unlikely(!__pyx_tuple__106)) __PYX_ERR(0, 208, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__106);
   __Pyx_GIVEREF(__pyx_tuple__106);
-  __pyx_codeobj__107 = (PyObject*)__Pyx_PyCode_New(1, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__106, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_userinfo, 208, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__107)) __PYX_ERR(0, 208, __pyx_L1_error)
+  __pyx_codeobj__107 = (PyObject*)__Pyx_PyCode_New(1, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__106, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_userinfo, 208, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__107)) __PYX_ERR(0, 208, __pyx_L1_error)
 
   /* "curlparse.pyx":220
  * 
@@ -24567,7 +24567,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__108 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_netloc, __pyx_n_s__103, __pyx_n_s_hostinfo_2, __pyx_n_s_have_open_br, __pyx_n_s_bracketed, __pyx_n_s_hostname, __pyx_n_s_port); if (unlikely(!__pyx_tuple__108)) __PYX_ERR(0, 220, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__108);
   __Pyx_GIVEREF(__pyx_tuple__108);
-  __pyx_codeobj__109 = (PyObject*)__Pyx_PyCode_New(1, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__108, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_hostinfo, 220, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__109)) __PYX_ERR(0, 220, __pyx_L1_error)
+  __pyx_codeobj__109 = (PyObject*)__Pyx_PyCode_New(1, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__108, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_hostinfo, 220, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__109)) __PYX_ERR(0, 220, __pyx_L1_error)
 
   /* "curlparse.pyx":234
  * 
@@ -24612,7 +24612,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__113 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__113)) __PYX_ERR(0, 309, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__113);
   __Pyx_GIVEREF(__pyx_tuple__113);
-  __pyx_codeobj__114 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__113, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_geturl, 309, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__114)) __PYX_ERR(0, 309, __pyx_L1_error)
+  __pyx_codeobj__114 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__113, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_geturl, 309, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__114)) __PYX_ERR(0, 309, __pyx_L1_error)
 
   /* "curlparse.pyx":317
  * class SplitResult(_SplitResultBase, _NetlocResultMixinStr):
@@ -24624,7 +24624,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__115 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__115)) __PYX_ERR(0, 317, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__115);
   __Pyx_GIVEREF(__pyx_tuple__115);
-  __pyx_codeobj__116 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__115, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_geturl, 317, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__116)) __PYX_ERR(0, 317, __pyx_L1_error)
+  __pyx_codeobj__116 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__115, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_geturl, 317, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__116)) __PYX_ERR(0, 317, __pyx_L1_error)
 
   /* "curlparse.pyx":322
  * class ParseResult(_ParseResultBase, _NetlocResultMixinStr):
@@ -24636,7 +24636,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__117 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__117)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__117);
   __Pyx_GIVEREF(__pyx_tuple__117);
-  __pyx_codeobj__118 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__117, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_geturl, 322, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__118)) __PYX_ERR(0, 322, __pyx_L1_error)
+  __pyx_codeobj__118 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__117, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_geturl, 322, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__118)) __PYX_ERR(0, 322, __pyx_L1_error)
 
   /* "curlparse.pyx":328
  * class DefragResultBytes(_DefragResultBase, _ResultMixinBytes):
@@ -24648,7 +24648,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__119 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__119)) __PYX_ERR(0, 328, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__119);
   __Pyx_GIVEREF(__pyx_tuple__119);
-  __pyx_codeobj__120 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__119, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_geturl, 328, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__120)) __PYX_ERR(0, 328, __pyx_L1_error)
+  __pyx_codeobj__120 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__119, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_geturl, 328, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__120)) __PYX_ERR(0, 328, __pyx_L1_error)
 
   /* "curlparse.pyx":336
  * class SplitResultBytes(_SplitResultBase, _NetlocResultMixinBytes):
@@ -24660,7 +24660,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__121 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__121)) __PYX_ERR(0, 336, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__121);
   __Pyx_GIVEREF(__pyx_tuple__121);
-  __pyx_codeobj__122 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__121, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_geturl, 336, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__122)) __PYX_ERR(0, 336, __pyx_L1_error)
+  __pyx_codeobj__122 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__121, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_geturl, 336, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__122)) __PYX_ERR(0, 336, __pyx_L1_error)
 
   /* "curlparse.pyx":341
  * class ParseResultBytes(_ParseResultBase, _NetlocResultMixinBytes):
@@ -24672,7 +24672,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__123 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__123)) __PYX_ERR(0, 341, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__123);
   __Pyx_GIVEREF(__pyx_tuple__123);
-  __pyx_codeobj__124 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__123, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_geturl, 341, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__124)) __PYX_ERR(0, 341, __pyx_L1_error)
+  __pyx_codeobj__124 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__123, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_geturl, 341, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__124)) __PYX_ERR(0, 341, __pyx_L1_error)
 
   /* "curlparse.pyx":345
  * 
@@ -24684,7 +24684,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__125 = PyTuple_Pack(3, __pyx_n_s_result_pairs, __pyx_n_s_decoded, __pyx_n_s_encoded); if (unlikely(!__pyx_tuple__125)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__125);
   __Pyx_GIVEREF(__pyx_tuple__125);
-  __pyx_codeobj__126 = (PyObject*)__Pyx_PyCode_New(0, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__125, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_fix_result_transcoding, 345, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__126)) __PYX_ERR(0, 345, __pyx_L1_error)
+  __pyx_codeobj__126 = (PyObject*)__Pyx_PyCode_New(0, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__125, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_fix_result_transcoding, 345, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__126)) __PYX_ERR(0, 345, __pyx_L1_error)
 
   /* "curlparse.pyx":359
  * 
@@ -24696,7 +24696,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__127 = PyTuple_Pack(13, __pyx_n_s_url, __pyx_n_s_scheme, __pyx_n_s_allow_fragments, __pyx_n_s_semicolon, __pyx_n_s_slash, __pyx_n_s_blank, __pyx_n_s_result_type, __pyx_n_s_uses_params, __pyx_n_s_splitresult, __pyx_n_s_netloc, __pyx_n_s_query, __pyx_n_s_fragment, __pyx_n_s_params); if (unlikely(!__pyx_tuple__127)) __PYX_ERR(0, 359, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__127);
   __Pyx_GIVEREF(__pyx_tuple__127);
-  __pyx_codeobj__128 = (PyObject*)__Pyx_PyCode_New(3, 0, 13, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__127, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urlparse, 359, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__128)) __PYX_ERR(0, 359, __pyx_L1_error)
+  __pyx_codeobj__128 = (PyObject*)__Pyx_PyCode_New(3, 0, 13, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__127, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_urlparse, 359, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__128)) __PYX_ERR(0, 359, __pyx_L1_error)
 
   /* "curlparse.pyx":380
  * 
@@ -24708,7 +24708,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__129 = PyTuple_Pack(13, __pyx_n_s_url, __pyx_n_s_scheme, __pyx_n_s_allow_fragments, __pyx_n_s_semicolon, __pyx_n_s_slash, __pyx_n_s_blank, __pyx_n_s_result_type, __pyx_n_s_uses_params, __pyx_n_s_splitresult, __pyx_n_s_netloc, __pyx_n_s_query, __pyx_n_s_fragment, __pyx_n_s_params); if (unlikely(!__pyx_tuple__129)) __PYX_ERR(0, 380, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__129);
   __Pyx_GIVEREF(__pyx_tuple__129);
-  __pyx_codeobj__130 = (PyObject*)__Pyx_PyCode_New(3, 0, 13, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__129, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urlparse, 380, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__130)) __PYX_ERR(0, 380, __pyx_L1_error)
+  __pyx_codeobj__130 = (PyObject*)__Pyx_PyCode_New(3, 0, 13, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__129, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_urlparse, 380, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__130)) __PYX_ERR(0, 380, __pyx_L1_error)
 
   /* "curlparse.pyx":401
  * 
@@ -24720,7 +24720,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__131 = PyTuple_Pack(5, __pyx_n_s_url, __pyx_n_s_semicolon, __pyx_n_s_slash, __pyx_n_s_blank, __pyx_n_s_i); if (unlikely(!__pyx_tuple__131)) __PYX_ERR(0, 401, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__131);
   __Pyx_GIVEREF(__pyx_tuple__131);
-  __pyx_codeobj__132 = (PyObject*)__Pyx_PyCode_New(1, 3, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__131, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitparams, 401, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__132)) __PYX_ERR(0, 401, __pyx_L1_error)
+  __pyx_codeobj__132 = (PyObject*)__Pyx_PyCode_New(1, 3, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__131, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_splitparams, 401, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__132)) __PYX_ERR(0, 401, __pyx_L1_error)
 
   /* "curlparse.pyx":411
  * 
@@ -24732,7 +24732,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__133 = PyTuple_Pack(6, __pyx_n_s_url, __pyx_n_s_start, __pyx_n_s_delimiters, __pyx_n_s_delim, __pyx_n_s_c, __pyx_n_s_wdelim); if (unlikely(!__pyx_tuple__133)) __PYX_ERR(0, 411, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__133);
   __Pyx_GIVEREF(__pyx_tuple__133);
-  __pyx_codeobj__134 = (PyObject*)__Pyx_PyCode_New(2, 1, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__133, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitnetloc, 411, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__134)) __PYX_ERR(0, 411, __pyx_L1_error)
+  __pyx_codeobj__134 = (PyObject*)__Pyx_PyCode_New(2, 1, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__133, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_splitnetloc, 411, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__134)) __PYX_ERR(0, 411, __pyx_L1_error)
 
   /* "curlparse.pyx":420
  * 
@@ -24744,7 +24744,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__135 = PyTuple_Pack(26, __pyx_n_s_url, __pyx_n_s_scheme, __pyx_n_s_allow_fragments, __pyx_n_s_blank, __pyx_n_s_colon, __pyx_n_s_http, __pyx_n_s_l_bracket, __pyx_n_s_r_bracket, __pyx_n_s_pound, __pyx_n_s_question_mark, __pyx_n_s_digits, __pyx_n_s_double_slash, __pyx_n_s_netloc_delimiters, __pyx_n_s_result_type, __pyx_n_s_scheme_chars, __pyx_n_s_key, __pyx_n_s_cached, __pyx_n_s_netloc, __pyx_n_s_query, __pyx_n_s_fragment, __pyx_n_s_i, __pyx_n_s_v, __pyx_n_s_c, __pyx_n_s_rest, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__135)) __PYX_ERR(0, 420, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__135);
   __Pyx_GIVEREF(__pyx_tuple__135);
-  __pyx_codeobj__136 = (PyObject*)__Pyx_PyCode_New(3, 0, 26, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__135, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urlsplit, 420, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__136)) __PYX_ERR(0, 420, __pyx_L1_error)
+  __pyx_codeobj__136 = (PyObject*)__Pyx_PyCode_New(3, 0, 26, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__135, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_urlsplit, 420, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__136)) __PYX_ERR(0, 420, __pyx_L1_error)
 
   /* "curlparse.pyx":510
  * 
@@ -24756,7 +24756,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__137 = PyTuple_Pack(7, __pyx_n_s_components, __pyx_n_s_scheme, __pyx_n_s_netloc, __pyx_n_s_url, __pyx_n_s_params, __pyx_n_s_query, __pyx_n_s_fragment); if (unlikely(!__pyx_tuple__137)) __PYX_ERR(0, 510, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__137);
   __Pyx_GIVEREF(__pyx_tuple__137);
-  __pyx_codeobj__138 = (PyObject*)__Pyx_PyCode_New(1, 0, 7, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__137, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urlunparse, 510, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__138)) __PYX_ERR(0, 510, __pyx_L1_error)
+  __pyx_codeobj__138 = (PyObject*)__Pyx_PyCode_New(1, 0, 7, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__137, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_urlunparse, 510, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__138)) __PYX_ERR(0, 510, __pyx_L1_error)
 
   /* "curlparse.pyx":524
  * 
@@ -24768,7 +24768,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__139 = PyTuple_Pack(13, __pyx_n_s_components, __pyx_n_s_scheme, __pyx_n_s_netloc, __pyx_n_s_url, __pyx_n_s_query, __pyx_n_s_fragment, __pyx_n_s_slash, __pyx_n_s_double_slash, __pyx_n_s_blank, __pyx_n_s_colon, __pyx_n_s_question_mark, __pyx_n_s_pound, __pyx_n_s_uses_netloc); if (unlikely(!__pyx_tuple__139)) __PYX_ERR(0, 524, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__139);
   __Pyx_GIVEREF(__pyx_tuple__139);
-  __pyx_codeobj__140 = (PyObject*)__Pyx_PyCode_New(1, 0, 13, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__139, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urlunsplit, 524, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__140)) __PYX_ERR(0, 524, __pyx_L1_error)
+  __pyx_codeobj__140 = (PyObject*)__Pyx_PyCode_New(1, 0, 13, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__139, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_urlunsplit, 524, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__140)) __PYX_ERR(0, 524, __pyx_L1_error)
 
   /* "curlparse.pyx":561
  * 
@@ -24780,7 +24780,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__141 = PyTuple_Pack(24, __pyx_n_s_base, __pyx_n_s_url, __pyx_n_s_allow_fragments, __pyx_n_s_slash, __pyx_n_s_blank, __pyx_n_s_dot, __pyx_n_s_double_dot, __pyx_n_s_uses_netloc, __pyx_n_s_bscheme, __pyx_n_s_bnetloc, __pyx_n_s_bpath, __pyx_n_s_bparams, __pyx_n_s_bquery, __pyx_n_s_bfragment, __pyx_n_s_scheme, __pyx_n_s_netloc, __pyx_n_s_path, __pyx_n_s_params, __pyx_n_s_query, __pyx_n_s_fragment, __pyx_n_s_base_parts, __pyx_n_s_segments, __pyx_n_s_resolved_path, __pyx_n_s_seg); if (unlikely(!__pyx_tuple__141)) __PYX_ERR(0, 561, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__141);
   __Pyx_GIVEREF(__pyx_tuple__141);
-  __pyx_codeobj__142 = (PyObject*)__Pyx_PyCode_New(3, 0, 24, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__141, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urljoin, 561, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__142)) __PYX_ERR(0, 561, __pyx_L1_error)
+  __pyx_codeobj__142 = (PyObject*)__Pyx_PyCode_New(3, 0, 24, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__141, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_urljoin, 561, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__142)) __PYX_ERR(0, 561, __pyx_L1_error)
 
   /* "curlparse.pyx":640
  * 
@@ -24792,7 +24792,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__143 = PyTuple_Pack(11, __pyx_n_s_url, __pyx_n_s_blank, __pyx_n_s_pound, __pyx_n_s_result_type, __pyx_n_s_s, __pyx_n_s_n, __pyx_n_s_p, __pyx_n_s_a, __pyx_n_s_q, __pyx_n_s_frag, __pyx_n_s_defrag); if (unlikely(!__pyx_tuple__143)) __PYX_ERR(0, 640, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__143);
   __Pyx_GIVEREF(__pyx_tuple__143);
-  __pyx_codeobj__144 = (PyObject*)__Pyx_PyCode_New(1, 0, 11, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__143, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urldefrag, 640, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__144)) __PYX_ERR(0, 640, __pyx_L1_error)
+  __pyx_codeobj__144 = (PyObject*)__Pyx_PyCode_New(1, 0, 11, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__143, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_urldefrag, 640, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__144)) __PYX_ERR(0, 640, __pyx_L1_error)
 
   /* "curlparse.pyx":667
  * _hextobyte = None
@@ -24804,7 +24804,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__145 = PyTuple_Pack(5, __pyx_n_s_string, __pyx_n_s_bits, __pyx_n_s_res, __pyx_n_s_append, __pyx_n_s_item); if (unlikely(!__pyx_tuple__145)) __PYX_ERR(0, 667, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__145);
   __Pyx_GIVEREF(__pyx_tuple__145);
-  __pyx_codeobj__146 = (PyObject*)__Pyx_PyCode_New(1, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__145, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_unquote_to_bytes, 667, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__146)) __PYX_ERR(0, 667, __pyx_L1_error)
+  __pyx_codeobj__146 = (PyObject*)__Pyx_PyCode_New(1, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__145, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_unquote_to_bytes, 667, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__146)) __PYX_ERR(0, 667, __pyx_L1_error)
 
   /* "curlparse.pyx":697
  *     return b''.join(res)
@@ -24827,7 +24827,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__149 = PyTuple_Pack(7, __pyx_n_s_string, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_bits, __pyx_n_s_res, __pyx_n_s_append, __pyx_n_s_i); if (unlikely(!__pyx_tuple__149)) __PYX_ERR(0, 699, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__149);
   __Pyx_GIVEREF(__pyx_tuple__149);
-  __pyx_codeobj__150 = (PyObject*)__Pyx_PyCode_New(3, 0, 7, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__149, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_unquote, 699, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__150)) __PYX_ERR(0, 699, __pyx_L1_error)
+  __pyx_codeobj__150 = (PyObject*)__Pyx_PyCode_New(3, 0, 7, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__149, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_unquote, 699, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__150)) __PYX_ERR(0, 699, __pyx_L1_error)
 
   /* "curlparse.pyx":724
  *     return ''.join(res)
@@ -24839,7 +24839,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__151 = PyTuple_Pack(9, __pyx_n_s_qs, __pyx_n_s_keep_blank_values, __pyx_n_s_strict_parsing, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_parsed_result, __pyx_n_s_pairs, __pyx_n_s_name_2, __pyx_n_s_value); if (unlikely(!__pyx_tuple__151)) __PYX_ERR(0, 724, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__151);
   __Pyx_GIVEREF(__pyx_tuple__151);
-  __pyx_codeobj__152 = (PyObject*)__Pyx_PyCode_New(5, 0, 9, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__151, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_parse_qs, 724, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__152)) __PYX_ERR(0, 724, __pyx_L1_error)
+  __pyx_codeobj__152 = (PyObject*)__Pyx_PyCode_New(5, 0, 9, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__151, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_parse_qs, 724, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__152)) __PYX_ERR(0, 724, __pyx_L1_error)
 
   /* "curlparse.pyx":756
  *     return parsed_result
@@ -24851,7 +24851,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__153 = PyTuple_Pack(19, __pyx_n_s_qs, __pyx_n_s_keep_blank_values, __pyx_n_s_strict_parsing, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_ampersand, __pyx_n_s_semicolon, __pyx_n_s_equalsign, __pyx_n_s_emptystr, __pyx_n_s_plus, __pyx_n_s_space, __pyx_n_s_pairs, __pyx_n_s_r, __pyx_n_s_name_value, __pyx_n_s_nv, __pyx_n_s_name_2, __pyx_n_s_value, __pyx_n_s_s1, __pyx_n_s_s2); if (unlikely(!__pyx_tuple__153)) __PYX_ERR(0, 756, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__153);
   __Pyx_GIVEREF(__pyx_tuple__153);
-  __pyx_codeobj__154 = (PyObject*)__Pyx_PyCode_New(5, 0, 19, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__153, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_parse_qsl, 756, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__154)) __PYX_ERR(0, 756, __pyx_L1_error)
+  __pyx_codeobj__154 = (PyObject*)__Pyx_PyCode_New(5, 0, 19, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__153, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_parse_qsl, 756, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__154)) __PYX_ERR(0, 756, __pyx_L1_error)
 
   /* "curlparse.pyx":815
  *     return r
@@ -24863,7 +24863,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__155 = PyTuple_Pack(3, __pyx_n_s_string, __pyx_n_s_encoding, __pyx_n_s_errors); if (unlikely(!__pyx_tuple__155)) __PYX_ERR(0, 815, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__155);
   __Pyx_GIVEREF(__pyx_tuple__155);
-  __pyx_codeobj__156 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__155, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_unquote_plus, 815, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__156)) __PYX_ERR(0, 815, __pyx_L1_error)
+  __pyx_codeobj__156 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__155, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_unquote_plus, 815, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__156)) __PYX_ERR(0, 815, __pyx_L1_error)
 
   /* "curlparse.pyx":839
  *     # Keeps a cache internally, using defaultdict, for efficiency (lookups
@@ -24875,7 +24875,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__157 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_safe); if (unlikely(!__pyx_tuple__157)) __PYX_ERR(0, 839, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__157);
   __Pyx_GIVEREF(__pyx_tuple__157);
-  __pyx_codeobj__158 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__157, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_init, 839, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__158)) __PYX_ERR(0, 839, __pyx_L1_error)
+  __pyx_codeobj__158 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__157, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_init, 839, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__158)) __PYX_ERR(0, 839, __pyx_L1_error)
 
   /* "curlparse.pyx":843
  *         self.safe = _ALWAYS_SAFE.union(safe)
@@ -24887,7 +24887,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__159 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__159)) __PYX_ERR(0, 843, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__159);
   __Pyx_GIVEREF(__pyx_tuple__159);
-  __pyx_codeobj__160 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__159, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_repr, 843, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__160)) __PYX_ERR(0, 843, __pyx_L1_error)
+  __pyx_codeobj__160 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__159, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_repr, 843, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__160)) __PYX_ERR(0, 843, __pyx_L1_error)
 
   /* "curlparse.pyx":847
  *         return "<%s %r>" % (self.__class__.__name__, dict(self))
@@ -24899,7 +24899,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__161 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_b, __pyx_n_s_res); if (unlikely(!__pyx_tuple__161)) __PYX_ERR(0, 847, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__161);
   __Pyx_GIVEREF(__pyx_tuple__161);
-  __pyx_codeobj__162 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__161, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_missing, 847, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__162)) __PYX_ERR(0, 847, __pyx_L1_error)
+  __pyx_codeobj__162 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__161, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_missing, 847, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__162)) __PYX_ERR(0, 847, __pyx_L1_error)
 
   /* "curlparse.pyx":853
  *         return res
@@ -24911,7 +24911,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__163 = PyTuple_Pack(4, __pyx_n_s_string, __pyx_n_s_safe, __pyx_n_s_encoding, __pyx_n_s_errors); if (unlikely(!__pyx_tuple__163)) __PYX_ERR(0, 853, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__163);
   __Pyx_GIVEREF(__pyx_tuple__163);
-  __pyx_codeobj__164 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__163, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_quote, 853, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__164)) __PYX_ERR(0, 853, __pyx_L1_error)
+  __pyx_codeobj__164 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__163, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_quote, 853, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__164)) __PYX_ERR(0, 853, __pyx_L1_error)
 
   /* "curlparse.pyx":897
  *     return quote_from_bytes(string, safe)
@@ -24923,7 +24923,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__165 = PyTuple_Pack(5, __pyx_n_s_string, __pyx_n_s_safe, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_space); if (unlikely(!__pyx_tuple__165)) __PYX_ERR(0, 897, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__165);
   __Pyx_GIVEREF(__pyx_tuple__165);
-  __pyx_codeobj__166 = (PyObject*)__Pyx_PyCode_New(4, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__165, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_quote_plus, 897, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__166)) __PYX_ERR(0, 897, __pyx_L1_error)
+  __pyx_codeobj__166 = (PyObject*)__Pyx_PyCode_New(4, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__165, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_quote_plus, 897, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__166)) __PYX_ERR(0, 897, __pyx_L1_error)
 
   /* "curlparse.pyx":914
  *     return string.replace(' ', '+')
@@ -24935,7 +24935,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__167 = PyTuple_Pack(5, __pyx_n_s_bs, __pyx_n_s_safe, __pyx_n_s_quoter, __pyx_n_s_c, __pyx_n_s_char); if (unlikely(!__pyx_tuple__167)) __PYX_ERR(0, 914, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__167);
   __Pyx_GIVEREF(__pyx_tuple__167);
-  __pyx_codeobj__168 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__167, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_quote_from_bytes, 914, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__168)) __PYX_ERR(0, 914, __pyx_L1_error)
+  __pyx_codeobj__168 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__167, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_quote_from_bytes, 914, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__168)) __PYX_ERR(0, 914, __pyx_L1_error)
 
   /* "curlparse.pyx":936
  *     return ''.join([quoter(char) for char in bs])
@@ -24947,7 +24947,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__169 = PyTuple_Pack(14, __pyx_n_s_query, __pyx_n_s_doseq, __pyx_n_s_safe, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_quote_via, __pyx_n_s_ty, __pyx_n_s_va, __pyx_n_s_tb, __pyx_n_s_l, __pyx_n_s_k, __pyx_n_s_v, __pyx_n_s_x, __pyx_n_s_elt); if (unlikely(!__pyx_tuple__169)) __PYX_ERR(0, 936, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__169);
   __Pyx_GIVEREF(__pyx_tuple__169);
-  __pyx_codeobj__170 = (PyObject*)__Pyx_PyCode_New(6, 0, 14, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__169, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urlencode, 936, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__170)) __PYX_ERR(0, 936, __pyx_L1_error)
+  __pyx_codeobj__170 = (PyObject*)__Pyx_PyCode_New(6, 0, 14, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__169, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_urlencode, 936, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__170)) __PYX_ERR(0, 936, __pyx_L1_error)
 
   /* "curlparse.pyx":1016
  *     return '&'.join(l)
@@ -24959,7 +24959,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__171 = PyTuple_Pack(1, __pyx_n_s_url); if (unlikely(!__pyx_tuple__171)) __PYX_ERR(0, 1016, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__171);
   __Pyx_GIVEREF(__pyx_tuple__171);
-  __pyx_codeobj__172 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__171, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_to_bytes, 1016, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__172)) __PYX_ERR(0, 1016, __pyx_L1_error)
+  __pyx_codeobj__172 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__171, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_to_bytes, 1016, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__172)) __PYX_ERR(0, 1016, __pyx_L1_error)
 
   /* "curlparse.pyx":1029
  *     return url
@@ -24971,7 +24971,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__173 = PyTuple_Pack(1, __pyx_n_s_url); if (unlikely(!__pyx_tuple__173)) __PYX_ERR(0, 1029, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__173);
   __Pyx_GIVEREF(__pyx_tuple__173);
-  __pyx_codeobj__174 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__173, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_unwrap, 1029, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__174)) __PYX_ERR(0, 1029, __pyx_L1_error)
+  __pyx_codeobj__174 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__173, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_unwrap, 1029, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__174)) __PYX_ERR(0, 1029, __pyx_L1_error)
 
   /* "curlparse.pyx":1038
  * 
@@ -24983,7 +24983,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__175 = PyTuple_Pack(4, __pyx_n_s_url, __pyx_n_s_match, __pyx_n_s_scheme, __pyx_n_s_data); if (unlikely(!__pyx_tuple__175)) __PYX_ERR(0, 1038, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__175);
   __Pyx_GIVEREF(__pyx_tuple__175);
-  __pyx_codeobj__176 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__175, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splittype, 1038, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__176)) __PYX_ERR(0, 1038, __pyx_L1_error)
+  __pyx_codeobj__176 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__175, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_splittype, 1038, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__176)) __PYX_ERR(0, 1038, __pyx_L1_error)
 
   /* "curlparse.pyx":1051
  * 
@@ -24995,7 +24995,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__177 = PyTuple_Pack(4, __pyx_n_s_url, __pyx_n_s_match, __pyx_n_s_host_port, __pyx_n_s_path); if (unlikely(!__pyx_tuple__177)) __PYX_ERR(0, 1051, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__177);
   __Pyx_GIVEREF(__pyx_tuple__177);
-  __pyx_codeobj__178 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__177, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splithost, 1051, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__178)) __PYX_ERR(0, 1051, __pyx_L1_error)
+  __pyx_codeobj__178 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__177, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_splithost, 1051, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__178)) __PYX_ERR(0, 1051, __pyx_L1_error)
 
   /* "curlparse.pyx":1065
  *     return None, url
@@ -25007,7 +25007,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__179 = PyTuple_Pack(3, __pyx_n_s_host, __pyx_n_s_user, __pyx_n_s_delim); if (unlikely(!__pyx_tuple__179)) __PYX_ERR(0, 1065, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__179);
   __Pyx_GIVEREF(__pyx_tuple__179);
-  __pyx_codeobj__180 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__179, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splituser, 1065, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__180)) __PYX_ERR(0, 1065, __pyx_L1_error)
+  __pyx_codeobj__180 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__179, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_splituser, 1065, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__180)) __PYX_ERR(0, 1065, __pyx_L1_error)
 
   /* "curlparse.pyx":1070
  *     return (user if delim else None), host
@@ -25019,7 +25019,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__181 = PyTuple_Pack(3, __pyx_n_s_user, __pyx_n_s_delim, __pyx_n_s_passwd); if (unlikely(!__pyx_tuple__181)) __PYX_ERR(0, 1070, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__181);
   __Pyx_GIVEREF(__pyx_tuple__181);
-  __pyx_codeobj__182 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__181, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitpasswd, 1070, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__182)) __PYX_ERR(0, 1070, __pyx_L1_error)
+  __pyx_codeobj__182 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__181, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_splitpasswd, 1070, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__182)) __PYX_ERR(0, 1070, __pyx_L1_error)
 
   /* "curlparse.pyx":1077
  * # splittag('/path#tag') --> '/path', 'tag'
@@ -25031,7 +25031,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__183 = PyTuple_Pack(3, __pyx_n_s_host, __pyx_n_s_match, __pyx_n_s_port); if (unlikely(!__pyx_tuple__183)) __PYX_ERR(0, 1077, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__183);
   __Pyx_GIVEREF(__pyx_tuple__183);
-  __pyx_codeobj__184 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__183, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitport, 1077, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__184)) __PYX_ERR(0, 1077, __pyx_L1_error)
+  __pyx_codeobj__184 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__183, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_splitport, 1077, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__184)) __PYX_ERR(0, 1077, __pyx_L1_error)
 
   /* "curlparse.pyx":1090
  *     return host, None
@@ -25043,7 +25043,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__185 = PyTuple_Pack(5, __pyx_n_s_host, __pyx_n_s_defport, __pyx_n_s_delim, __pyx_n_s_port, __pyx_n_s_nport); if (unlikely(!__pyx_tuple__185)) __PYX_ERR(0, 1090, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__185);
   __Pyx_GIVEREF(__pyx_tuple__185);
-  __pyx_codeobj__186 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__185, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitnport, 1090, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__186)) __PYX_ERR(0, 1090, __pyx_L1_error)
+  __pyx_codeobj__186 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__185, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_splitnport, 1090, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__186)) __PYX_ERR(0, 1090, __pyx_L1_error)
 
   /* "curlparse.pyx":1106
  *     return host, defport
@@ -25055,7 +25055,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__187 = PyTuple_Pack(4, __pyx_n_s_url, __pyx_n_s_path, __pyx_n_s_delim, __pyx_n_s_query); if (unlikely(!__pyx_tuple__187)) __PYX_ERR(0, 1106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__187);
   __Pyx_GIVEREF(__pyx_tuple__187);
-  __pyx_codeobj__188 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__187, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitquery, 1106, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__188)) __PYX_ERR(0, 1106, __pyx_L1_error)
+  __pyx_codeobj__188 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__187, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_splitquery, 1106, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__188)) __PYX_ERR(0, 1106, __pyx_L1_error)
 
   /* "curlparse.pyx":1113
  *     return url, None
@@ -25067,7 +25067,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__189 = PyTuple_Pack(4, __pyx_n_s_url, __pyx_n_s_path, __pyx_n_s_delim, __pyx_n_s_tag); if (unlikely(!__pyx_tuple__189)) __PYX_ERR(0, 1113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__189);
   __Pyx_GIVEREF(__pyx_tuple__189);
-  __pyx_codeobj__190 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__189, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splittag, 1113, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__190)) __PYX_ERR(0, 1113, __pyx_L1_error)
+  __pyx_codeobj__190 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__189, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_splittag, 1113, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__190)) __PYX_ERR(0, 1113, __pyx_L1_error)
 
   /* "curlparse.pyx":1120
  *     return url, None
@@ -25079,7 +25079,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__191 = PyTuple_Pack(2, __pyx_n_s_url, __pyx_n_s_words); if (unlikely(!__pyx_tuple__191)) __PYX_ERR(0, 1120, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__191);
   __Pyx_GIVEREF(__pyx_tuple__191);
-  __pyx_codeobj__192 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__191, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitattr, 1120, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__192)) __PYX_ERR(0, 1120, __pyx_L1_error)
+  __pyx_codeobj__192 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__191, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_splitattr, 1120, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__192)) __PYX_ERR(0, 1120, __pyx_L1_error)
 
   /* "curlparse.pyx":1126
  *     return words[0], words[1:]
@@ -25091,7 +25091,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__193 = PyTuple_Pack(3, __pyx_n_s_attr, __pyx_n_s_delim, __pyx_n_s_value); if (unlikely(!__pyx_tuple__193)) __PYX_ERR(0, 1126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__193);
   __Pyx_GIVEREF(__pyx_tuple__193);
-  __pyx_codeobj__194 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__193, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitvalue, 1126, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__194)) __PYX_ERR(0, 1126, __pyx_L1_error)
+  __pyx_codeobj__194 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__193, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_dan_repos_parsely_fast_ur, __pyx_n_s_splitvalue, 1126, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__194)) __PYX_ERR(0, 1126, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
