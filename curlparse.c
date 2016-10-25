@@ -510,6 +510,8 @@ struct __pyx_obj_9curlparse___pyx_scope_struct_4_decode;
 struct __pyx_obj_9curlparse___pyx_scope_struct_5_genexpr;
 struct __pyx_obj_9curlparse___pyx_scope_struct_6_urlsplit;
 struct __pyx_obj_9curlparse___pyx_scope_struct_7_genexpr;
+struct __pyx_obj_9curlparse___pyx_scope_struct_8_urlsplit;
+struct __pyx_obj_9curlparse___pyx_scope_struct_9_genexpr;
 
 /* "curlparse.pyx":106
  *     return obj.encode(encoding, errors)
@@ -610,27 +612,53 @@ struct __pyx_obj_9curlparse___pyx_scope_struct_5_genexpr {
 /* "curlparse.pyx":419
  * 
  * 
- * def urlsplit(url, scheme='', allow_fragments=True):             # <<<<<<<<<<<<<<
+ * def urlsplit(bytes url, bytes scheme=b'', bool allow_fragments=True):             # <<<<<<<<<<<<<<
  *     """Parse a URL into 5 components:
  *     <scheme>://<netloc>/<path>?<query>#<fragment>
  */
 struct __pyx_obj_9curlparse___pyx_scope_struct_6_urlsplit {
   PyObject_HEAD
-  PyObject *__pyx_v_digits;
   PyObject *__pyx_v_rest;
 };
 
 
-/* "curlparse.pyx":491
+/* "curlparse.pyx":459
  *             # "scheme" is really part of the path)
  *             rest = url[i+1:]
- *             if not rest or any(c not in digits for c in rest):             # <<<<<<<<<<<<<<
+ *             if not rest or any(c not in b'0123456789' for c in rest):             # <<<<<<<<<<<<<<
  *                 # not a port number
  *                 scheme, url = url[:i].lower(), rest
  */
 struct __pyx_obj_9curlparse___pyx_scope_struct_7_genexpr {
   PyObject_HEAD
   struct __pyx_obj_9curlparse___pyx_scope_struct_6_urlsplit *__pyx_outer_scope;
+  PyObject *__pyx_v_c;
+};
+
+
+/* "curlparse.pyx":477
+ * 
+ * 
+ * def urlsplit(str url, str scheme='', bool allow_fragments=True):             # <<<<<<<<<<<<<<
+ *     """Parse a URL into 5 components:
+ *     <scheme>://<netloc>/<path>?<query>#<fragment>
+ */
+struct __pyx_obj_9curlparse___pyx_scope_struct_8_urlsplit {
+  PyObject_HEAD
+  PyObject *__pyx_v_rest;
+};
+
+
+/* "curlparse.pyx":517
+ *             # "scheme" is really part of the path)
+ *             rest = url[i+1:]
+ *             if not rest or any(c not in '0123456789' for c in rest):             # <<<<<<<<<<<<<<
+ *                 # not a port number
+ *                 scheme, url = url[:i].lower(), rest
+ */
+struct __pyx_obj_9curlparse___pyx_scope_struct_9_genexpr {
+  PyObject_HEAD
+  struct __pyx_obj_9curlparse___pyx_scope_struct_8_urlsplit *__pyx_outer_scope;
   PyObject *__pyx_v_c;
 };
 
@@ -879,21 +907,19 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_GetSlice(
         PyObject** py_start, PyObject** py_stop, PyObject** py_slice,
         int has_cstart, int has_cstop, int wraparound);
 
-/* IncludeStringH.proto */
-#include <string.h>
+/* bytes_tailmatch.proto */
+static int __Pyx_PyBytes_SingleTailmatch(PyObject* self, PyObject* arg,
+                                         Py_ssize_t start, Py_ssize_t end, int direction);
+static int __Pyx_PyBytes_Tailmatch(PyObject* self, PyObject* substr,
+                                   Py_ssize_t start, Py_ssize_t end, int direction);
 
-/* BytesEquals.proto */
-static CYTHON_INLINE int __Pyx_PyBytes_Equals(PyObject* s1, PyObject* s2, int equals);
+/* unicode_tailmatch.proto */
+static int __Pyx_PyUnicode_Tailmatch(PyObject* s, PyObject* substr,
+                                     Py_ssize_t start, Py_ssize_t end, int direction);
 
-/* UnicodeEquals.proto */
-static CYTHON_INLINE int __Pyx_PyUnicode_Equals(PyObject* s1, PyObject* s2, int equals);
-
-/* StrEquals.proto */
-#if PY_MAJOR_VERSION >= 3
-#define __Pyx_PyString_Equals __Pyx_PyUnicode_Equals
-#else
-#define __Pyx_PyString_Equals __Pyx_PyBytes_Equals
-#endif
+/* str_tailmatch.proto */
+static CYTHON_INLINE int __Pyx_PyStr_Tailmatch(PyObject* self, PyObject* arg, Py_ssize_t start,
+                                               Py_ssize_t end, int direction);
 
 /* DelItemInt.proto */
 #define __Pyx_DelItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
@@ -1059,6 +1085,22 @@ static CYTHON_INLINE int __Pyx_ListComp_Append(PyObject* list, PyObject* x) {
 }
 #else
 #define __Pyx_ListComp_Append(L,x) PyList_Append(L,x)
+#endif
+
+/* IncludeStringH.proto */
+#include <string.h>
+
+/* BytesEquals.proto */
+static CYTHON_INLINE int __Pyx_PyBytes_Equals(PyObject* s1, PyObject* s2, int equals);
+
+/* UnicodeEquals.proto */
+static CYTHON_INLINE int __Pyx_PyUnicode_Equals(PyObject* s1, PyObject* s2, int equals);
+
+/* StrEquals.proto */
+#if PY_MAJOR_VERSION >= 3
+#define __Pyx_PyString_Equals __Pyx_PyUnicode_Equals
+#else
+#define __Pyx_PyString_Equals __Pyx_PyBytes_Equals
 #endif
 
 /* Import.proto */
@@ -1358,6 +1400,8 @@ static PyTypeObject *__pyx_ptype_9curlparse___pyx_scope_struct_4_decode = 0;
 static PyTypeObject *__pyx_ptype_9curlparse___pyx_scope_struct_5_genexpr = 0;
 static PyTypeObject *__pyx_ptype_9curlparse___pyx_scope_struct_6_urlsplit = 0;
 static PyTypeObject *__pyx_ptype_9curlparse___pyx_scope_struct_7_genexpr = 0;
+static PyTypeObject *__pyx_ptype_9curlparse___pyx_scope_struct_8_urlsplit = 0;
+static PyTypeObject *__pyx_ptype_9curlparse___pyx_scope_struct_9_genexpr = 0;
 #define __Pyx_MODULE_NAME "curlparse"
 int __pyx_module_is_main_curlparse = 0;
 
@@ -1405,20 +1449,20 @@ static const char __pyx_k__15[] = "]";
 static const char __pyx_k__26[] = "#";
 static const char __pyx_k__27[] = ";";
 static const char __pyx_k__28[] = "/";
-static const char __pyx_k__29[] = "?";
 static const char __pyx_k__30[] = "//";
-static const char __pyx_k__32[] = "/?#";
-static const char __pyx_k__35[] = ".";
-static const char __pyx_k__36[] = "..";
-static const char __pyx_k__40[] = "%";
-static const char __pyx_k__45[] = "&";
-static const char __pyx_k__46[] = "=";
-static const char __pyx_k__47[] = " ";
-static const char __pyx_k__48[] = "+";
-static const char __pyx_k__56[] = "<";
-static const char __pyx_k__58[] = ">";
-static const char __pyx_k__62[] = "([^/:]+):(.*)";
-static const char __pyx_k__63[] = "//([^/?]*)(.*)";
+static const char __pyx_k__31[] = "/?#";
+static const char __pyx_k__34[] = "?";
+static const char __pyx_k__46[] = ".";
+static const char __pyx_k__47[] = "..";
+static const char __pyx_k__51[] = "%";
+static const char __pyx_k__56[] = "&";
+static const char __pyx_k__57[] = "=";
+static const char __pyx_k__58[] = " ";
+static const char __pyx_k__59[] = "+";
+static const char __pyx_k__67[] = "<";
+static const char __pyx_k__69[] = ">";
+static const char __pyx_k__73[] = "([^/:]+):(.*)";
+static const char __pyx_k__74[] = "//([^/?]*)(.*)";
 static const char __pyx_k_all[] = "__all__";
 static const char __pyx_k_arg[] = "arg";
 static const char __pyx_k_chr[] = "chr";
@@ -1445,8 +1489,8 @@ static const char __pyx_k_tag[] = "tag";
 static const char __pyx_k_tel[] = "tel";
 static const char __pyx_k_url[] = "url";
 static const char __pyx_k_wss[] = "wss";
-static const char __pyx_k__100[] = "_";
-static const char __pyx_k__146[] = "([\000-]+)";
+static const char __pyx_k__111[] = "_";
+static const char __pyx_k__159[] = "([\000-]+)";
 static const char __pyx_k_args[] = "args";
 static const char __pyx_k_attr[] = "attr";
 static const char __pyx_k_base[] = "base";
@@ -1524,7 +1568,6 @@ static const char __pyx_k_bquery[] = "bquery";
 static const char __pyx_k_cached[] = "cached";
 static const char __pyx_k_decode[] = "decode";
 static const char __pyx_k_defrag[] = "defrag";
-static const char __pyx_k_digits[] = "digits";
 static const char __pyx_k_encode[] = "encode";
 static const char __pyx_k_errors[] = "errors";
 static const char __pyx_k_filter[] = "filter";
@@ -1596,12 +1639,10 @@ static const char __pyx_k_curlparse[] = "curlparse";
 static const char __pyx_k_have_info[] = "have_info";
 static const char __pyx_k_hextobyte[] = "_hextobyte";
 static const char __pyx_k_host_port[] = "host_port";
-static const char __pyx_k_l_bracket[] = "l_bracket";
 static const char __pyx_k_metaclass[] = "__metaclass__";
 static const char __pyx_k_parse_qsl[] = "parse_qsl";
 static const char __pyx_k_partition[] = "partition";
 static const char __pyx_k_quote_via[] = "quote_via";
-static const char __pyx_k_r_bracket[] = "r_bracket";
 static const char __pyx_k_semicolon[] = "semicolon";
 static const char __pyx_k_splitattr[] = "splitattr";
 static const char __pyx_k_splithost[] = "splithost";
@@ -1689,7 +1730,6 @@ static const char __pyx_k_DefragResultBytes[] = "DefragResultBytes";
 static const char __pyx_k_bad_query_field_r[] = "bad query field: %r";
 static const char __pyx_k_implicit_encoding[] = "_implicit_encoding";
 static const char __pyx_k_keep_blank_values[] = "keep_blank_values";
-static const char __pyx_k_netloc_delimiters[] = "netloc_delimiters";
 static const char __pyx_k_uses_netloc_bytes[] = "uses_netloc_bytes";
 static const char __pyx_k_uses_params_bytes[] = "uses_params_bytes";
 static const char __pyx_k_uses_relative_str[] = "uses_relative_str";
@@ -1821,44 +1861,44 @@ static PyObject *__pyx_kp_s_Users_irina_repos_fast_urlparse;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_kp_b__10;
 static PyObject *__pyx_kp_s__10;
-static PyObject *__pyx_n_s__100;
+static PyObject *__pyx_n_s__111;
 static PyObject *__pyx_kp_b__13;
 static PyObject *__pyx_kp_s__13;
-static PyObject *__pyx_kp_s__146;
 static PyObject *__pyx_kp_b__15;
 static PyObject *__pyx_kp_s__15;
+static PyObject *__pyx_kp_s__159;
 static PyObject *__pyx_kp_b__26;
 static PyObject *__pyx_kp_s__26;
 static PyObject *__pyx_kp_b__27;
 static PyObject *__pyx_kp_s__27;
 static PyObject *__pyx_kp_b__28;
 static PyObject *__pyx_kp_s__28;
-static PyObject *__pyx_kp_b__29;
-static PyObject *__pyx_kp_s__29;
 static PyObject *__pyx_kp_b__30;
 static PyObject *__pyx_kp_s__30;
-static PyObject *__pyx_kp_b__32;
-static PyObject *__pyx_kp_s__32;
-static PyObject *__pyx_kp_b__35;
-static PyObject *__pyx_kp_s__35;
-static PyObject *__pyx_kp_b__36;
-static PyObject *__pyx_kp_s__36;
-static PyObject *__pyx_kp_b__40;
-static PyObject *__pyx_kp_s__40;
-static PyObject *__pyx_kp_b__45;
-static PyObject *__pyx_kp_s__45;
+static PyObject *__pyx_kp_b__31;
+static PyObject *__pyx_kp_s__31;
+static PyObject *__pyx_kp_b__34;
+static PyObject *__pyx_kp_s__34;
 static PyObject *__pyx_kp_b__46;
 static PyObject *__pyx_kp_s__46;
 static PyObject *__pyx_kp_b__47;
 static PyObject *__pyx_kp_s__47;
-static PyObject *__pyx_kp_b__48;
-static PyObject *__pyx_kp_s__48;
 static PyObject *__pyx_kp_b__5;
 static PyObject *__pyx_kp_s__5;
+static PyObject *__pyx_kp_b__51;
+static PyObject *__pyx_kp_s__51;
+static PyObject *__pyx_kp_b__56;
 static PyObject *__pyx_kp_s__56;
+static PyObject *__pyx_kp_b__57;
+static PyObject *__pyx_kp_s__57;
+static PyObject *__pyx_kp_b__58;
 static PyObject *__pyx_kp_s__58;
-static PyObject *__pyx_kp_s__62;
-static PyObject *__pyx_kp_s__63;
+static PyObject *__pyx_kp_b__59;
+static PyObject *__pyx_kp_s__59;
+static PyObject *__pyx_kp_s__67;
+static PyObject *__pyx_kp_s__69;
+static PyObject *__pyx_kp_s__73;
+static PyObject *__pyx_kp_s__74;
 static PyObject *__pyx_kp_b__8;
 static PyObject *__pyx_kp_s__8;
 static PyObject *__pyx_n_s_a;
@@ -1912,7 +1952,6 @@ static PyObject *__pyx_n_s_defport;
 static PyObject *__pyx_n_s_defrag;
 static PyObject *__pyx_n_s_delim;
 static PyObject *__pyx_n_s_delimiters;
-static PyObject *__pyx_n_s_digits;
 static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_doseq;
 static PyObject *__pyx_n_s_dot;
@@ -1972,7 +2011,6 @@ static PyObject *__pyx_n_s_k;
 static PyObject *__pyx_n_s_keep_blank_values;
 static PyObject *__pyx_n_s_key;
 static PyObject *__pyx_n_s_l;
-static PyObject *__pyx_n_s_l_bracket;
 static PyObject *__pyx_n_s_lower;
 static PyObject *__pyx_n_s_mailto;
 static PyObject *__pyx_n_s_main;
@@ -1987,7 +2025,6 @@ static PyObject *__pyx_n_s_name_2;
 static PyObject *__pyx_n_s_name_value;
 static PyObject *__pyx_n_s_namedtuple;
 static PyObject *__pyx_n_s_netloc;
-static PyObject *__pyx_n_s_netloc_delimiters;
 static PyObject *__pyx_n_s_news;
 static PyObject *__pyx_n_s_nfs;
 static PyObject *__pyx_n_s_nntp;
@@ -2032,7 +2069,6 @@ static PyObject *__pyx_n_s_quote_plus;
 static PyObject *__pyx_n_s_quote_via;
 static PyObject *__pyx_n_s_quoter;
 static PyObject *__pyx_n_s_r;
-static PyObject *__pyx_n_s_r_bracket;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_re;
 static PyObject *__pyx_n_s_replace;
@@ -2177,34 +2213,36 @@ static PyObject *__pyx_pf_9curlparse_16_splitparams(CYTHON_UNUSED PyObject *__py
 static PyObject *__pyx_pf_9curlparse_18_splitparams(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url, PyObject *__pyx_v_semicolon, PyObject *__pyx_v_slash, PyObject *__pyx_v_blank); /* proto */
 static PyObject *__pyx_pf_9curlparse_20_splitnetloc(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url, PyObject *__pyx_v_start, PyObject *__pyx_v_delimiters); /* proto */
 static PyObject *__pyx_pf_9curlparse_8urlsplit_genexpr(PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_9curlparse_22urlsplit(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url, PyObject *__pyx_v_scheme, PyObject *__pyx_v_allow_fragments); /* proto */
-static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_components); /* proto */
-static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_components); /* proto */
-static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_base, PyObject *__pyx_v_url, PyObject *__pyx_v_allow_fragments); /* proto */
-static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url); /* proto */
-static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string); /* proto */
-static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors); /* proto */
-static PyObject *__pyx_pf_9curlparse_36parse_qs(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_qs, PyObject *__pyx_v_keep_blank_values, PyObject *__pyx_v_strict_parsing, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors); /* proto */
-static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_qs, PyObject *__pyx_v_keep_blank_values, PyObject *__pyx_v_strict_parsing, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors); /* proto */
-static PyObject *__pyx_pf_9curlparse_40unquote_plus(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors); /* proto */
+static PyObject *__pyx_pf_9curlparse_22urlsplit(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url, PyObject *__pyx_v_scheme, PyBoolObject *__pyx_v_allow_fragments); /* proto */
+static PyObject *__pyx_pf_9curlparse_8urlsplit_3genexpr(PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_9curlparse_24urlsplit(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url, PyObject *__pyx_v_scheme, PyBoolObject *__pyx_v_allow_fragments); /* proto */
+static PyObject *__pyx_pf_9curlparse_26urlunparse(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_components); /* proto */
+static PyObject *__pyx_pf_9curlparse_28urlunsplit(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_components); /* proto */
+static PyObject *__pyx_pf_9curlparse_30urljoin(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_base, PyObject *__pyx_v_url, PyObject *__pyx_v_allow_fragments); /* proto */
+static PyObject *__pyx_pf_9curlparse_32urldefrag(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url); /* proto */
+static PyObject *__pyx_pf_9curlparse_34unquote_to_bytes(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string); /* proto */
+static PyObject *__pyx_pf_9curlparse_36unquote(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors); /* proto */
+static PyObject *__pyx_pf_9curlparse_38parse_qs(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_qs, PyObject *__pyx_v_keep_blank_values, PyObject *__pyx_v_strict_parsing, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors); /* proto */
+static PyObject *__pyx_pf_9curlparse_40parse_qsl(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_qs, PyObject *__pyx_v_keep_blank_values, PyObject *__pyx_v_strict_parsing, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors); /* proto */
+static PyObject *__pyx_pf_9curlparse_42unquote_plus(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors); /* proto */
 static PyObject *__pyx_pf_9curlparse_6Quoter___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_safe); /* proto */
 static PyObject *__pyx_pf_9curlparse_6Quoter_2__repr__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_9curlparse_6Quoter_4__missing__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_b); /* proto */
-static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string, PyObject *__pyx_v_safe, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors); /* proto */
-static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string, PyObject *__pyx_v_safe, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors); /* proto */
-static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_bs, PyObject *__pyx_v_safe); /* proto */
-static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_query, PyObject *__pyx_v_doseq, PyObject *__pyx_v_safe, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors, PyObject *__pyx_v_quote_via); /* proto */
-static PyObject *__pyx_pf_9curlparse_50unwrap(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url); /* proto */
-static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url); /* proto */
-static PyObject *__pyx_pf_9curlparse_54splithost(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url); /* proto */
-static PyObject *__pyx_pf_9curlparse_56splituser(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_host); /* proto */
-static PyObject *__pyx_pf_9curlparse_58splitpasswd(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_user); /* proto */
-static PyObject *__pyx_pf_9curlparse_60splitport(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_host); /* proto */
-static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_host, PyObject *__pyx_v_defport); /* proto */
-static PyObject *__pyx_pf_9curlparse_64splitquery(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url); /* proto */
-static PyObject *__pyx_pf_9curlparse_66splittag(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url); /* proto */
-static PyObject *__pyx_pf_9curlparse_68splitattr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url); /* proto */
-static PyObject *__pyx_pf_9curlparse_70splitvalue(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_attr); /* proto */
+static PyObject *__pyx_pf_9curlparse_44quote(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string, PyObject *__pyx_v_safe, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors); /* proto */
+static PyObject *__pyx_pf_9curlparse_46quote_plus(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string, PyObject *__pyx_v_safe, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors); /* proto */
+static PyObject *__pyx_pf_9curlparse_48quote_from_bytes(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_bs, PyObject *__pyx_v_safe); /* proto */
+static PyObject *__pyx_pf_9curlparse_50urlencode(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_query, PyObject *__pyx_v_doseq, PyObject *__pyx_v_safe, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors, PyObject *__pyx_v_quote_via); /* proto */
+static PyObject *__pyx_pf_9curlparse_52unwrap(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url); /* proto */
+static PyObject *__pyx_pf_9curlparse_54splittype(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url); /* proto */
+static PyObject *__pyx_pf_9curlparse_56splithost(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url); /* proto */
+static PyObject *__pyx_pf_9curlparse_58splituser(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_host); /* proto */
+static PyObject *__pyx_pf_9curlparse_60splitpasswd(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_user); /* proto */
+static PyObject *__pyx_pf_9curlparse_62splitport(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_host); /* proto */
+static PyObject *__pyx_pf_9curlparse_64splitnport(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_host, PyObject *__pyx_v_defport); /* proto */
+static PyObject *__pyx_pf_9curlparse_66splitquery(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url); /* proto */
+static PyObject *__pyx_pf_9curlparse_68splittag(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url); /* proto */
+static PyObject *__pyx_pf_9curlparse_70splitattr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url); /* proto */
+static PyObject *__pyx_pf_9curlparse_72splitvalue(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_attr); /* proto */
 static PyObject *__pyx_tp_new_9curlparse___pyx_scope_struct___decode_args(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_9curlparse___pyx_scope_struct_1_genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_9curlparse___pyx_scope_struct_2_encode(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -2213,6 +2251,8 @@ static PyObject *__pyx_tp_new_9curlparse___pyx_scope_struct_4_decode(PyTypeObjec
 static PyObject *__pyx_tp_new_9curlparse___pyx_scope_struct_5_genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_9curlparse___pyx_scope_struct_6_urlsplit(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_9curlparse___pyx_scope_struct_7_genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_9curlparse___pyx_scope_struct_8_urlsplit(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_9curlparse___pyx_scope_struct_9_genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static __Pyx_CachedCFunction __pyx_umethod_PyList_Type_pop = {0, &__pyx_n_s_pop, 0, 0, 0};
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
@@ -2228,21 +2268,21 @@ static PyObject *__pyx_k_;
 static PyObject *__pyx_k__2;
 static PyObject *__pyx_k__3;
 static PyObject *__pyx_k__4;
-static PyObject *__pyx_k__53;
+static PyObject *__pyx_k__64;
 static PyObject *__pyx_tuple__6;
 static PyObject *__pyx_tuple__7;
 static PyObject *__pyx_tuple__9;
-static PyObject *__pyx_slice__37;
-static PyObject *__pyx_slice__38;
-static PyObject *__pyx_slice__42;
-static PyObject *__pyx_slice__43;
-static PyObject *__pyx_slice__44;
+static PyObject *__pyx_slice__48;
+static PyObject *__pyx_slice__49;
+static PyObject *__pyx_slice__53;
+static PyObject *__pyx_slice__54;
 static PyObject *__pyx_slice__55;
-static PyObject *__pyx_slice__57;
-static PyObject *__pyx_slice__59;
-static PyObject *__pyx_slice__60;
-static PyObject *__pyx_slice__61;
+static PyObject *__pyx_slice__66;
+static PyObject *__pyx_slice__68;
 static PyObject *__pyx_slice__70;
+static PyObject *__pyx_slice__71;
+static PyObject *__pyx_slice__72;
+static PyObject *__pyx_slice__81;
 static PyObject *__pyx_tuple__11;
 static PyObject *__pyx_tuple__12;
 static PyObject *__pyx_tuple__14;
@@ -2256,141 +2296,154 @@ static PyObject *__pyx_tuple__22;
 static PyObject *__pyx_tuple__23;
 static PyObject *__pyx_tuple__24;
 static PyObject *__pyx_tuple__25;
-static PyObject *__pyx_tuple__31;
+static PyObject *__pyx_tuple__29;
+static PyObject *__pyx_tuple__32;
 static PyObject *__pyx_tuple__33;
-static PyObject *__pyx_tuple__34;
+static PyObject *__pyx_tuple__35;
+static PyObject *__pyx_tuple__36;
+static PyObject *__pyx_tuple__37;
+static PyObject *__pyx_tuple__38;
 static PyObject *__pyx_tuple__39;
+static PyObject *__pyx_tuple__40;
 static PyObject *__pyx_tuple__41;
-static PyObject *__pyx_tuple__49;
+static PyObject *__pyx_tuple__42;
+static PyObject *__pyx_tuple__43;
+static PyObject *__pyx_tuple__44;
+static PyObject *__pyx_tuple__45;
 static PyObject *__pyx_tuple__50;
-static PyObject *__pyx_tuple__51;
 static PyObject *__pyx_tuple__52;
-static PyObject *__pyx_tuple__54;
-static PyObject *__pyx_tuple__64;
+static PyObject *__pyx_tuple__60;
+static PyObject *__pyx_tuple__61;
+static PyObject *__pyx_tuple__62;
+static PyObject *__pyx_tuple__63;
 static PyObject *__pyx_tuple__65;
-static PyObject *__pyx_tuple__66;
-static PyObject *__pyx_tuple__67;
-static PyObject *__pyx_tuple__68;
-static PyObject *__pyx_tuple__69;
-static PyObject *__pyx_tuple__71;
-static PyObject *__pyx_tuple__72;
-static PyObject *__pyx_tuple__73;
-static PyObject *__pyx_tuple__74;
+static PyObject *__pyx_tuple__75;
 static PyObject *__pyx_tuple__76;
+static PyObject *__pyx_tuple__77;
 static PyObject *__pyx_tuple__78;
+static PyObject *__pyx_tuple__79;
 static PyObject *__pyx_tuple__80;
 static PyObject *__pyx_tuple__82;
+static PyObject *__pyx_tuple__83;
 static PyObject *__pyx_tuple__84;
-static PyObject *__pyx_tuple__86;
+static PyObject *__pyx_tuple__85;
 static PyObject *__pyx_tuple__87;
 static PyObject *__pyx_tuple__89;
-static PyObject *__pyx_tuple__90;
-static PyObject *__pyx_tuple__92;
-static PyObject *__pyx_tuple__94;
-static PyObject *__pyx_tuple__96;
+static PyObject *__pyx_tuple__91;
+static PyObject *__pyx_tuple__93;
+static PyObject *__pyx_tuple__95;
+static PyObject *__pyx_tuple__97;
 static PyObject *__pyx_tuple__98;
+static PyObject *__pyx_tuple__100;
 static PyObject *__pyx_tuple__101;
 static PyObject *__pyx_tuple__103;
 static PyObject *__pyx_tuple__105;
 static PyObject *__pyx_tuple__107;
-static PyObject *__pyx_tuple__108;
 static PyObject *__pyx_tuple__109;
-static PyObject *__pyx_tuple__110;
 static PyObject *__pyx_tuple__112;
 static PyObject *__pyx_tuple__114;
 static PyObject *__pyx_tuple__116;
 static PyObject *__pyx_tuple__118;
+static PyObject *__pyx_tuple__119;
 static PyObject *__pyx_tuple__120;
-static PyObject *__pyx_tuple__122;
-static PyObject *__pyx_tuple__124;
-static PyObject *__pyx_tuple__126;
-static PyObject *__pyx_tuple__128;
-static PyObject *__pyx_tuple__130;
-static PyObject *__pyx_tuple__132;
-static PyObject *__pyx_tuple__134;
-static PyObject *__pyx_tuple__136;
-static PyObject *__pyx_tuple__138;
-static PyObject *__pyx_tuple__140;
-static PyObject *__pyx_tuple__142;
-static PyObject *__pyx_tuple__144;
+static PyObject *__pyx_tuple__121;
+static PyObject *__pyx_tuple__123;
+static PyObject *__pyx_tuple__125;
+static PyObject *__pyx_tuple__127;
+static PyObject *__pyx_tuple__129;
+static PyObject *__pyx_tuple__131;
+static PyObject *__pyx_tuple__133;
+static PyObject *__pyx_tuple__135;
+static PyObject *__pyx_tuple__137;
+static PyObject *__pyx_tuple__139;
+static PyObject *__pyx_tuple__141;
+static PyObject *__pyx_tuple__143;
+static PyObject *__pyx_tuple__145;
 static PyObject *__pyx_tuple__147;
-static PyObject *__pyx_tuple__148;
-static PyObject *__pyx_tuple__150;
-static PyObject *__pyx_tuple__152;
-static PyObject *__pyx_tuple__154;
-static PyObject *__pyx_tuple__156;
-static PyObject *__pyx_tuple__158;
+static PyObject *__pyx_tuple__149;
+static PyObject *__pyx_tuple__151;
+static PyObject *__pyx_tuple__153;
+static PyObject *__pyx_tuple__155;
+static PyObject *__pyx_tuple__157;
 static PyObject *__pyx_tuple__160;
-static PyObject *__pyx_tuple__162;
-static PyObject *__pyx_tuple__164;
-static PyObject *__pyx_tuple__166;
-static PyObject *__pyx_tuple__168;
-static PyObject *__pyx_tuple__170;
-static PyObject *__pyx_tuple__172;
-static PyObject *__pyx_tuple__174;
-static PyObject *__pyx_tuple__176;
-static PyObject *__pyx_tuple__178;
-static PyObject *__pyx_tuple__180;
-static PyObject *__pyx_tuple__182;
-static PyObject *__pyx_tuple__184;
-static PyObject *__pyx_tuple__186;
-static PyObject *__pyx_tuple__188;
-static PyObject *__pyx_tuple__190;
-static PyObject *__pyx_codeobj__75;
-static PyObject *__pyx_codeobj__77;
-static PyObject *__pyx_codeobj__79;
-static PyObject *__pyx_codeobj__81;
-static PyObject *__pyx_codeobj__83;
-static PyObject *__pyx_codeobj__85;
+static PyObject *__pyx_tuple__161;
+static PyObject *__pyx_tuple__163;
+static PyObject *__pyx_tuple__165;
+static PyObject *__pyx_tuple__167;
+static PyObject *__pyx_tuple__169;
+static PyObject *__pyx_tuple__171;
+static PyObject *__pyx_tuple__173;
+static PyObject *__pyx_tuple__175;
+static PyObject *__pyx_tuple__177;
+static PyObject *__pyx_tuple__179;
+static PyObject *__pyx_tuple__181;
+static PyObject *__pyx_tuple__183;
+static PyObject *__pyx_tuple__185;
+static PyObject *__pyx_tuple__187;
+static PyObject *__pyx_tuple__189;
+static PyObject *__pyx_tuple__191;
+static PyObject *__pyx_tuple__193;
+static PyObject *__pyx_tuple__195;
+static PyObject *__pyx_tuple__197;
+static PyObject *__pyx_tuple__199;
+static PyObject *__pyx_tuple__201;
+static PyObject *__pyx_tuple__203;
+static PyObject *__pyx_codeobj__86;
 static PyObject *__pyx_codeobj__88;
-static PyObject *__pyx_codeobj__91;
-static PyObject *__pyx_codeobj__93;
-static PyObject *__pyx_codeobj__95;
-static PyObject *__pyx_codeobj__97;
+static PyObject *__pyx_codeobj__90;
+static PyObject *__pyx_codeobj__92;
+static PyObject *__pyx_codeobj__94;
+static PyObject *__pyx_codeobj__96;
 static PyObject *__pyx_codeobj__99;
 static PyObject *__pyx_codeobj__102;
 static PyObject *__pyx_codeobj__104;
 static PyObject *__pyx_codeobj__106;
-static PyObject *__pyx_codeobj__111;
+static PyObject *__pyx_codeobj__108;
+static PyObject *__pyx_codeobj__110;
 static PyObject *__pyx_codeobj__113;
 static PyObject *__pyx_codeobj__115;
 static PyObject *__pyx_codeobj__117;
-static PyObject *__pyx_codeobj__119;
-static PyObject *__pyx_codeobj__121;
-static PyObject *__pyx_codeobj__123;
-static PyObject *__pyx_codeobj__125;
-static PyObject *__pyx_codeobj__127;
-static PyObject *__pyx_codeobj__129;
-static PyObject *__pyx_codeobj__131;
-static PyObject *__pyx_codeobj__133;
-static PyObject *__pyx_codeobj__135;
-static PyObject *__pyx_codeobj__137;
-static PyObject *__pyx_codeobj__139;
-static PyObject *__pyx_codeobj__141;
-static PyObject *__pyx_codeobj__143;
-static PyObject *__pyx_codeobj__145;
-static PyObject *__pyx_codeobj__149;
-static PyObject *__pyx_codeobj__151;
-static PyObject *__pyx_codeobj__153;
-static PyObject *__pyx_codeobj__155;
-static PyObject *__pyx_codeobj__157;
-static PyObject *__pyx_codeobj__159;
-static PyObject *__pyx_codeobj__161;
-static PyObject *__pyx_codeobj__163;
-static PyObject *__pyx_codeobj__165;
-static PyObject *__pyx_codeobj__167;
-static PyObject *__pyx_codeobj__169;
-static PyObject *__pyx_codeobj__171;
-static PyObject *__pyx_codeobj__173;
-static PyObject *__pyx_codeobj__175;
-static PyObject *__pyx_codeobj__177;
-static PyObject *__pyx_codeobj__179;
-static PyObject *__pyx_codeobj__181;
-static PyObject *__pyx_codeobj__183;
-static PyObject *__pyx_codeobj__185;
-static PyObject *__pyx_codeobj__187;
-static PyObject *__pyx_codeobj__189;
-static PyObject *__pyx_codeobj__191;
+static PyObject *__pyx_codeobj__122;
+static PyObject *__pyx_codeobj__124;
+static PyObject *__pyx_codeobj__126;
+static PyObject *__pyx_codeobj__128;
+static PyObject *__pyx_codeobj__130;
+static PyObject *__pyx_codeobj__132;
+static PyObject *__pyx_codeobj__134;
+static PyObject *__pyx_codeobj__136;
+static PyObject *__pyx_codeobj__138;
+static PyObject *__pyx_codeobj__140;
+static PyObject *__pyx_codeobj__142;
+static PyObject *__pyx_codeobj__144;
+static PyObject *__pyx_codeobj__146;
+static PyObject *__pyx_codeobj__148;
+static PyObject *__pyx_codeobj__150;
+static PyObject *__pyx_codeobj__152;
+static PyObject *__pyx_codeobj__154;
+static PyObject *__pyx_codeobj__156;
+static PyObject *__pyx_codeobj__158;
+static PyObject *__pyx_codeobj__162;
+static PyObject *__pyx_codeobj__164;
+static PyObject *__pyx_codeobj__166;
+static PyObject *__pyx_codeobj__168;
+static PyObject *__pyx_codeobj__170;
+static PyObject *__pyx_codeobj__172;
+static PyObject *__pyx_codeobj__174;
+static PyObject *__pyx_codeobj__176;
+static PyObject *__pyx_codeobj__178;
+static PyObject *__pyx_codeobj__180;
+static PyObject *__pyx_codeobj__182;
+static PyObject *__pyx_codeobj__184;
+static PyObject *__pyx_codeobj__186;
+static PyObject *__pyx_codeobj__188;
+static PyObject *__pyx_codeobj__190;
+static PyObject *__pyx_codeobj__192;
+static PyObject *__pyx_codeobj__194;
+static PyObject *__pyx_codeobj__196;
+static PyObject *__pyx_codeobj__198;
+static PyObject *__pyx_codeobj__200;
+static PyObject *__pyx_codeobj__202;
+static PyObject *__pyx_codeobj__204;
 
 /* "curlparse.pyx":84
  * _parse_cache = {}
@@ -8828,7 +8881,7 @@ static PyObject *__pyx_pf_9curlparse_20_splitnetloc(CYTHON_UNUSED PyObject *__py
 /* "curlparse.pyx":419
  * 
  * 
- * def urlsplit(url, scheme='', allow_fragments=True):             # <<<<<<<<<<<<<<
+ * def urlsplit(bytes url, bytes scheme=b'', bool allow_fragments=True):             # <<<<<<<<<<<<<<
  *     """Parse a URL into 5 components:
  *     <scheme>://<netloc>/<path>?<query>#<fragment>
  */
@@ -8840,15 +8893,15 @@ static PyMethodDef __pyx_mdef_9curlparse_23urlsplit = {"urlsplit", (PyCFunction)
 static PyObject *__pyx_pw_9curlparse_23urlsplit(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_url = 0;
   PyObject *__pyx_v_scheme = 0;
-  PyObject *__pyx_v_allow_fragments = 0;
+  PyBoolObject *__pyx_v_allow_fragments = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("urlsplit (wrapper)", 0);
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_url,&__pyx_n_s_scheme,&__pyx_n_s_allow_fragments,0};
     PyObject* values[3] = {0,0,0};
-    values[1] = ((PyObject *)__pyx_kp_s__5);
-    values[2] = ((PyObject *)Py_True);
+    values[1] = ((PyObject*)__pyx_kp_b__5);
+    values[2] = (PyObject *)((PyBoolObject *)Py_True);
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
@@ -8887,9 +8940,9 @@ static PyObject *__pyx_pw_9curlparse_23urlsplit(PyObject *__pyx_self, PyObject *
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_url = values[0];
-    __pyx_v_scheme = values[1];
-    __pyx_v_allow_fragments = values[2];
+    __pyx_v_url = ((PyObject*)values[0]);
+    __pyx_v_scheme = ((PyObject*)values[1]);
+    __pyx_v_allow_fragments = ((PyBoolObject *)values[2]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
@@ -8899,18 +8952,25 @@ static PyObject *__pyx_pw_9curlparse_23urlsplit(PyObject *__pyx_self, PyObject *
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_url), (&PyBytes_Type), 1, "url", 1))) __PYX_ERR(0, 419, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_scheme), (&PyBytes_Type), 1, "scheme", 1))) __PYX_ERR(0, 419, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_allow_fragments), __pyx_ptype_7cpython_4bool_bool, 1, "allow_fragments", 0))) __PYX_ERR(0, 419, __pyx_L1_error)
   __pyx_r = __pyx_pf_9curlparse_22urlsplit(__pyx_self, __pyx_v_url, __pyx_v_scheme, __pyx_v_allow_fragments);
 
   /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 static PyObject *__pyx_gb_9curlparse_8urlsplit_2generator3(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
-/* "curlparse.pyx":491
+/* "curlparse.pyx":459
  *             # "scheme" is really part of the path)
  *             rest = url[i+1:]
- *             if not rest or any(c not in digits for c in rest):             # <<<<<<<<<<<<<<
+ *             if not rest or any(c not in b'0123456789' for c in rest):             # <<<<<<<<<<<<<<
  *                 # not a port number
  *                 scheme, url = url[:i].lower(), rest
  */
@@ -8930,7 +8990,7 @@ static PyObject *__pyx_pf_9curlparse_8urlsplit_genexpr(PyObject *__pyx_self) {
   __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_9curlparse_8urlsplit_2generator3, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_urlsplit_locals_genexpr, __pyx_n_s_curlparse); if (unlikely(!gen)) __PYX_ERR(0, 491, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_9curlparse_8urlsplit_2generator3, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_urlsplit_locals_genexpr, __pyx_n_s_curlparse); if (unlikely(!gen)) __PYX_ERR(0, 459, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -8951,6 +9011,1615 @@ static PyObject *__pyx_gb_9curlparse_8urlsplit_2generator3(__pyx_CoroutineObject
   struct __pyx_obj_9curlparse___pyx_scope_struct_7_genexpr *__pyx_cur_scope = ((struct __pyx_obj_9curlparse___pyx_scope_struct_7_genexpr *)__pyx_generator->closure);
   PyObject *__pyx_r = NULL;
   PyObject *__pyx_t_1 = NULL;
+  PyObject *(*__pyx_t_2)(PyObject *);
+  PyObject *__pyx_t_3 = NULL;
+  int __pyx_t_4;
+  int __pyx_t_5;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("None", 0);
+  switch (__pyx_generator->resume_label) {
+    case 0: goto __pyx_L3_first_run;
+    default: /* CPython raises the right error here */
+    __Pyx_RefNannyFinishContext();
+    return NULL;
+  }
+  __pyx_L3_first_run:;
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 459, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_rest)) { __Pyx_RaiseClosureNameError("rest"); __PYX_ERR(0, 459, __pyx_L1_error) }
+  __pyx_t_1 = PyObject_GetIter(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_rest); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 459, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 459, __pyx_L1_error)
+  for (;;) {
+    {
+      __pyx_t_3 = __pyx_t_2(__pyx_t_1);
+      if (unlikely(!__pyx_t_3)) {
+        PyObject* exc_type = PyErr_Occurred();
+        if (exc_type) {
+          if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+          else __PYX_ERR(0, 459, __pyx_L1_error)
+        }
+        break;
+      }
+      __Pyx_GOTREF(__pyx_t_3);
+    }
+    __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_c);
+    __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_c, __pyx_t_3);
+    __Pyx_GIVEREF(__pyx_t_3);
+    __pyx_t_3 = 0;
+    __pyx_t_4 = (__Pyx_PySequence_ContainsTF(__pyx_cur_scope->__pyx_v_c, __pyx_kp_b_0123456789, Py_NE)); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 459, __pyx_L1_error)
+    __pyx_t_5 = (__pyx_t_4 != 0);
+    if (__pyx_t_5) {
+      __Pyx_XDECREF(__pyx_r);
+      __Pyx_INCREF(Py_True);
+      __pyx_r = Py_True;
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      goto __pyx_L0;
+    }
+  }
+  /*else*/ {
+    __Pyx_XDECREF(__pyx_r);
+    __Pyx_INCREF(Py_False);
+    __pyx_r = Py_False;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    goto __pyx_L0;
+  }
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_AddTraceback("genexpr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __pyx_generator->resume_label = -1;
+  __Pyx_Coroutine_clear((PyObject*)__pyx_generator);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "curlparse.pyx":419
+ * 
+ * 
+ * def urlsplit(bytes url, bytes scheme=b'', bool allow_fragments=True):             # <<<<<<<<<<<<<<
+ *     """Parse a URL into 5 components:
+ *     <scheme>://<netloc>/<path>?<query>#<fragment>
+ */
+
+static PyObject *__pyx_pf_9curlparse_22urlsplit(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url, PyObject *__pyx_v_scheme, PyBoolObject *__pyx_v_allow_fragments) {
+  struct __pyx_obj_9curlparse___pyx_scope_struct_6_urlsplit *__pyx_cur_scope;
+  PyObject *__pyx_v_key = NULL;
+  PyObject *__pyx_v_cached = NULL;
+  PyObject *__pyx_v_netloc = NULL;
+  PyObject *__pyx_v_query = NULL;
+  PyObject *__pyx_v_fragment = NULL;
+  PyObject *__pyx_v_i = NULL;
+  PyObject *__pyx_v_v = NULL;
+  PyObject *__pyx_v_c = NULL;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  Py_ssize_t __pyx_t_4;
+  PyObject *__pyx_t_5 = NULL;
+  int __pyx_t_6;
+  PyObject *(*__pyx_t_7)(PyObject *);
+  int __pyx_t_8;
+  int __pyx_t_9;
+  PyObject *(*__pyx_t_10)(PyObject *);
+  __Pyx_RefNannySetupContext("urlsplit", 0);
+  __pyx_cur_scope = (struct __pyx_obj_9curlparse___pyx_scope_struct_6_urlsplit *)__pyx_tp_new_9curlparse___pyx_scope_struct_6_urlsplit(__pyx_ptype_9curlparse___pyx_scope_struct_6_urlsplit, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __Pyx_RefNannyFinishContext();
+    return NULL;
+  }
+  __Pyx_GOTREF(__pyx_cur_scope);
+  __Pyx_INCREF(__pyx_v_url);
+  __Pyx_INCREF(__pyx_v_scheme);
+
+  /* "curlparse.pyx":425
+ *     Note that we don't break the components up in smaller bits
+ *     (e.g. netloc is a single string) and we don't expand % escapes."""
+ *     key = url, scheme, allow_fragments, type(url), type(scheme)             # <<<<<<<<<<<<<<
+ *     cached = _parse_cache.get(key, None)
+ *     if cached:
+ */
+  __pyx_t_1 = PyTuple_New(5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 425, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(__pyx_v_url);
+  __Pyx_GIVEREF(__pyx_v_url);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_url);
+  __Pyx_INCREF(__pyx_v_scheme);
+  __Pyx_GIVEREF(__pyx_v_scheme);
+  PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_scheme);
+  __Pyx_INCREF(((PyObject *)__pyx_v_allow_fragments));
+  __Pyx_GIVEREF(((PyObject *)__pyx_v_allow_fragments));
+  PyTuple_SET_ITEM(__pyx_t_1, 2, ((PyObject *)__pyx_v_allow_fragments));
+  __Pyx_INCREF(((PyObject *)Py_TYPE(__pyx_v_url)));
+  __Pyx_GIVEREF(((PyObject *)Py_TYPE(__pyx_v_url)));
+  PyTuple_SET_ITEM(__pyx_t_1, 3, ((PyObject *)Py_TYPE(__pyx_v_url)));
+  __Pyx_INCREF(((PyObject *)Py_TYPE(__pyx_v_scheme)));
+  __Pyx_GIVEREF(((PyObject *)Py_TYPE(__pyx_v_scheme)));
+  PyTuple_SET_ITEM(__pyx_t_1, 4, ((PyObject *)Py_TYPE(__pyx_v_scheme)));
+  __pyx_v_key = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "curlparse.pyx":426
+ *     (e.g. netloc is a single string) and we don't expand % escapes."""
+ *     key = url, scheme, allow_fragments, type(url), type(scheme)
+ *     cached = _parse_cache.get(key, None)             # <<<<<<<<<<<<<<
+ *     if cached:
+ *         return cached
+ */
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_parse_cache); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 426, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_get); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 426, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = NULL;
+  __pyx_t_4 = 0;
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_2)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_2);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+      __pyx_t_4 = 1;
+    }
+  }
+  __pyx_t_5 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 426, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  if (__pyx_t_2) {
+    __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2); __pyx_t_2 = NULL;
+  }
+  __Pyx_INCREF(__pyx_v_key);
+  __Pyx_GIVEREF(__pyx_v_key);
+  PyTuple_SET_ITEM(__pyx_t_5, 0+__pyx_t_4, __pyx_v_key);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_4, Py_None);
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 426, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_v_cached = __pyx_t_1;
+  __pyx_t_1 = 0;
+
+  /* "curlparse.pyx":427
+ *     key = url, scheme, allow_fragments, type(url), type(scheme)
+ *     cached = _parse_cache.get(key, None)
+ *     if cached:             # <<<<<<<<<<<<<<
+ *         return cached
+ *     if len(_parse_cache) >= MAX_CACHE_SIZE: # avoid runaway growth
+ */
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_v_cached); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 427, __pyx_L1_error)
+  if (__pyx_t_6) {
+
+    /* "curlparse.pyx":428
+ *     cached = _parse_cache.get(key, None)
+ *     if cached:
+ *         return cached             # <<<<<<<<<<<<<<
+ *     if len(_parse_cache) >= MAX_CACHE_SIZE: # avoid runaway growth
+ *         clear_cache()
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __Pyx_INCREF(__pyx_v_cached);
+    __pyx_r = __pyx_v_cached;
+    goto __pyx_L0;
+
+    /* "curlparse.pyx":427
+ *     key = url, scheme, allow_fragments, type(url), type(scheme)
+ *     cached = _parse_cache.get(key, None)
+ *     if cached:             # <<<<<<<<<<<<<<
+ *         return cached
+ *     if len(_parse_cache) >= MAX_CACHE_SIZE: # avoid runaway growth
+ */
+  }
+
+  /* "curlparse.pyx":429
+ *     if cached:
+ *         return cached
+ *     if len(_parse_cache) >= MAX_CACHE_SIZE: # avoid runaway growth             # <<<<<<<<<<<<<<
+ *         clear_cache()
+ *     netloc = query = fragment = b''
+ */
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_parse_cache); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 429, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_4 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_4 == -1)) __PYX_ERR(0, 429, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 429, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_MAX_CACHE_SIZE); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 429, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_5 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_GE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 429, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 429, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (__pyx_t_6) {
+
+    /* "curlparse.pyx":430
+ *         return cached
+ *     if len(_parse_cache) >= MAX_CACHE_SIZE: # avoid runaway growth
+ *         clear_cache()             # <<<<<<<<<<<<<<
+ *     netloc = query = fragment = b''
+ *     i = url.find(b':')
+ */
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_clear_cache); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 430, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_1 = NULL;
+    if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
+      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_3);
+      if (likely(__pyx_t_1)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+        __Pyx_INCREF(__pyx_t_1);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_3, function);
+      }
+    }
+    if (__pyx_t_1) {
+      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 430, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    } else {
+      __pyx_t_5 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 430, __pyx_L1_error)
+    }
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+    /* "curlparse.pyx":429
+ *     if cached:
+ *         return cached
+ *     if len(_parse_cache) >= MAX_CACHE_SIZE: # avoid runaway growth             # <<<<<<<<<<<<<<
+ *         clear_cache()
+ *     netloc = query = fragment = b''
+ */
+  }
+
+  /* "curlparse.pyx":431
+ *     if len(_parse_cache) >= MAX_CACHE_SIZE: # avoid runaway growth
+ *         clear_cache()
+ *     netloc = query = fragment = b''             # <<<<<<<<<<<<<<
+ *     i = url.find(b':')
+ *     if i > 0:
+ */
+  __Pyx_INCREF(__pyx_kp_b__5);
+  __pyx_v_netloc = __pyx_kp_b__5;
+  __Pyx_INCREF(__pyx_kp_b__5);
+  __pyx_v_query = __pyx_kp_b__5;
+  __Pyx_INCREF(__pyx_kp_b__5);
+  __pyx_v_fragment = __pyx_kp_b__5;
+
+  /* "curlparse.pyx":432
+ *         clear_cache()
+ *     netloc = query = fragment = b''
+ *     i = url.find(b':')             # <<<<<<<<<<<<<<
+ *     if i > 0:
+ *         if url.startswith(b'http', i):  # optimize the common case
+ */
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_find); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 432, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_tuple__29, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 432, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_v_i = __pyx_t_3;
+  __pyx_t_3 = 0;
+
+  /* "curlparse.pyx":433
+ *     netloc = query = fragment = b''
+ *     i = url.find(b':')
+ *     if i > 0:             # <<<<<<<<<<<<<<
+ *         if url.startswith(b'http', i):  # optimize the common case
+ *             scheme = url[:i].lower()
+ */
+  __pyx_t_3 = PyObject_RichCompare(__pyx_v_i, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 433, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 433, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (__pyx_t_6) {
+
+    /* "curlparse.pyx":434
+ *     i = url.find(b':')
+ *     if i > 0:
+ *         if url.startswith(b'http', i):  # optimize the common case             # <<<<<<<<<<<<<<
+ *             scheme = url[:i].lower()
+ *             url = url[i+1:]
+ */
+    if (unlikely(__pyx_v_url == Py_None)) {
+      PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "startswith");
+      __PYX_ERR(0, 434, __pyx_L1_error)
+    }
+    __pyx_t_4 = __Pyx_PyIndex_AsSsize_t(__pyx_v_i); if (unlikely((__pyx_t_4 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 434, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyBytes_Tailmatch(__pyx_v_url, __pyx_n_b_http, __pyx_t_4, PY_SSIZE_T_MAX, -1); if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 434, __pyx_L1_error)
+    if ((__pyx_t_6 != 0)) {
+
+      /* "curlparse.pyx":435
+ *     if i > 0:
+ *         if url.startswith(b'http', i):  # optimize the common case
+ *             scheme = url[:i].lower()             # <<<<<<<<<<<<<<
+ *             url = url[i+1:]
+ *             if url.startswith(b'//'):
+ */
+      if (unlikely(__pyx_v_url == Py_None)) {
+        PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+        __PYX_ERR(0, 435, __pyx_L1_error)
+      }
+      __pyx_t_4 = __Pyx_PyIndex_AsSsize_t(__pyx_v_i); if (unlikely((__pyx_t_4 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 435, __pyx_L1_error)
+      __pyx_t_5 = PySequence_GetSlice(__pyx_v_url, 0, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 435, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_lower); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 435, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_5 = NULL;
+      if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
+        __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_1);
+        if (likely(__pyx_t_5)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+          __Pyx_INCREF(__pyx_t_5);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_1, function);
+        }
+      }
+      if (__pyx_t_5) {
+        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 435, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      } else {
+        __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 435, __pyx_L1_error)
+      }
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      if (!(likely(PyBytes_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_3)->tp_name), 0))) __PYX_ERR(0, 435, __pyx_L1_error)
+      __Pyx_DECREF_SET(__pyx_v_scheme, ((PyObject*)__pyx_t_3));
+      __pyx_t_3 = 0;
+
+      /* "curlparse.pyx":436
+ *         if url.startswith(b'http', i):  # optimize the common case
+ *             scheme = url[:i].lower()
+ *             url = url[i+1:]             # <<<<<<<<<<<<<<
+ *             if url.startswith(b'//'):
+ *                 netloc, url = _splitnetloc(url, 2, delimiters=b'/?#')
+ */
+      if (unlikely(__pyx_v_url == Py_None)) {
+        PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+        __PYX_ERR(0, 436, __pyx_L1_error)
+      }
+      __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 436, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_4 = __Pyx_PyIndex_AsSsize_t(__pyx_t_3); if (unlikely((__pyx_t_4 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 436, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_3 = PySequence_GetSlice(__pyx_v_url, __pyx_t_4, PY_SSIZE_T_MAX); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 436, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF_SET(__pyx_v_url, ((PyObject*)__pyx_t_3));
+      __pyx_t_3 = 0;
+
+      /* "curlparse.pyx":437
+ *             scheme = url[:i].lower()
+ *             url = url[i+1:]
+ *             if url.startswith(b'//'):             # <<<<<<<<<<<<<<
+ *                 netloc, url = _splitnetloc(url, 2, delimiters=b'/?#')
+ *                 if ((b'[' in netloc and b']' not in netloc) or
+ */
+      __pyx_t_6 = __Pyx_PyBytes_Tailmatch(__pyx_v_url, __pyx_kp_b__30, 0, PY_SSIZE_T_MAX, -1); if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 437, __pyx_L1_error)
+      if ((__pyx_t_6 != 0)) {
+
+        /* "curlparse.pyx":438
+ *             url = url[i+1:]
+ *             if url.startswith(b'//'):
+ *                 netloc, url = _splitnetloc(url, 2, delimiters=b'/?#')             # <<<<<<<<<<<<<<
+ *                 if ((b'[' in netloc and b']' not in netloc) or
+ *                         (b']' in netloc and b'[' not in netloc)):
+ */
+        __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_splitnetloc); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 438, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 438, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_INCREF(__pyx_v_url);
+        __Pyx_GIVEREF(__pyx_v_url);
+        PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_url);
+        __Pyx_INCREF(__pyx_int_2);
+        __Pyx_GIVEREF(__pyx_int_2);
+        PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_int_2);
+        __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 438, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_delimiters, __pyx_kp_b__31) < 0) __PYX_ERR(0, 438, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 438, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
+          PyObject* sequence = __pyx_t_2;
+          #if CYTHON_COMPILING_IN_CPYTHON
+          Py_ssize_t size = Py_SIZE(sequence);
+          #else
+          Py_ssize_t size = PySequence_Size(sequence);
+          #endif
+          if (unlikely(size != 2)) {
+            if (size > 2) __Pyx_RaiseTooManyValuesError(2);
+            else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
+            __PYX_ERR(0, 438, __pyx_L1_error)
+          }
+          #if CYTHON_COMPILING_IN_CPYTHON
+          if (likely(PyTuple_CheckExact(sequence))) {
+            __pyx_t_5 = PyTuple_GET_ITEM(sequence, 0); 
+            __pyx_t_1 = PyTuple_GET_ITEM(sequence, 1); 
+          } else {
+            __pyx_t_5 = PyList_GET_ITEM(sequence, 0); 
+            __pyx_t_1 = PyList_GET_ITEM(sequence, 1); 
+          }
+          __Pyx_INCREF(__pyx_t_5);
+          __Pyx_INCREF(__pyx_t_1);
+          #else
+          __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 438, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_5);
+          __pyx_t_1 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 438, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          #endif
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        } else {
+          Py_ssize_t index = -1;
+          __pyx_t_3 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 438, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext;
+          index = 0; __pyx_t_5 = __pyx_t_7(__pyx_t_3); if (unlikely(!__pyx_t_5)) goto __pyx_L8_unpacking_failed;
+          __Pyx_GOTREF(__pyx_t_5);
+          index = 1; __pyx_t_1 = __pyx_t_7(__pyx_t_3); if (unlikely(!__pyx_t_1)) goto __pyx_L8_unpacking_failed;
+          __Pyx_GOTREF(__pyx_t_1);
+          if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_3), 2) < 0) __PYX_ERR(0, 438, __pyx_L1_error)
+          __pyx_t_7 = NULL;
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          goto __pyx_L9_unpacking_done;
+          __pyx_L8_unpacking_failed:;
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __pyx_t_7 = NULL;
+          if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
+          __PYX_ERR(0, 438, __pyx_L1_error)
+          __pyx_L9_unpacking_done:;
+        }
+        if (!(likely(PyBytes_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 438, __pyx_L1_error)
+        __Pyx_DECREF_SET(__pyx_v_netloc, __pyx_t_5);
+        __pyx_t_5 = 0;
+        __Pyx_DECREF_SET(__pyx_v_url, ((PyObject*)__pyx_t_1));
+        __pyx_t_1 = 0;
+
+        /* "curlparse.pyx":439
+ *             if url.startswith(b'//'):
+ *                 netloc, url = _splitnetloc(url, 2, delimiters=b'/?#')
+ *                 if ((b'[' in netloc and b']' not in netloc) or             # <<<<<<<<<<<<<<
+ *                         (b']' in netloc and b'[' not in netloc)):
+ *                     raise ValueError("Invalid IPv6 URL")
+ */
+        __pyx_t_8 = (__Pyx_PySequence_ContainsTF(__pyx_kp_b__13, __pyx_v_netloc, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 439, __pyx_L1_error)
+        __pyx_t_9 = (__pyx_t_8 != 0);
+        if (!__pyx_t_9) {
+          goto __pyx_L12_next_or;
+        } else {
+        }
+        __pyx_t_9 = (__Pyx_PySequence_ContainsTF(__pyx_kp_b__15, __pyx_v_netloc, Py_NE)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 439, __pyx_L1_error)
+        __pyx_t_8 = (__pyx_t_9 != 0);
+        if (!__pyx_t_8) {
+        } else {
+          __pyx_t_6 = __pyx_t_8;
+          goto __pyx_L11_bool_binop_done;
+        }
+        __pyx_L12_next_or:;
+
+        /* "curlparse.pyx":440
+ *                 netloc, url = _splitnetloc(url, 2, delimiters=b'/?#')
+ *                 if ((b'[' in netloc and b']' not in netloc) or
+ *                         (b']' in netloc and b'[' not in netloc)):             # <<<<<<<<<<<<<<
+ *                     raise ValueError("Invalid IPv6 URL")
+ *             if allow_fragments and b'#' in url:
+ */
+        __pyx_t_8 = (__Pyx_PySequence_ContainsTF(__pyx_kp_b__15, __pyx_v_netloc, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 440, __pyx_L1_error)
+        __pyx_t_9 = (__pyx_t_8 != 0);
+        if (__pyx_t_9) {
+        } else {
+          __pyx_t_6 = __pyx_t_9;
+          goto __pyx_L11_bool_binop_done;
+        }
+        __pyx_t_9 = (__Pyx_PySequence_ContainsTF(__pyx_kp_b__13, __pyx_v_netloc, Py_NE)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 440, __pyx_L1_error)
+        __pyx_t_8 = (__pyx_t_9 != 0);
+        __pyx_t_6 = __pyx_t_8;
+        __pyx_L11_bool_binop_done:;
+
+        /* "curlparse.pyx":439
+ *             if url.startswith(b'//'):
+ *                 netloc, url = _splitnetloc(url, 2, delimiters=b'/?#')
+ *                 if ((b'[' in netloc and b']' not in netloc) or             # <<<<<<<<<<<<<<
+ *                         (b']' in netloc and b'[' not in netloc)):
+ *                     raise ValueError("Invalid IPv6 URL")
+ */
+        if (__pyx_t_6) {
+
+          /* "curlparse.pyx":441
+ *                 if ((b'[' in netloc and b']' not in netloc) or
+ *                         (b']' in netloc and b'[' not in netloc)):
+ *                     raise ValueError("Invalid IPv6 URL")             # <<<<<<<<<<<<<<
+ *             if allow_fragments and b'#' in url:
+ *                 url, fragment = url.split(b'#', 1)
+ */
+          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__32, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 441, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __Pyx_Raise(__pyx_t_2, 0, 0, 0);
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          __PYX_ERR(0, 441, __pyx_L1_error)
+
+          /* "curlparse.pyx":439
+ *             if url.startswith(b'//'):
+ *                 netloc, url = _splitnetloc(url, 2, delimiters=b'/?#')
+ *                 if ((b'[' in netloc and b']' not in netloc) or             # <<<<<<<<<<<<<<
+ *                         (b']' in netloc and b'[' not in netloc)):
+ *                     raise ValueError("Invalid IPv6 URL")
+ */
+        }
+
+        /* "curlparse.pyx":437
+ *             scheme = url[:i].lower()
+ *             url = url[i+1:]
+ *             if url.startswith(b'//'):             # <<<<<<<<<<<<<<
+ *                 netloc, url = _splitnetloc(url, 2, delimiters=b'/?#')
+ *                 if ((b'[' in netloc and b']' not in netloc) or
+ */
+      }
+
+      /* "curlparse.pyx":442
+ *                         (b']' in netloc and b'[' not in netloc)):
+ *                     raise ValueError("Invalid IPv6 URL")
+ *             if allow_fragments and b'#' in url:             # <<<<<<<<<<<<<<
+ *                 url, fragment = url.split(b'#', 1)
+ *             if b'?' in url:
+ */
+      __pyx_t_8 = __Pyx_PyObject_IsTrue(((PyObject *)__pyx_v_allow_fragments)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 442, __pyx_L1_error)
+      if (__pyx_t_8) {
+      } else {
+        __pyx_t_6 = __pyx_t_8;
+        goto __pyx_L16_bool_binop_done;
+      }
+      __pyx_t_8 = (__Pyx_PySequence_ContainsTF(__pyx_kp_b__26, __pyx_v_url, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 442, __pyx_L1_error)
+      __pyx_t_9 = (__pyx_t_8 != 0);
+      __pyx_t_6 = __pyx_t_9;
+      __pyx_L16_bool_binop_done:;
+      if (__pyx_t_6) {
+
+        /* "curlparse.pyx":443
+ *                     raise ValueError("Invalid IPv6 URL")
+ *             if allow_fragments and b'#' in url:
+ *                 url, fragment = url.split(b'#', 1)             # <<<<<<<<<<<<<<
+ *             if b'?' in url:
+ *                 url, query = url.split(b'?', 1)
+ */
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 443, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__33, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 443, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
+          PyObject* sequence = __pyx_t_1;
+          #if CYTHON_COMPILING_IN_CPYTHON
+          Py_ssize_t size = Py_SIZE(sequence);
+          #else
+          Py_ssize_t size = PySequence_Size(sequence);
+          #endif
+          if (unlikely(size != 2)) {
+            if (size > 2) __Pyx_RaiseTooManyValuesError(2);
+            else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
+            __PYX_ERR(0, 443, __pyx_L1_error)
+          }
+          #if CYTHON_COMPILING_IN_CPYTHON
+          if (likely(PyTuple_CheckExact(sequence))) {
+            __pyx_t_2 = PyTuple_GET_ITEM(sequence, 0); 
+            __pyx_t_5 = PyTuple_GET_ITEM(sequence, 1); 
+          } else {
+            __pyx_t_2 = PyList_GET_ITEM(sequence, 0); 
+            __pyx_t_5 = PyList_GET_ITEM(sequence, 1); 
+          }
+          __Pyx_INCREF(__pyx_t_2);
+          __Pyx_INCREF(__pyx_t_5);
+          #else
+          __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 443, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 443, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_5);
+          #endif
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        } else {
+          Py_ssize_t index = -1;
+          __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 443, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+          __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext;
+          index = 0; __pyx_t_2 = __pyx_t_7(__pyx_t_3); if (unlikely(!__pyx_t_2)) goto __pyx_L18_unpacking_failed;
+          __Pyx_GOTREF(__pyx_t_2);
+          index = 1; __pyx_t_5 = __pyx_t_7(__pyx_t_3); if (unlikely(!__pyx_t_5)) goto __pyx_L18_unpacking_failed;
+          __Pyx_GOTREF(__pyx_t_5);
+          if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_3), 2) < 0) __PYX_ERR(0, 443, __pyx_L1_error)
+          __pyx_t_7 = NULL;
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          goto __pyx_L19_unpacking_done;
+          __pyx_L18_unpacking_failed:;
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __pyx_t_7 = NULL;
+          if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
+          __PYX_ERR(0, 443, __pyx_L1_error)
+          __pyx_L19_unpacking_done:;
+        }
+        if (!(likely(PyBytes_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 443, __pyx_L1_error)
+        __Pyx_DECREF_SET(__pyx_v_url, ((PyObject*)__pyx_t_2));
+        __pyx_t_2 = 0;
+        __Pyx_DECREF_SET(__pyx_v_fragment, __pyx_t_5);
+        __pyx_t_5 = 0;
+
+        /* "curlparse.pyx":442
+ *                         (b']' in netloc and b'[' not in netloc)):
+ *                     raise ValueError("Invalid IPv6 URL")
+ *             if allow_fragments and b'#' in url:             # <<<<<<<<<<<<<<
+ *                 url, fragment = url.split(b'#', 1)
+ *             if b'?' in url:
+ */
+      }
+
+      /* "curlparse.pyx":444
+ *             if allow_fragments and b'#' in url:
+ *                 url, fragment = url.split(b'#', 1)
+ *             if b'?' in url:             # <<<<<<<<<<<<<<
+ *                 url, query = url.split(b'?', 1)
+ *             v = SplitResultBytes(scheme, netloc, url, query, fragment)
+ */
+      __pyx_t_6 = (__Pyx_PySequence_ContainsTF(__pyx_kp_b__34, __pyx_v_url, Py_EQ)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 444, __pyx_L1_error)
+      __pyx_t_9 = (__pyx_t_6 != 0);
+      if (__pyx_t_9) {
+
+        /* "curlparse.pyx":445
+ *                 url, fragment = url.split(b'#', 1)
+ *             if b'?' in url:
+ *                 url, query = url.split(b'?', 1)             # <<<<<<<<<<<<<<
+ *             v = SplitResultBytes(scheme, netloc, url, query, fragment)
+ *             _parse_cache[key] = v
+ */
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_split); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 445, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__35, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 445, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        if ((likely(PyTuple_CheckExact(__pyx_t_5))) || (PyList_CheckExact(__pyx_t_5))) {
+          PyObject* sequence = __pyx_t_5;
+          #if CYTHON_COMPILING_IN_CPYTHON
+          Py_ssize_t size = Py_SIZE(sequence);
+          #else
+          Py_ssize_t size = PySequence_Size(sequence);
+          #endif
+          if (unlikely(size != 2)) {
+            if (size > 2) __Pyx_RaiseTooManyValuesError(2);
+            else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
+            __PYX_ERR(0, 445, __pyx_L1_error)
+          }
+          #if CYTHON_COMPILING_IN_CPYTHON
+          if (likely(PyTuple_CheckExact(sequence))) {
+            __pyx_t_1 = PyTuple_GET_ITEM(sequence, 0); 
+            __pyx_t_2 = PyTuple_GET_ITEM(sequence, 1); 
+          } else {
+            __pyx_t_1 = PyList_GET_ITEM(sequence, 0); 
+            __pyx_t_2 = PyList_GET_ITEM(sequence, 1); 
+          }
+          __Pyx_INCREF(__pyx_t_1);
+          __Pyx_INCREF(__pyx_t_2);
+          #else
+          __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 445, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          __pyx_t_2 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 445, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          #endif
+          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        } else {
+          Py_ssize_t index = -1;
+          __pyx_t_3 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 445, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+          __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext;
+          index = 0; __pyx_t_1 = __pyx_t_7(__pyx_t_3); if (unlikely(!__pyx_t_1)) goto __pyx_L21_unpacking_failed;
+          __Pyx_GOTREF(__pyx_t_1);
+          index = 1; __pyx_t_2 = __pyx_t_7(__pyx_t_3); if (unlikely(!__pyx_t_2)) goto __pyx_L21_unpacking_failed;
+          __Pyx_GOTREF(__pyx_t_2);
+          if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_3), 2) < 0) __PYX_ERR(0, 445, __pyx_L1_error)
+          __pyx_t_7 = NULL;
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          goto __pyx_L22_unpacking_done;
+          __pyx_L21_unpacking_failed:;
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __pyx_t_7 = NULL;
+          if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
+          __PYX_ERR(0, 445, __pyx_L1_error)
+          __pyx_L22_unpacking_done:;
+        }
+        if (!(likely(PyBytes_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 445, __pyx_L1_error)
+        __Pyx_DECREF_SET(__pyx_v_url, ((PyObject*)__pyx_t_1));
+        __pyx_t_1 = 0;
+        __Pyx_DECREF_SET(__pyx_v_query, __pyx_t_2);
+        __pyx_t_2 = 0;
+
+        /* "curlparse.pyx":444
+ *             if allow_fragments and b'#' in url:
+ *                 url, fragment = url.split(b'#', 1)
+ *             if b'?' in url:             # <<<<<<<<<<<<<<
+ *                 url, query = url.split(b'?', 1)
+ *             v = SplitResultBytes(scheme, netloc, url, query, fragment)
+ */
+      }
+
+      /* "curlparse.pyx":446
+ *             if b'?' in url:
+ *                 url, query = url.split(b'?', 1)
+ *             v = SplitResultBytes(scheme, netloc, url, query, fragment)             # <<<<<<<<<<<<<<
+ *             _parse_cache[key] = v
+ *             return v
+ */
+      __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_SplitResultBytes); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 446, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_1 = NULL;
+      __pyx_t_4 = 0;
+      if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_2))) {
+        __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_2);
+        if (likely(__pyx_t_1)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+          __Pyx_INCREF(__pyx_t_1);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_2, function);
+          __pyx_t_4 = 1;
+        }
+      }
+      __pyx_t_3 = PyTuple_New(5+__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 446, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      if (__pyx_t_1) {
+        __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1); __pyx_t_1 = NULL;
+      }
+      __Pyx_INCREF(__pyx_v_scheme);
+      __Pyx_GIVEREF(__pyx_v_scheme);
+      PyTuple_SET_ITEM(__pyx_t_3, 0+__pyx_t_4, __pyx_v_scheme);
+      __Pyx_INCREF(__pyx_v_netloc);
+      __Pyx_GIVEREF(__pyx_v_netloc);
+      PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_4, __pyx_v_netloc);
+      __Pyx_INCREF(__pyx_v_url);
+      __Pyx_GIVEREF(__pyx_v_url);
+      PyTuple_SET_ITEM(__pyx_t_3, 2+__pyx_t_4, __pyx_v_url);
+      __Pyx_INCREF(__pyx_v_query);
+      __Pyx_GIVEREF(__pyx_v_query);
+      PyTuple_SET_ITEM(__pyx_t_3, 3+__pyx_t_4, __pyx_v_query);
+      __Pyx_INCREF(__pyx_v_fragment);
+      __Pyx_GIVEREF(__pyx_v_fragment);
+      PyTuple_SET_ITEM(__pyx_t_3, 4+__pyx_t_4, __pyx_v_fragment);
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 446, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_v_v = __pyx_t_5;
+      __pyx_t_5 = 0;
+
+      /* "curlparse.pyx":447
+ *                 url, query = url.split(b'?', 1)
+ *             v = SplitResultBytes(scheme, netloc, url, query, fragment)
+ *             _parse_cache[key] = v             # <<<<<<<<<<<<<<
+ *             return v
+ *         for c in url[:i]:
+ */
+      __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_parse_cache); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 447, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      if (unlikely(PyObject_SetItem(__pyx_t_5, __pyx_v_key, __pyx_v_v) < 0)) __PYX_ERR(0, 447, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+      /* "curlparse.pyx":448
+ *             v = SplitResultBytes(scheme, netloc, url, query, fragment)
+ *             _parse_cache[key] = v
+ *             return v             # <<<<<<<<<<<<<<
+ *         for c in url[:i]:
+ *             if c not in (b'abcdefghijklmnopqrstuvwxyz'
+ */
+      __Pyx_XDECREF(__pyx_r);
+      __Pyx_INCREF(__pyx_v_v);
+      __pyx_r = __pyx_v_v;
+      goto __pyx_L0;
+
+      /* "curlparse.pyx":434
+ *     i = url.find(b':')
+ *     if i > 0:
+ *         if url.startswith(b'http', i):  # optimize the common case             # <<<<<<<<<<<<<<
+ *             scheme = url[:i].lower()
+ *             url = url[i+1:]
+ */
+    }
+
+    /* "curlparse.pyx":449
+ *             _parse_cache[key] = v
+ *             return v
+ *         for c in url[:i]:             # <<<<<<<<<<<<<<
+ *             if c not in (b'abcdefghijklmnopqrstuvwxyz'
+ *                          b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+ */
+    if (unlikely(__pyx_v_url == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+      __PYX_ERR(0, 449, __pyx_L1_error)
+    }
+    __pyx_t_4 = __Pyx_PyIndex_AsSsize_t(__pyx_v_i); if (unlikely((__pyx_t_4 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 449, __pyx_L1_error)
+    __pyx_t_5 = PySequence_GetSlice(__pyx_v_url, 0, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 449, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_2 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 449, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_10 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 449, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    for (;;) {
+      {
+        __pyx_t_5 = __pyx_t_10(__pyx_t_2);
+        if (unlikely(!__pyx_t_5)) {
+          PyObject* exc_type = PyErr_Occurred();
+          if (exc_type) {
+            if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+            else __PYX_ERR(0, 449, __pyx_L1_error)
+          }
+          break;
+        }
+        __Pyx_GOTREF(__pyx_t_5);
+      }
+      __Pyx_XDECREF_SET(__pyx_v_c, __pyx_t_5);
+      __pyx_t_5 = 0;
+
+      /* "curlparse.pyx":450
+ *             return v
+ *         for c in url[:i]:
+ *             if c not in (b'abcdefghijklmnopqrstuvwxyz'             # <<<<<<<<<<<<<<
+ *                          b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+ *                          b'0123456789'
+ */
+      __pyx_t_9 = (__Pyx_PySequence_ContainsTF(__pyx_v_c, __pyx_kp_b_abcdefghijklmnopqrstuvwxyzABCDEF, Py_NE)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 450, __pyx_L1_error)
+      __pyx_t_6 = (__pyx_t_9 != 0);
+      if (__pyx_t_6) {
+
+        /* "curlparse.pyx":454
+ *                          b'0123456789'
+ *                          b'+-.'):
+ *                 break             # <<<<<<<<<<<<<<
+ *         else:
+ *             # make sure "url" is not actually a port number (in which case
+ */
+        goto __pyx_L24_break;
+
+        /* "curlparse.pyx":450
+ *             return v
+ *         for c in url[:i]:
+ *             if c not in (b'abcdefghijklmnopqrstuvwxyz'             # <<<<<<<<<<<<<<
+ *                          b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+ *                          b'0123456789'
+ */
+      }
+
+      /* "curlparse.pyx":449
+ *             _parse_cache[key] = v
+ *             return v
+ *         for c in url[:i]:             # <<<<<<<<<<<<<<
+ *             if c not in (b'abcdefghijklmnopqrstuvwxyz'
+ *                          b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+ */
+    }
+    /*else*/ {
+
+      /* "curlparse.pyx":458
+ *             # make sure "url" is not actually a port number (in which case
+ *             # "scheme" is really part of the path)
+ *             rest = url[i+1:]             # <<<<<<<<<<<<<<
+ *             if not rest or any(c not in b'0123456789' for c in rest):
+ *                 # not a port number
+ */
+      if (unlikely(__pyx_v_url == Py_None)) {
+        PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+        __PYX_ERR(0, 458, __pyx_L1_error)
+      }
+      __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 458, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_4 = __Pyx_PyIndex_AsSsize_t(__pyx_t_5); if (unlikely((__pyx_t_4 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 458, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_5 = PySequence_GetSlice(__pyx_v_url, __pyx_t_4, PY_SSIZE_T_MAX); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 458, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_GIVEREF(__pyx_t_5);
+      __pyx_cur_scope->__pyx_v_rest = ((PyObject*)__pyx_t_5);
+      __pyx_t_5 = 0;
+
+      /* "curlparse.pyx":459
+ *             # "scheme" is really part of the path)
+ *             rest = url[i+1:]
+ *             if not rest or any(c not in b'0123456789' for c in rest):             # <<<<<<<<<<<<<<
+ *                 # not a port number
+ *                 scheme, url = url[:i].lower(), rest
+ */
+      __pyx_t_9 = (__pyx_cur_scope->__pyx_v_rest != Py_None) && (PyBytes_GET_SIZE(__pyx_cur_scope->__pyx_v_rest) != 0);
+      __pyx_t_8 = ((!__pyx_t_9) != 0);
+      if (!__pyx_t_8) {
+      } else {
+        __pyx_t_6 = __pyx_t_8;
+        goto __pyx_L28_bool_binop_done;
+      }
+      __pyx_t_5 = __pyx_pf_9curlparse_8urlsplit_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 459, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_3 = __Pyx_Generator_Next(__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 459, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 459, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_6 = __pyx_t_8;
+      __pyx_L28_bool_binop_done:;
+      if (__pyx_t_6) {
+
+        /* "curlparse.pyx":461
+ *             if not rest or any(c not in b'0123456789' for c in rest):
+ *                 # not a port number
+ *                 scheme, url = url[:i].lower(), rest             # <<<<<<<<<<<<<<
+ * 
+ *     if url.startswith(b'//'):
+ */
+        if (unlikely(__pyx_v_url == Py_None)) {
+          PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+          __PYX_ERR(0, 461, __pyx_L1_error)
+        }
+        __pyx_t_4 = __Pyx_PyIndex_AsSsize_t(__pyx_v_i); if (unlikely((__pyx_t_4 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 461, __pyx_L1_error)
+        __pyx_t_5 = PySequence_GetSlice(__pyx_v_url, 0, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 461, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_lower); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 461, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __pyx_t_5 = NULL;
+        if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
+          __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_1);
+          if (likely(__pyx_t_5)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+            __Pyx_INCREF(__pyx_t_5);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_1, function);
+          }
+        }
+        if (__pyx_t_5) {
+          __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 461, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        } else {
+          __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 461, __pyx_L1_error)
+        }
+        __Pyx_GOTREF(__pyx_t_3);
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        if (!(likely(PyBytes_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_3)->tp_name), 0))) __PYX_ERR(0, 461, __pyx_L1_error)
+        __pyx_t_1 = __pyx_cur_scope->__pyx_v_rest;
+        __Pyx_INCREF(__pyx_t_1);
+        __Pyx_DECREF_SET(__pyx_v_scheme, ((PyObject*)__pyx_t_3));
+        __pyx_t_3 = 0;
+        __Pyx_DECREF_SET(__pyx_v_url, ((PyObject*)__pyx_t_1));
+        __pyx_t_1 = 0;
+
+        /* "curlparse.pyx":459
+ *             # "scheme" is really part of the path)
+ *             rest = url[i+1:]
+ *             if not rest or any(c not in b'0123456789' for c in rest):             # <<<<<<<<<<<<<<
+ *                 # not a port number
+ *                 scheme, url = url[:i].lower(), rest
+ */
+      }
+    }
+
+    /* "curlparse.pyx":449
+ *             _parse_cache[key] = v
+ *             return v
+ *         for c in url[:i]:             # <<<<<<<<<<<<<<
+ *             if c not in (b'abcdefghijklmnopqrstuvwxyz'
+ *                          b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+ */
+    __pyx_L24_break:;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+    /* "curlparse.pyx":433
+ *     netloc = query = fragment = b''
+ *     i = url.find(b':')
+ *     if i > 0:             # <<<<<<<<<<<<<<
+ *         if url.startswith(b'http', i):  # optimize the common case
+ *             scheme = url[:i].lower()
+ */
+  }
+
+  /* "curlparse.pyx":463
+ *                 scheme, url = url[:i].lower(), rest
+ * 
+ *     if url.startswith(b'//'):             # <<<<<<<<<<<<<<
+ *         netloc, url = _splitnetloc(url, 2, delimiters=b'/?#')
+ *         if ((b'[' in netloc and b']' not in netloc) or
+ */
+  if (unlikely(__pyx_v_url == Py_None)) {
+    PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "startswith");
+    __PYX_ERR(0, 463, __pyx_L1_error)
+  }
+  __pyx_t_6 = __Pyx_PyBytes_Tailmatch(__pyx_v_url, __pyx_kp_b__30, 0, PY_SSIZE_T_MAX, -1); if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 463, __pyx_L1_error)
+  if ((__pyx_t_6 != 0)) {
+
+    /* "curlparse.pyx":464
+ * 
+ *     if url.startswith(b'//'):
+ *         netloc, url = _splitnetloc(url, 2, delimiters=b'/?#')             # <<<<<<<<<<<<<<
+ *         if ((b'[' in netloc and b']' not in netloc) or
+ *                 (b']' in netloc and b'[' not in netloc)):
+ */
+    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_splitnetloc); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 464, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 464, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_INCREF(__pyx_v_url);
+    __Pyx_GIVEREF(__pyx_v_url);
+    PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_url);
+    __Pyx_INCREF(__pyx_int_2);
+    __Pyx_GIVEREF(__pyx_int_2);
+    PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_int_2);
+    __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 464, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_delimiters, __pyx_kp_b__31) < 0) __PYX_ERR(0, 464, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 464, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    if ((likely(PyTuple_CheckExact(__pyx_t_5))) || (PyList_CheckExact(__pyx_t_5))) {
+      PyObject* sequence = __pyx_t_5;
+      #if CYTHON_COMPILING_IN_CPYTHON
+      Py_ssize_t size = Py_SIZE(sequence);
+      #else
+      Py_ssize_t size = PySequence_Size(sequence);
+      #endif
+      if (unlikely(size != 2)) {
+        if (size > 2) __Pyx_RaiseTooManyValuesError(2);
+        else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
+        __PYX_ERR(0, 464, __pyx_L1_error)
+      }
+      #if CYTHON_COMPILING_IN_CPYTHON
+      if (likely(PyTuple_CheckExact(sequence))) {
+        __pyx_t_3 = PyTuple_GET_ITEM(sequence, 0); 
+        __pyx_t_1 = PyTuple_GET_ITEM(sequence, 1); 
+      } else {
+        __pyx_t_3 = PyList_GET_ITEM(sequence, 0); 
+        __pyx_t_1 = PyList_GET_ITEM(sequence, 1); 
+      }
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_1);
+      #else
+      __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 464, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_1 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 464, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      #endif
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    } else {
+      Py_ssize_t index = -1;
+      __pyx_t_2 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 464, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_7 = Py_TYPE(__pyx_t_2)->tp_iternext;
+      index = 0; __pyx_t_3 = __pyx_t_7(__pyx_t_2); if (unlikely(!__pyx_t_3)) goto __pyx_L31_unpacking_failed;
+      __Pyx_GOTREF(__pyx_t_3);
+      index = 1; __pyx_t_1 = __pyx_t_7(__pyx_t_2); if (unlikely(!__pyx_t_1)) goto __pyx_L31_unpacking_failed;
+      __Pyx_GOTREF(__pyx_t_1);
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_2), 2) < 0) __PYX_ERR(0, 464, __pyx_L1_error)
+      __pyx_t_7 = NULL;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      goto __pyx_L32_unpacking_done;
+      __pyx_L31_unpacking_failed:;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_7 = NULL;
+      if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
+      __PYX_ERR(0, 464, __pyx_L1_error)
+      __pyx_L32_unpacking_done:;
+    }
+    if (!(likely(PyBytes_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 464, __pyx_L1_error)
+    __Pyx_DECREF_SET(__pyx_v_netloc, __pyx_t_3);
+    __pyx_t_3 = 0;
+    __Pyx_DECREF_SET(__pyx_v_url, ((PyObject*)__pyx_t_1));
+    __pyx_t_1 = 0;
+
+    /* "curlparse.pyx":465
+ *     if url.startswith(b'//'):
+ *         netloc, url = _splitnetloc(url, 2, delimiters=b'/?#')
+ *         if ((b'[' in netloc and b']' not in netloc) or             # <<<<<<<<<<<<<<
+ *                 (b']' in netloc and b'[' not in netloc)):
+ *             raise ValueError("Invalid IPv6 URL")
+ */
+    __pyx_t_8 = (__Pyx_PySequence_ContainsTF(__pyx_kp_b__13, __pyx_v_netloc, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 465, __pyx_L1_error)
+    __pyx_t_9 = (__pyx_t_8 != 0);
+    if (!__pyx_t_9) {
+      goto __pyx_L35_next_or;
+    } else {
+    }
+    __pyx_t_9 = (__Pyx_PySequence_ContainsTF(__pyx_kp_b__15, __pyx_v_netloc, Py_NE)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 465, __pyx_L1_error)
+    __pyx_t_8 = (__pyx_t_9 != 0);
+    if (!__pyx_t_8) {
+    } else {
+      __pyx_t_6 = __pyx_t_8;
+      goto __pyx_L34_bool_binop_done;
+    }
+    __pyx_L35_next_or:;
+
+    /* "curlparse.pyx":466
+ *         netloc, url = _splitnetloc(url, 2, delimiters=b'/?#')
+ *         if ((b'[' in netloc and b']' not in netloc) or
+ *                 (b']' in netloc and b'[' not in netloc)):             # <<<<<<<<<<<<<<
+ *             raise ValueError("Invalid IPv6 URL")
+ *     if allow_fragments and b'#' in url:
+ */
+    __pyx_t_8 = (__Pyx_PySequence_ContainsTF(__pyx_kp_b__15, __pyx_v_netloc, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 466, __pyx_L1_error)
+    __pyx_t_9 = (__pyx_t_8 != 0);
+    if (__pyx_t_9) {
+    } else {
+      __pyx_t_6 = __pyx_t_9;
+      goto __pyx_L34_bool_binop_done;
+    }
+    __pyx_t_9 = (__Pyx_PySequence_ContainsTF(__pyx_kp_b__13, __pyx_v_netloc, Py_NE)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 466, __pyx_L1_error)
+    __pyx_t_8 = (__pyx_t_9 != 0);
+    __pyx_t_6 = __pyx_t_8;
+    __pyx_L34_bool_binop_done:;
+
+    /* "curlparse.pyx":465
+ *     if url.startswith(b'//'):
+ *         netloc, url = _splitnetloc(url, 2, delimiters=b'/?#')
+ *         if ((b'[' in netloc and b']' not in netloc) or             # <<<<<<<<<<<<<<
+ *                 (b']' in netloc and b'[' not in netloc)):
+ *             raise ValueError("Invalid IPv6 URL")
+ */
+    if (__pyx_t_6) {
+
+      /* "curlparse.pyx":467
+ *         if ((b'[' in netloc and b']' not in netloc) or
+ *                 (b']' in netloc and b'[' not in netloc)):
+ *             raise ValueError("Invalid IPv6 URL")             # <<<<<<<<<<<<<<
+ *     if allow_fragments and b'#' in url:
+ *         url, fragment = url.split(b'#', 1)
+ */
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__36, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 467, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_Raise(__pyx_t_5, 0, 0, 0);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __PYX_ERR(0, 467, __pyx_L1_error)
+
+      /* "curlparse.pyx":465
+ *     if url.startswith(b'//'):
+ *         netloc, url = _splitnetloc(url, 2, delimiters=b'/?#')
+ *         if ((b'[' in netloc and b']' not in netloc) or             # <<<<<<<<<<<<<<
+ *                 (b']' in netloc and b'[' not in netloc)):
+ *             raise ValueError("Invalid IPv6 URL")
+ */
+    }
+
+    /* "curlparse.pyx":463
+ *                 scheme, url = url[:i].lower(), rest
+ * 
+ *     if url.startswith(b'//'):             # <<<<<<<<<<<<<<
+ *         netloc, url = _splitnetloc(url, 2, delimiters=b'/?#')
+ *         if ((b'[' in netloc and b']' not in netloc) or
+ */
+  }
+
+  /* "curlparse.pyx":468
+ *                 (b']' in netloc and b'[' not in netloc)):
+ *             raise ValueError("Invalid IPv6 URL")
+ *     if allow_fragments and b'#' in url:             # <<<<<<<<<<<<<<
+ *         url, fragment = url.split(b'#', 1)
+ *     if b'?' in url:
+ */
+  __pyx_t_8 = __Pyx_PyObject_IsTrue(((PyObject *)__pyx_v_allow_fragments)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 468, __pyx_L1_error)
+  if (__pyx_t_8) {
+  } else {
+    __pyx_t_6 = __pyx_t_8;
+    goto __pyx_L39_bool_binop_done;
+  }
+  __pyx_t_8 = (__Pyx_PySequence_ContainsTF(__pyx_kp_b__26, __pyx_v_url, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 468, __pyx_L1_error)
+  __pyx_t_9 = (__pyx_t_8 != 0);
+  __pyx_t_6 = __pyx_t_9;
+  __pyx_L39_bool_binop_done:;
+  if (__pyx_t_6) {
+
+    /* "curlparse.pyx":469
+ *             raise ValueError("Invalid IPv6 URL")
+ *     if allow_fragments and b'#' in url:
+ *         url, fragment = url.split(b'#', 1)             # <<<<<<<<<<<<<<
+ *     if b'?' in url:
+ *         url, query = url.split(b'?', 1)
+ */
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_split); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 469, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_tuple__37, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 469, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
+      PyObject* sequence = __pyx_t_1;
+      #if CYTHON_COMPILING_IN_CPYTHON
+      Py_ssize_t size = Py_SIZE(sequence);
+      #else
+      Py_ssize_t size = PySequence_Size(sequence);
+      #endif
+      if (unlikely(size != 2)) {
+        if (size > 2) __Pyx_RaiseTooManyValuesError(2);
+        else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
+        __PYX_ERR(0, 469, __pyx_L1_error)
+      }
+      #if CYTHON_COMPILING_IN_CPYTHON
+      if (likely(PyTuple_CheckExact(sequence))) {
+        __pyx_t_5 = PyTuple_GET_ITEM(sequence, 0); 
+        __pyx_t_3 = PyTuple_GET_ITEM(sequence, 1); 
+      } else {
+        __pyx_t_5 = PyList_GET_ITEM(sequence, 0); 
+        __pyx_t_3 = PyList_GET_ITEM(sequence, 1); 
+      }
+      __Pyx_INCREF(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_3);
+      #else
+      __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 469, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 469, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      #endif
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    } else {
+      Py_ssize_t index = -1;
+      __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 469, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_7 = Py_TYPE(__pyx_t_2)->tp_iternext;
+      index = 0; __pyx_t_5 = __pyx_t_7(__pyx_t_2); if (unlikely(!__pyx_t_5)) goto __pyx_L41_unpacking_failed;
+      __Pyx_GOTREF(__pyx_t_5);
+      index = 1; __pyx_t_3 = __pyx_t_7(__pyx_t_2); if (unlikely(!__pyx_t_3)) goto __pyx_L41_unpacking_failed;
+      __Pyx_GOTREF(__pyx_t_3);
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_2), 2) < 0) __PYX_ERR(0, 469, __pyx_L1_error)
+      __pyx_t_7 = NULL;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      goto __pyx_L42_unpacking_done;
+      __pyx_L41_unpacking_failed:;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_7 = NULL;
+      if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
+      __PYX_ERR(0, 469, __pyx_L1_error)
+      __pyx_L42_unpacking_done:;
+    }
+    if (!(likely(PyBytes_CheckExact(__pyx_t_5))||((__pyx_t_5) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_5)->tp_name), 0))) __PYX_ERR(0, 469, __pyx_L1_error)
+    __Pyx_DECREF_SET(__pyx_v_url, ((PyObject*)__pyx_t_5));
+    __pyx_t_5 = 0;
+    __Pyx_DECREF_SET(__pyx_v_fragment, __pyx_t_3);
+    __pyx_t_3 = 0;
+
+    /* "curlparse.pyx":468
+ *                 (b']' in netloc and b'[' not in netloc)):
+ *             raise ValueError("Invalid IPv6 URL")
+ *     if allow_fragments and b'#' in url:             # <<<<<<<<<<<<<<
+ *         url, fragment = url.split(b'#', 1)
+ *     if b'?' in url:
+ */
+  }
+
+  /* "curlparse.pyx":470
+ *     if allow_fragments and b'#' in url:
+ *         url, fragment = url.split(b'#', 1)
+ *     if b'?' in url:             # <<<<<<<<<<<<<<
+ *         url, query = url.split(b'?', 1)
+ *     v = SplitResultBytes(scheme, netloc, url, query, fragment)
+ */
+  __pyx_t_6 = (__Pyx_PySequence_ContainsTF(__pyx_kp_b__34, __pyx_v_url, Py_EQ)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 470, __pyx_L1_error)
+  __pyx_t_9 = (__pyx_t_6 != 0);
+  if (__pyx_t_9) {
+
+    /* "curlparse.pyx":471
+ *         url, fragment = url.split(b'#', 1)
+ *     if b'?' in url:
+ *         url, query = url.split(b'?', 1)             # <<<<<<<<<<<<<<
+ *     v = SplitResultBytes(scheme, netloc, url, query, fragment)
+ *     _parse_cache[key] = v
+ */
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_split); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 471, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__38, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 471, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    if ((likely(PyTuple_CheckExact(__pyx_t_3))) || (PyList_CheckExact(__pyx_t_3))) {
+      PyObject* sequence = __pyx_t_3;
+      #if CYTHON_COMPILING_IN_CPYTHON
+      Py_ssize_t size = Py_SIZE(sequence);
+      #else
+      Py_ssize_t size = PySequence_Size(sequence);
+      #endif
+      if (unlikely(size != 2)) {
+        if (size > 2) __Pyx_RaiseTooManyValuesError(2);
+        else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
+        __PYX_ERR(0, 471, __pyx_L1_error)
+      }
+      #if CYTHON_COMPILING_IN_CPYTHON
+      if (likely(PyTuple_CheckExact(sequence))) {
+        __pyx_t_1 = PyTuple_GET_ITEM(sequence, 0); 
+        __pyx_t_5 = PyTuple_GET_ITEM(sequence, 1); 
+      } else {
+        __pyx_t_1 = PyList_GET_ITEM(sequence, 0); 
+        __pyx_t_5 = PyList_GET_ITEM(sequence, 1); 
+      }
+      __Pyx_INCREF(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_5);
+      #else
+      __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 471, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 471, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      #endif
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    } else {
+      Py_ssize_t index = -1;
+      __pyx_t_2 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 471, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_7 = Py_TYPE(__pyx_t_2)->tp_iternext;
+      index = 0; __pyx_t_1 = __pyx_t_7(__pyx_t_2); if (unlikely(!__pyx_t_1)) goto __pyx_L44_unpacking_failed;
+      __Pyx_GOTREF(__pyx_t_1);
+      index = 1; __pyx_t_5 = __pyx_t_7(__pyx_t_2); if (unlikely(!__pyx_t_5)) goto __pyx_L44_unpacking_failed;
+      __Pyx_GOTREF(__pyx_t_5);
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_2), 2) < 0) __PYX_ERR(0, 471, __pyx_L1_error)
+      __pyx_t_7 = NULL;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      goto __pyx_L45_unpacking_done;
+      __pyx_L44_unpacking_failed:;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_7 = NULL;
+      if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
+      __PYX_ERR(0, 471, __pyx_L1_error)
+      __pyx_L45_unpacking_done:;
+    }
+    if (!(likely(PyBytes_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 471, __pyx_L1_error)
+    __Pyx_DECREF_SET(__pyx_v_url, ((PyObject*)__pyx_t_1));
+    __pyx_t_1 = 0;
+    __Pyx_DECREF_SET(__pyx_v_query, __pyx_t_5);
+    __pyx_t_5 = 0;
+
+    /* "curlparse.pyx":470
+ *     if allow_fragments and b'#' in url:
+ *         url, fragment = url.split(b'#', 1)
+ *     if b'?' in url:             # <<<<<<<<<<<<<<
+ *         url, query = url.split(b'?', 1)
+ *     v = SplitResultBytes(scheme, netloc, url, query, fragment)
+ */
+  }
+
+  /* "curlparse.pyx":472
+ *     if b'?' in url:
+ *         url, query = url.split(b'?', 1)
+ *     v = SplitResultBytes(scheme, netloc, url, query, fragment)             # <<<<<<<<<<<<<<
+ *     _parse_cache[key] = v
+ *     return v
+ */
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_SplitResultBytes); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 472, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_1 = NULL;
+  __pyx_t_4 = 0;
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_5))) {
+    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_5);
+    if (likely(__pyx_t_1)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_1);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_5, function);
+      __pyx_t_4 = 1;
+    }
+  }
+  __pyx_t_2 = PyTuple_New(5+__pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 472, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (__pyx_t_1) {
+    __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1); __pyx_t_1 = NULL;
+  }
+  __Pyx_INCREF(__pyx_v_scheme);
+  __Pyx_GIVEREF(__pyx_v_scheme);
+  PyTuple_SET_ITEM(__pyx_t_2, 0+__pyx_t_4, __pyx_v_scheme);
+  __Pyx_INCREF(__pyx_v_netloc);
+  __Pyx_GIVEREF(__pyx_v_netloc);
+  PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_4, __pyx_v_netloc);
+  __Pyx_INCREF(__pyx_v_url);
+  __Pyx_GIVEREF(__pyx_v_url);
+  PyTuple_SET_ITEM(__pyx_t_2, 2+__pyx_t_4, __pyx_v_url);
+  __Pyx_INCREF(__pyx_v_query);
+  __Pyx_GIVEREF(__pyx_v_query);
+  PyTuple_SET_ITEM(__pyx_t_2, 3+__pyx_t_4, __pyx_v_query);
+  __Pyx_INCREF(__pyx_v_fragment);
+  __Pyx_GIVEREF(__pyx_v_fragment);
+  PyTuple_SET_ITEM(__pyx_t_2, 4+__pyx_t_4, __pyx_v_fragment);
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 472, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_v_v = __pyx_t_3;
+  __pyx_t_3 = 0;
+
+  /* "curlparse.pyx":473
+ *         url, query = url.split(b'?', 1)
+ *     v = SplitResultBytes(scheme, netloc, url, query, fragment)
+ *     _parse_cache[key] = v             # <<<<<<<<<<<<<<
+ *     return v
+ * 
+ */
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_parse_cache); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 473, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_v_key, __pyx_v_v) < 0)) __PYX_ERR(0, 473, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "curlparse.pyx":474
+ *     v = SplitResultBytes(scheme, netloc, url, query, fragment)
+ *     _parse_cache[key] = v
+ *     return v             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_v);
+  __pyx_r = __pyx_v_v;
+  goto __pyx_L0;
+
+  /* "curlparse.pyx":419
+ * 
+ * 
+ * def urlsplit(bytes url, bytes scheme=b'', bool allow_fragments=True):             # <<<<<<<<<<<<<<
+ *     """Parse a URL into 5 components:
+ *     <scheme>://<netloc>/<path>?<query>#<fragment>
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("curlparse.urlsplit", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_key);
+  __Pyx_XDECREF(__pyx_v_cached);
+  __Pyx_XDECREF(__pyx_v_netloc);
+  __Pyx_XDECREF(__pyx_v_query);
+  __Pyx_XDECREF(__pyx_v_fragment);
+  __Pyx_XDECREF(__pyx_v_i);
+  __Pyx_XDECREF(__pyx_v_v);
+  __Pyx_XDECREF(__pyx_v_c);
+  __Pyx_XDECREF(__pyx_v_url);
+  __Pyx_XDECREF(__pyx_v_scheme);
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "curlparse.pyx":477
+ * 
+ * 
+ * def urlsplit(str url, str scheme='', bool allow_fragments=True):             # <<<<<<<<<<<<<<
+ *     """Parse a URL into 5 components:
+ *     <scheme>://<netloc>/<path>?<query>#<fragment>
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_9curlparse_25urlsplit(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_9curlparse_24urlsplit[] = "Parse a URL into 5 components:\n    <scheme>://<netloc>/<path>?<query>#<fragment>\n    Return a 5-tuple: (scheme, netloc, path, query, fragment).\n    Note that we don't break the components up in smaller bits\n    (e.g. netloc is a single string) and we don't expand % escapes.";
+static PyMethodDef __pyx_mdef_9curlparse_25urlsplit = {"urlsplit", (PyCFunction)__pyx_pw_9curlparse_25urlsplit, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_24urlsplit};
+static PyObject *__pyx_pw_9curlparse_25urlsplit(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_url = 0;
+  PyObject *__pyx_v_scheme = 0;
+  PyBoolObject *__pyx_v_allow_fragments = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("urlsplit (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_url,&__pyx_n_s_scheme,&__pyx_n_s_allow_fragments,0};
+    PyObject* values[3] = {0,0,0};
+    values[1] = ((PyObject*)__pyx_kp_s__5);
+    values[2] = (PyObject *)((PyBoolObject *)Py_True);
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_url)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        case  1:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_scheme);
+          if (value) { values[1] = value; kw_args--; }
+        }
+        case  2:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_allow_fragments);
+          if (value) { values[2] = value; kw_args--; }
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "urlsplit") < 0)) __PYX_ERR(0, 477, __pyx_L3_error)
+      }
+    } else {
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+    }
+    __pyx_v_url = ((PyObject*)values[0]);
+    __pyx_v_scheme = ((PyObject*)values[1]);
+    __pyx_v_allow_fragments = ((PyBoolObject *)values[2]);
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("urlsplit", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 477, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("curlparse.urlsplit", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_url), (&PyString_Type), 1, "url", 1))) __PYX_ERR(0, 477, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_scheme), (&PyString_Type), 1, "scheme", 1))) __PYX_ERR(0, 477, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_allow_fragments), __pyx_ptype_7cpython_4bool_bool, 1, "allow_fragments", 0))) __PYX_ERR(0, 477, __pyx_L1_error)
+  __pyx_r = __pyx_pf_9curlparse_24urlsplit(__pyx_self, __pyx_v_url, __pyx_v_scheme, __pyx_v_allow_fragments);
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+static PyObject *__pyx_gb_9curlparse_8urlsplit_5generator4(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
+
+/* "curlparse.pyx":517
+ *             # "scheme" is really part of the path)
+ *             rest = url[i+1:]
+ *             if not rest or any(c not in '0123456789' for c in rest):             # <<<<<<<<<<<<<<
+ *                 # not a port number
+ *                 scheme, url = url[:i].lower(), rest
+ */
+
+static PyObject *__pyx_pf_9curlparse_8urlsplit_3genexpr(PyObject *__pyx_self) {
+  struct __pyx_obj_9curlparse___pyx_scope_struct_9_genexpr *__pyx_cur_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("genexpr", 0);
+  __pyx_cur_scope = (struct __pyx_obj_9curlparse___pyx_scope_struct_9_genexpr *)__pyx_tp_new_9curlparse___pyx_scope_struct_9_genexpr(__pyx_ptype_9curlparse___pyx_scope_struct_9_genexpr, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __Pyx_RefNannyFinishContext();
+    return NULL;
+  }
+  __Pyx_GOTREF(__pyx_cur_scope);
+  __pyx_cur_scope->__pyx_outer_scope = (struct __pyx_obj_9curlparse___pyx_scope_struct_8_urlsplit *) __pyx_self;
+  __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
+  {
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_9curlparse_8urlsplit_5generator4, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_urlsplit_locals_genexpr, __pyx_n_s_curlparse); if (unlikely(!gen)) __PYX_ERR(0, 517, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_cur_scope);
+    __Pyx_RefNannyFinishContext();
+    return (PyObject *) gen;
+  }
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("curlparse.urlsplit.genexpr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_gb_9curlparse_8urlsplit_5generator4(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
+{
+  struct __pyx_obj_9curlparse___pyx_scope_struct_9_genexpr *__pyx_cur_scope = ((struct __pyx_obj_9curlparse___pyx_scope_struct_9_genexpr *)__pyx_generator->closure);
+  PyObject *__pyx_r = NULL;
+  PyObject *__pyx_t_1 = NULL;
   Py_ssize_t __pyx_t_2;
   PyObject *(*__pyx_t_3)(PyObject *);
   PyObject *__pyx_t_4 = NULL;
@@ -8965,32 +10634,32 @@ static PyObject *__pyx_gb_9curlparse_8urlsplit_2generator3(__pyx_CoroutineObject
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 491, __pyx_L1_error)
-  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_rest)) { __Pyx_RaiseClosureNameError("rest"); __PYX_ERR(0, 491, __pyx_L1_error) }
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 517, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_rest)) { __Pyx_RaiseClosureNameError("rest"); __PYX_ERR(0, 517, __pyx_L1_error) }
   if (likely(PyList_CheckExact(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_rest)) || PyTuple_CheckExact(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_rest)) {
     __pyx_t_1 = __pyx_cur_scope->__pyx_outer_scope->__pyx_v_rest; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
     __pyx_t_3 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_rest); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 491, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_rest); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 517, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 491, __pyx_L1_error)
+    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 517, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_3)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 491, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 517, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 491, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 517, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 491, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 517, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 491, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 517, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -9000,7 +10669,7 @@ static PyObject *__pyx_gb_9curlparse_8urlsplit_2generator3(__pyx_CoroutineObject
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 491, __pyx_L1_error)
+          else __PYX_ERR(0, 517, __pyx_L1_error)
         }
         break;
       }
@@ -9010,8 +10679,7 @@ static PyObject *__pyx_gb_9curlparse_8urlsplit_2generator3(__pyx_CoroutineObject
     __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_c, __pyx_t_4);
     __Pyx_GIVEREF(__pyx_t_4);
     __pyx_t_4 = 0;
-    if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_digits)) { __Pyx_RaiseClosureNameError("digits"); __PYX_ERR(0, 491, __pyx_L1_error) }
-    __pyx_t_5 = (__Pyx_PySequence_ContainsTF(__pyx_cur_scope->__pyx_v_c, __pyx_cur_scope->__pyx_outer_scope->__pyx_v_digits, Py_NE)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 491, __pyx_L1_error)
+    __pyx_t_5 = (__Pyx_PySequence_ContainsTF(__pyx_cur_scope->__pyx_v_c, __pyx_kp_s_0123456789, Py_NE)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 517, __pyx_L1_error)
     __pyx_t_6 = (__pyx_t_5 != 0);
     if (__pyx_t_6) {
       __Pyx_XDECREF(__pyx_r);
@@ -9044,27 +10712,16 @@ static PyObject *__pyx_gb_9curlparse_8urlsplit_2generator3(__pyx_CoroutineObject
   return __pyx_r;
 }
 
-/* "curlparse.pyx":419
+/* "curlparse.pyx":477
  * 
  * 
- * def urlsplit(url, scheme='', allow_fragments=True):             # <<<<<<<<<<<<<<
+ * def urlsplit(str url, str scheme='', bool allow_fragments=True):             # <<<<<<<<<<<<<<
  *     """Parse a URL into 5 components:
  *     <scheme>://<netloc>/<path>?<query>#<fragment>
  */
 
-static PyObject *__pyx_pf_9curlparse_22urlsplit(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url, PyObject *__pyx_v_scheme, PyObject *__pyx_v_allow_fragments) {
-  struct __pyx_obj_9curlparse___pyx_scope_struct_6_urlsplit *__pyx_cur_scope;
-  PyObject *__pyx_v_blank = NULL;
-  PyObject *__pyx_v_colon = NULL;
-  PyObject *__pyx_v_http = NULL;
-  PyObject *__pyx_v_l_bracket = NULL;
-  PyObject *__pyx_v_r_bracket = NULL;
-  PyObject *__pyx_v_pound = NULL;
-  PyObject *__pyx_v_question_mark = NULL;
-  PyObject *__pyx_v_double_slash = NULL;
-  PyObject *__pyx_v_netloc_delimiters = NULL;
-  PyObject *__pyx_v_result_type = NULL;
-  PyObject *__pyx_v_scheme_chars = NULL;
+static PyObject *__pyx_pf_9curlparse_24urlsplit(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url, PyObject *__pyx_v_scheme, PyBoolObject *__pyx_v_allow_fragments) {
+  struct __pyx_obj_9curlparse___pyx_scope_struct_8_urlsplit *__pyx_cur_scope;
   PyObject *__pyx_v_key = NULL;
   PyObject *__pyx_v_cached = NULL;
   PyObject *__pyx_v_netloc = NULL;
@@ -9077,16 +10734,16 @@ static PyObject *__pyx_pf_9curlparse_22urlsplit(CYTHON_UNUSED PyObject *__pyx_se
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
-  int __pyx_t_3;
-  int __pyx_t_4;
+  PyObject *__pyx_t_3 = NULL;
+  Py_ssize_t __pyx_t_4;
   PyObject *__pyx_t_5 = NULL;
-  Py_ssize_t __pyx_t_6;
-  PyObject *__pyx_t_7 = NULL;
-  PyObject *(*__pyx_t_8)(PyObject *);
+  int __pyx_t_6;
+  PyObject *(*__pyx_t_7)(PyObject *);
+  int __pyx_t_8;
   int __pyx_t_9;
   PyObject *(*__pyx_t_10)(PyObject *);
   __Pyx_RefNannySetupContext("urlsplit", 0);
-  __pyx_cur_scope = (struct __pyx_obj_9curlparse___pyx_scope_struct_6_urlsplit *)__pyx_tp_new_9curlparse___pyx_scope_struct_6_urlsplit(__pyx_ptype_9curlparse___pyx_scope_struct_6_urlsplit, __pyx_empty_tuple, NULL);
+  __pyx_cur_scope = (struct __pyx_obj_9curlparse___pyx_scope_struct_8_urlsplit *)__pyx_tp_new_9curlparse___pyx_scope_struct_8_urlsplit(__pyx_ptype_9curlparse___pyx_scope_struct_8_urlsplit, __pyx_empty_tuple, NULL);
   if (unlikely(!__pyx_cur_scope)) {
     __Pyx_RefNannyFinishContext();
     return NULL;
@@ -9094,405 +10751,87 @@ static PyObject *__pyx_pf_9curlparse_22urlsplit(CYTHON_UNUSED PyObject *__pyx_se
   __Pyx_GOTREF(__pyx_cur_scope);
   __Pyx_INCREF(__pyx_v_url);
   __Pyx_INCREF(__pyx_v_scheme);
-  __Pyx_INCREF(__pyx_v_allow_fragments);
 
-  /* "curlparse.pyx":425
+  /* "curlparse.pyx":483
  *     Note that we don't break the components up in smaller bits
  *     (e.g. netloc is a single string) and we don't expand % escapes."""
- *     allow_fragments = bool(allow_fragments)             # <<<<<<<<<<<<<<
- *     if isinstance(url, bytes):
- *         if scheme == '':
- */
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 425, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_INCREF(__pyx_v_allow_fragments);
-  __Pyx_GIVEREF(__pyx_v_allow_fragments);
-  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_allow_fragments);
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_4bool_bool), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 425, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF_SET(__pyx_v_allow_fragments, __pyx_t_2);
-  __pyx_t_2 = 0;
-
-  /* "curlparse.pyx":426
- *     (e.g. netloc is a single string) and we don't expand % escapes."""
- *     allow_fragments = bool(allow_fragments)
- *     if isinstance(url, bytes):             # <<<<<<<<<<<<<<
- *         if scheme == '':
- *             scheme = b''
- */
-  __pyx_t_3 = PyBytes_Check(__pyx_v_url); 
-  __pyx_t_4 = (__pyx_t_3 != 0);
-  if (__pyx_t_4) {
-
-    /* "curlparse.pyx":427
- *     allow_fragments = bool(allow_fragments)
- *     if isinstance(url, bytes):
- *         if scheme == '':             # <<<<<<<<<<<<<<
- *             scheme = b''
- *         blank = b''
- */
-    __pyx_t_4 = (__Pyx_PyString_Equals(__pyx_v_scheme, __pyx_kp_s__5, Py_EQ)); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 427, __pyx_L1_error)
-    if (__pyx_t_4) {
-
-      /* "curlparse.pyx":428
- *     if isinstance(url, bytes):
- *         if scheme == '':
- *             scheme = b''             # <<<<<<<<<<<<<<
- *         blank = b''
- *         colon = b':'
- */
-      __Pyx_INCREF(__pyx_kp_b__5);
-      __Pyx_DECREF_SET(__pyx_v_scheme, __pyx_kp_b__5);
-
-      /* "curlparse.pyx":427
- *     allow_fragments = bool(allow_fragments)
- *     if isinstance(url, bytes):
- *         if scheme == '':             # <<<<<<<<<<<<<<
- *             scheme = b''
- *         blank = b''
- */
-    }
-
-    /* "curlparse.pyx":429
- *         if scheme == '':
- *             scheme = b''
- *         blank = b''             # <<<<<<<<<<<<<<
- *         colon = b':'
- *         http = b'http'
- */
-    __Pyx_INCREF(__pyx_kp_b__5);
-    __pyx_v_blank = __pyx_kp_b__5;
-
-    /* "curlparse.pyx":430
- *             scheme = b''
- *         blank = b''
- *         colon = b':'             # <<<<<<<<<<<<<<
- *         http = b'http'
- *         l_bracket = b'['
- */
-    __Pyx_INCREF(__pyx_kp_b__10);
-    __pyx_v_colon = __pyx_kp_b__10;
-
-    /* "curlparse.pyx":431
- *         blank = b''
- *         colon = b':'
- *         http = b'http'             # <<<<<<<<<<<<<<
- *         l_bracket = b'['
- *         r_bracket = b']'
- */
-    __Pyx_INCREF(__pyx_n_b_http);
-    __pyx_v_http = __pyx_n_b_http;
-
-    /* "curlparse.pyx":432
- *         colon = b':'
- *         http = b'http'
- *         l_bracket = b'['             # <<<<<<<<<<<<<<
- *         r_bracket = b']'
- *         pound = b'#'
- */
-    __Pyx_INCREF(__pyx_kp_b__13);
-    __pyx_v_l_bracket = __pyx_kp_b__13;
-
-    /* "curlparse.pyx":433
- *         http = b'http'
- *         l_bracket = b'['
- *         r_bracket = b']'             # <<<<<<<<<<<<<<
- *         pound = b'#'
- *         question_mark = b'?'
- */
-    __Pyx_INCREF(__pyx_kp_b__15);
-    __pyx_v_r_bracket = __pyx_kp_b__15;
-
-    /* "curlparse.pyx":434
- *         l_bracket = b'['
- *         r_bracket = b']'
- *         pound = b'#'             # <<<<<<<<<<<<<<
- *         question_mark = b'?'
- *         digits = b'0123456789'
- */
-    __Pyx_INCREF(__pyx_kp_b__26);
-    __pyx_v_pound = __pyx_kp_b__26;
-
-    /* "curlparse.pyx":435
- *         r_bracket = b']'
- *         pound = b'#'
- *         question_mark = b'?'             # <<<<<<<<<<<<<<
- *         digits = b'0123456789'
- *         double_slash = b'//',
- */
-    __Pyx_INCREF(__pyx_kp_b__29);
-    __pyx_v_question_mark = __pyx_kp_b__29;
-
-    /* "curlparse.pyx":436
- *         pound = b'#'
- *         question_mark = b'?'
- *         digits = b'0123456789'             # <<<<<<<<<<<<<<
- *         double_slash = b'//',
- *         netloc_delimiters = b'/?#'
- */
-    __Pyx_INCREF(__pyx_kp_b_0123456789);
-    __Pyx_GIVEREF(__pyx_kp_b_0123456789);
-    __pyx_cur_scope->__pyx_v_digits = __pyx_kp_b_0123456789;
-
-    /* "curlparse.pyx":437
- *         question_mark = b'?'
- *         digits = b'0123456789'
- *         double_slash = b'//',             # <<<<<<<<<<<<<<
- *         netloc_delimiters = b'/?#'
- *         result_type = SplitResultBytes
- */
-    __Pyx_INCREF(__pyx_tuple__31);
-    __pyx_v_double_slash = __pyx_tuple__31;
-
-    /* "curlparse.pyx":438
- *         digits = b'0123456789'
- *         double_slash = b'//',
- *         netloc_delimiters = b'/?#'             # <<<<<<<<<<<<<<
- *         result_type = SplitResultBytes
- *         scheme_chars = (b'abcdefghijklmnopqrstuvwxyz'
- */
-    __Pyx_INCREF(__pyx_kp_b__32);
-    __pyx_v_netloc_delimiters = __pyx_kp_b__32;
-
-    /* "curlparse.pyx":439
- *         double_slash = b'//',
- *         netloc_delimiters = b'/?#'
- *         result_type = SplitResultBytes             # <<<<<<<<<<<<<<
- *         scheme_chars = (b'abcdefghijklmnopqrstuvwxyz'
- *                         b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
- */
-    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_SplitResultBytes); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 439, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_v_result_type = __pyx_t_2;
-    __pyx_t_2 = 0;
-
-    /* "curlparse.pyx":440
- *         netloc_delimiters = b'/?#'
- *         result_type = SplitResultBytes
- *         scheme_chars = (b'abcdefghijklmnopqrstuvwxyz'             # <<<<<<<<<<<<<<
- *                         b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
- *                         b'0123456789'
- */
-    __Pyx_INCREF(__pyx_kp_b_abcdefghijklmnopqrstuvwxyzABCDEF);
-    __pyx_v_scheme_chars = __pyx_kp_b_abcdefghijklmnopqrstuvwxyzABCDEF;
-
-    /* "curlparse.pyx":426
- *     (e.g. netloc is a single string) and we don't expand % escapes."""
- *     allow_fragments = bool(allow_fragments)
- *     if isinstance(url, bytes):             # <<<<<<<<<<<<<<
- *         if scheme == '':
- *             scheme = b''
- */
-    goto __pyx_L3;
-  }
-
-  /* "curlparse.pyx":445
- *                         b'+-.')
- *     else:
- *         blank = ''             # <<<<<<<<<<<<<<
- *         colon = ':'
- *         http = 'http'
- */
-  /*else*/ {
-    __Pyx_INCREF(__pyx_kp_s__5);
-    __pyx_v_blank = __pyx_kp_s__5;
-
-    /* "curlparse.pyx":446
- *     else:
- *         blank = ''
- *         colon = ':'             # <<<<<<<<<<<<<<
- *         http = 'http'
- *         l_bracket = '['
- */
-    __Pyx_INCREF(__pyx_kp_s__10);
-    __pyx_v_colon = __pyx_kp_s__10;
-
-    /* "curlparse.pyx":447
- *         blank = ''
- *         colon = ':'
- *         http = 'http'             # <<<<<<<<<<<<<<
- *         l_bracket = '['
- *         r_bracket = ']'
- */
-    __Pyx_INCREF(__pyx_n_s_http);
-    __pyx_v_http = __pyx_n_s_http;
-
-    /* "curlparse.pyx":448
- *         colon = ':'
- *         http = 'http'
- *         l_bracket = '['             # <<<<<<<<<<<<<<
- *         r_bracket = ']'
- *         pound = '#'
- */
-    __Pyx_INCREF(__pyx_kp_s__13);
-    __pyx_v_l_bracket = __pyx_kp_s__13;
-
-    /* "curlparse.pyx":449
- *         http = 'http'
- *         l_bracket = '['
- *         r_bracket = ']'             # <<<<<<<<<<<<<<
- *         pound = '#'
- *         question_mark = '?'
- */
-    __Pyx_INCREF(__pyx_kp_s__15);
-    __pyx_v_r_bracket = __pyx_kp_s__15;
-
-    /* "curlparse.pyx":450
- *         l_bracket = '['
- *         r_bracket = ']'
- *         pound = '#'             # <<<<<<<<<<<<<<
- *         question_mark = '?'
- *         digits = '0123456789'
- */
-    __Pyx_INCREF(__pyx_kp_s__26);
-    __pyx_v_pound = __pyx_kp_s__26;
-
-    /* "curlparse.pyx":451
- *         r_bracket = ']'
- *         pound = '#'
- *         question_mark = '?'             # <<<<<<<<<<<<<<
- *         digits = '0123456789'
- *         double_slash = '//'
- */
-    __Pyx_INCREF(__pyx_kp_s__29);
-    __pyx_v_question_mark = __pyx_kp_s__29;
-
-    /* "curlparse.pyx":452
- *         pound = '#'
- *         question_mark = '?'
- *         digits = '0123456789'             # <<<<<<<<<<<<<<
- *         double_slash = '//'
- *         netloc_delimiters = '/?#'
- */
-    __Pyx_INCREF(__pyx_kp_s_0123456789);
-    __Pyx_GIVEREF(__pyx_kp_s_0123456789);
-    __pyx_cur_scope->__pyx_v_digits = __pyx_kp_s_0123456789;
-
-    /* "curlparse.pyx":453
- *         question_mark = '?'
- *         digits = '0123456789'
- *         double_slash = '//'             # <<<<<<<<<<<<<<
- *         netloc_delimiters = '/?#'
- *         result_type = SplitResult
- */
-    __Pyx_INCREF(__pyx_kp_s__30);
-    __pyx_v_double_slash = __pyx_kp_s__30;
-
-    /* "curlparse.pyx":454
- *         digits = '0123456789'
- *         double_slash = '//'
- *         netloc_delimiters = '/?#'             # <<<<<<<<<<<<<<
- *         result_type = SplitResult
- *         scheme_chars = ('abcdefghijklmnopqrstuvwxyz'
- */
-    __Pyx_INCREF(__pyx_kp_s__32);
-    __pyx_v_netloc_delimiters = __pyx_kp_s__32;
-
-    /* "curlparse.pyx":455
- *         double_slash = '//'
- *         netloc_delimiters = '/?#'
- *         result_type = SplitResult             # <<<<<<<<<<<<<<
- *         scheme_chars = ('abcdefghijklmnopqrstuvwxyz'
- *                         'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
- */
-    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_SplitResult); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 455, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_v_result_type = __pyx_t_2;
-    __pyx_t_2 = 0;
-
-    /* "curlparse.pyx":456
- *         netloc_delimiters = '/?#'
- *         result_type = SplitResult
- *         scheme_chars = ('abcdefghijklmnopqrstuvwxyz'             # <<<<<<<<<<<<<<
- *                         'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
- *                         '0123456789'
- */
-    __Pyx_INCREF(__pyx_kp_s_abcdefghijklmnopqrstuvwxyzABCDEF);
-    __pyx_v_scheme_chars = __pyx_kp_s_abcdefghijklmnopqrstuvwxyzABCDEF;
-  }
-  __pyx_L3:;
-
-  /* "curlparse.pyx":460
- *                         '0123456789'
- *                         '+-.')
  *     key = url, scheme, allow_fragments, type(url), type(scheme)             # <<<<<<<<<<<<<<
  *     cached = _parse_cache.get(key, None)
  *     if cached:
  */
-  __pyx_t_2 = PyTuple_New(5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 460, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = PyTuple_New(5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 483, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_url);
   __Pyx_GIVEREF(__pyx_v_url);
-  PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_url);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_url);
   __Pyx_INCREF(__pyx_v_scheme);
   __Pyx_GIVEREF(__pyx_v_scheme);
-  PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_v_scheme);
-  __Pyx_INCREF(__pyx_v_allow_fragments);
-  __Pyx_GIVEREF(__pyx_v_allow_fragments);
-  PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_v_allow_fragments);
+  PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_scheme);
+  __Pyx_INCREF(((PyObject *)__pyx_v_allow_fragments));
+  __Pyx_GIVEREF(((PyObject *)__pyx_v_allow_fragments));
+  PyTuple_SET_ITEM(__pyx_t_1, 2, ((PyObject *)__pyx_v_allow_fragments));
   __Pyx_INCREF(((PyObject *)Py_TYPE(__pyx_v_url)));
   __Pyx_GIVEREF(((PyObject *)Py_TYPE(__pyx_v_url)));
-  PyTuple_SET_ITEM(__pyx_t_2, 3, ((PyObject *)Py_TYPE(__pyx_v_url)));
+  PyTuple_SET_ITEM(__pyx_t_1, 3, ((PyObject *)Py_TYPE(__pyx_v_url)));
   __Pyx_INCREF(((PyObject *)Py_TYPE(__pyx_v_scheme)));
   __Pyx_GIVEREF(((PyObject *)Py_TYPE(__pyx_v_scheme)));
-  PyTuple_SET_ITEM(__pyx_t_2, 4, ((PyObject *)Py_TYPE(__pyx_v_scheme)));
-  __pyx_v_key = ((PyObject*)__pyx_t_2);
-  __pyx_t_2 = 0;
+  PyTuple_SET_ITEM(__pyx_t_1, 4, ((PyObject *)Py_TYPE(__pyx_v_scheme)));
+  __pyx_v_key = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
 
-  /* "curlparse.pyx":461
- *                         '+-.')
+  /* "curlparse.pyx":484
+ *     (e.g. netloc is a single string) and we don't expand % escapes."""
  *     key = url, scheme, allow_fragments, type(url), type(scheme)
  *     cached = _parse_cache.get(key, None)             # <<<<<<<<<<<<<<
  *     if cached:
  *         return cached
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_parse_cache); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 461, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_get); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 461, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = NULL;
-  __pyx_t_6 = 0;
-  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_5))) {
-    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_5);
-    if (likely(__pyx_t_1)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-      __Pyx_INCREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_parse_cache); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 484, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_get); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 484, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = NULL;
+  __pyx_t_4 = 0;
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_2)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_2);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_5, function);
-      __pyx_t_6 = 1;
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+      __pyx_t_4 = 1;
     }
   }
-  __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 461, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  if (__pyx_t_1) {
-    __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_1); __pyx_t_1 = NULL;
+  __pyx_t_5 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 484, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  if (__pyx_t_2) {
+    __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2); __pyx_t_2 = NULL;
   }
   __Pyx_INCREF(__pyx_v_key);
   __Pyx_GIVEREF(__pyx_v_key);
-  PyTuple_SET_ITEM(__pyx_t_7, 0+__pyx_t_6, __pyx_v_key);
+  PyTuple_SET_ITEM(__pyx_t_5, 0+__pyx_t_4, __pyx_v_key);
   __Pyx_INCREF(Py_None);
   __Pyx_GIVEREF(Py_None);
-  PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, Py_None);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 461, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_4, Py_None);
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 484, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_v_cached = __pyx_t_2;
-  __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_v_cached = __pyx_t_1;
+  __pyx_t_1 = 0;
 
-  /* "curlparse.pyx":462
+  /* "curlparse.pyx":485
  *     key = url, scheme, allow_fragments, type(url), type(scheme)
  *     cached = _parse_cache.get(key, None)
  *     if cached:             # <<<<<<<<<<<<<<
  *         return cached
  *     if len(_parse_cache) >= MAX_CACHE_SIZE: # avoid runaway growth
  */
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_v_cached); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 462, __pyx_L1_error)
-  if (__pyx_t_4) {
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_v_cached); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 485, __pyx_L1_error)
+  if (__pyx_t_6) {
 
-    /* "curlparse.pyx":463
+    /* "curlparse.pyx":486
  *     cached = _parse_cache.get(key, None)
  *     if cached:
  *         return cached             # <<<<<<<<<<<<<<
@@ -9504,7 +10843,7 @@ static PyObject *__pyx_pf_9curlparse_22urlsplit(CYTHON_UNUSED PyObject *__pyx_se
     __pyx_r = __pyx_v_cached;
     goto __pyx_L0;
 
-    /* "curlparse.pyx":462
+    /* "curlparse.pyx":485
  *     key = url, scheme, allow_fragments, type(url), type(scheme)
  *     cached = _parse_cache.get(key, None)
  *     if cached:             # <<<<<<<<<<<<<<
@@ -9513,282 +10852,218 @@ static PyObject *__pyx_pf_9curlparse_22urlsplit(CYTHON_UNUSED PyObject *__pyx_se
  */
   }
 
-  /* "curlparse.pyx":464
+  /* "curlparse.pyx":487
  *     if cached:
  *         return cached
  *     if len(_parse_cache) >= MAX_CACHE_SIZE: # avoid runaway growth             # <<<<<<<<<<<<<<
  *         clear_cache()
- *     netloc = query = fragment = blank
+ *     netloc = query = fragment = ''
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_parse_cache); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 464, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_6 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 464, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyInt_FromSsize_t(__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 464, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_MAX_CACHE_SIZE); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 464, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = PyObject_RichCompare(__pyx_t_2, __pyx_t_5, Py_GE); __Pyx_XGOTREF(__pyx_t_7); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 464, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_parse_cache); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 487, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_4 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_4 == -1)) __PYX_ERR(0, 487, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 487, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_MAX_CACHE_SIZE); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 487, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_5 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_GE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 487, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 487, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 464, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (__pyx_t_4) {
+  if (__pyx_t_6) {
 
-    /* "curlparse.pyx":465
+    /* "curlparse.pyx":488
  *         return cached
  *     if len(_parse_cache) >= MAX_CACHE_SIZE: # avoid runaway growth
  *         clear_cache()             # <<<<<<<<<<<<<<
- *     netloc = query = fragment = blank
- *     i = url.find(colon)
+ *     netloc = query = fragment = ''
+ *     i = url.find(':')
  */
-    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_clear_cache); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 465, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_2 = NULL;
-    if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_5))) {
-      __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_5);
-      if (likely(__pyx_t_2)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-        __Pyx_INCREF(__pyx_t_2);
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_clear_cache); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 488, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_1 = NULL;
+    if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
+      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_3);
+      if (likely(__pyx_t_1)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+        __Pyx_INCREF(__pyx_t_1);
         __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_5, function);
+        __Pyx_DECREF_SET(__pyx_t_3, function);
       }
     }
-    if (__pyx_t_2) {
-      __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 465, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (__pyx_t_1) {
+      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 488, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else {
-      __pyx_t_7 = __Pyx_PyObject_CallNoArg(__pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 465, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 488, __pyx_L1_error)
     }
-    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-    /* "curlparse.pyx":464
+    /* "curlparse.pyx":487
  *     if cached:
  *         return cached
  *     if len(_parse_cache) >= MAX_CACHE_SIZE: # avoid runaway growth             # <<<<<<<<<<<<<<
  *         clear_cache()
- *     netloc = query = fragment = blank
+ *     netloc = query = fragment = ''
  */
   }
 
-  /* "curlparse.pyx":466
+  /* "curlparse.pyx":489
  *     if len(_parse_cache) >= MAX_CACHE_SIZE: # avoid runaway growth
  *         clear_cache()
- *     netloc = query = fragment = blank             # <<<<<<<<<<<<<<
- *     i = url.find(colon)
+ *     netloc = query = fragment = ''             # <<<<<<<<<<<<<<
+ *     i = url.find(':')
  *     if i > 0:
  */
-  __Pyx_INCREF(__pyx_v_blank);
-  __pyx_v_netloc = __pyx_v_blank;
-  __Pyx_INCREF(__pyx_v_blank);
-  __pyx_v_query = __pyx_v_blank;
-  __Pyx_INCREF(__pyx_v_blank);
-  __pyx_v_fragment = __pyx_v_blank;
+  __Pyx_INCREF(__pyx_kp_s__5);
+  __pyx_v_netloc = __pyx_kp_s__5;
+  __Pyx_INCREF(__pyx_kp_s__5);
+  __pyx_v_query = __pyx_kp_s__5;
+  __Pyx_INCREF(__pyx_kp_s__5);
+  __pyx_v_fragment = __pyx_kp_s__5;
 
-  /* "curlparse.pyx":467
+  /* "curlparse.pyx":490
  *         clear_cache()
- *     netloc = query = fragment = blank
- *     i = url.find(colon)             # <<<<<<<<<<<<<<
+ *     netloc = query = fragment = ''
+ *     i = url.find(':')             # <<<<<<<<<<<<<<
  *     if i > 0:
- *         if url.startswith(http, i):  # optimize the common case
+ *         if url.startswith('http', i):  # optimize the common case
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_find); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 467, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_find); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 490, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_2 = NULL;
-  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_5))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_5);
-    if (likely(__pyx_t_2)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-      __Pyx_INCREF(__pyx_t_2);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_5, function);
-    }
-  }
-  if (!__pyx_t_2) {
-    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_colon); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 467, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-  } else {
-    __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 467, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2); __pyx_t_2 = NULL;
-    __Pyx_INCREF(__pyx_v_colon);
-    __Pyx_GIVEREF(__pyx_v_colon);
-    PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_v_colon);
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_1, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 467, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  }
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_tuple__39, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 490, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_v_i = __pyx_t_7;
-  __pyx_t_7 = 0;
+  __pyx_v_i = __pyx_t_3;
+  __pyx_t_3 = 0;
 
-  /* "curlparse.pyx":468
- *     netloc = query = fragment = blank
- *     i = url.find(colon)
+  /* "curlparse.pyx":491
+ *     netloc = query = fragment = ''
+ *     i = url.find(':')
  *     if i > 0:             # <<<<<<<<<<<<<<
- *         if url.startswith(http, i):  # optimize the common case
+ *         if url.startswith('http', i):  # optimize the common case
  *             scheme = url[:i].lower()
  */
-  __pyx_t_7 = PyObject_RichCompare(__pyx_v_i, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_7); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 468, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 468, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (__pyx_t_4) {
+  __pyx_t_3 = PyObject_RichCompare(__pyx_v_i, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 491, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 491, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (__pyx_t_6) {
 
-    /* "curlparse.pyx":469
- *     i = url.find(colon)
+    /* "curlparse.pyx":492
+ *     i = url.find(':')
  *     if i > 0:
- *         if url.startswith(http, i):  # optimize the common case             # <<<<<<<<<<<<<<
+ *         if url.startswith('http', i):  # optimize the common case             # <<<<<<<<<<<<<<
  *             scheme = url[:i].lower()
  *             url = url[i+1:]
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_startswith); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 469, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_1 = NULL;
-    __pyx_t_6 = 0;
-    if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_5))) {
-      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_5);
-      if (likely(__pyx_t_1)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-        __Pyx_INCREF(__pyx_t_1);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_5, function);
-        __pyx_t_6 = 1;
-      }
+    if (unlikely(__pyx_v_url == Py_None)) {
+      PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "startswith");
+      __PYX_ERR(0, 492, __pyx_L1_error)
     }
-    __pyx_t_2 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 469, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    if (__pyx_t_1) {
-      __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1); __pyx_t_1 = NULL;
-    }
-    __Pyx_INCREF(__pyx_v_http);
-    __Pyx_GIVEREF(__pyx_v_http);
-    PyTuple_SET_ITEM(__pyx_t_2, 0+__pyx_t_6, __pyx_v_http);
-    __Pyx_INCREF(__pyx_v_i);
-    __Pyx_GIVEREF(__pyx_v_i);
-    PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_6, __pyx_v_i);
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_2, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 469, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 469, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (__pyx_t_4) {
+    __pyx_t_4 = __Pyx_PyIndex_AsSsize_t(__pyx_v_i); if (unlikely((__pyx_t_4 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 492, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyStr_Tailmatch(__pyx_v_url, __pyx_n_s_http, __pyx_t_4, PY_SSIZE_T_MAX, -1); if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 492, __pyx_L1_error)
+    if ((__pyx_t_6 != 0)) {
 
-      /* "curlparse.pyx":470
+      /* "curlparse.pyx":493
  *     if i > 0:
- *         if url.startswith(http, i):  # optimize the common case
+ *         if url.startswith('http', i):  # optimize the common case
  *             scheme = url[:i].lower()             # <<<<<<<<<<<<<<
  *             url = url[i+1:]
- *             if url.startswith(double_slash):
+ *             if url.startswith('//'):
  */
-      __pyx_t_5 = __Pyx_PyObject_GetSlice(__pyx_v_url, 0, 0, NULL, &__pyx_v_i, NULL, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 470, __pyx_L1_error)
+      if (unlikely(__pyx_v_url == Py_None)) {
+        PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+        __PYX_ERR(0, 493, __pyx_L1_error)
+      }
+      __pyx_t_4 = __Pyx_PyIndex_AsSsize_t(__pyx_v_i); if (unlikely((__pyx_t_4 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 493, __pyx_L1_error)
+      __pyx_t_5 = PySequence_GetSlice(__pyx_v_url, 0, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 493, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_lower); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 470, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_lower); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 493, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __pyx_t_5 = NULL;
-      if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
-        __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_2);
+      if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
+        __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_1);
         if (likely(__pyx_t_5)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
           __Pyx_INCREF(__pyx_t_5);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_2, function);
+          __Pyx_DECREF_SET(__pyx_t_1, function);
         }
       }
       if (__pyx_t_5) {
-        __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 470, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 493, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       } else {
-        __pyx_t_7 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 470, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 493, __pyx_L1_error)
       }
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_DECREF_SET(__pyx_v_scheme, __pyx_t_7);
-      __pyx_t_7 = 0;
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      if (!(likely(PyString_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_3)->tp_name), 0))) __PYX_ERR(0, 493, __pyx_L1_error)
+      __Pyx_DECREF_SET(__pyx_v_scheme, ((PyObject*)__pyx_t_3));
+      __pyx_t_3 = 0;
 
-      /* "curlparse.pyx":471
- *         if url.startswith(http, i):  # optimize the common case
+      /* "curlparse.pyx":494
+ *         if url.startswith('http', i):  # optimize the common case
  *             scheme = url[:i].lower()
  *             url = url[i+1:]             # <<<<<<<<<<<<<<
- *             if url.startswith(double_slash):
- *                 netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)
+ *             if url.startswith('//'):
+ *                 netloc, url = _splitnetloc(url, 2, delimiters='/?#')
  */
-      __pyx_t_7 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 471, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_2 = __Pyx_PyObject_GetSlice(__pyx_v_url, 0, 0, &__pyx_t_7, NULL, NULL, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 471, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __Pyx_DECREF_SET(__pyx_v_url, __pyx_t_2);
-      __pyx_t_2 = 0;
+      if (unlikely(__pyx_v_url == Py_None)) {
+        PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+        __PYX_ERR(0, 494, __pyx_L1_error)
+      }
+      __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 494, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_4 = __Pyx_PyIndex_AsSsize_t(__pyx_t_3); if (unlikely((__pyx_t_4 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 494, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_3 = PySequence_GetSlice(__pyx_v_url, __pyx_t_4, PY_SSIZE_T_MAX); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 494, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF_SET(__pyx_v_url, ((PyObject*)__pyx_t_3));
+      __pyx_t_3 = 0;
 
-      /* "curlparse.pyx":472
+      /* "curlparse.pyx":495
  *             scheme = url[:i].lower()
  *             url = url[i+1:]
- *             if url.startswith(double_slash):             # <<<<<<<<<<<<<<
- *                 netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)
- *                 if ((l_bracket in netloc and r_bracket not in netloc) or
+ *             if url.startswith('//'):             # <<<<<<<<<<<<<<
+ *                 netloc, url = _splitnetloc(url, 2, delimiters='/?#')
+ *                 if (('[' in netloc and ']' not in netloc) or
  */
-      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_startswith); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 472, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_5 = NULL;
-      if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_7))) {
-        __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_7);
-        if (likely(__pyx_t_5)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
-          __Pyx_INCREF(__pyx_t_5);
-          __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_7, function);
-        }
-      }
-      if (!__pyx_t_5) {
-        __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_v_double_slash); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 472, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-      } else {
-        __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 472, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_5); __pyx_t_5 = NULL;
-        __Pyx_INCREF(__pyx_v_double_slash);
-        __Pyx_GIVEREF(__pyx_v_double_slash);
-        PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_v_double_slash);
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 472, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      }
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 472, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (__pyx_t_4) {
+      __pyx_t_6 = __Pyx_PyStr_Tailmatch(__pyx_v_url, __pyx_kp_s__30, 0, PY_SSIZE_T_MAX, -1); if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 495, __pyx_L1_error)
+      if ((__pyx_t_6 != 0)) {
 
-        /* "curlparse.pyx":473
+        /* "curlparse.pyx":496
  *             url = url[i+1:]
- *             if url.startswith(double_slash):
- *                 netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)             # <<<<<<<<<<<<<<
- *                 if ((l_bracket in netloc and r_bracket not in netloc) or
- *                         (r_bracket in netloc and l_bracket not in netloc)):
+ *             if url.startswith('//'):
+ *                 netloc, url = _splitnetloc(url, 2, delimiters='/?#')             # <<<<<<<<<<<<<<
+ *                 if (('[' in netloc and ']' not in netloc) or
+ *                         (']' in netloc and '[' not in netloc)):
  */
-        __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_splitnetloc); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 473, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 473, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_7);
+        __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_splitnetloc); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 496, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 496, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
         __Pyx_INCREF(__pyx_v_url);
         __Pyx_GIVEREF(__pyx_v_url);
-        PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_v_url);
+        PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_url);
         __Pyx_INCREF(__pyx_int_2);
         __Pyx_GIVEREF(__pyx_int_2);
-        PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_int_2);
-        __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 473, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_delimiters, __pyx_v_netloc_delimiters) < 0) __PYX_ERR(0, 473, __pyx_L1_error)
-        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 473, __pyx_L1_error)
+        PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_int_2);
+        __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 496, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_delimiters, __pyx_kp_s__31) < 0) __PYX_ERR(0, 496, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 496, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        if ((likely(PyTuple_CheckExact(__pyx_t_5))) || (PyList_CheckExact(__pyx_t_5))) {
-          PyObject* sequence = __pyx_t_5;
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
+          PyObject* sequence = __pyx_t_2;
           #if CYTHON_COMPILING_IN_CPYTHON
           Py_ssize_t size = Py_SIZE(sequence);
           #else
@@ -9797,300 +11072,166 @@ static PyObject *__pyx_pf_9curlparse_22urlsplit(CYTHON_UNUSED PyObject *__pyx_se
           if (unlikely(size != 2)) {
             if (size > 2) __Pyx_RaiseTooManyValuesError(2);
             else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-            __PYX_ERR(0, 473, __pyx_L1_error)
+            __PYX_ERR(0, 496, __pyx_L1_error)
           }
           #if CYTHON_COMPILING_IN_CPYTHON
           if (likely(PyTuple_CheckExact(sequence))) {
-            __pyx_t_1 = PyTuple_GET_ITEM(sequence, 0); 
-            __pyx_t_7 = PyTuple_GET_ITEM(sequence, 1); 
+            __pyx_t_5 = PyTuple_GET_ITEM(sequence, 0); 
+            __pyx_t_1 = PyTuple_GET_ITEM(sequence, 1); 
           } else {
-            __pyx_t_1 = PyList_GET_ITEM(sequence, 0); 
-            __pyx_t_7 = PyList_GET_ITEM(sequence, 1); 
+            __pyx_t_5 = PyList_GET_ITEM(sequence, 0); 
+            __pyx_t_1 = PyList_GET_ITEM(sequence, 1); 
           }
+          __Pyx_INCREF(__pyx_t_5);
           __Pyx_INCREF(__pyx_t_1);
-          __Pyx_INCREF(__pyx_t_7);
           #else
-          __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 473, __pyx_L1_error)
+          __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 496, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_5);
+          __pyx_t_1 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 496, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_7 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 473, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_7);
           #endif
-          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         } else {
           Py_ssize_t index = -1;
-          __pyx_t_2 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 473, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_2);
-          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          __pyx_t_8 = Py_TYPE(__pyx_t_2)->tp_iternext;
-          index = 0; __pyx_t_1 = __pyx_t_8(__pyx_t_2); if (unlikely(!__pyx_t_1)) goto __pyx_L10_unpacking_failed;
+          __pyx_t_3 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 496, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext;
+          index = 0; __pyx_t_5 = __pyx_t_7(__pyx_t_3); if (unlikely(!__pyx_t_5)) goto __pyx_L8_unpacking_failed;
+          __Pyx_GOTREF(__pyx_t_5);
+          index = 1; __pyx_t_1 = __pyx_t_7(__pyx_t_3); if (unlikely(!__pyx_t_1)) goto __pyx_L8_unpacking_failed;
           __Pyx_GOTREF(__pyx_t_1);
-          index = 1; __pyx_t_7 = __pyx_t_8(__pyx_t_2); if (unlikely(!__pyx_t_7)) goto __pyx_L10_unpacking_failed;
-          __Pyx_GOTREF(__pyx_t_7);
-          if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_2), 2) < 0) __PYX_ERR(0, 473, __pyx_L1_error)
-          __pyx_t_8 = NULL;
-          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-          goto __pyx_L11_unpacking_done;
-          __pyx_L10_unpacking_failed:;
-          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-          __pyx_t_8 = NULL;
+          if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_3), 2) < 0) __PYX_ERR(0, 496, __pyx_L1_error)
+          __pyx_t_7 = NULL;
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          goto __pyx_L9_unpacking_done;
+          __pyx_L8_unpacking_failed:;
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __pyx_t_7 = NULL;
           if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-          __PYX_ERR(0, 473, __pyx_L1_error)
-          __pyx_L11_unpacking_done:;
+          __PYX_ERR(0, 496, __pyx_L1_error)
+          __pyx_L9_unpacking_done:;
         }
-        __Pyx_DECREF_SET(__pyx_v_netloc, __pyx_t_1);
+        if (!(likely(PyString_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 496, __pyx_L1_error)
+        __Pyx_DECREF_SET(__pyx_v_netloc, __pyx_t_5);
+        __pyx_t_5 = 0;
+        __Pyx_DECREF_SET(__pyx_v_url, ((PyObject*)__pyx_t_1));
         __pyx_t_1 = 0;
-        __Pyx_DECREF_SET(__pyx_v_url, __pyx_t_7);
-        __pyx_t_7 = 0;
 
-        /* "curlparse.pyx":474
- *             if url.startswith(double_slash):
- *                 netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)
- *                 if ((l_bracket in netloc and r_bracket not in netloc) or             # <<<<<<<<<<<<<<
- *                         (r_bracket in netloc and l_bracket not in netloc)):
+        /* "curlparse.pyx":497
+ *             if url.startswith('//'):
+ *                 netloc, url = _splitnetloc(url, 2, delimiters='/?#')
+ *                 if (('[' in netloc and ']' not in netloc) or             # <<<<<<<<<<<<<<
+ *                         (']' in netloc and '[' not in netloc)):
  *                     raise ValueError("Invalid IPv6 URL")
  */
-        __pyx_t_3 = (__Pyx_PySequence_ContainsTF(__pyx_v_l_bracket, __pyx_v_netloc, Py_EQ)); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 474, __pyx_L1_error)
-        __pyx_t_9 = (__pyx_t_3 != 0);
+        __pyx_t_8 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s__13, __pyx_v_netloc, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 497, __pyx_L1_error)
+        __pyx_t_9 = (__pyx_t_8 != 0);
         if (!__pyx_t_9) {
-          goto __pyx_L14_next_or;
+          goto __pyx_L12_next_or;
         } else {
         }
-        __pyx_t_9 = (__Pyx_PySequence_ContainsTF(__pyx_v_r_bracket, __pyx_v_netloc, Py_NE)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 474, __pyx_L1_error)
-        __pyx_t_3 = (__pyx_t_9 != 0);
-        if (!__pyx_t_3) {
+        __pyx_t_9 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s__15, __pyx_v_netloc, Py_NE)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 497, __pyx_L1_error)
+        __pyx_t_8 = (__pyx_t_9 != 0);
+        if (!__pyx_t_8) {
         } else {
-          __pyx_t_4 = __pyx_t_3;
-          goto __pyx_L13_bool_binop_done;
+          __pyx_t_6 = __pyx_t_8;
+          goto __pyx_L11_bool_binop_done;
         }
-        __pyx_L14_next_or:;
+        __pyx_L12_next_or:;
 
-        /* "curlparse.pyx":475
- *                 netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)
- *                 if ((l_bracket in netloc and r_bracket not in netloc) or
- *                         (r_bracket in netloc and l_bracket not in netloc)):             # <<<<<<<<<<<<<<
+        /* "curlparse.pyx":498
+ *                 netloc, url = _splitnetloc(url, 2, delimiters='/?#')
+ *                 if (('[' in netloc and ']' not in netloc) or
+ *                         (']' in netloc and '[' not in netloc)):             # <<<<<<<<<<<<<<
  *                     raise ValueError("Invalid IPv6 URL")
- *             if allow_fragments and pound in url:
+ *             if allow_fragments and '#' in url:
  */
-        __pyx_t_3 = (__Pyx_PySequence_ContainsTF(__pyx_v_r_bracket, __pyx_v_netloc, Py_EQ)); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 475, __pyx_L1_error)
-        __pyx_t_9 = (__pyx_t_3 != 0);
+        __pyx_t_8 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s__15, __pyx_v_netloc, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 498, __pyx_L1_error)
+        __pyx_t_9 = (__pyx_t_8 != 0);
         if (__pyx_t_9) {
         } else {
-          __pyx_t_4 = __pyx_t_9;
-          goto __pyx_L13_bool_binop_done;
+          __pyx_t_6 = __pyx_t_9;
+          goto __pyx_L11_bool_binop_done;
         }
-        __pyx_t_9 = (__Pyx_PySequence_ContainsTF(__pyx_v_l_bracket, __pyx_v_netloc, Py_NE)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 475, __pyx_L1_error)
-        __pyx_t_3 = (__pyx_t_9 != 0);
-        __pyx_t_4 = __pyx_t_3;
-        __pyx_L13_bool_binop_done:;
+        __pyx_t_9 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s__13, __pyx_v_netloc, Py_NE)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 498, __pyx_L1_error)
+        __pyx_t_8 = (__pyx_t_9 != 0);
+        __pyx_t_6 = __pyx_t_8;
+        __pyx_L11_bool_binop_done:;
 
-        /* "curlparse.pyx":474
- *             if url.startswith(double_slash):
- *                 netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)
- *                 if ((l_bracket in netloc and r_bracket not in netloc) or             # <<<<<<<<<<<<<<
- *                         (r_bracket in netloc and l_bracket not in netloc)):
+        /* "curlparse.pyx":497
+ *             if url.startswith('//'):
+ *                 netloc, url = _splitnetloc(url, 2, delimiters='/?#')
+ *                 if (('[' in netloc and ']' not in netloc) or             # <<<<<<<<<<<<<<
+ *                         (']' in netloc and '[' not in netloc)):
  *                     raise ValueError("Invalid IPv6 URL")
  */
-        if (__pyx_t_4) {
+        if (__pyx_t_6) {
 
-          /* "curlparse.pyx":476
- *                 if ((l_bracket in netloc and r_bracket not in netloc) or
- *                         (r_bracket in netloc and l_bracket not in netloc)):
+          /* "curlparse.pyx":499
+ *                 if (('[' in netloc and ']' not in netloc) or
+ *                         (']' in netloc and '[' not in netloc)):
  *                     raise ValueError("Invalid IPv6 URL")             # <<<<<<<<<<<<<<
- *             if allow_fragments and pound in url:
- *                 url, fragment = url.split(pound, 1)
+ *             if allow_fragments and '#' in url:
+ *                 url, fragment = url.split('#', 1)
  */
-          __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__33, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 476, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_5);
-          __Pyx_Raise(__pyx_t_5, 0, 0, 0);
-          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          __PYX_ERR(0, 476, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__40, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 499, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __Pyx_Raise(__pyx_t_2, 0, 0, 0);
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          __PYX_ERR(0, 499, __pyx_L1_error)
 
-          /* "curlparse.pyx":474
- *             if url.startswith(double_slash):
- *                 netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)
- *                 if ((l_bracket in netloc and r_bracket not in netloc) or             # <<<<<<<<<<<<<<
- *                         (r_bracket in netloc and l_bracket not in netloc)):
+          /* "curlparse.pyx":497
+ *             if url.startswith('//'):
+ *                 netloc, url = _splitnetloc(url, 2, delimiters='/?#')
+ *                 if (('[' in netloc and ']' not in netloc) or             # <<<<<<<<<<<<<<
+ *                         (']' in netloc and '[' not in netloc)):
  *                     raise ValueError("Invalid IPv6 URL")
  */
         }
 
-        /* "curlparse.pyx":472
+        /* "curlparse.pyx":495
  *             scheme = url[:i].lower()
  *             url = url[i+1:]
- *             if url.startswith(double_slash):             # <<<<<<<<<<<<<<
- *                 netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)
- *                 if ((l_bracket in netloc and r_bracket not in netloc) or
+ *             if url.startswith('//'):             # <<<<<<<<<<<<<<
+ *                 netloc, url = _splitnetloc(url, 2, delimiters='/?#')
+ *                 if (('[' in netloc and ']' not in netloc) or
  */
       }
 
-      /* "curlparse.pyx":477
- *                         (r_bracket in netloc and l_bracket not in netloc)):
+      /* "curlparse.pyx":500
+ *                         (']' in netloc and '[' not in netloc)):
  *                     raise ValueError("Invalid IPv6 URL")
- *             if allow_fragments and pound in url:             # <<<<<<<<<<<<<<
- *                 url, fragment = url.split(pound, 1)
- *             if question_mark in url:
+ *             if allow_fragments and '#' in url:             # <<<<<<<<<<<<<<
+ *                 url, fragment = url.split('#', 1)
+ *             if '?' in url:
  */
-      __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_v_allow_fragments); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 477, __pyx_L1_error)
-      if (__pyx_t_3) {
+      __pyx_t_8 = __Pyx_PyObject_IsTrue(((PyObject *)__pyx_v_allow_fragments)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 500, __pyx_L1_error)
+      if (__pyx_t_8) {
       } else {
-        __pyx_t_4 = __pyx_t_3;
-        goto __pyx_L18_bool_binop_done;
+        __pyx_t_6 = __pyx_t_8;
+        goto __pyx_L16_bool_binop_done;
       }
-      __pyx_t_3 = (__Pyx_PySequence_ContainsTF(__pyx_v_pound, __pyx_v_url, Py_EQ)); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 477, __pyx_L1_error)
-      __pyx_t_9 = (__pyx_t_3 != 0);
-      __pyx_t_4 = __pyx_t_9;
-      __pyx_L18_bool_binop_done:;
-      if (__pyx_t_4) {
+      __pyx_t_8 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s__26, __pyx_v_url, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 500, __pyx_L1_error)
+      __pyx_t_9 = (__pyx_t_8 != 0);
+      __pyx_t_6 = __pyx_t_9;
+      __pyx_L16_bool_binop_done:;
+      if (__pyx_t_6) {
 
-        /* "curlparse.pyx":478
+        /* "curlparse.pyx":501
  *                     raise ValueError("Invalid IPv6 URL")
- *             if allow_fragments and pound in url:
- *                 url, fragment = url.split(pound, 1)             # <<<<<<<<<<<<<<
- *             if question_mark in url:
- *                 url, query = url.split(question_mark, 1)
+ *             if allow_fragments and '#' in url:
+ *                 url, fragment = url.split('#', 1)             # <<<<<<<<<<<<<<
+ *             if '?' in url:
+ *                 url, query = url.split('?', 1)
  */
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_split); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 478, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_1 = NULL;
-        __pyx_t_6 = 0;
-        if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_7))) {
-          __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_7);
-          if (likely(__pyx_t_1)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
-            __Pyx_INCREF(__pyx_t_1);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_7, function);
-            __pyx_t_6 = 1;
-          }
-        }
-        __pyx_t_2 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 478, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 501, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        if (__pyx_t_1) {
-          __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1); __pyx_t_1 = NULL;
-        }
-        __Pyx_INCREF(__pyx_v_pound);
-        __Pyx_GIVEREF(__pyx_v_pound);
-        PyTuple_SET_ITEM(__pyx_t_2, 0+__pyx_t_6, __pyx_v_pound);
-        __Pyx_INCREF(__pyx_int_1);
-        __Pyx_GIVEREF(__pyx_int_1);
-        PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_6, __pyx_int_1);
-        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_2, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 478, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_5);
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        if ((likely(PyTuple_CheckExact(__pyx_t_5))) || (PyList_CheckExact(__pyx_t_5))) {
-          PyObject* sequence = __pyx_t_5;
-          #if CYTHON_COMPILING_IN_CPYTHON
-          Py_ssize_t size = Py_SIZE(sequence);
-          #else
-          Py_ssize_t size = PySequence_Size(sequence);
-          #endif
-          if (unlikely(size != 2)) {
-            if (size > 2) __Pyx_RaiseTooManyValuesError(2);
-            else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-            __PYX_ERR(0, 478, __pyx_L1_error)
-          }
-          #if CYTHON_COMPILING_IN_CPYTHON
-          if (likely(PyTuple_CheckExact(sequence))) {
-            __pyx_t_7 = PyTuple_GET_ITEM(sequence, 0); 
-            __pyx_t_2 = PyTuple_GET_ITEM(sequence, 1); 
-          } else {
-            __pyx_t_7 = PyList_GET_ITEM(sequence, 0); 
-            __pyx_t_2 = PyList_GET_ITEM(sequence, 1); 
-          }
-          __Pyx_INCREF(__pyx_t_7);
-          __Pyx_INCREF(__pyx_t_2);
-          #else
-          __pyx_t_7 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 478, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_7);
-          __pyx_t_2 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 478, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_2);
-          #endif
-          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-        } else {
-          Py_ssize_t index = -1;
-          __pyx_t_1 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 478, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_1);
-          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          __pyx_t_8 = Py_TYPE(__pyx_t_1)->tp_iternext;
-          index = 0; __pyx_t_7 = __pyx_t_8(__pyx_t_1); if (unlikely(!__pyx_t_7)) goto __pyx_L20_unpacking_failed;
-          __Pyx_GOTREF(__pyx_t_7);
-          index = 1; __pyx_t_2 = __pyx_t_8(__pyx_t_1); if (unlikely(!__pyx_t_2)) goto __pyx_L20_unpacking_failed;
-          __Pyx_GOTREF(__pyx_t_2);
-          if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_1), 2) < 0) __PYX_ERR(0, 478, __pyx_L1_error)
-          __pyx_t_8 = NULL;
-          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          goto __pyx_L21_unpacking_done;
-          __pyx_L20_unpacking_failed:;
-          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_8 = NULL;
-          if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-          __PYX_ERR(0, 478, __pyx_L1_error)
-          __pyx_L21_unpacking_done:;
-        }
-        __Pyx_DECREF_SET(__pyx_v_url, __pyx_t_7);
-        __pyx_t_7 = 0;
-        __Pyx_DECREF_SET(__pyx_v_fragment, __pyx_t_2);
-        __pyx_t_2 = 0;
-
-        /* "curlparse.pyx":477
- *                         (r_bracket in netloc and l_bracket not in netloc)):
- *                     raise ValueError("Invalid IPv6 URL")
- *             if allow_fragments and pound in url:             # <<<<<<<<<<<<<<
- *                 url, fragment = url.split(pound, 1)
- *             if question_mark in url:
- */
-      }
-
-      /* "curlparse.pyx":479
- *             if allow_fragments and pound in url:
- *                 url, fragment = url.split(pound, 1)
- *             if question_mark in url:             # <<<<<<<<<<<<<<
- *                 url, query = url.split(question_mark, 1)
- *             v = result_type(scheme, netloc, url, query, fragment)
- */
-      __pyx_t_4 = (__Pyx_PySequence_ContainsTF(__pyx_v_question_mark, __pyx_v_url, Py_EQ)); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 479, __pyx_L1_error)
-      __pyx_t_9 = (__pyx_t_4 != 0);
-      if (__pyx_t_9) {
-
-        /* "curlparse.pyx":480
- *                 url, fragment = url.split(pound, 1)
- *             if question_mark in url:
- *                 url, query = url.split(question_mark, 1)             # <<<<<<<<<<<<<<
- *             v = result_type(scheme, netloc, url, query, fragment)
- *             _parse_cache[key] = v
- */
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 480, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_7 = NULL;
-        __pyx_t_6 = 0;
-        if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
-          __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_2);
-          if (likely(__pyx_t_7)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-            __Pyx_INCREF(__pyx_t_7);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_2, function);
-            __pyx_t_6 = 1;
-          }
-        }
-        __pyx_t_1 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 480, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__41, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 501, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        if (__pyx_t_7) {
-          __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_7); __pyx_t_7 = NULL;
-        }
-        __Pyx_INCREF(__pyx_v_question_mark);
-        __Pyx_GIVEREF(__pyx_v_question_mark);
-        PyTuple_SET_ITEM(__pyx_t_1, 0+__pyx_t_6, __pyx_v_question_mark);
-        __Pyx_INCREF(__pyx_int_1);
-        __Pyx_GIVEREF(__pyx_int_1);
-        PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_6, __pyx_int_1);
-        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 480, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_5);
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        if ((likely(PyTuple_CheckExact(__pyx_t_5))) || (PyList_CheckExact(__pyx_t_5))) {
-          PyObject* sequence = __pyx_t_5;
+        if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
+          PyObject* sequence = __pyx_t_1;
           #if CYTHON_COMPILING_IN_CPYTHON
           Py_ssize_t size = Py_SIZE(sequence);
           #else
@@ -10099,184 +11240,256 @@ static PyObject *__pyx_pf_9curlparse_22urlsplit(CYTHON_UNUSED PyObject *__pyx_se
           if (unlikely(size != 2)) {
             if (size > 2) __Pyx_RaiseTooManyValuesError(2);
             else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-            __PYX_ERR(0, 480, __pyx_L1_error)
+            __PYX_ERR(0, 501, __pyx_L1_error)
           }
           #if CYTHON_COMPILING_IN_CPYTHON
           if (likely(PyTuple_CheckExact(sequence))) {
             __pyx_t_2 = PyTuple_GET_ITEM(sequence, 0); 
-            __pyx_t_1 = PyTuple_GET_ITEM(sequence, 1); 
+            __pyx_t_5 = PyTuple_GET_ITEM(sequence, 1); 
           } else {
             __pyx_t_2 = PyList_GET_ITEM(sequence, 0); 
-            __pyx_t_1 = PyList_GET_ITEM(sequence, 1); 
+            __pyx_t_5 = PyList_GET_ITEM(sequence, 1); 
           }
           __Pyx_INCREF(__pyx_t_2);
-          __Pyx_INCREF(__pyx_t_1);
+          __Pyx_INCREF(__pyx_t_5);
           #else
-          __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 480, __pyx_L1_error)
+          __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 501, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
-          __pyx_t_1 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 480, __pyx_L1_error)
+          __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 501, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_5);
+          #endif
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        } else {
+          Py_ssize_t index = -1;
+          __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 501, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+          __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext;
+          index = 0; __pyx_t_2 = __pyx_t_7(__pyx_t_3); if (unlikely(!__pyx_t_2)) goto __pyx_L18_unpacking_failed;
+          __Pyx_GOTREF(__pyx_t_2);
+          index = 1; __pyx_t_5 = __pyx_t_7(__pyx_t_3); if (unlikely(!__pyx_t_5)) goto __pyx_L18_unpacking_failed;
+          __Pyx_GOTREF(__pyx_t_5);
+          if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_3), 2) < 0) __PYX_ERR(0, 501, __pyx_L1_error)
+          __pyx_t_7 = NULL;
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          goto __pyx_L19_unpacking_done;
+          __pyx_L18_unpacking_failed:;
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __pyx_t_7 = NULL;
+          if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
+          __PYX_ERR(0, 501, __pyx_L1_error)
+          __pyx_L19_unpacking_done:;
+        }
+        if (!(likely(PyString_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 501, __pyx_L1_error)
+        __Pyx_DECREF_SET(__pyx_v_url, ((PyObject*)__pyx_t_2));
+        __pyx_t_2 = 0;
+        __Pyx_DECREF_SET(__pyx_v_fragment, __pyx_t_5);
+        __pyx_t_5 = 0;
+
+        /* "curlparse.pyx":500
+ *                         (']' in netloc and '[' not in netloc)):
+ *                     raise ValueError("Invalid IPv6 URL")
+ *             if allow_fragments and '#' in url:             # <<<<<<<<<<<<<<
+ *                 url, fragment = url.split('#', 1)
+ *             if '?' in url:
+ */
+      }
+
+      /* "curlparse.pyx":502
+ *             if allow_fragments and '#' in url:
+ *                 url, fragment = url.split('#', 1)
+ *             if '?' in url:             # <<<<<<<<<<<<<<
+ *                 url, query = url.split('?', 1)
+ *             v = SplitResult(scheme, netloc, url, query, fragment)
+ */
+      __pyx_t_6 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s__34, __pyx_v_url, Py_EQ)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 502, __pyx_L1_error)
+      __pyx_t_9 = (__pyx_t_6 != 0);
+      if (__pyx_t_9) {
+
+        /* "curlparse.pyx":503
+ *                 url, fragment = url.split('#', 1)
+ *             if '?' in url:
+ *                 url, query = url.split('?', 1)             # <<<<<<<<<<<<<<
+ *             v = SplitResult(scheme, netloc, url, query, fragment)
+ *             _parse_cache[key] = v
+ */
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_split); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 503, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__42, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 503, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        if ((likely(PyTuple_CheckExact(__pyx_t_5))) || (PyList_CheckExact(__pyx_t_5))) {
+          PyObject* sequence = __pyx_t_5;
+          #if CYTHON_COMPILING_IN_CPYTHON
+          Py_ssize_t size = Py_SIZE(sequence);
+          #else
+          Py_ssize_t size = PySequence_Size(sequence);
+          #endif
+          if (unlikely(size != 2)) {
+            if (size > 2) __Pyx_RaiseTooManyValuesError(2);
+            else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
+            __PYX_ERR(0, 503, __pyx_L1_error)
+          }
+          #if CYTHON_COMPILING_IN_CPYTHON
+          if (likely(PyTuple_CheckExact(sequence))) {
+            __pyx_t_1 = PyTuple_GET_ITEM(sequence, 0); 
+            __pyx_t_2 = PyTuple_GET_ITEM(sequence, 1); 
+          } else {
+            __pyx_t_1 = PyList_GET_ITEM(sequence, 0); 
+            __pyx_t_2 = PyList_GET_ITEM(sequence, 1); 
+          }
+          __Pyx_INCREF(__pyx_t_1);
+          __Pyx_INCREF(__pyx_t_2);
+          #else
+          __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 503, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
+          __pyx_t_2 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 503, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
           #endif
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         } else {
           Py_ssize_t index = -1;
-          __pyx_t_7 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 480, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_7);
+          __pyx_t_3 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 503, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          __pyx_t_8 = Py_TYPE(__pyx_t_7)->tp_iternext;
-          index = 0; __pyx_t_2 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_2)) goto __pyx_L23_unpacking_failed;
-          __Pyx_GOTREF(__pyx_t_2);
-          index = 1; __pyx_t_1 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_1)) goto __pyx_L23_unpacking_failed;
+          __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext;
+          index = 0; __pyx_t_1 = __pyx_t_7(__pyx_t_3); if (unlikely(!__pyx_t_1)) goto __pyx_L21_unpacking_failed;
           __Pyx_GOTREF(__pyx_t_1);
-          if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 480, __pyx_L1_error)
-          __pyx_t_8 = NULL;
-          __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-          goto __pyx_L24_unpacking_done;
-          __pyx_L23_unpacking_failed:;
-          __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-          __pyx_t_8 = NULL;
+          index = 1; __pyx_t_2 = __pyx_t_7(__pyx_t_3); if (unlikely(!__pyx_t_2)) goto __pyx_L21_unpacking_failed;
+          __Pyx_GOTREF(__pyx_t_2);
+          if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_3), 2) < 0) __PYX_ERR(0, 503, __pyx_L1_error)
+          __pyx_t_7 = NULL;
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          goto __pyx_L22_unpacking_done;
+          __pyx_L21_unpacking_failed:;
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __pyx_t_7 = NULL;
           if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-          __PYX_ERR(0, 480, __pyx_L1_error)
-          __pyx_L24_unpacking_done:;
+          __PYX_ERR(0, 503, __pyx_L1_error)
+          __pyx_L22_unpacking_done:;
         }
-        __Pyx_DECREF_SET(__pyx_v_url, __pyx_t_2);
-        __pyx_t_2 = 0;
-        __Pyx_DECREF_SET(__pyx_v_query, __pyx_t_1);
+        if (!(likely(PyString_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 503, __pyx_L1_error)
+        __Pyx_DECREF_SET(__pyx_v_url, ((PyObject*)__pyx_t_1));
         __pyx_t_1 = 0;
+        __Pyx_DECREF_SET(__pyx_v_query, __pyx_t_2);
+        __pyx_t_2 = 0;
 
-        /* "curlparse.pyx":479
- *             if allow_fragments and pound in url:
- *                 url, fragment = url.split(pound, 1)
- *             if question_mark in url:             # <<<<<<<<<<<<<<
- *                 url, query = url.split(question_mark, 1)
- *             v = result_type(scheme, netloc, url, query, fragment)
+        /* "curlparse.pyx":502
+ *             if allow_fragments and '#' in url:
+ *                 url, fragment = url.split('#', 1)
+ *             if '?' in url:             # <<<<<<<<<<<<<<
+ *                 url, query = url.split('?', 1)
+ *             v = SplitResult(scheme, netloc, url, query, fragment)
  */
       }
 
-      /* "curlparse.pyx":481
- *             if question_mark in url:
- *                 url, query = url.split(question_mark, 1)
- *             v = result_type(scheme, netloc, url, query, fragment)             # <<<<<<<<<<<<<<
+      /* "curlparse.pyx":504
+ *             if '?' in url:
+ *                 url, query = url.split('?', 1)
+ *             v = SplitResult(scheme, netloc, url, query, fragment)             # <<<<<<<<<<<<<<
  *             _parse_cache[key] = v
  *             return v
  */
-      __Pyx_INCREF(__pyx_v_result_type);
-      __pyx_t_1 = __pyx_v_result_type; __pyx_t_2 = NULL;
-      __pyx_t_6 = 0;
-      if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_1))) {
-        __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_1);
-        if (likely(__pyx_t_2)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-          __Pyx_INCREF(__pyx_t_2);
+      __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_SplitResult); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 504, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_1 = NULL;
+      __pyx_t_4 = 0;
+      if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_2))) {
+        __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_2);
+        if (likely(__pyx_t_1)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+          __Pyx_INCREF(__pyx_t_1);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_1, function);
-          __pyx_t_6 = 1;
+          __Pyx_DECREF_SET(__pyx_t_2, function);
+          __pyx_t_4 = 1;
         }
       }
-      __pyx_t_7 = PyTuple_New(5+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 481, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
-      if (__pyx_t_2) {
-        __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_2); __pyx_t_2 = NULL;
+      __pyx_t_3 = PyTuple_New(5+__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 504, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      if (__pyx_t_1) {
+        __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1); __pyx_t_1 = NULL;
       }
       __Pyx_INCREF(__pyx_v_scheme);
       __Pyx_GIVEREF(__pyx_v_scheme);
-      PyTuple_SET_ITEM(__pyx_t_7, 0+__pyx_t_6, __pyx_v_scheme);
+      PyTuple_SET_ITEM(__pyx_t_3, 0+__pyx_t_4, __pyx_v_scheme);
       __Pyx_INCREF(__pyx_v_netloc);
       __Pyx_GIVEREF(__pyx_v_netloc);
-      PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_v_netloc);
+      PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_4, __pyx_v_netloc);
       __Pyx_INCREF(__pyx_v_url);
       __Pyx_GIVEREF(__pyx_v_url);
-      PyTuple_SET_ITEM(__pyx_t_7, 2+__pyx_t_6, __pyx_v_url);
+      PyTuple_SET_ITEM(__pyx_t_3, 2+__pyx_t_4, __pyx_v_url);
       __Pyx_INCREF(__pyx_v_query);
       __Pyx_GIVEREF(__pyx_v_query);
-      PyTuple_SET_ITEM(__pyx_t_7, 3+__pyx_t_6, __pyx_v_query);
+      PyTuple_SET_ITEM(__pyx_t_3, 3+__pyx_t_4, __pyx_v_query);
       __Pyx_INCREF(__pyx_v_fragment);
       __Pyx_GIVEREF(__pyx_v_fragment);
-      PyTuple_SET_ITEM(__pyx_t_7, 4+__pyx_t_6, __pyx_v_fragment);
-      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 481, __pyx_L1_error)
+      PyTuple_SET_ITEM(__pyx_t_3, 4+__pyx_t_4, __pyx_v_fragment);
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 504, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_v = __pyx_t_5;
       __pyx_t_5 = 0;
 
-      /* "curlparse.pyx":482
- *                 url, query = url.split(question_mark, 1)
- *             v = result_type(scheme, netloc, url, query, fragment)
+      /* "curlparse.pyx":505
+ *                 url, query = url.split('?', 1)
+ *             v = SplitResult(scheme, netloc, url, query, fragment)
  *             _parse_cache[key] = v             # <<<<<<<<<<<<<<
  *             return v
  *         for c in url[:i]:
  */
-      __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_parse_cache); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 482, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_parse_cache); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 505, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      if (unlikely(PyObject_SetItem(__pyx_t_5, __pyx_v_key, __pyx_v_v) < 0)) __PYX_ERR(0, 482, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_t_5, __pyx_v_key, __pyx_v_v) < 0)) __PYX_ERR(0, 505, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-      /* "curlparse.pyx":483
- *             v = result_type(scheme, netloc, url, query, fragment)
+      /* "curlparse.pyx":506
+ *             v = SplitResult(scheme, netloc, url, query, fragment)
  *             _parse_cache[key] = v
  *             return v             # <<<<<<<<<<<<<<
  *         for c in url[:i]:
- *             if c not in scheme_chars:
+ *             if c not in ('abcdefghijklmnopqrstuvwxyz'
  */
       __Pyx_XDECREF(__pyx_r);
       __Pyx_INCREF(__pyx_v_v);
       __pyx_r = __pyx_v_v;
       goto __pyx_L0;
 
-      /* "curlparse.pyx":469
- *     i = url.find(colon)
+      /* "curlparse.pyx":492
+ *     i = url.find(':')
  *     if i > 0:
- *         if url.startswith(http, i):  # optimize the common case             # <<<<<<<<<<<<<<
+ *         if url.startswith('http', i):  # optimize the common case             # <<<<<<<<<<<<<<
  *             scheme = url[:i].lower()
  *             url = url[i+1:]
  */
     }
 
-    /* "curlparse.pyx":484
+    /* "curlparse.pyx":507
  *             _parse_cache[key] = v
  *             return v
  *         for c in url[:i]:             # <<<<<<<<<<<<<<
- *             if c not in scheme_chars:
- *                 break
+ *             if c not in ('abcdefghijklmnopqrstuvwxyz'
+ *                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
-    __pyx_t_5 = __Pyx_PyObject_GetSlice(__pyx_v_url, 0, 0, NULL, &__pyx_v_i, NULL, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 484, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    if (likely(PyList_CheckExact(__pyx_t_5)) || PyTuple_CheckExact(__pyx_t_5)) {
-      __pyx_t_1 = __pyx_t_5; __Pyx_INCREF(__pyx_t_1); __pyx_t_6 = 0;
-      __pyx_t_10 = NULL;
-    } else {
-      __pyx_t_6 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 484, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_10 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 484, __pyx_L1_error)
+    if (unlikely(__pyx_v_url == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+      __PYX_ERR(0, 507, __pyx_L1_error)
     }
+    __pyx_t_4 = __Pyx_PyIndex_AsSsize_t(__pyx_v_i); if (unlikely((__pyx_t_4 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 507, __pyx_L1_error)
+    __pyx_t_5 = PySequence_GetSlice(__pyx_v_url, 0, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 507, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_2 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 507, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_10 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 507, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     for (;;) {
-      if (likely(!__pyx_t_10)) {
-        if (likely(PyList_CheckExact(__pyx_t_1))) {
-          if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_1)) break;
-          #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_5 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_6); __Pyx_INCREF(__pyx_t_5); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 484, __pyx_L1_error)
-          #else
-          __pyx_t_5 = PySequence_ITEM(__pyx_t_1, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 484, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_5);
-          #endif
-        } else {
-          if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
-          #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_6); __Pyx_INCREF(__pyx_t_5); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 484, __pyx_L1_error)
-          #else
-          __pyx_t_5 = PySequence_ITEM(__pyx_t_1, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 484, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_5);
-          #endif
-        }
-      } else {
-        __pyx_t_5 = __pyx_t_10(__pyx_t_1);
+      {
+        __pyx_t_5 = __pyx_t_10(__pyx_t_2);
         if (unlikely(!__pyx_t_5)) {
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 484, __pyx_L1_error)
+            else __PYX_ERR(0, 507, __pyx_L1_error)
           }
           break;
         }
@@ -10285,215 +11498,203 @@ static PyObject *__pyx_pf_9curlparse_22urlsplit(CYTHON_UNUSED PyObject *__pyx_se
       __Pyx_XDECREF_SET(__pyx_v_c, __pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "curlparse.pyx":485
+      /* "curlparse.pyx":508
  *             return v
  *         for c in url[:i]:
- *             if c not in scheme_chars:             # <<<<<<<<<<<<<<
- *                 break
- *         else:
+ *             if c not in ('abcdefghijklmnopqrstuvwxyz'             # <<<<<<<<<<<<<<
+ *                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+ *                          '0123456789'
  */
-      __pyx_t_9 = (__Pyx_PySequence_ContainsTF(__pyx_v_c, __pyx_v_scheme_chars, Py_NE)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 485, __pyx_L1_error)
-      __pyx_t_4 = (__pyx_t_9 != 0);
-      if (__pyx_t_4) {
+      __pyx_t_9 = (__Pyx_PySequence_ContainsTF(__pyx_v_c, __pyx_kp_s_abcdefghijklmnopqrstuvwxyzABCDEF, Py_NE)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 508, __pyx_L1_error)
+      __pyx_t_6 = (__pyx_t_9 != 0);
+      if (__pyx_t_6) {
 
-        /* "curlparse.pyx":486
- *         for c in url[:i]:
- *             if c not in scheme_chars:
+        /* "curlparse.pyx":512
+ *                          '0123456789'
+ *                          '+-.'):
  *                 break             # <<<<<<<<<<<<<<
  *         else:
  *             # make sure "url" is not actually a port number (in which case
  */
-        goto __pyx_L26_break;
+        goto __pyx_L24_break;
 
-        /* "curlparse.pyx":485
+        /* "curlparse.pyx":508
  *             return v
  *         for c in url[:i]:
- *             if c not in scheme_chars:             # <<<<<<<<<<<<<<
- *                 break
- *         else:
+ *             if c not in ('abcdefghijklmnopqrstuvwxyz'             # <<<<<<<<<<<<<<
+ *                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+ *                          '0123456789'
  */
       }
 
-      /* "curlparse.pyx":484
+      /* "curlparse.pyx":507
  *             _parse_cache[key] = v
  *             return v
  *         for c in url[:i]:             # <<<<<<<<<<<<<<
- *             if c not in scheme_chars:
- *                 break
+ *             if c not in ('abcdefghijklmnopqrstuvwxyz'
+ *                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
     }
     /*else*/ {
 
-      /* "curlparse.pyx":490
+      /* "curlparse.pyx":516
  *             # make sure "url" is not actually a port number (in which case
  *             # "scheme" is really part of the path)
  *             rest = url[i+1:]             # <<<<<<<<<<<<<<
- *             if not rest or any(c not in digits for c in rest):
+ *             if not rest or any(c not in '0123456789' for c in rest):
  *                 # not a port number
  */
-      __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 490, __pyx_L1_error)
+      if (unlikely(__pyx_v_url == Py_None)) {
+        PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+        __PYX_ERR(0, 516, __pyx_L1_error)
+      }
+      __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 516, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_7 = __Pyx_PyObject_GetSlice(__pyx_v_url, 0, 0, &__pyx_t_5, NULL, NULL, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 490, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
+      __pyx_t_4 = __Pyx_PyIndex_AsSsize_t(__pyx_t_5); if (unlikely((__pyx_t_4 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 516, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __Pyx_GIVEREF(__pyx_t_7);
-      __pyx_cur_scope->__pyx_v_rest = __pyx_t_7;
-      __pyx_t_7 = 0;
+      __pyx_t_5 = PySequence_GetSlice(__pyx_v_url, __pyx_t_4, PY_SSIZE_T_MAX); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 516, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_GIVEREF(__pyx_t_5);
+      __pyx_cur_scope->__pyx_v_rest = __pyx_t_5;
+      __pyx_t_5 = 0;
 
-      /* "curlparse.pyx":491
+      /* "curlparse.pyx":517
  *             # "scheme" is really part of the path)
  *             rest = url[i+1:]
- *             if not rest or any(c not in digits for c in rest):             # <<<<<<<<<<<<<<
+ *             if not rest or any(c not in '0123456789' for c in rest):             # <<<<<<<<<<<<<<
  *                 # not a port number
  *                 scheme, url = url[:i].lower(), rest
  */
-      __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_cur_scope->__pyx_v_rest); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 491, __pyx_L1_error)
-      __pyx_t_3 = ((!__pyx_t_9) != 0);
-      if (!__pyx_t_3) {
+      __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_cur_scope->__pyx_v_rest); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 517, __pyx_L1_error)
+      __pyx_t_8 = ((!__pyx_t_9) != 0);
+      if (!__pyx_t_8) {
       } else {
-        __pyx_t_4 = __pyx_t_3;
-        goto __pyx_L30_bool_binop_done;
+        __pyx_t_6 = __pyx_t_8;
+        goto __pyx_L28_bool_binop_done;
       }
-      __pyx_t_7 = __pyx_pf_9curlparse_8urlsplit_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 491, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_5 = __Pyx_Generator_Next(__pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 491, __pyx_L1_error)
+      __pyx_t_5 = __pyx_pf_9curlparse_8urlsplit_3genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 517, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 491, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_Generator_Next(__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 517, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_4 = __pyx_t_3;
-      __pyx_L30_bool_binop_done:;
-      if (__pyx_t_4) {
+      __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 517, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_6 = __pyx_t_8;
+      __pyx_L28_bool_binop_done:;
+      if (__pyx_t_6) {
 
-        /* "curlparse.pyx":493
- *             if not rest or any(c not in digits for c in rest):
+        /* "curlparse.pyx":519
+ *             if not rest or any(c not in '0123456789' for c in rest):
  *                 # not a port number
  *                 scheme, url = url[:i].lower(), rest             # <<<<<<<<<<<<<<
  * 
- *     if url.startswith(double_slash):
+ *     if url.startswith('//'):
  */
-        __pyx_t_7 = __Pyx_PyObject_GetSlice(__pyx_v_url, 0, 0, NULL, &__pyx_v_i, NULL, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 493, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_lower); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 493, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __pyx_t_7 = NULL;
-        if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
-          __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_2);
-          if (likely(__pyx_t_7)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-            __Pyx_INCREF(__pyx_t_7);
+        if (unlikely(__pyx_v_url == Py_None)) {
+          PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+          __PYX_ERR(0, 519, __pyx_L1_error)
+        }
+        __pyx_t_4 = __Pyx_PyIndex_AsSsize_t(__pyx_v_i); if (unlikely((__pyx_t_4 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 519, __pyx_L1_error)
+        __pyx_t_5 = PySequence_GetSlice(__pyx_v_url, 0, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 519, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_lower); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 519, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __pyx_t_5 = NULL;
+        if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
+          __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_1);
+          if (likely(__pyx_t_5)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+            __Pyx_INCREF(__pyx_t_5);
             __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_2, function);
+            __Pyx_DECREF_SET(__pyx_t_1, function);
           }
         }
-        if (__pyx_t_7) {
-          __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 493, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        if (__pyx_t_5) {
+          __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 519, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         } else {
-          __pyx_t_5 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 493, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 519, __pyx_L1_error)
         }
-        __Pyx_GOTREF(__pyx_t_5);
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __pyx_cur_scope->__pyx_v_rest;
-        __Pyx_INCREF(__pyx_t_2);
-        __Pyx_DECREF_SET(__pyx_v_scheme, __pyx_t_5);
-        __pyx_t_5 = 0;
-        __Pyx_DECREF_SET(__pyx_v_url, __pyx_t_2);
-        __pyx_t_2 = 0;
+        __Pyx_GOTREF(__pyx_t_3);
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        if (!(likely(PyString_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_3)->tp_name), 0))) __PYX_ERR(0, 519, __pyx_L1_error)
+        if (!(likely(PyString_CheckExact(__pyx_cur_scope->__pyx_v_rest))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_cur_scope->__pyx_v_rest)->tp_name), 0))) __PYX_ERR(0, 519, __pyx_L1_error)
+        __pyx_t_1 = __pyx_cur_scope->__pyx_v_rest;
+        __Pyx_INCREF(__pyx_t_1);
+        __Pyx_DECREF_SET(__pyx_v_scheme, ((PyObject*)__pyx_t_3));
+        __pyx_t_3 = 0;
+        __Pyx_DECREF_SET(__pyx_v_url, ((PyObject*)__pyx_t_1));
+        __pyx_t_1 = 0;
 
-        /* "curlparse.pyx":491
+        /* "curlparse.pyx":517
  *             # "scheme" is really part of the path)
  *             rest = url[i+1:]
- *             if not rest or any(c not in digits for c in rest):             # <<<<<<<<<<<<<<
+ *             if not rest or any(c not in '0123456789' for c in rest):             # <<<<<<<<<<<<<<
  *                 # not a port number
  *                 scheme, url = url[:i].lower(), rest
  */
       }
     }
 
-    /* "curlparse.pyx":484
+    /* "curlparse.pyx":507
  *             _parse_cache[key] = v
  *             return v
  *         for c in url[:i]:             # <<<<<<<<<<<<<<
- *             if c not in scheme_chars:
- *                 break
+ *             if c not in ('abcdefghijklmnopqrstuvwxyz'
+ *                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
-    __pyx_L26_break:;
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_L24_break:;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "curlparse.pyx":468
- *     netloc = query = fragment = blank
- *     i = url.find(colon)
+    /* "curlparse.pyx":491
+ *     netloc = query = fragment = ''
+ *     i = url.find(':')
  *     if i > 0:             # <<<<<<<<<<<<<<
- *         if url.startswith(http, i):  # optimize the common case
+ *         if url.startswith('http', i):  # optimize the common case
  *             scheme = url[:i].lower()
  */
   }
 
-  /* "curlparse.pyx":495
+  /* "curlparse.pyx":521
  *                 scheme, url = url[:i].lower(), rest
  * 
- *     if url.startswith(double_slash):             # <<<<<<<<<<<<<<
- *         netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)
- *         if ((l_bracket in netloc and r_bracket not in netloc) or
+ *     if url.startswith('//'):             # <<<<<<<<<<<<<<
+ *         netloc, url = _splitnetloc(url, 2, delimiters='/?#')
+ *         if (('[' in netloc and ']' not in netloc) or
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_startswith); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 495, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_5 = NULL;
-  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_5)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_5);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
-    }
+  if (unlikely(__pyx_v_url == Py_None)) {
+    PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "startswith");
+    __PYX_ERR(0, 521, __pyx_L1_error)
   }
-  if (!__pyx_t_5) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_double_slash); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 495, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-  } else {
-    __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 495, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
-    __Pyx_INCREF(__pyx_v_double_slash);
-    __Pyx_GIVEREF(__pyx_v_double_slash);
-    PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_v_double_slash);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 495, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  }
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 495, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_4) {
+  __pyx_t_6 = __Pyx_PyStr_Tailmatch(__pyx_v_url, __pyx_kp_s__30, 0, PY_SSIZE_T_MAX, -1); if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 521, __pyx_L1_error)
+  if ((__pyx_t_6 != 0)) {
 
-    /* "curlparse.pyx":496
+    /* "curlparse.pyx":522
  * 
- *     if url.startswith(double_slash):
- *         netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)             # <<<<<<<<<<<<<<
- *         if ((l_bracket in netloc and r_bracket not in netloc) or
- *                 (r_bracket in netloc and l_bracket not in netloc)):
+ *     if url.startswith('//'):
+ *         netloc, url = _splitnetloc(url, 2, delimiters='/?#')             # <<<<<<<<<<<<<<
+ *         if (('[' in netloc and ']' not in netloc) or
+ *                 (']' in netloc and '[' not in netloc)):
  */
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_splitnetloc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 496, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 496, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_splitnetloc); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 522, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 522, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_v_url);
     __Pyx_GIVEREF(__pyx_v_url);
-    PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_url);
+    PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_url);
     __Pyx_INCREF(__pyx_int_2);
     __Pyx_GIVEREF(__pyx_int_2);
-    PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_int_2);
-    __pyx_t_7 = PyDict_New(); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 496, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_delimiters, __pyx_v_netloc_delimiters) < 0) __PYX_ERR(0, 496, __pyx_L1_error)
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 496, __pyx_L1_error)
+    PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_int_2);
+    __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 522, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_delimiters, __pyx_kp_s__31) < 0) __PYX_ERR(0, 522, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 522, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if ((likely(PyTuple_CheckExact(__pyx_t_5))) || (PyList_CheckExact(__pyx_t_5))) {
       PyObject* sequence = __pyx_t_5;
       #if CYTHON_COMPILING_IN_CPYTHON
@@ -10504,189 +11705,166 @@ static PyObject *__pyx_pf_9curlparse_22urlsplit(CYTHON_UNUSED PyObject *__pyx_se
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 496, __pyx_L1_error)
+        __PYX_ERR(0, 522, __pyx_L1_error)
       }
       #if CYTHON_COMPILING_IN_CPYTHON
       if (likely(PyTuple_CheckExact(sequence))) {
-        __pyx_t_7 = PyTuple_GET_ITEM(sequence, 0); 
-        __pyx_t_2 = PyTuple_GET_ITEM(sequence, 1); 
+        __pyx_t_3 = PyTuple_GET_ITEM(sequence, 0); 
+        __pyx_t_1 = PyTuple_GET_ITEM(sequence, 1); 
       } else {
-        __pyx_t_7 = PyList_GET_ITEM(sequence, 0); 
-        __pyx_t_2 = PyList_GET_ITEM(sequence, 1); 
+        __pyx_t_3 = PyList_GET_ITEM(sequence, 0); 
+        __pyx_t_1 = PyList_GET_ITEM(sequence, 1); 
       }
-      __Pyx_INCREF(__pyx_t_7);
-      __Pyx_INCREF(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_1);
       #else
-      __pyx_t_7 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 496, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_2 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 496, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 522, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_1 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 522, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
       #endif
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_1 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 496, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_8 = Py_TYPE(__pyx_t_1)->tp_iternext;
-      index = 0; __pyx_t_7 = __pyx_t_8(__pyx_t_1); if (unlikely(!__pyx_t_7)) goto __pyx_L33_unpacking_failed;
-      __Pyx_GOTREF(__pyx_t_7);
-      index = 1; __pyx_t_2 = __pyx_t_8(__pyx_t_1); if (unlikely(!__pyx_t_2)) goto __pyx_L33_unpacking_failed;
+      __pyx_t_2 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 522, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_1), 2) < 0) __PYX_ERR(0, 496, __pyx_L1_error)
-      __pyx_t_8 = NULL;
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      goto __pyx_L34_unpacking_done;
-      __pyx_L33_unpacking_failed:;
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_8 = NULL;
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_7 = Py_TYPE(__pyx_t_2)->tp_iternext;
+      index = 0; __pyx_t_3 = __pyx_t_7(__pyx_t_2); if (unlikely(!__pyx_t_3)) goto __pyx_L31_unpacking_failed;
+      __Pyx_GOTREF(__pyx_t_3);
+      index = 1; __pyx_t_1 = __pyx_t_7(__pyx_t_2); if (unlikely(!__pyx_t_1)) goto __pyx_L31_unpacking_failed;
+      __Pyx_GOTREF(__pyx_t_1);
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_2), 2) < 0) __PYX_ERR(0, 522, __pyx_L1_error)
+      __pyx_t_7 = NULL;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      goto __pyx_L32_unpacking_done;
+      __pyx_L31_unpacking_failed:;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_7 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 496, __pyx_L1_error)
-      __pyx_L34_unpacking_done:;
+      __PYX_ERR(0, 522, __pyx_L1_error)
+      __pyx_L32_unpacking_done:;
     }
-    __Pyx_DECREF_SET(__pyx_v_netloc, __pyx_t_7);
-    __pyx_t_7 = 0;
-    __Pyx_DECREF_SET(__pyx_v_url, __pyx_t_2);
-    __pyx_t_2 = 0;
+    if (!(likely(PyString_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 522, __pyx_L1_error)
+    __Pyx_DECREF_SET(__pyx_v_netloc, __pyx_t_3);
+    __pyx_t_3 = 0;
+    __Pyx_DECREF_SET(__pyx_v_url, ((PyObject*)__pyx_t_1));
+    __pyx_t_1 = 0;
 
-    /* "curlparse.pyx":497
- *     if url.startswith(double_slash):
- *         netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)
- *         if ((l_bracket in netloc and r_bracket not in netloc) or             # <<<<<<<<<<<<<<
- *                 (r_bracket in netloc and l_bracket not in netloc)):
+    /* "curlparse.pyx":523
+ *     if url.startswith('//'):
+ *         netloc, url = _splitnetloc(url, 2, delimiters='/?#')
+ *         if (('[' in netloc and ']' not in netloc) or             # <<<<<<<<<<<<<<
+ *                 (']' in netloc and '[' not in netloc)):
  *             raise ValueError("Invalid IPv6 URL")
  */
-    __pyx_t_3 = (__Pyx_PySequence_ContainsTF(__pyx_v_l_bracket, __pyx_v_netloc, Py_EQ)); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 497, __pyx_L1_error)
-    __pyx_t_9 = (__pyx_t_3 != 0);
+    __pyx_t_8 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s__13, __pyx_v_netloc, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 523, __pyx_L1_error)
+    __pyx_t_9 = (__pyx_t_8 != 0);
     if (!__pyx_t_9) {
-      goto __pyx_L37_next_or;
+      goto __pyx_L35_next_or;
     } else {
     }
-    __pyx_t_9 = (__Pyx_PySequence_ContainsTF(__pyx_v_r_bracket, __pyx_v_netloc, Py_NE)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 497, __pyx_L1_error)
-    __pyx_t_3 = (__pyx_t_9 != 0);
-    if (!__pyx_t_3) {
+    __pyx_t_9 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s__15, __pyx_v_netloc, Py_NE)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 523, __pyx_L1_error)
+    __pyx_t_8 = (__pyx_t_9 != 0);
+    if (!__pyx_t_8) {
     } else {
-      __pyx_t_4 = __pyx_t_3;
-      goto __pyx_L36_bool_binop_done;
+      __pyx_t_6 = __pyx_t_8;
+      goto __pyx_L34_bool_binop_done;
     }
-    __pyx_L37_next_or:;
+    __pyx_L35_next_or:;
 
-    /* "curlparse.pyx":498
- *         netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)
- *         if ((l_bracket in netloc and r_bracket not in netloc) or
- *                 (r_bracket in netloc and l_bracket not in netloc)):             # <<<<<<<<<<<<<<
+    /* "curlparse.pyx":524
+ *         netloc, url = _splitnetloc(url, 2, delimiters='/?#')
+ *         if (('[' in netloc and ']' not in netloc) or
+ *                 (']' in netloc and '[' not in netloc)):             # <<<<<<<<<<<<<<
  *             raise ValueError("Invalid IPv6 URL")
- *     if allow_fragments and pound in url:
+ *     if allow_fragments and '#' in url:
  */
-    __pyx_t_3 = (__Pyx_PySequence_ContainsTF(__pyx_v_r_bracket, __pyx_v_netloc, Py_EQ)); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 498, __pyx_L1_error)
-    __pyx_t_9 = (__pyx_t_3 != 0);
+    __pyx_t_8 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s__15, __pyx_v_netloc, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 524, __pyx_L1_error)
+    __pyx_t_9 = (__pyx_t_8 != 0);
     if (__pyx_t_9) {
     } else {
-      __pyx_t_4 = __pyx_t_9;
-      goto __pyx_L36_bool_binop_done;
+      __pyx_t_6 = __pyx_t_9;
+      goto __pyx_L34_bool_binop_done;
     }
-    __pyx_t_9 = (__Pyx_PySequence_ContainsTF(__pyx_v_l_bracket, __pyx_v_netloc, Py_NE)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 498, __pyx_L1_error)
-    __pyx_t_3 = (__pyx_t_9 != 0);
-    __pyx_t_4 = __pyx_t_3;
-    __pyx_L36_bool_binop_done:;
+    __pyx_t_9 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s__13, __pyx_v_netloc, Py_NE)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 524, __pyx_L1_error)
+    __pyx_t_8 = (__pyx_t_9 != 0);
+    __pyx_t_6 = __pyx_t_8;
+    __pyx_L34_bool_binop_done:;
 
-    /* "curlparse.pyx":497
- *     if url.startswith(double_slash):
- *         netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)
- *         if ((l_bracket in netloc and r_bracket not in netloc) or             # <<<<<<<<<<<<<<
- *                 (r_bracket in netloc and l_bracket not in netloc)):
+    /* "curlparse.pyx":523
+ *     if url.startswith('//'):
+ *         netloc, url = _splitnetloc(url, 2, delimiters='/?#')
+ *         if (('[' in netloc and ']' not in netloc) or             # <<<<<<<<<<<<<<
+ *                 (']' in netloc and '[' not in netloc)):
  *             raise ValueError("Invalid IPv6 URL")
  */
-    if (__pyx_t_4) {
+    if (__pyx_t_6) {
 
-      /* "curlparse.pyx":499
- *         if ((l_bracket in netloc and r_bracket not in netloc) or
- *                 (r_bracket in netloc and l_bracket not in netloc)):
+      /* "curlparse.pyx":525
+ *         if (('[' in netloc and ']' not in netloc) or
+ *                 (']' in netloc and '[' not in netloc)):
  *             raise ValueError("Invalid IPv6 URL")             # <<<<<<<<<<<<<<
- *     if allow_fragments and pound in url:
- *         url, fragment = url.split(pound, 1)
+ *     if allow_fragments and '#' in url:
+ *         url, fragment = url.split('#', 1)
  */
-      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__34, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 499, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__43, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 525, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_Raise(__pyx_t_5, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __PYX_ERR(0, 499, __pyx_L1_error)
+      __PYX_ERR(0, 525, __pyx_L1_error)
 
-      /* "curlparse.pyx":497
- *     if url.startswith(double_slash):
- *         netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)
- *         if ((l_bracket in netloc and r_bracket not in netloc) or             # <<<<<<<<<<<<<<
- *                 (r_bracket in netloc and l_bracket not in netloc)):
+      /* "curlparse.pyx":523
+ *     if url.startswith('//'):
+ *         netloc, url = _splitnetloc(url, 2, delimiters='/?#')
+ *         if (('[' in netloc and ']' not in netloc) or             # <<<<<<<<<<<<<<
+ *                 (']' in netloc and '[' not in netloc)):
  *             raise ValueError("Invalid IPv6 URL")
  */
     }
 
-    /* "curlparse.pyx":495
+    /* "curlparse.pyx":521
  *                 scheme, url = url[:i].lower(), rest
  * 
- *     if url.startswith(double_slash):             # <<<<<<<<<<<<<<
- *         netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)
- *         if ((l_bracket in netloc and r_bracket not in netloc) or
+ *     if url.startswith('//'):             # <<<<<<<<<<<<<<
+ *         netloc, url = _splitnetloc(url, 2, delimiters='/?#')
+ *         if (('[' in netloc and ']' not in netloc) or
  */
   }
 
-  /* "curlparse.pyx":500
- *                 (r_bracket in netloc and l_bracket not in netloc)):
+  /* "curlparse.pyx":526
+ *                 (']' in netloc and '[' not in netloc)):
  *             raise ValueError("Invalid IPv6 URL")
- *     if allow_fragments and pound in url:             # <<<<<<<<<<<<<<
- *         url, fragment = url.split(pound, 1)
- *     if question_mark in url:
+ *     if allow_fragments and '#' in url:             # <<<<<<<<<<<<<<
+ *         url, fragment = url.split('#', 1)
+ *     if '?' in url:
  */
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_v_allow_fragments); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 500, __pyx_L1_error)
-  if (__pyx_t_3) {
+  __pyx_t_8 = __Pyx_PyObject_IsTrue(((PyObject *)__pyx_v_allow_fragments)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 526, __pyx_L1_error)
+  if (__pyx_t_8) {
   } else {
-    __pyx_t_4 = __pyx_t_3;
-    goto __pyx_L41_bool_binop_done;
+    __pyx_t_6 = __pyx_t_8;
+    goto __pyx_L39_bool_binop_done;
   }
-  __pyx_t_3 = (__Pyx_PySequence_ContainsTF(__pyx_v_pound, __pyx_v_url, Py_EQ)); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 500, __pyx_L1_error)
-  __pyx_t_9 = (__pyx_t_3 != 0);
-  __pyx_t_4 = __pyx_t_9;
-  __pyx_L41_bool_binop_done:;
-  if (__pyx_t_4) {
+  __pyx_t_8 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s__26, __pyx_v_url, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 526, __pyx_L1_error)
+  __pyx_t_9 = (__pyx_t_8 != 0);
+  __pyx_t_6 = __pyx_t_9;
+  __pyx_L39_bool_binop_done:;
+  if (__pyx_t_6) {
 
-    /* "curlparse.pyx":501
+    /* "curlparse.pyx":527
  *             raise ValueError("Invalid IPv6 URL")
- *     if allow_fragments and pound in url:
- *         url, fragment = url.split(pound, 1)             # <<<<<<<<<<<<<<
- *     if question_mark in url:
- *         url, query = url.split(question_mark, 1)
+ *     if allow_fragments and '#' in url:
+ *         url, fragment = url.split('#', 1)             # <<<<<<<<<<<<<<
+ *     if '?' in url:
+ *         url, query = url.split('?', 1)
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 501, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_7 = NULL;
-    __pyx_t_6 = 0;
-    if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
-      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_2);
-      if (likely(__pyx_t_7)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-        __Pyx_INCREF(__pyx_t_7);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_2, function);
-        __pyx_t_6 = 1;
-      }
-    }
-    __pyx_t_1 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 501, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    if (__pyx_t_7) {
-      __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_7); __pyx_t_7 = NULL;
-    }
-    __Pyx_INCREF(__pyx_v_pound);
-    __Pyx_GIVEREF(__pyx_v_pound);
-    PyTuple_SET_ITEM(__pyx_t_1, 0+__pyx_t_6, __pyx_v_pound);
-    __Pyx_INCREF(__pyx_int_1);
-    __Pyx_GIVEREF(__pyx_int_1);
-    PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_6, __pyx_int_1);
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 501, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_split); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 527, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if ((likely(PyTuple_CheckExact(__pyx_t_5))) || (PyList_CheckExact(__pyx_t_5))) {
-      PyObject* sequence = __pyx_t_5;
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_tuple__44, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 527, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
+      PyObject* sequence = __pyx_t_1;
       #if CYTHON_COMPILING_IN_CPYTHON
       Py_ssize_t size = Py_SIZE(sequence);
       #else
@@ -10695,109 +11873,86 @@ static PyObject *__pyx_pf_9curlparse_22urlsplit(CYTHON_UNUSED PyObject *__pyx_se
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 501, __pyx_L1_error)
+        __PYX_ERR(0, 527, __pyx_L1_error)
       }
       #if CYTHON_COMPILING_IN_CPYTHON
       if (likely(PyTuple_CheckExact(sequence))) {
-        __pyx_t_2 = PyTuple_GET_ITEM(sequence, 0); 
-        __pyx_t_1 = PyTuple_GET_ITEM(sequence, 1); 
+        __pyx_t_5 = PyTuple_GET_ITEM(sequence, 0); 
+        __pyx_t_3 = PyTuple_GET_ITEM(sequence, 1); 
       } else {
-        __pyx_t_2 = PyList_GET_ITEM(sequence, 0); 
-        __pyx_t_1 = PyList_GET_ITEM(sequence, 1); 
+        __pyx_t_5 = PyList_GET_ITEM(sequence, 0); 
+        __pyx_t_3 = PyList_GET_ITEM(sequence, 1); 
       }
-      __Pyx_INCREF(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_3);
       #else
-      __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 501, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 501, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 527, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 527, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
       #endif
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_7 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 501, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_8 = Py_TYPE(__pyx_t_7)->tp_iternext;
-      index = 0; __pyx_t_2 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_2)) goto __pyx_L43_unpacking_failed;
+      __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 527, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      index = 1; __pyx_t_1 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_1)) goto __pyx_L43_unpacking_failed;
-      __Pyx_GOTREF(__pyx_t_1);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 501, __pyx_L1_error)
-      __pyx_t_8 = NULL;
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      goto __pyx_L44_unpacking_done;
-      __pyx_L43_unpacking_failed:;
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_8 = NULL;
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_7 = Py_TYPE(__pyx_t_2)->tp_iternext;
+      index = 0; __pyx_t_5 = __pyx_t_7(__pyx_t_2); if (unlikely(!__pyx_t_5)) goto __pyx_L41_unpacking_failed;
+      __Pyx_GOTREF(__pyx_t_5);
+      index = 1; __pyx_t_3 = __pyx_t_7(__pyx_t_2); if (unlikely(!__pyx_t_3)) goto __pyx_L41_unpacking_failed;
+      __Pyx_GOTREF(__pyx_t_3);
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_2), 2) < 0) __PYX_ERR(0, 527, __pyx_L1_error)
+      __pyx_t_7 = NULL;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      goto __pyx_L42_unpacking_done;
+      __pyx_L41_unpacking_failed:;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_7 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 501, __pyx_L1_error)
-      __pyx_L44_unpacking_done:;
+      __PYX_ERR(0, 527, __pyx_L1_error)
+      __pyx_L42_unpacking_done:;
     }
-    __Pyx_DECREF_SET(__pyx_v_url, __pyx_t_2);
-    __pyx_t_2 = 0;
-    __Pyx_DECREF_SET(__pyx_v_fragment, __pyx_t_1);
-    __pyx_t_1 = 0;
+    if (!(likely(PyString_CheckExact(__pyx_t_5))||((__pyx_t_5) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_5)->tp_name), 0))) __PYX_ERR(0, 527, __pyx_L1_error)
+    __Pyx_DECREF_SET(__pyx_v_url, ((PyObject*)__pyx_t_5));
+    __pyx_t_5 = 0;
+    __Pyx_DECREF_SET(__pyx_v_fragment, __pyx_t_3);
+    __pyx_t_3 = 0;
 
-    /* "curlparse.pyx":500
- *                 (r_bracket in netloc and l_bracket not in netloc)):
+    /* "curlparse.pyx":526
+ *                 (']' in netloc and '[' not in netloc)):
  *             raise ValueError("Invalid IPv6 URL")
- *     if allow_fragments and pound in url:             # <<<<<<<<<<<<<<
- *         url, fragment = url.split(pound, 1)
- *     if question_mark in url:
+ *     if allow_fragments and '#' in url:             # <<<<<<<<<<<<<<
+ *         url, fragment = url.split('#', 1)
+ *     if '?' in url:
  */
   }
 
-  /* "curlparse.pyx":502
- *     if allow_fragments and pound in url:
- *         url, fragment = url.split(pound, 1)
- *     if question_mark in url:             # <<<<<<<<<<<<<<
- *         url, query = url.split(question_mark, 1)
- *     v = result_type(scheme, netloc, url, query, fragment)
+  /* "curlparse.pyx":528
+ *     if allow_fragments and '#' in url:
+ *         url, fragment = url.split('#', 1)
+ *     if '?' in url:             # <<<<<<<<<<<<<<
+ *         url, query = url.split('?', 1)
+ *     v = SplitResult(scheme, netloc, url, query, fragment)
  */
-  __pyx_t_4 = (__Pyx_PySequence_ContainsTF(__pyx_v_question_mark, __pyx_v_url, Py_EQ)); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 502, __pyx_L1_error)
-  __pyx_t_9 = (__pyx_t_4 != 0);
+  __pyx_t_6 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s__34, __pyx_v_url, Py_EQ)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 528, __pyx_L1_error)
+  __pyx_t_9 = (__pyx_t_6 != 0);
   if (__pyx_t_9) {
 
-    /* "curlparse.pyx":503
- *         url, fragment = url.split(pound, 1)
- *     if question_mark in url:
- *         url, query = url.split(question_mark, 1)             # <<<<<<<<<<<<<<
- *     v = result_type(scheme, netloc, url, query, fragment)
+    /* "curlparse.pyx":529
+ *         url, fragment = url.split('#', 1)
+ *     if '?' in url:
+ *         url, query = url.split('?', 1)             # <<<<<<<<<<<<<<
+ *     v = SplitResult(scheme, netloc, url, query, fragment)
  *     _parse_cache[key] = v
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_split); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 503, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_split); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 529, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = NULL;
-    __pyx_t_6 = 0;
-    if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
-      __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_1);
-      if (likely(__pyx_t_2)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-        __Pyx_INCREF(__pyx_t_2);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_1, function);
-        __pyx_t_6 = 1;
-      }
-    }
-    __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 503, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    if (__pyx_t_2) {
-      __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_2); __pyx_t_2 = NULL;
-    }
-    __Pyx_INCREF(__pyx_v_question_mark);
-    __Pyx_GIVEREF(__pyx_v_question_mark);
-    PyTuple_SET_ITEM(__pyx_t_7, 0+__pyx_t_6, __pyx_v_question_mark);
-    __Pyx_INCREF(__pyx_int_1);
-    __Pyx_GIVEREF(__pyx_int_1);
-    PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_int_1);
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 503, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__45, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 529, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if ((likely(PyTuple_CheckExact(__pyx_t_5))) || (PyList_CheckExact(__pyx_t_5))) {
-      PyObject* sequence = __pyx_t_5;
+    if ((likely(PyTuple_CheckExact(__pyx_t_3))) || (PyList_CheckExact(__pyx_t_3))) {
+      PyObject* sequence = __pyx_t_3;
       #if CYTHON_COMPILING_IN_CPYTHON
       Py_ssize_t size = Py_SIZE(sequence);
       #else
@@ -10806,121 +11961,123 @@ static PyObject *__pyx_pf_9curlparse_22urlsplit(CYTHON_UNUSED PyObject *__pyx_se
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 503, __pyx_L1_error)
+        __PYX_ERR(0, 529, __pyx_L1_error)
       }
       #if CYTHON_COMPILING_IN_CPYTHON
       if (likely(PyTuple_CheckExact(sequence))) {
         __pyx_t_1 = PyTuple_GET_ITEM(sequence, 0); 
-        __pyx_t_7 = PyTuple_GET_ITEM(sequence, 1); 
+        __pyx_t_5 = PyTuple_GET_ITEM(sequence, 1); 
       } else {
         __pyx_t_1 = PyList_GET_ITEM(sequence, 0); 
-        __pyx_t_7 = PyList_GET_ITEM(sequence, 1); 
+        __pyx_t_5 = PyList_GET_ITEM(sequence, 1); 
       }
       __Pyx_INCREF(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_7);
+      __Pyx_INCREF(__pyx_t_5);
       #else
-      __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 503, __pyx_L1_error)
+      __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 529, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_7 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 503, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
+      __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 529, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
       #endif
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_2 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 503, __pyx_L1_error)
+      __pyx_t_2 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 529, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_8 = Py_TYPE(__pyx_t_2)->tp_iternext;
-      index = 0; __pyx_t_1 = __pyx_t_8(__pyx_t_2); if (unlikely(!__pyx_t_1)) goto __pyx_L46_unpacking_failed;
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_7 = Py_TYPE(__pyx_t_2)->tp_iternext;
+      index = 0; __pyx_t_1 = __pyx_t_7(__pyx_t_2); if (unlikely(!__pyx_t_1)) goto __pyx_L44_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_1);
-      index = 1; __pyx_t_7 = __pyx_t_8(__pyx_t_2); if (unlikely(!__pyx_t_7)) goto __pyx_L46_unpacking_failed;
-      __Pyx_GOTREF(__pyx_t_7);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_2), 2) < 0) __PYX_ERR(0, 503, __pyx_L1_error)
-      __pyx_t_8 = NULL;
+      index = 1; __pyx_t_5 = __pyx_t_7(__pyx_t_2); if (unlikely(!__pyx_t_5)) goto __pyx_L44_unpacking_failed;
+      __Pyx_GOTREF(__pyx_t_5);
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_2), 2) < 0) __PYX_ERR(0, 529, __pyx_L1_error)
+      __pyx_t_7 = NULL;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      goto __pyx_L47_unpacking_done;
-      __pyx_L46_unpacking_failed:;
+      goto __pyx_L45_unpacking_done;
+      __pyx_L44_unpacking_failed:;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_8 = NULL;
+      __pyx_t_7 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 503, __pyx_L1_error)
-      __pyx_L47_unpacking_done:;
+      __PYX_ERR(0, 529, __pyx_L1_error)
+      __pyx_L45_unpacking_done:;
     }
-    __Pyx_DECREF_SET(__pyx_v_url, __pyx_t_1);
+    if (!(likely(PyString_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 529, __pyx_L1_error)
+    __Pyx_DECREF_SET(__pyx_v_url, ((PyObject*)__pyx_t_1));
     __pyx_t_1 = 0;
-    __Pyx_DECREF_SET(__pyx_v_query, __pyx_t_7);
-    __pyx_t_7 = 0;
+    __Pyx_DECREF_SET(__pyx_v_query, __pyx_t_5);
+    __pyx_t_5 = 0;
 
-    /* "curlparse.pyx":502
- *     if allow_fragments and pound in url:
- *         url, fragment = url.split(pound, 1)
- *     if question_mark in url:             # <<<<<<<<<<<<<<
- *         url, query = url.split(question_mark, 1)
- *     v = result_type(scheme, netloc, url, query, fragment)
+    /* "curlparse.pyx":528
+ *     if allow_fragments and '#' in url:
+ *         url, fragment = url.split('#', 1)
+ *     if '?' in url:             # <<<<<<<<<<<<<<
+ *         url, query = url.split('?', 1)
+ *     v = SplitResult(scheme, netloc, url, query, fragment)
  */
   }
 
-  /* "curlparse.pyx":504
- *     if question_mark in url:
- *         url, query = url.split(question_mark, 1)
- *     v = result_type(scheme, netloc, url, query, fragment)             # <<<<<<<<<<<<<<
+  /* "curlparse.pyx":530
+ *     if '?' in url:
+ *         url, query = url.split('?', 1)
+ *     v = SplitResult(scheme, netloc, url, query, fragment)             # <<<<<<<<<<<<<<
  *     _parse_cache[key] = v
  *     return v
  */
-  __Pyx_INCREF(__pyx_v_result_type);
-  __pyx_t_7 = __pyx_v_result_type; __pyx_t_1 = NULL;
-  __pyx_t_6 = 0;
-  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_7))) {
-    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_7);
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_SplitResult); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 530, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_1 = NULL;
+  __pyx_t_4 = 0;
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_5))) {
+    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_5);
     if (likely(__pyx_t_1)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
       __Pyx_INCREF(__pyx_t_1);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_7, function);
-      __pyx_t_6 = 1;
+      __Pyx_DECREF_SET(__pyx_t_5, function);
+      __pyx_t_4 = 1;
     }
   }
-  __pyx_t_2 = PyTuple_New(5+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 504, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(5+__pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 530, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (__pyx_t_1) {
     __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1); __pyx_t_1 = NULL;
   }
   __Pyx_INCREF(__pyx_v_scheme);
   __Pyx_GIVEREF(__pyx_v_scheme);
-  PyTuple_SET_ITEM(__pyx_t_2, 0+__pyx_t_6, __pyx_v_scheme);
+  PyTuple_SET_ITEM(__pyx_t_2, 0+__pyx_t_4, __pyx_v_scheme);
   __Pyx_INCREF(__pyx_v_netloc);
   __Pyx_GIVEREF(__pyx_v_netloc);
-  PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_6, __pyx_v_netloc);
+  PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_4, __pyx_v_netloc);
   __Pyx_INCREF(__pyx_v_url);
   __Pyx_GIVEREF(__pyx_v_url);
-  PyTuple_SET_ITEM(__pyx_t_2, 2+__pyx_t_6, __pyx_v_url);
+  PyTuple_SET_ITEM(__pyx_t_2, 2+__pyx_t_4, __pyx_v_url);
   __Pyx_INCREF(__pyx_v_query);
   __Pyx_GIVEREF(__pyx_v_query);
-  PyTuple_SET_ITEM(__pyx_t_2, 3+__pyx_t_6, __pyx_v_query);
+  PyTuple_SET_ITEM(__pyx_t_2, 3+__pyx_t_4, __pyx_v_query);
   __Pyx_INCREF(__pyx_v_fragment);
   __Pyx_GIVEREF(__pyx_v_fragment);
-  PyTuple_SET_ITEM(__pyx_t_2, 4+__pyx_t_6, __pyx_v_fragment);
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_2, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 504, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_2, 4+__pyx_t_4, __pyx_v_fragment);
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 530, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_v_v = __pyx_t_5;
-  __pyx_t_5 = 0;
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_v_v = __pyx_t_3;
+  __pyx_t_3 = 0;
 
-  /* "curlparse.pyx":505
- *         url, query = url.split(question_mark, 1)
- *     v = result_type(scheme, netloc, url, query, fragment)
+  /* "curlparse.pyx":531
+ *         url, query = url.split('?', 1)
+ *     v = SplitResult(scheme, netloc, url, query, fragment)
  *     _parse_cache[key] = v             # <<<<<<<<<<<<<<
  *     return v
  * 
  */
-  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_parse_cache); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 505, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  if (unlikely(PyObject_SetItem(__pyx_t_5, __pyx_v_key, __pyx_v_v) < 0)) __PYX_ERR(0, 505, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_parse_cache); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 531, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_v_key, __pyx_v_v) < 0)) __PYX_ERR(0, 531, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "curlparse.pyx":506
- *     v = result_type(scheme, netloc, url, query, fragment)
+  /* "curlparse.pyx":532
+ *     v = SplitResult(scheme, netloc, url, query, fragment)
  *     _parse_cache[key] = v
  *     return v             # <<<<<<<<<<<<<<
  * 
@@ -10931,10 +12088,10 @@ static PyObject *__pyx_pf_9curlparse_22urlsplit(CYTHON_UNUSED PyObject *__pyx_se
   __pyx_r = __pyx_v_v;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":419
+  /* "curlparse.pyx":477
  * 
  * 
- * def urlsplit(url, scheme='', allow_fragments=True):             # <<<<<<<<<<<<<<
+ * def urlsplit(str url, str scheme='', bool allow_fragments=True):             # <<<<<<<<<<<<<<
  *     """Parse a URL into 5 components:
  *     <scheme>://<netloc>/<path>?<query>#<fragment>
  */
@@ -10943,22 +12100,11 @@ static PyObject *__pyx_pf_9curlparse_22urlsplit(CYTHON_UNUSED PyObject *__pyx_se
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_7);
   __Pyx_AddTraceback("curlparse.urlsplit", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_blank);
-  __Pyx_XDECREF(__pyx_v_colon);
-  __Pyx_XDECREF(__pyx_v_http);
-  __Pyx_XDECREF(__pyx_v_l_bracket);
-  __Pyx_XDECREF(__pyx_v_r_bracket);
-  __Pyx_XDECREF(__pyx_v_pound);
-  __Pyx_XDECREF(__pyx_v_question_mark);
-  __Pyx_XDECREF(__pyx_v_double_slash);
-  __Pyx_XDECREF(__pyx_v_netloc_delimiters);
-  __Pyx_XDECREF(__pyx_v_result_type);
-  __Pyx_XDECREF(__pyx_v_scheme_chars);
   __Pyx_XDECREF(__pyx_v_key);
   __Pyx_XDECREF(__pyx_v_cached);
   __Pyx_XDECREF(__pyx_v_netloc);
@@ -10969,14 +12115,13 @@ static PyObject *__pyx_pf_9curlparse_22urlsplit(CYTHON_UNUSED PyObject *__pyx_se
   __Pyx_XDECREF(__pyx_v_c);
   __Pyx_XDECREF(__pyx_v_url);
   __Pyx_XDECREF(__pyx_v_scheme);
-  __Pyx_XDECREF(__pyx_v_allow_fragments);
   __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "curlparse.pyx":509
+/* "curlparse.pyx":535
  * 
  * 
  * def urlunparse(components):             # <<<<<<<<<<<<<<
@@ -10985,21 +12130,21 @@ static PyObject *__pyx_pf_9curlparse_22urlsplit(CYTHON_UNUSED PyObject *__pyx_se
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_25urlunparse(PyObject *__pyx_self, PyObject *__pyx_v_components); /*proto*/
-static char __pyx_doc_9curlparse_24urlunparse[] = "Put a parsed URL back together again.  This may result in a\n    slightly different, but equivalent URL, if the URL that was parsed\n    originally had redundant delimiters, e.g. a ? with an empty query\n    (the draft states that these are equivalent).";
-static PyMethodDef __pyx_mdef_9curlparse_25urlunparse = {"urlunparse", (PyCFunction)__pyx_pw_9curlparse_25urlunparse, METH_O, __pyx_doc_9curlparse_24urlunparse};
-static PyObject *__pyx_pw_9curlparse_25urlunparse(PyObject *__pyx_self, PyObject *__pyx_v_components) {
+static PyObject *__pyx_pw_9curlparse_27urlunparse(PyObject *__pyx_self, PyObject *__pyx_v_components); /*proto*/
+static char __pyx_doc_9curlparse_26urlunparse[] = "Put a parsed URL back together again.  This may result in a\n    slightly different, but equivalent URL, if the URL that was parsed\n    originally had redundant delimiters, e.g. a ? with an empty query\n    (the draft states that these are equivalent).";
+static PyMethodDef __pyx_mdef_9curlparse_27urlunparse = {"urlunparse", (PyCFunction)__pyx_pw_9curlparse_27urlunparse, METH_O, __pyx_doc_9curlparse_26urlunparse};
+static PyObject *__pyx_pw_9curlparse_27urlunparse(PyObject *__pyx_self, PyObject *__pyx_v_components) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("urlunparse (wrapper)", 0);
-  __pyx_r = __pyx_pf_9curlparse_24urlunparse(__pyx_self, ((PyObject *)__pyx_v_components));
+  __pyx_r = __pyx_pf_9curlparse_26urlunparse(__pyx_self, ((PyObject *)__pyx_v_components));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_components) {
+static PyObject *__pyx_pf_9curlparse_26urlunparse(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_components) {
   PyObject *__pyx_v_scheme = NULL;
   PyObject *__pyx_v_netloc = NULL;
   PyObject *__pyx_v_url = NULL;
@@ -11020,7 +12165,7 @@ static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_
   int __pyx_t_10;
   __Pyx_RefNannySetupContext("urlunparse", 0);
 
-  /* "curlparse.pyx":514
+  /* "curlparse.pyx":540
  *     originally had redundant delimiters, e.g. a ? with an empty query
  *     (the draft states that these are equivalent)."""
  *     scheme, netloc, url, params, query, fragment = components             # <<<<<<<<<<<<<<
@@ -11037,7 +12182,7 @@ static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_
     if (unlikely(size != 6)) {
       if (size > 6) __Pyx_RaiseTooManyValuesError(6);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 514, __pyx_L1_error)
+      __PYX_ERR(0, 540, __pyx_L1_error)
     }
     #if CYTHON_COMPILING_IN_CPYTHON
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -11066,7 +12211,7 @@ static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_
       Py_ssize_t i;
       PyObject** temps[6] = {&__pyx_t_1,&__pyx_t_2,&__pyx_t_3,&__pyx_t_4,&__pyx_t_5,&__pyx_t_6};
       for (i=0; i < 6; i++) {
-        PyObject* item = PySequence_ITEM(sequence, i); if (unlikely(!item)) __PYX_ERR(0, 514, __pyx_L1_error)
+        PyObject* item = PySequence_ITEM(sequence, i); if (unlikely(!item)) __PYX_ERR(0, 540, __pyx_L1_error)
         __Pyx_GOTREF(item);
         *(temps[i]) = item;
       }
@@ -11075,7 +12220,7 @@ static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_
   } else {
     Py_ssize_t index = -1;
     PyObject** temps[6] = {&__pyx_t_1,&__pyx_t_2,&__pyx_t_3,&__pyx_t_4,&__pyx_t_5,&__pyx_t_6};
-    __pyx_t_7 = PyObject_GetIter(__pyx_v_components); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 514, __pyx_L1_error)
+    __pyx_t_7 = PyObject_GetIter(__pyx_v_components); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 540, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_8 = Py_TYPE(__pyx_t_7)->tp_iternext;
     for (index=0; index < 6; index++) {
@@ -11083,7 +12228,7 @@ static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_
       __Pyx_GOTREF(item);
       *(temps[index]) = item;
     }
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 6) < 0) __PYX_ERR(0, 514, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 6) < 0) __PYX_ERR(0, 540, __pyx_L1_error)
     __pyx_t_8 = NULL;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     goto __pyx_L4_unpacking_done;
@@ -11091,7 +12236,7 @@ static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_t_8 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 514, __pyx_L1_error)
+    __PYX_ERR(0, 540, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
   __pyx_v_scheme = __pyx_t_1;
@@ -11107,17 +12252,17 @@ static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_
   __pyx_v_fragment = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "curlparse.pyx":515
+  /* "curlparse.pyx":541
  *     (the draft states that these are equivalent)."""
  *     scheme, netloc, url, params, query, fragment = components
  *     if params:             # <<<<<<<<<<<<<<
  *         if isinstance(url, bytes):
  *             url = b"%s;%s" % (url, params)
  */
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_v_params); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 515, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_v_params); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 541, __pyx_L1_error)
   if (__pyx_t_9) {
 
-    /* "curlparse.pyx":516
+    /* "curlparse.pyx":542
  *     scheme, netloc, url, params, query, fragment = components
  *     if params:
  *         if isinstance(url, bytes):             # <<<<<<<<<<<<<<
@@ -11128,14 +12273,14 @@ static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_
     __pyx_t_10 = (__pyx_t_9 != 0);
     if (__pyx_t_10) {
 
-      /* "curlparse.pyx":517
+      /* "curlparse.pyx":543
  *     if params:
  *         if isinstance(url, bytes):
  *             url = b"%s;%s" % (url, params)             # <<<<<<<<<<<<<<
  *         else:
  *             url = "%s;%s" % (url, params)
  */
-      __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 517, __pyx_L1_error)
+      __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 543, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_INCREF(__pyx_v_url);
       __Pyx_GIVEREF(__pyx_v_url);
@@ -11143,13 +12288,13 @@ static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_
       __Pyx_INCREF(__pyx_v_params);
       __Pyx_GIVEREF(__pyx_v_params);
       PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_v_params);
-      __pyx_t_5 = PyNumber_Remainder(__pyx_kp_b_s_s, __pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 517, __pyx_L1_error)
+      __pyx_t_5 = PyNumber_Remainder(__pyx_kp_b_s_s, __pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 543, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_DECREF_SET(__pyx_v_url, __pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "curlparse.pyx":516
+      /* "curlparse.pyx":542
  *     scheme, netloc, url, params, query, fragment = components
  *     if params:
  *         if isinstance(url, bytes):             # <<<<<<<<<<<<<<
@@ -11159,7 +12304,7 @@ static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_
       goto __pyx_L6;
     }
 
-    /* "curlparse.pyx":519
+    /* "curlparse.pyx":545
  *             url = b"%s;%s" % (url, params)
  *         else:
  *             url = "%s;%s" % (url, params)             # <<<<<<<<<<<<<<
@@ -11167,7 +12312,7 @@ static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_
  * 
  */
     /*else*/ {
-      __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 519, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 545, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_INCREF(__pyx_v_url);
       __Pyx_GIVEREF(__pyx_v_url);
@@ -11175,7 +12320,7 @@ static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_
       __Pyx_INCREF(__pyx_v_params);
       __Pyx_GIVEREF(__pyx_v_params);
       PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_v_params);
-      __pyx_t_6 = __Pyx_PyString_Format(__pyx_kp_s_s_s, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 519, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyString_Format(__pyx_kp_s_s_s, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 545, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF_SET(__pyx_v_url, __pyx_t_6);
@@ -11183,7 +12328,7 @@ static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_
     }
     __pyx_L6:;
 
-    /* "curlparse.pyx":515
+    /* "curlparse.pyx":541
  *     (the draft states that these are equivalent)."""
  *     scheme, netloc, url, params, query, fragment = components
  *     if params:             # <<<<<<<<<<<<<<
@@ -11192,7 +12337,7 @@ static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_
  */
   }
 
-  /* "curlparse.pyx":520
+  /* "curlparse.pyx":546
  *         else:
  *             url = "%s;%s" % (url, params)
  *     return urlunsplit((scheme, netloc, url, query, fragment))             # <<<<<<<<<<<<<<
@@ -11200,9 +12345,9 @@ static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_urlunsplit); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 520, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_urlunsplit); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 546, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_4 = PyTuple_New(5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 520, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 546, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_v_scheme);
   __Pyx_GIVEREF(__pyx_v_scheme);
@@ -11230,17 +12375,17 @@ static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 520, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 546, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_6);
   } else {
-    __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 520, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 546, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
     __Pyx_GIVEREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_4);
     __pyx_t_4 = 0;
-    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_2, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 520, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_2, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 546, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
@@ -11249,7 +12394,7 @@ static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_
   __pyx_t_6 = 0;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":509
+  /* "curlparse.pyx":535
  * 
  * 
  * def urlunparse(components):             # <<<<<<<<<<<<<<
@@ -11280,7 +12425,7 @@ static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_
   return __pyx_r;
 }
 
-/* "curlparse.pyx":523
+/* "curlparse.pyx":549
  * 
  * 
  * def urlunsplit(components):             # <<<<<<<<<<<<<<
@@ -11289,21 +12434,21 @@ static PyObject *__pyx_pf_9curlparse_24urlunparse(CYTHON_UNUSED PyObject *__pyx_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_27urlunsplit(PyObject *__pyx_self, PyObject *__pyx_v_components); /*proto*/
-static char __pyx_doc_9curlparse_26urlunsplit[] = "Combine the elements of a tuple as returned by urlsplit() into a\n    complete URL as a string. The data argument can be any five-item iterable.\n    This may result in a slightly different, but equivalent URL, if the URL that\n    was parsed originally had unnecessary delimiters (for example, a ? with an\n    empty query; the RFC states that these are equivalent).";
-static PyMethodDef __pyx_mdef_9curlparse_27urlunsplit = {"urlunsplit", (PyCFunction)__pyx_pw_9curlparse_27urlunsplit, METH_O, __pyx_doc_9curlparse_26urlunsplit};
-static PyObject *__pyx_pw_9curlparse_27urlunsplit(PyObject *__pyx_self, PyObject *__pyx_v_components) {
+static PyObject *__pyx_pw_9curlparse_29urlunsplit(PyObject *__pyx_self, PyObject *__pyx_v_components); /*proto*/
+static char __pyx_doc_9curlparse_28urlunsplit[] = "Combine the elements of a tuple as returned by urlsplit() into a\n    complete URL as a string. The data argument can be any five-item iterable.\n    This may result in a slightly different, but equivalent URL, if the URL that\n    was parsed originally had unnecessary delimiters (for example, a ? with an\n    empty query; the RFC states that these are equivalent).";
+static PyMethodDef __pyx_mdef_9curlparse_29urlunsplit = {"urlunsplit", (PyCFunction)__pyx_pw_9curlparse_29urlunsplit, METH_O, __pyx_doc_9curlparse_28urlunsplit};
+static PyObject *__pyx_pw_9curlparse_29urlunsplit(PyObject *__pyx_self, PyObject *__pyx_v_components) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("urlunsplit (wrapper)", 0);
-  __pyx_r = __pyx_pf_9curlparse_26urlunsplit(__pyx_self, ((PyObject *)__pyx_v_components));
+  __pyx_r = __pyx_pf_9curlparse_28urlunsplit(__pyx_self, ((PyObject *)__pyx_v_components));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_components) {
+static PyObject *__pyx_pf_9curlparse_28urlunsplit(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_components) {
   PyObject *__pyx_v_scheme = NULL;
   PyObject *__pyx_v_netloc = NULL;
   PyObject *__pyx_v_url = NULL;
@@ -11330,7 +12475,7 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
   int __pyx_t_10;
   __Pyx_RefNannySetupContext("urlunsplit", 0);
 
-  /* "curlparse.pyx":529
+  /* "curlparse.pyx":555
  *     was parsed originally had unnecessary delimiters (for example, a ? with an
  *     empty query; the RFC states that these are equivalent)."""
  *     scheme, netloc, url, query, fragment = components             # <<<<<<<<<<<<<<
@@ -11347,7 +12492,7 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
     if (unlikely(size != 5)) {
       if (size > 5) __Pyx_RaiseTooManyValuesError(5);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 529, __pyx_L1_error)
+      __PYX_ERR(0, 555, __pyx_L1_error)
     }
     #if CYTHON_COMPILING_IN_CPYTHON
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -11373,7 +12518,7 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
       Py_ssize_t i;
       PyObject** temps[5] = {&__pyx_t_1,&__pyx_t_2,&__pyx_t_3,&__pyx_t_4,&__pyx_t_5};
       for (i=0; i < 5; i++) {
-        PyObject* item = PySequence_ITEM(sequence, i); if (unlikely(!item)) __PYX_ERR(0, 529, __pyx_L1_error)
+        PyObject* item = PySequence_ITEM(sequence, i); if (unlikely(!item)) __PYX_ERR(0, 555, __pyx_L1_error)
         __Pyx_GOTREF(item);
         *(temps[i]) = item;
       }
@@ -11382,7 +12527,7 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
   } else {
     Py_ssize_t index = -1;
     PyObject** temps[5] = {&__pyx_t_1,&__pyx_t_2,&__pyx_t_3,&__pyx_t_4,&__pyx_t_5};
-    __pyx_t_6 = PyObject_GetIter(__pyx_v_components); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 529, __pyx_L1_error)
+    __pyx_t_6 = PyObject_GetIter(__pyx_v_components); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 555, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_7 = Py_TYPE(__pyx_t_6)->tp_iternext;
     for (index=0; index < 5; index++) {
@@ -11390,7 +12535,7 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
       __Pyx_GOTREF(item);
       *(temps[index]) = item;
     }
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_6), 5) < 0) __PYX_ERR(0, 529, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_6), 5) < 0) __PYX_ERR(0, 555, __pyx_L1_error)
     __pyx_t_7 = NULL;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     goto __pyx_L4_unpacking_done;
@@ -11398,7 +12543,7 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __pyx_t_7 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 529, __pyx_L1_error)
+    __PYX_ERR(0, 555, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
   __pyx_v_scheme = __pyx_t_1;
@@ -11412,7 +12557,7 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
   __pyx_v_fragment = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "curlparse.pyx":530
+  /* "curlparse.pyx":556
  *     empty query; the RFC states that these are equivalent)."""
  *     scheme, netloc, url, query, fragment = components
  *     if isinstance(url, bytes):             # <<<<<<<<<<<<<<
@@ -11423,7 +12568,7 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
   __pyx_t_9 = (__pyx_t_8 != 0);
   if (__pyx_t_9) {
 
-    /* "curlparse.pyx":531
+    /* "curlparse.pyx":557
  *     scheme, netloc, url, query, fragment = components
  *     if isinstance(url, bytes):
  *         slash = b'/'             # <<<<<<<<<<<<<<
@@ -11433,7 +12578,7 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_INCREF(__pyx_kp_b__28);
     __pyx_v_slash = __pyx_kp_b__28;
 
-    /* "curlparse.pyx":532
+    /* "curlparse.pyx":558
  *     if isinstance(url, bytes):
  *         slash = b'/'
  *         double_slash = b'//'             # <<<<<<<<<<<<<<
@@ -11443,7 +12588,7 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_INCREF(__pyx_kp_b__30);
     __pyx_v_double_slash = __pyx_kp_b__30;
 
-    /* "curlparse.pyx":533
+    /* "curlparse.pyx":559
  *         slash = b'/'
  *         double_slash = b'//'
  *         blank = b''             # <<<<<<<<<<<<<<
@@ -11453,7 +12598,7 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_INCREF(__pyx_kp_b__5);
     __pyx_v_blank = __pyx_kp_b__5;
 
-    /* "curlparse.pyx":534
+    /* "curlparse.pyx":560
  *         double_slash = b'//'
  *         blank = b''
  *         colon = b':'             # <<<<<<<<<<<<<<
@@ -11463,17 +12608,17 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_INCREF(__pyx_kp_b__10);
     __pyx_v_colon = __pyx_kp_b__10;
 
-    /* "curlparse.pyx":535
+    /* "curlparse.pyx":561
  *         blank = b''
  *         colon = b':'
  *         question_mark = b'?'             # <<<<<<<<<<<<<<
  *         pound = b'#'
  *         uses_netloc = uses_netloc_bytes
  */
-    __Pyx_INCREF(__pyx_kp_b__29);
-    __pyx_v_question_mark = __pyx_kp_b__29;
+    __Pyx_INCREF(__pyx_kp_b__34);
+    __pyx_v_question_mark = __pyx_kp_b__34;
 
-    /* "curlparse.pyx":536
+    /* "curlparse.pyx":562
  *         colon = b':'
  *         question_mark = b'?'
  *         pound = b'#'             # <<<<<<<<<<<<<<
@@ -11483,19 +12628,19 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_INCREF(__pyx_kp_b__26);
     __pyx_v_pound = __pyx_kp_b__26;
 
-    /* "curlparse.pyx":537
+    /* "curlparse.pyx":563
  *         question_mark = b'?'
  *         pound = b'#'
  *         uses_netloc = uses_netloc_bytes             # <<<<<<<<<<<<<<
  *     else:
  *         slash = '/'
  */
-    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_uses_netloc_bytes); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 537, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_uses_netloc_bytes); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 563, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_v_uses_netloc = __pyx_t_5;
     __pyx_t_5 = 0;
 
-    /* "curlparse.pyx":530
+    /* "curlparse.pyx":556
  *     empty query; the RFC states that these are equivalent)."""
  *     scheme, netloc, url, query, fragment = components
  *     if isinstance(url, bytes):             # <<<<<<<<<<<<<<
@@ -11505,7 +12650,7 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
     goto __pyx_L5;
   }
 
-  /* "curlparse.pyx":539
+  /* "curlparse.pyx":565
  *         uses_netloc = uses_netloc_bytes
  *     else:
  *         slash = '/'             # <<<<<<<<<<<<<<
@@ -11516,7 +12661,7 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_INCREF(__pyx_kp_s__28);
     __pyx_v_slash = __pyx_kp_s__28;
 
-    /* "curlparse.pyx":540
+    /* "curlparse.pyx":566
  *     else:
  *         slash = '/'
  *         double_slash = '//'             # <<<<<<<<<<<<<<
@@ -11526,7 +12671,7 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_INCREF(__pyx_kp_s__30);
     __pyx_v_double_slash = __pyx_kp_s__30;
 
-    /* "curlparse.pyx":541
+    /* "curlparse.pyx":567
  *         slash = '/'
  *         double_slash = '//'
  *         blank = ''             # <<<<<<<<<<<<<<
@@ -11536,7 +12681,7 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_INCREF(__pyx_kp_s__5);
     __pyx_v_blank = __pyx_kp_s__5;
 
-    /* "curlparse.pyx":542
+    /* "curlparse.pyx":568
  *         double_slash = '//'
  *         blank = ''
  *         colon = ':'             # <<<<<<<<<<<<<<
@@ -11546,17 +12691,17 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_INCREF(__pyx_kp_s__10);
     __pyx_v_colon = __pyx_kp_s__10;
 
-    /* "curlparse.pyx":543
+    /* "curlparse.pyx":569
  *         blank = ''
  *         colon = ':'
  *         question_mark = '?'             # <<<<<<<<<<<<<<
  *         pound = '#'
  *         uses_netloc = uses_netloc_str
  */
-    __Pyx_INCREF(__pyx_kp_s__29);
-    __pyx_v_question_mark = __pyx_kp_s__29;
+    __Pyx_INCREF(__pyx_kp_s__34);
+    __pyx_v_question_mark = __pyx_kp_s__34;
 
-    /* "curlparse.pyx":544
+    /* "curlparse.pyx":570
  *         colon = ':'
  *         question_mark = '?'
  *         pound = '#'             # <<<<<<<<<<<<<<
@@ -11566,40 +12711,40 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_INCREF(__pyx_kp_s__26);
     __pyx_v_pound = __pyx_kp_s__26;
 
-    /* "curlparse.pyx":545
+    /* "curlparse.pyx":571
  *         question_mark = '?'
  *         pound = '#'
  *         uses_netloc = uses_netloc_str             # <<<<<<<<<<<<<<
  *     if netloc or (scheme and scheme in uses_netloc and
  *                   not url.startswith(double_slash)):
  */
-    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_uses_netloc_str); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 545, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_uses_netloc_str); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 571, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_v_uses_netloc = __pyx_t_5;
     __pyx_t_5 = 0;
   }
   __pyx_L5:;
 
-  /* "curlparse.pyx":546
+  /* "curlparse.pyx":572
  *         pound = '#'
  *         uses_netloc = uses_netloc_str
  *     if netloc or (scheme and scheme in uses_netloc and             # <<<<<<<<<<<<<<
  *                   not url.startswith(double_slash)):
  *         if url and not url.startswith(slash):
  */
-  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_v_netloc); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 546, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_v_netloc); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 572, __pyx_L1_error)
   if (!__pyx_t_8) {
   } else {
     __pyx_t_9 = __pyx_t_8;
     goto __pyx_L7_bool_binop_done;
   }
-  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_v_scheme); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 546, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_v_scheme); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 572, __pyx_L1_error)
   if (__pyx_t_8) {
   } else {
     __pyx_t_9 = __pyx_t_8;
     goto __pyx_L7_bool_binop_done;
   }
-  __pyx_t_8 = (__Pyx_PySequence_ContainsTF(__pyx_v_scheme, __pyx_v_uses_netloc, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 546, __pyx_L1_error)
+  __pyx_t_8 = (__Pyx_PySequence_ContainsTF(__pyx_v_scheme, __pyx_v_uses_netloc, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 572, __pyx_L1_error)
   __pyx_t_10 = (__pyx_t_8 != 0);
   if (__pyx_t_10) {
   } else {
@@ -11607,14 +12752,14 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
     goto __pyx_L7_bool_binop_done;
   }
 
-  /* "curlparse.pyx":547
+  /* "curlparse.pyx":573
  *         uses_netloc = uses_netloc_str
  *     if netloc or (scheme and scheme in uses_netloc and
  *                   not url.startswith(double_slash)):             # <<<<<<<<<<<<<<
  *         if url and not url.startswith(slash):
  *             url = slash + url
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_startswith); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 547, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_startswith); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 573, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_4))) {
@@ -11627,27 +12772,27 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_double_slash); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 547, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_double_slash); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 573, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
   } else {
-    __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 547, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 573, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
     __Pyx_INCREF(__pyx_v_double_slash);
     __Pyx_GIVEREF(__pyx_v_double_slash);
     PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_v_double_slash);
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 547, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 573, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 547, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 573, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_8 = ((!__pyx_t_10) != 0);
   __pyx_t_9 = __pyx_t_8;
   __pyx_L7_bool_binop_done:;
 
-  /* "curlparse.pyx":546
+  /* "curlparse.pyx":572
  *         pound = '#'
  *         uses_netloc = uses_netloc_str
  *     if netloc or (scheme and scheme in uses_netloc and             # <<<<<<<<<<<<<<
@@ -11656,20 +12801,20 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
  */
   if (__pyx_t_9) {
 
-    /* "curlparse.pyx":548
+    /* "curlparse.pyx":574
  *     if netloc or (scheme and scheme in uses_netloc and
  *                   not url.startswith(double_slash)):
  *         if url and not url.startswith(slash):             # <<<<<<<<<<<<<<
  *             url = slash + url
  *         url = double_slash + (netloc or blank) + url
  */
-    __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_v_url); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 548, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_v_url); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 574, __pyx_L1_error)
     if (__pyx_t_8) {
     } else {
       __pyx_t_9 = __pyx_t_8;
       goto __pyx_L12_bool_binop_done;
     }
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_startswith); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 548, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_startswith); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 574, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_2 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_4))) {
@@ -11682,40 +12827,40 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
       }
     }
     if (!__pyx_t_2) {
-      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_slash); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 548, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_slash); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 574, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
     } else {
-      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 548, __pyx_L1_error)
+      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 574, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2); __pyx_t_2 = NULL;
       __Pyx_INCREF(__pyx_v_slash);
       __Pyx_GIVEREF(__pyx_v_slash);
       PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_v_slash);
-      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 548, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 574, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 548, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 574, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_10 = ((!__pyx_t_8) != 0);
     __pyx_t_9 = __pyx_t_10;
     __pyx_L12_bool_binop_done:;
     if (__pyx_t_9) {
 
-      /* "curlparse.pyx":549
+      /* "curlparse.pyx":575
  *                   not url.startswith(double_slash)):
  *         if url and not url.startswith(slash):
  *             url = slash + url             # <<<<<<<<<<<<<<
  *         url = double_slash + (netloc or blank) + url
  *     if scheme:
  */
-      __pyx_t_5 = PyNumber_Add(__pyx_v_slash, __pyx_v_url); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 549, __pyx_L1_error)
+      __pyx_t_5 = PyNumber_Add(__pyx_v_slash, __pyx_v_url); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 575, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF_SET(__pyx_v_url, __pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "curlparse.pyx":548
+      /* "curlparse.pyx":574
  *     if netloc or (scheme and scheme in uses_netloc and
  *                   not url.startswith(double_slash)):
  *         if url and not url.startswith(slash):             # <<<<<<<<<<<<<<
@@ -11724,14 +12869,14 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
  */
     }
 
-    /* "curlparse.pyx":550
+    /* "curlparse.pyx":576
  *         if url and not url.startswith(slash):
  *             url = slash + url
  *         url = double_slash + (netloc or blank) + url             # <<<<<<<<<<<<<<
  *     if scheme:
  *         url = scheme + colon + url
  */
-    __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_v_netloc); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 550, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_v_netloc); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 576, __pyx_L1_error)
     if (!__pyx_t_9) {
     } else {
       __Pyx_INCREF(__pyx_v_netloc);
@@ -11741,16 +12886,16 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_INCREF(__pyx_v_blank);
     __pyx_t_5 = __pyx_v_blank;
     __pyx_L14_bool_binop_done:;
-    __pyx_t_4 = PyNumber_Add(__pyx_v_double_slash, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 550, __pyx_L1_error)
+    __pyx_t_4 = PyNumber_Add(__pyx_v_double_slash, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 576, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyNumber_Add(__pyx_t_4, __pyx_v_url); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 550, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Add(__pyx_t_4, __pyx_v_url); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 576, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF_SET(__pyx_v_url, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "curlparse.pyx":546
+    /* "curlparse.pyx":572
  *         pound = '#'
  *         uses_netloc = uses_netloc_str
  *     if netloc or (scheme and scheme in uses_netloc and             # <<<<<<<<<<<<<<
@@ -11759,32 +12904,32 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
  */
   }
 
-  /* "curlparse.pyx":551
+  /* "curlparse.pyx":577
  *             url = slash + url
  *         url = double_slash + (netloc or blank) + url
  *     if scheme:             # <<<<<<<<<<<<<<
  *         url = scheme + colon + url
  *     if query:
  */
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_v_scheme); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 551, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_v_scheme); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 577, __pyx_L1_error)
   if (__pyx_t_9) {
 
-    /* "curlparse.pyx":552
+    /* "curlparse.pyx":578
  *         url = double_slash + (netloc or blank) + url
  *     if scheme:
  *         url = scheme + colon + url             # <<<<<<<<<<<<<<
  *     if query:
  *         url = url + question_mark + query
  */
-    __pyx_t_5 = PyNumber_Add(__pyx_v_scheme, __pyx_v_colon); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 552, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Add(__pyx_v_scheme, __pyx_v_colon); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 578, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = PyNumber_Add(__pyx_t_5, __pyx_v_url); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 552, __pyx_L1_error)
+    __pyx_t_4 = PyNumber_Add(__pyx_t_5, __pyx_v_url); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 578, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF_SET(__pyx_v_url, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "curlparse.pyx":551
+    /* "curlparse.pyx":577
  *             url = slash + url
  *         url = double_slash + (netloc or blank) + url
  *     if scheme:             # <<<<<<<<<<<<<<
@@ -11793,32 +12938,32 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
  */
   }
 
-  /* "curlparse.pyx":553
+  /* "curlparse.pyx":579
  *     if scheme:
  *         url = scheme + colon + url
  *     if query:             # <<<<<<<<<<<<<<
  *         url = url + question_mark + query
  *     if fragment:
  */
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_v_query); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 553, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_v_query); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 579, __pyx_L1_error)
   if (__pyx_t_9) {
 
-    /* "curlparse.pyx":554
+    /* "curlparse.pyx":580
  *         url = scheme + colon + url
  *     if query:
  *         url = url + question_mark + query             # <<<<<<<<<<<<<<
  *     if fragment:
  *         url = url + pound + fragment
  */
-    __pyx_t_4 = PyNumber_Add(__pyx_v_url, __pyx_v_question_mark); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 554, __pyx_L1_error)
+    __pyx_t_4 = PyNumber_Add(__pyx_v_url, __pyx_v_question_mark); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 580, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = PyNumber_Add(__pyx_t_4, __pyx_v_query); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 554, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Add(__pyx_t_4, __pyx_v_query); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 580, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF_SET(__pyx_v_url, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "curlparse.pyx":553
+    /* "curlparse.pyx":579
  *     if scheme:
  *         url = scheme + colon + url
  *     if query:             # <<<<<<<<<<<<<<
@@ -11827,32 +12972,32 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
  */
   }
 
-  /* "curlparse.pyx":555
+  /* "curlparse.pyx":581
  *     if query:
  *         url = url + question_mark + query
  *     if fragment:             # <<<<<<<<<<<<<<
  *         url = url + pound + fragment
  *     return url
  */
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_v_fragment); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 555, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_v_fragment); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 581, __pyx_L1_error)
   if (__pyx_t_9) {
 
-    /* "curlparse.pyx":556
+    /* "curlparse.pyx":582
  *         url = url + question_mark + query
  *     if fragment:
  *         url = url + pound + fragment             # <<<<<<<<<<<<<<
  *     return url
  * 
  */
-    __pyx_t_5 = PyNumber_Add(__pyx_v_url, __pyx_v_pound); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 556, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Add(__pyx_v_url, __pyx_v_pound); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 582, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = PyNumber_Add(__pyx_t_5, __pyx_v_fragment); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 556, __pyx_L1_error)
+    __pyx_t_4 = PyNumber_Add(__pyx_t_5, __pyx_v_fragment); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 582, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF_SET(__pyx_v_url, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "curlparse.pyx":555
+    /* "curlparse.pyx":581
  *     if query:
  *         url = url + question_mark + query
  *     if fragment:             # <<<<<<<<<<<<<<
@@ -11861,7 +13006,7 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
  */
   }
 
-  /* "curlparse.pyx":557
+  /* "curlparse.pyx":583
  *     if fragment:
  *         url = url + pound + fragment
  *     return url             # <<<<<<<<<<<<<<
@@ -11873,7 +13018,7 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
   __pyx_r = __pyx_v_url;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":523
+  /* "curlparse.pyx":549
  * 
  * 
  * def urlunsplit(components):             # <<<<<<<<<<<<<<
@@ -11909,7 +13054,7 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
   return __pyx_r;
 }
 
-/* "curlparse.pyx":560
+/* "curlparse.pyx":586
  * 
  * 
  * def urljoin(base, url, allow_fragments=True):             # <<<<<<<<<<<<<<
@@ -11918,10 +13063,10 @@ static PyObject *__pyx_pf_9curlparse_26urlunsplit(CYTHON_UNUSED PyObject *__pyx_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_29urljoin(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_9curlparse_28urljoin[] = "Join a base URL and a possibly relative URL to form an absolute\n    interpretation of the latter.";
-static PyMethodDef __pyx_mdef_9curlparse_29urljoin = {"urljoin", (PyCFunction)__pyx_pw_9curlparse_29urljoin, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_28urljoin};
-static PyObject *__pyx_pw_9curlparse_29urljoin(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_9curlparse_31urljoin(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_9curlparse_30urljoin[] = "Join a base URL and a possibly relative URL to form an absolute\n    interpretation of the latter.";
+static PyMethodDef __pyx_mdef_9curlparse_31urljoin = {"urljoin", (PyCFunction)__pyx_pw_9curlparse_31urljoin, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_30urljoin};
+static PyObject *__pyx_pw_9curlparse_31urljoin(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_base = 0;
   PyObject *__pyx_v_url = 0;
   PyObject *__pyx_v_allow_fragments = 0;
@@ -11950,7 +13095,7 @@ static PyObject *__pyx_pw_9curlparse_29urljoin(PyObject *__pyx_self, PyObject *_
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_url)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("urljoin", 0, 2, 3, 1); __PYX_ERR(0, 560, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("urljoin", 0, 2, 3, 1); __PYX_ERR(0, 586, __pyx_L3_error)
         }
         case  2:
         if (kw_args > 0) {
@@ -11959,7 +13104,7 @@ static PyObject *__pyx_pw_9curlparse_29urljoin(PyObject *__pyx_self, PyObject *_
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "urljoin") < 0)) __PYX_ERR(0, 560, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "urljoin") < 0)) __PYX_ERR(0, 586, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -11976,20 +13121,20 @@ static PyObject *__pyx_pw_9curlparse_29urljoin(PyObject *__pyx_self, PyObject *_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("urljoin", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 560, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("urljoin", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 586, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("curlparse.urljoin", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_9curlparse_28urljoin(__pyx_self, __pyx_v_base, __pyx_v_url, __pyx_v_allow_fragments);
+  __pyx_r = __pyx_pf_9curlparse_30urljoin(__pyx_self, __pyx_v_base, __pyx_v_url, __pyx_v_allow_fragments);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_base, PyObject *__pyx_v_url, PyObject *__pyx_v_allow_fragments) {
+static PyObject *__pyx_pf_9curlparse_30urljoin(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_base, PyObject *__pyx_v_url, PyObject *__pyx_v_allow_fragments) {
   PyObject *__pyx_v_slash = NULL;
   PyObject *__pyx_v_blank = NULL;
   PyObject *__pyx_v_dot = NULL;
@@ -12035,18 +13180,18 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
   int __pyx_t_19;
   __Pyx_RefNannySetupContext("urljoin", 0);
 
-  /* "curlparse.pyx":563
+  /* "curlparse.pyx":589
  *     """Join a base URL and a possibly relative URL to form an absolute
  *     interpretation of the latter."""
  *     if not base:             # <<<<<<<<<<<<<<
  *         return url
  *     if not url:
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_base); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 563, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_base); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 589, __pyx_L1_error)
   __pyx_t_2 = ((!__pyx_t_1) != 0);
   if (__pyx_t_2) {
 
-    /* "curlparse.pyx":564
+    /* "curlparse.pyx":590
  *     interpretation of the latter."""
  *     if not base:
  *         return url             # <<<<<<<<<<<<<<
@@ -12058,7 +13203,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     __pyx_r = __pyx_v_url;
     goto __pyx_L0;
 
-    /* "curlparse.pyx":563
+    /* "curlparse.pyx":589
  *     """Join a base URL and a possibly relative URL to form an absolute
  *     interpretation of the latter."""
  *     if not base:             # <<<<<<<<<<<<<<
@@ -12067,18 +13212,18 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
  */
   }
 
-  /* "curlparse.pyx":565
+  /* "curlparse.pyx":591
  *     if not base:
  *         return url
  *     if not url:             # <<<<<<<<<<<<<<
  *         return base
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_url); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 565, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_url); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 591, __pyx_L1_error)
   __pyx_t_1 = ((!__pyx_t_2) != 0);
   if (__pyx_t_1) {
 
-    /* "curlparse.pyx":566
+    /* "curlparse.pyx":592
  *         return url
  *     if not url:
  *         return base             # <<<<<<<<<<<<<<
@@ -12090,7 +13235,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     __pyx_r = __pyx_v_base;
     goto __pyx_L0;
 
-    /* "curlparse.pyx":565
+    /* "curlparse.pyx":591
  *     if not base:
  *         return url
  *     if not url:             # <<<<<<<<<<<<<<
@@ -12099,7 +13244,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
  */
   }
 
-  /* "curlparse.pyx":568
+  /* "curlparse.pyx":594
  *         return base
  * 
  *     if isinstance(url, bytes):             # <<<<<<<<<<<<<<
@@ -12110,7 +13255,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "curlparse.pyx":569
+    /* "curlparse.pyx":595
  * 
  *     if isinstance(url, bytes):
  *         slash = b'/'             # <<<<<<<<<<<<<<
@@ -12120,7 +13265,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     __Pyx_INCREF(__pyx_kp_b__28);
     __pyx_v_slash = __pyx_kp_b__28;
 
-    /* "curlparse.pyx":570
+    /* "curlparse.pyx":596
  *     if isinstance(url, bytes):
  *         slash = b'/'
  *         blank = b''             # <<<<<<<<<<<<<<
@@ -12130,51 +13275,51 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     __Pyx_INCREF(__pyx_kp_b__5);
     __pyx_v_blank = __pyx_kp_b__5;
 
-    /* "curlparse.pyx":571
+    /* "curlparse.pyx":597
  *         slash = b'/'
  *         blank = b''
  *         dot = b'.'             # <<<<<<<<<<<<<<
  *         double_dot = b'..'
  *         uses_netloc = uses_netloc_bytes
  */
-    __Pyx_INCREF(__pyx_kp_b__35);
-    __pyx_v_dot = __pyx_kp_b__35;
+    __Pyx_INCREF(__pyx_kp_b__46);
+    __pyx_v_dot = __pyx_kp_b__46;
 
-    /* "curlparse.pyx":572
+    /* "curlparse.pyx":598
  *         blank = b''
  *         dot = b'.'
  *         double_dot = b'..'             # <<<<<<<<<<<<<<
  *         uses_netloc = uses_netloc_bytes
  *         uses_relative = uses_relative_bytes
  */
-    __Pyx_INCREF(__pyx_kp_b__36);
-    __pyx_v_double_dot = __pyx_kp_b__36;
+    __Pyx_INCREF(__pyx_kp_b__47);
+    __pyx_v_double_dot = __pyx_kp_b__47;
 
-    /* "curlparse.pyx":573
+    /* "curlparse.pyx":599
  *         dot = b'.'
  *         double_dot = b'..'
  *         uses_netloc = uses_netloc_bytes             # <<<<<<<<<<<<<<
  *         uses_relative = uses_relative_bytes
  *     else:
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_uses_netloc_bytes); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 573, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_uses_netloc_bytes); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 599, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_v_uses_netloc = __pyx_t_3;
     __pyx_t_3 = 0;
 
-    /* "curlparse.pyx":574
+    /* "curlparse.pyx":600
  *         double_dot = b'..'
  *         uses_netloc = uses_netloc_bytes
  *         uses_relative = uses_relative_bytes             # <<<<<<<<<<<<<<
  *     else:
  *         slash = '/'
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_uses_relative_bytes); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 574, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_uses_relative_bytes); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 600, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_v_uses_relative = __pyx_t_3;
     __pyx_t_3 = 0;
 
-    /* "curlparse.pyx":568
+    /* "curlparse.pyx":594
  *         return base
  * 
  *     if isinstance(url, bytes):             # <<<<<<<<<<<<<<
@@ -12184,7 +13329,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     goto __pyx_L5;
   }
 
-  /* "curlparse.pyx":576
+  /* "curlparse.pyx":602
  *         uses_relative = uses_relative_bytes
  *     else:
  *         slash = '/'             # <<<<<<<<<<<<<<
@@ -12195,7 +13340,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     __Pyx_INCREF(__pyx_kp_s__28);
     __pyx_v_slash = __pyx_kp_s__28;
 
-    /* "curlparse.pyx":577
+    /* "curlparse.pyx":603
  *     else:
  *         slash = '/'
  *         blank = ''             # <<<<<<<<<<<<<<
@@ -12205,60 +13350,60 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     __Pyx_INCREF(__pyx_kp_s__5);
     __pyx_v_blank = __pyx_kp_s__5;
 
-    /* "curlparse.pyx":578
+    /* "curlparse.pyx":604
  *         slash = '/'
  *         blank = ''
  *         dot = '.'             # <<<<<<<<<<<<<<
  *         double_dot = '..'
  *         uses_netloc = uses_netloc_str
  */
-    __Pyx_INCREF(__pyx_kp_s__35);
-    __pyx_v_dot = __pyx_kp_s__35;
+    __Pyx_INCREF(__pyx_kp_s__46);
+    __pyx_v_dot = __pyx_kp_s__46;
 
-    /* "curlparse.pyx":579
+    /* "curlparse.pyx":605
  *         blank = ''
  *         dot = '.'
  *         double_dot = '..'             # <<<<<<<<<<<<<<
  *         uses_netloc = uses_netloc_str
  *         uses_relative = uses_relative_str
  */
-    __Pyx_INCREF(__pyx_kp_s__36);
-    __pyx_v_double_dot = __pyx_kp_s__36;
+    __Pyx_INCREF(__pyx_kp_s__47);
+    __pyx_v_double_dot = __pyx_kp_s__47;
 
-    /* "curlparse.pyx":580
+    /* "curlparse.pyx":606
  *         dot = '.'
  *         double_dot = '..'
  *         uses_netloc = uses_netloc_str             # <<<<<<<<<<<<<<
  *         uses_relative = uses_relative_str
  * 
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_uses_netloc_str); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 580, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_uses_netloc_str); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 606, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_v_uses_netloc = __pyx_t_3;
     __pyx_t_3 = 0;
 
-    /* "curlparse.pyx":581
+    /* "curlparse.pyx":607
  *         double_dot = '..'
  *         uses_netloc = uses_netloc_str
  *         uses_relative = uses_relative_str             # <<<<<<<<<<<<<<
  * 
  *     bscheme, bnetloc, bpath, bparams, bquery, bfragment = \
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_uses_relative_str); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 581, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_uses_relative_str); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 607, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_v_uses_relative = __pyx_t_3;
     __pyx_t_3 = 0;
   }
   __pyx_L5:;
 
-  /* "curlparse.pyx":584
+  /* "curlparse.pyx":610
  * 
  *     bscheme, bnetloc, bpath, bparams, bquery, bfragment = \
  *             urlparse(base, blank, allow_fragments)             # <<<<<<<<<<<<<<
  *     scheme, netloc, path, params, query, fragment = \
  *             urlparse(url, bscheme, allow_fragments)
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_urlparse); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 584, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_urlparse); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 610, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -12272,7 +13417,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
       __pyx_t_6 = 1;
     }
   }
-  __pyx_t_7 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 584, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 610, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   if (__pyx_t_5) {
     __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -12286,7 +13431,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
   __Pyx_INCREF(__pyx_v_allow_fragments);
   __Pyx_GIVEREF(__pyx_v_allow_fragments);
   PyTuple_SET_ITEM(__pyx_t_7, 2+__pyx_t_6, __pyx_v_allow_fragments);
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 584, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 610, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -12300,7 +13445,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     if (unlikely(size != 6)) {
       if (size > 6) __Pyx_RaiseTooManyValuesError(6);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 583, __pyx_L1_error)
+      __PYX_ERR(0, 609, __pyx_L1_error)
     }
     #if CYTHON_COMPILING_IN_CPYTHON
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -12329,7 +13474,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
       Py_ssize_t i;
       PyObject** temps[6] = {&__pyx_t_4,&__pyx_t_7,&__pyx_t_5,&__pyx_t_8,&__pyx_t_9,&__pyx_t_10};
       for (i=0; i < 6; i++) {
-        PyObject* item = PySequence_ITEM(sequence, i); if (unlikely(!item)) __PYX_ERR(0, 583, __pyx_L1_error)
+        PyObject* item = PySequence_ITEM(sequence, i); if (unlikely(!item)) __PYX_ERR(0, 609, __pyx_L1_error)
         __Pyx_GOTREF(item);
         *(temps[i]) = item;
       }
@@ -12339,7 +13484,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
   } else {
     Py_ssize_t index = -1;
     PyObject** temps[6] = {&__pyx_t_4,&__pyx_t_7,&__pyx_t_5,&__pyx_t_8,&__pyx_t_9,&__pyx_t_10};
-    __pyx_t_11 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 583, __pyx_L1_error)
+    __pyx_t_11 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 609, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_12 = Py_TYPE(__pyx_t_11)->tp_iternext;
@@ -12348,7 +13493,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
       __Pyx_GOTREF(item);
       *(temps[index]) = item;
     }
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_12(__pyx_t_11), 6) < 0) __PYX_ERR(0, 583, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_12(__pyx_t_11), 6) < 0) __PYX_ERR(0, 609, __pyx_L1_error)
     __pyx_t_12 = NULL;
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     goto __pyx_L7_unpacking_done;
@@ -12356,11 +13501,11 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __pyx_t_12 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 583, __pyx_L1_error)
+    __PYX_ERR(0, 609, __pyx_L1_error)
     __pyx_L7_unpacking_done:;
   }
 
-  /* "curlparse.pyx":583
+  /* "curlparse.pyx":609
  *         uses_relative = uses_relative_str
  * 
  *     bscheme, bnetloc, bpath, bparams, bquery, bfragment = \             # <<<<<<<<<<<<<<
@@ -12380,14 +13525,14 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
   __pyx_v_bfragment = __pyx_t_10;
   __pyx_t_10 = 0;
 
-  /* "curlparse.pyx":586
+  /* "curlparse.pyx":612
  *             urlparse(base, blank, allow_fragments)
  *     scheme, netloc, path, params, query, fragment = \
  *             urlparse(url, bscheme, allow_fragments)             # <<<<<<<<<<<<<<
  * 
  *     if scheme != bscheme or scheme not in uses_relative:
  */
-  __pyx_t_10 = __Pyx_GetModuleGlobalName(__pyx_n_s_urlparse); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 586, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_GetModuleGlobalName(__pyx_n_s_urlparse); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 612, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __pyx_t_9 = NULL;
   __pyx_t_6 = 0;
@@ -12401,7 +13546,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
       __pyx_t_6 = 1;
     }
   }
-  __pyx_t_8 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 586, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 612, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   if (__pyx_t_9) {
     __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_9); __pyx_t_9 = NULL;
@@ -12415,7 +13560,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
   __Pyx_INCREF(__pyx_v_allow_fragments);
   __Pyx_GIVEREF(__pyx_v_allow_fragments);
   PyTuple_SET_ITEM(__pyx_t_8, 2+__pyx_t_6, __pyx_v_allow_fragments);
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_8, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 586, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_8, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 612, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
@@ -12429,7 +13574,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     if (unlikely(size != 6)) {
       if (size > 6) __Pyx_RaiseTooManyValuesError(6);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 585, __pyx_L1_error)
+      __PYX_ERR(0, 611, __pyx_L1_error)
     }
     #if CYTHON_COMPILING_IN_CPYTHON
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -12458,7 +13603,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
       Py_ssize_t i;
       PyObject** temps[6] = {&__pyx_t_10,&__pyx_t_8,&__pyx_t_9,&__pyx_t_5,&__pyx_t_7,&__pyx_t_4};
       for (i=0; i < 6; i++) {
-        PyObject* item = PySequence_ITEM(sequence, i); if (unlikely(!item)) __PYX_ERR(0, 585, __pyx_L1_error)
+        PyObject* item = PySequence_ITEM(sequence, i); if (unlikely(!item)) __PYX_ERR(0, 611, __pyx_L1_error)
         __Pyx_GOTREF(item);
         *(temps[i]) = item;
       }
@@ -12468,7 +13613,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
   } else {
     Py_ssize_t index = -1;
     PyObject** temps[6] = {&__pyx_t_10,&__pyx_t_8,&__pyx_t_9,&__pyx_t_5,&__pyx_t_7,&__pyx_t_4};
-    __pyx_t_11 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 585, __pyx_L1_error)
+    __pyx_t_11 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 611, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_12 = Py_TYPE(__pyx_t_11)->tp_iternext;
@@ -12477,7 +13622,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
       __Pyx_GOTREF(item);
       *(temps[index]) = item;
     }
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_12(__pyx_t_11), 6) < 0) __PYX_ERR(0, 585, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_12(__pyx_t_11), 6) < 0) __PYX_ERR(0, 611, __pyx_L1_error)
     __pyx_t_12 = NULL;
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     goto __pyx_L9_unpacking_done;
@@ -12485,11 +13630,11 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __pyx_t_12 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 585, __pyx_L1_error)
+    __PYX_ERR(0, 611, __pyx_L1_error)
     __pyx_L9_unpacking_done:;
   }
 
-  /* "curlparse.pyx":585
+  /* "curlparse.pyx":611
  *     bscheme, bnetloc, bpath, bparams, bquery, bfragment = \
  *             urlparse(base, blank, allow_fragments)
  *     scheme, netloc, path, params, query, fragment = \             # <<<<<<<<<<<<<<
@@ -12509,28 +13654,28 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
   __pyx_v_fragment = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "curlparse.pyx":588
+  /* "curlparse.pyx":614
  *             urlparse(url, bscheme, allow_fragments)
  * 
  *     if scheme != bscheme or scheme not in uses_relative:             # <<<<<<<<<<<<<<
  *         return url
  *     if scheme in uses_netloc:
  */
-  __pyx_t_3 = PyObject_RichCompare(__pyx_v_scheme, __pyx_v_bscheme, Py_NE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 588, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 588, __pyx_L1_error)
+  __pyx_t_3 = PyObject_RichCompare(__pyx_v_scheme, __pyx_v_bscheme, Py_NE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 614, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 614, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (!__pyx_t_1) {
   } else {
     __pyx_t_2 = __pyx_t_1;
     goto __pyx_L11_bool_binop_done;
   }
-  __pyx_t_1 = (__Pyx_PySequence_ContainsTF(__pyx_v_scheme, __pyx_v_uses_relative, Py_NE)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 588, __pyx_L1_error)
+  __pyx_t_1 = (__Pyx_PySequence_ContainsTF(__pyx_v_scheme, __pyx_v_uses_relative, Py_NE)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 614, __pyx_L1_error)
   __pyx_t_13 = (__pyx_t_1 != 0);
   __pyx_t_2 = __pyx_t_13;
   __pyx_L11_bool_binop_done:;
   if (__pyx_t_2) {
 
-    /* "curlparse.pyx":589
+    /* "curlparse.pyx":615
  * 
  *     if scheme != bscheme or scheme not in uses_relative:
  *         return url             # <<<<<<<<<<<<<<
@@ -12542,7 +13687,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     __pyx_r = __pyx_v_url;
     goto __pyx_L0;
 
-    /* "curlparse.pyx":588
+    /* "curlparse.pyx":614
  *             urlparse(url, bscheme, allow_fragments)
  * 
  *     if scheme != bscheme or scheme not in uses_relative:             # <<<<<<<<<<<<<<
@@ -12551,28 +13696,28 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
  */
   }
 
-  /* "curlparse.pyx":590
+  /* "curlparse.pyx":616
  *     if scheme != bscheme or scheme not in uses_relative:
  *         return url
  *     if scheme in uses_netloc:             # <<<<<<<<<<<<<<
  *         if netloc:
  *             return urlunparse((scheme, netloc, path, params, query, fragment))
  */
-  __pyx_t_2 = (__Pyx_PySequence_ContainsTF(__pyx_v_scheme, __pyx_v_uses_netloc, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 590, __pyx_L1_error)
+  __pyx_t_2 = (__Pyx_PySequence_ContainsTF(__pyx_v_scheme, __pyx_v_uses_netloc, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 616, __pyx_L1_error)
   __pyx_t_13 = (__pyx_t_2 != 0);
   if (__pyx_t_13) {
 
-    /* "curlparse.pyx":591
+    /* "curlparse.pyx":617
  *         return url
  *     if scheme in uses_netloc:
  *         if netloc:             # <<<<<<<<<<<<<<
  *             return urlunparse((scheme, netloc, path, params, query, fragment))
  *         netloc = bnetloc
  */
-    __pyx_t_13 = __Pyx_PyObject_IsTrue(__pyx_v_netloc); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 591, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_IsTrue(__pyx_v_netloc); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 617, __pyx_L1_error)
     if (__pyx_t_13) {
 
-      /* "curlparse.pyx":592
+      /* "curlparse.pyx":618
  *     if scheme in uses_netloc:
  *         if netloc:
  *             return urlunparse((scheme, netloc, path, params, query, fragment))             # <<<<<<<<<<<<<<
@@ -12580,9 +13725,9 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
  * 
  */
       __Pyx_XDECREF(__pyx_r);
-      __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_urlunparse); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 592, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_urlunparse); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 618, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_7 = PyTuple_New(6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 592, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 618, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_INCREF(__pyx_v_scheme);
       __Pyx_GIVEREF(__pyx_v_scheme);
@@ -12613,17 +13758,17 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
         }
       }
       if (!__pyx_t_5) {
-        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 592, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 618, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_GOTREF(__pyx_t_3);
       } else {
-        __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 592, __pyx_L1_error)
+        __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 618, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_5); __pyx_t_5 = NULL;
         __Pyx_GIVEREF(__pyx_t_7);
         PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_t_7);
         __pyx_t_7 = 0;
-        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_9, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 592, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_9, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 618, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       }
@@ -12632,7 +13777,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
       __pyx_t_3 = 0;
       goto __pyx_L0;
 
-      /* "curlparse.pyx":591
+      /* "curlparse.pyx":617
  *         return url
  *     if scheme in uses_netloc:
  *         if netloc:             # <<<<<<<<<<<<<<
@@ -12641,7 +13786,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
  */
     }
 
-    /* "curlparse.pyx":593
+    /* "curlparse.pyx":619
  *         if netloc:
  *             return urlunparse((scheme, netloc, path, params, query, fragment))
  *         netloc = bnetloc             # <<<<<<<<<<<<<<
@@ -12651,7 +13796,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     __Pyx_INCREF(__pyx_v_bnetloc);
     __Pyx_DECREF_SET(__pyx_v_netloc, __pyx_v_bnetloc);
 
-    /* "curlparse.pyx":590
+    /* "curlparse.pyx":616
  *     if scheme != bscheme or scheme not in uses_relative:
  *         return url
  *     if scheme in uses_netloc:             # <<<<<<<<<<<<<<
@@ -12660,27 +13805,27 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
  */
   }
 
-  /* "curlparse.pyx":595
+  /* "curlparse.pyx":621
  *         netloc = bnetloc
  * 
  *     if not path and not params:             # <<<<<<<<<<<<<<
  *         path = bpath
  *         params = bparams
  */
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_path); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 595, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_path); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 621, __pyx_L1_error)
   __pyx_t_1 = ((!__pyx_t_2) != 0);
   if (__pyx_t_1) {
   } else {
     __pyx_t_13 = __pyx_t_1;
     goto __pyx_L16_bool_binop_done;
   }
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_params); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 595, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_params); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 621, __pyx_L1_error)
   __pyx_t_2 = ((!__pyx_t_1) != 0);
   __pyx_t_13 = __pyx_t_2;
   __pyx_L16_bool_binop_done:;
   if (__pyx_t_13) {
 
-    /* "curlparse.pyx":596
+    /* "curlparse.pyx":622
  * 
  *     if not path and not params:
  *         path = bpath             # <<<<<<<<<<<<<<
@@ -12690,7 +13835,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     __Pyx_INCREF(__pyx_v_bpath);
     __Pyx_DECREF_SET(__pyx_v_path, __pyx_v_bpath);
 
-    /* "curlparse.pyx":597
+    /* "curlparse.pyx":623
  *     if not path and not params:
  *         path = bpath
  *         params = bparams             # <<<<<<<<<<<<<<
@@ -12700,18 +13845,18 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     __Pyx_INCREF(__pyx_v_bparams);
     __Pyx_DECREF_SET(__pyx_v_params, __pyx_v_bparams);
 
-    /* "curlparse.pyx":598
+    /* "curlparse.pyx":624
  *         path = bpath
  *         params = bparams
  *         if not query:             # <<<<<<<<<<<<<<
  *             query = bquery
  *         return urlunparse((scheme, netloc, path, params, query, fragment))
  */
-    __pyx_t_13 = __Pyx_PyObject_IsTrue(__pyx_v_query); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 598, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_IsTrue(__pyx_v_query); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 624, __pyx_L1_error)
     __pyx_t_2 = ((!__pyx_t_13) != 0);
     if (__pyx_t_2) {
 
-      /* "curlparse.pyx":599
+      /* "curlparse.pyx":625
  *         params = bparams
  *         if not query:
  *             query = bquery             # <<<<<<<<<<<<<<
@@ -12721,7 +13866,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
       __Pyx_INCREF(__pyx_v_bquery);
       __Pyx_DECREF_SET(__pyx_v_query, __pyx_v_bquery);
 
-      /* "curlparse.pyx":598
+      /* "curlparse.pyx":624
  *         path = bpath
  *         params = bparams
  *         if not query:             # <<<<<<<<<<<<<<
@@ -12730,7 +13875,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
  */
     }
 
-    /* "curlparse.pyx":600
+    /* "curlparse.pyx":626
  *         if not query:
  *             query = bquery
  *         return urlunparse((scheme, netloc, path, params, query, fragment))             # <<<<<<<<<<<<<<
@@ -12738,9 +13883,9 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
  *     base_parts = bpath.split(slash)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_urlunparse); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 600, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_urlunparse); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 626, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_9 = PyTuple_New(6); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 600, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(6); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 626, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_INCREF(__pyx_v_scheme);
     __Pyx_GIVEREF(__pyx_v_scheme);
@@ -12771,17 +13916,17 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
       }
     }
     if (!__pyx_t_7) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_9); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 600, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_9); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 626, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       __Pyx_GOTREF(__pyx_t_3);
     } else {
-      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 600, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 626, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7); __pyx_t_7 = NULL;
       __Pyx_GIVEREF(__pyx_t_9);
       PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_9);
       __pyx_t_9 = 0;
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 600, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 626, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
@@ -12790,7 +13935,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     __pyx_t_3 = 0;
     goto __pyx_L0;
 
-    /* "curlparse.pyx":595
+    /* "curlparse.pyx":621
  *         netloc = bnetloc
  * 
  *     if not path and not params:             # <<<<<<<<<<<<<<
@@ -12799,14 +13944,14 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
  */
   }
 
-  /* "curlparse.pyx":602
+  /* "curlparse.pyx":628
  *         return urlunparse((scheme, netloc, path, params, query, fragment))
  * 
  *     base_parts = bpath.split(slash)             # <<<<<<<<<<<<<<
  *     if base_parts[-1] != blank:
  *         # the last item is not a directory, so will not be taken into account
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_bpath, __pyx_n_s_split); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 602, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_bpath, __pyx_n_s_split); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 628, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_4))) {
@@ -12819,16 +13964,16 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     }
   }
   if (!__pyx_t_5) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_slash); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 602, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_slash); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 628, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
   } else {
-    __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 602, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 628, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_5); __pyx_t_5 = NULL;
     __Pyx_INCREF(__pyx_v_slash);
     __Pyx_GIVEREF(__pyx_v_slash);
     PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_v_slash);
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_9, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 602, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_9, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 628, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   }
@@ -12836,31 +13981,31 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
   __pyx_v_base_parts = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "curlparse.pyx":603
+  /* "curlparse.pyx":629
  * 
  *     base_parts = bpath.split(slash)
  *     if base_parts[-1] != blank:             # <<<<<<<<<<<<<<
  *         # the last item is not a directory, so will not be taken into account
  *         # in resolving the relative path
  */
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_base_parts, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 603, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_base_parts, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 629, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyObject_RichCompare(__pyx_t_3, __pyx_v_blank, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 603, __pyx_L1_error)
+  __pyx_t_4 = PyObject_RichCompare(__pyx_t_3, __pyx_v_blank, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 629, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 603, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 629, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (__pyx_t_2) {
 
-    /* "curlparse.pyx":606
+    /* "curlparse.pyx":632
  *         # the last item is not a directory, so will not be taken into account
  *         # in resolving the relative path
  *         del base_parts[-1]             # <<<<<<<<<<<<<<
  * 
  *     # for rfc3986, ignore all base path should the first character be root.
  */
-    if (unlikely(__Pyx_DelItemInt(__pyx_v_base_parts, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1) < 0)) __PYX_ERR(0, 606, __pyx_L1_error)
+    if (unlikely(__Pyx_DelItemInt(__pyx_v_base_parts, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1) < 0)) __PYX_ERR(0, 632, __pyx_L1_error)
 
-    /* "curlparse.pyx":603
+    /* "curlparse.pyx":629
  * 
  *     base_parts = bpath.split(slash)
  *     if base_parts[-1] != blank:             # <<<<<<<<<<<<<<
@@ -12869,14 +14014,14 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
  */
   }
 
-  /* "curlparse.pyx":609
+  /* "curlparse.pyx":635
  * 
  *     # for rfc3986, ignore all base path should the first character be root.
  *     if path.startswith(slash):             # <<<<<<<<<<<<<<
  *         segments = path.split(slash)
  *     else:
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_path, __pyx_n_s_startswith); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 609, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_path, __pyx_n_s_startswith); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 635, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_9 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_3))) {
@@ -12889,32 +14034,32 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     }
   }
   if (!__pyx_t_9) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_slash); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 609, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_slash); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 635, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
   } else {
-    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 609, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 635, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_9); __pyx_t_9 = NULL;
     __Pyx_INCREF(__pyx_v_slash);
     __Pyx_GIVEREF(__pyx_v_slash);
     PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_v_slash);
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 609, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 635, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 609, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 635, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (__pyx_t_2) {
 
-    /* "curlparse.pyx":610
+    /* "curlparse.pyx":636
  *     # for rfc3986, ignore all base path should the first character be root.
  *     if path.startswith(slash):
  *         segments = path.split(slash)             # <<<<<<<<<<<<<<
  *     else:
  *         segments = base_parts + path.split(slash)
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_path, __pyx_n_s_split); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 610, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_path, __pyx_n_s_split); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 636, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_5 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_3))) {
@@ -12927,16 +14072,16 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
       }
     }
     if (!__pyx_t_5) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_slash); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 610, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_slash); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 636, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
     } else {
-      __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 610, __pyx_L1_error)
+      __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 636, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_5); __pyx_t_5 = NULL;
       __Pyx_INCREF(__pyx_v_slash);
       __Pyx_GIVEREF(__pyx_v_slash);
       PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_v_slash);
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_9, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 610, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_9, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 636, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     }
@@ -12944,7 +14089,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     __pyx_v_segments = __pyx_t_4;
     __pyx_t_4 = 0;
 
-    /* "curlparse.pyx":609
+    /* "curlparse.pyx":635
  * 
  *     # for rfc3986, ignore all base path should the first character be root.
  *     if path.startswith(slash):             # <<<<<<<<<<<<<<
@@ -12954,7 +14099,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     goto __pyx_L20;
   }
 
-  /* "curlparse.pyx":612
+  /* "curlparse.pyx":638
  *         segments = path.split(slash)
  *     else:
  *         segments = base_parts + path.split(slash)             # <<<<<<<<<<<<<<
@@ -12962,7 +14107,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
  *         # the resolved_path
  */
   /*else*/ {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_path, __pyx_n_s_split); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 612, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_path, __pyx_n_s_split); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 638, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_9 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_3))) {
@@ -12975,36 +14120,36 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
       }
     }
     if (!__pyx_t_9) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_slash); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 612, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_slash); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 638, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
     } else {
-      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 612, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 638, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_9); __pyx_t_9 = NULL;
       __Pyx_INCREF(__pyx_v_slash);
       __Pyx_GIVEREF(__pyx_v_slash);
       PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_v_slash);
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 612, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 638, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = PyNumber_Add(__pyx_v_base_parts, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 612, __pyx_L1_error)
+    __pyx_t_3 = PyNumber_Add(__pyx_v_base_parts, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 638, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_v_segments = __pyx_t_3;
     __pyx_t_3 = 0;
 
-    /* "curlparse.pyx":615
+    /* "curlparse.pyx":641
  *         # filter out elements that would cause redundant slashes on re-joining
  *         # the resolved_path
  *         segments[1:-1] = filter(None, segments[1:-1])             # <<<<<<<<<<<<<<
  * 
  *     resolved_path = []
  */
-    __pyx_t_3 = __Pyx_PyObject_GetSlice(__pyx_v_segments, 1, -1L, NULL, NULL, &__pyx_slice__37, 1, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 615, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetSlice(__pyx_v_segments, 1, -1L, NULL, NULL, &__pyx_slice__48, 1, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 641, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 615, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 641, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_INCREF(Py_None);
     __Pyx_GIVEREF(Py_None);
@@ -13012,27 +14157,27 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     __Pyx_GIVEREF(__pyx_t_3);
     PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_3);
     __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_filter, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 615, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_filter, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 641, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (__Pyx_PyObject_SetSlice(__pyx_v_segments, __pyx_t_3, 1, -1L, NULL, NULL, &__pyx_slice__38, 1, 1, 1) < 0) __PYX_ERR(0, 615, __pyx_L1_error)
+    if (__Pyx_PyObject_SetSlice(__pyx_v_segments, __pyx_t_3, 1, -1L, NULL, NULL, &__pyx_slice__49, 1, 1, 1) < 0) __PYX_ERR(0, 641, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_L20:;
 
-  /* "curlparse.pyx":617
+  /* "curlparse.pyx":643
  *         segments[1:-1] = filter(None, segments[1:-1])
  * 
  *     resolved_path = []             # <<<<<<<<<<<<<<
  * 
  *     for seg in segments:
  */
-  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 617, __pyx_L1_error)
+  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 643, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_v_resolved_path = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "curlparse.pyx":619
+  /* "curlparse.pyx":645
  *     resolved_path = []
  * 
  *     for seg in segments:             # <<<<<<<<<<<<<<
@@ -13043,26 +14188,26 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     __pyx_t_3 = __pyx_v_segments; __Pyx_INCREF(__pyx_t_3); __pyx_t_6 = 0;
     __pyx_t_14 = NULL;
   } else {
-    __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_segments); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 619, __pyx_L1_error)
+    __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_segments); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 645, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_14 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 619, __pyx_L1_error)
+    __pyx_t_14 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 645, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_14)) {
       if (likely(PyList_CheckExact(__pyx_t_3))) {
         if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 619, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 645, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 619, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 645, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 619, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 645, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 619, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 645, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -13072,7 +14217,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 619, __pyx_L1_error)
+          else __PYX_ERR(0, 645, __pyx_L1_error)
         }
         break;
       }
@@ -13081,19 +14226,19 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     __Pyx_XDECREF_SET(__pyx_v_seg, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "curlparse.pyx":620
+    /* "curlparse.pyx":646
  * 
  *     for seg in segments:
  *         if seg == double_dot:             # <<<<<<<<<<<<<<
  *             try:
  *                 resolved_path.pop()
  */
-    __pyx_t_4 = PyObject_RichCompare(__pyx_v_seg, __pyx_v_double_dot, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 620, __pyx_L1_error)
-    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 620, __pyx_L1_error)
+    __pyx_t_4 = PyObject_RichCompare(__pyx_v_seg, __pyx_v_double_dot, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 646, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 646, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     if (__pyx_t_2) {
 
-      /* "curlparse.pyx":621
+      /* "curlparse.pyx":647
  *     for seg in segments:
  *         if seg == double_dot:
  *             try:             # <<<<<<<<<<<<<<
@@ -13109,18 +14254,18 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
         __Pyx_XGOTREF(__pyx_t_17);
         /*try:*/ {
 
-          /* "curlparse.pyx":622
+          /* "curlparse.pyx":648
  *         if seg == double_dot:
  *             try:
  *                 resolved_path.pop()             # <<<<<<<<<<<<<<
  *             except IndexError:
  *                 # ignore any .. segments that would otherwise cause an IndexError
  */
-          __pyx_t_4 = __Pyx_PyList_Pop(__pyx_v_resolved_path); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 622, __pyx_L24_error)
+          __pyx_t_4 = __Pyx_PyList_Pop(__pyx_v_resolved_path); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 648, __pyx_L24_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "curlparse.pyx":621
+          /* "curlparse.pyx":647
  *     for seg in segments:
  *         if seg == double_dot:
  *             try:             # <<<<<<<<<<<<<<
@@ -13142,7 +14287,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "curlparse.pyx":623
+        /* "curlparse.pyx":649
  *             try:
  *                 resolved_path.pop()
  *             except IndexError:             # <<<<<<<<<<<<<<
@@ -13157,7 +14302,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
         goto __pyx_L26_except_error;
         __pyx_L26_except_error:;
 
-        /* "curlparse.pyx":621
+        /* "curlparse.pyx":647
  *     for seg in segments:
  *         if seg == double_dot:
  *             try:             # <<<<<<<<<<<<<<
@@ -13179,7 +14324,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
         __pyx_L31_try_end:;
       }
 
-      /* "curlparse.pyx":620
+      /* "curlparse.pyx":646
  * 
  *     for seg in segments:
  *         if seg == double_dot:             # <<<<<<<<<<<<<<
@@ -13189,19 +14334,19 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
       goto __pyx_L23;
     }
 
-    /* "curlparse.pyx":627
+    /* "curlparse.pyx":653
  *                 # when popped from resolved_path if resolving for rfc3986
  *                 pass
  *         elif seg == dot:             # <<<<<<<<<<<<<<
  *             continue
  *         else:
  */
-    __pyx_t_4 = PyObject_RichCompare(__pyx_v_seg, __pyx_v_dot, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 627, __pyx_L1_error)
-    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 627, __pyx_L1_error)
+    __pyx_t_4 = PyObject_RichCompare(__pyx_v_seg, __pyx_v_dot, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 653, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 653, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     if (__pyx_t_2) {
 
-      /* "curlparse.pyx":628
+      /* "curlparse.pyx":654
  *                 pass
  *         elif seg == dot:
  *             continue             # <<<<<<<<<<<<<<
@@ -13210,7 +14355,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
  */
       goto __pyx_L21_continue;
 
-      /* "curlparse.pyx":627
+      /* "curlparse.pyx":653
  *                 # when popped from resolved_path if resolving for rfc3986
  *                 pass
  *         elif seg == dot:             # <<<<<<<<<<<<<<
@@ -13219,7 +14364,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
  */
     }
 
-    /* "curlparse.pyx":630
+    /* "curlparse.pyx":656
  *             continue
  *         else:
  *             resolved_path.append(seg)             # <<<<<<<<<<<<<<
@@ -13227,11 +14372,11 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
  *     if segments[-1] in (dot, double_dot):
  */
     /*else*/ {
-      __pyx_t_19 = __Pyx_PyList_Append(__pyx_v_resolved_path, __pyx_v_seg); if (unlikely(__pyx_t_19 == -1)) __PYX_ERR(0, 630, __pyx_L1_error)
+      __pyx_t_19 = __Pyx_PyList_Append(__pyx_v_resolved_path, __pyx_v_seg); if (unlikely(__pyx_t_19 == -1)) __PYX_ERR(0, 656, __pyx_L1_error)
     }
     __pyx_L23:;
 
-    /* "curlparse.pyx":619
+    /* "curlparse.pyx":645
  *     resolved_path = []
  * 
  *     for seg in segments:             # <<<<<<<<<<<<<<
@@ -13242,25 +14387,25 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "curlparse.pyx":632
+  /* "curlparse.pyx":658
  *             resolved_path.append(seg)
  * 
  *     if segments[-1] in (dot, double_dot):             # <<<<<<<<<<<<<<
  *         # do some post-processing here. if the last segment was a relative dir,
  *         # then we need to append the trailing slash
  */
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_segments, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 632, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_segments, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 658, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyObject_RichCompare(__pyx_t_3, __pyx_v_dot, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 632, __pyx_L1_error)
-  __pyx_t_13 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 632, __pyx_L1_error)
+  __pyx_t_4 = PyObject_RichCompare(__pyx_t_3, __pyx_v_dot, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 658, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 658, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (!__pyx_t_13) {
   } else {
     __pyx_t_2 = __pyx_t_13;
     goto __pyx_L33_bool_binop_done;
   }
-  __pyx_t_4 = PyObject_RichCompare(__pyx_t_3, __pyx_v_double_dot, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 632, __pyx_L1_error)
-  __pyx_t_13 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 632, __pyx_L1_error)
+  __pyx_t_4 = PyObject_RichCompare(__pyx_t_3, __pyx_v_double_dot, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 658, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 658, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_2 = __pyx_t_13;
   __pyx_L33_bool_binop_done:;
@@ -13268,16 +14413,16 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
   __pyx_t_13 = (__pyx_t_2 != 0);
   if (__pyx_t_13) {
 
-    /* "curlparse.pyx":635
+    /* "curlparse.pyx":661
  *         # do some post-processing here. if the last segment was a relative dir,
  *         # then we need to append the trailing slash
  *         resolved_path.append(blank)             # <<<<<<<<<<<<<<
  * 
  *     return urlunparse((scheme, netloc, slash.join(resolved_path) or slash,
  */
-    __pyx_t_19 = __Pyx_PyList_Append(__pyx_v_resolved_path, __pyx_v_blank); if (unlikely(__pyx_t_19 == -1)) __PYX_ERR(0, 635, __pyx_L1_error)
+    __pyx_t_19 = __Pyx_PyList_Append(__pyx_v_resolved_path, __pyx_v_blank); if (unlikely(__pyx_t_19 == -1)) __PYX_ERR(0, 661, __pyx_L1_error)
 
-    /* "curlparse.pyx":632
+    /* "curlparse.pyx":658
  *             resolved_path.append(seg)
  * 
  *     if segments[-1] in (dot, double_dot):             # <<<<<<<<<<<<<<
@@ -13286,7 +14431,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
  */
   }
 
-  /* "curlparse.pyx":637
+  /* "curlparse.pyx":663
  *         resolved_path.append(blank)
  * 
  *     return urlunparse((scheme, netloc, slash.join(resolved_path) or slash,             # <<<<<<<<<<<<<<
@@ -13294,9 +14439,9 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_urlunparse); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 637, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_urlunparse); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 663, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_slash, __pyx_n_s_join); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 637, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_slash, __pyx_n_s_join); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 663, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_8 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_7))) {
@@ -13309,21 +14454,21 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     }
   }
   if (!__pyx_t_8) {
-    __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_v_resolved_path); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 637, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_v_resolved_path); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 663, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
   } else {
-    __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 637, __pyx_L1_error)
+    __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 663, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_8); __pyx_t_8 = NULL;
     __Pyx_INCREF(__pyx_v_resolved_path);
     __Pyx_GIVEREF(__pyx_v_resolved_path);
     PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_v_resolved_path);
-    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_10, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 637, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_10, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 663, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   }
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_13 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 637, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 663, __pyx_L1_error)
   if (!__pyx_t_13) {
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   } else {
@@ -13336,14 +14481,14 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
   __pyx_t_5 = __pyx_v_slash;
   __pyx_L35_bool_binop_done:;
 
-  /* "curlparse.pyx":638
+  /* "curlparse.pyx":664
  * 
  *     return urlunparse((scheme, netloc, slash.join(resolved_path) or slash,
  *                        params, query, fragment))             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_t_9 = PyTuple_New(6); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 637, __pyx_L1_error)
+  __pyx_t_9 = PyTuple_New(6); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 663, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_INCREF(__pyx_v_scheme);
   __Pyx_GIVEREF(__pyx_v_scheme);
@@ -13374,17 +14519,17 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
     }
   }
   if (!__pyx_t_5) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_9); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 637, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_9); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 663, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_GOTREF(__pyx_t_3);
   } else {
-    __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 637, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 663, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
     __Pyx_GIVEREF(__pyx_t_9);
     PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_9);
     __pyx_t_9 = 0;
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 637, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 663, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
@@ -13393,7 +14538,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":560
+  /* "curlparse.pyx":586
  * 
  * 
  * def urljoin(base, url, allow_fragments=True):             # <<<<<<<<<<<<<<
@@ -13441,7 +14586,7 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
   return __pyx_r;
 }
 
-/* "curlparse.pyx":641
+/* "curlparse.pyx":667
  * 
  * 
  * def urldefrag(url):             # <<<<<<<<<<<<<<
@@ -13450,21 +14595,21 @@ static PyObject *__pyx_pf_9curlparse_28urljoin(CYTHON_UNUSED PyObject *__pyx_sel
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_31urldefrag(PyObject *__pyx_self, PyObject *__pyx_v_url); /*proto*/
-static char __pyx_doc_9curlparse_30urldefrag[] = "Removes any existing fragment from URL.\n\n    Returns a tuple of the defragmented URL and the fragment.  If\n    the URL contained no fragments, the second element is the\n    empty string.\n    ";
-static PyMethodDef __pyx_mdef_9curlparse_31urldefrag = {"urldefrag", (PyCFunction)__pyx_pw_9curlparse_31urldefrag, METH_O, __pyx_doc_9curlparse_30urldefrag};
-static PyObject *__pyx_pw_9curlparse_31urldefrag(PyObject *__pyx_self, PyObject *__pyx_v_url) {
+static PyObject *__pyx_pw_9curlparse_33urldefrag(PyObject *__pyx_self, PyObject *__pyx_v_url); /*proto*/
+static char __pyx_doc_9curlparse_32urldefrag[] = "Removes any existing fragment from URL.\n\n    Returns a tuple of the defragmented URL and the fragment.  If\n    the URL contained no fragments, the second element is the\n    empty string.\n    ";
+static PyMethodDef __pyx_mdef_9curlparse_33urldefrag = {"urldefrag", (PyCFunction)__pyx_pw_9curlparse_33urldefrag, METH_O, __pyx_doc_9curlparse_32urldefrag};
+static PyObject *__pyx_pw_9curlparse_33urldefrag(PyObject *__pyx_self, PyObject *__pyx_v_url) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("urldefrag (wrapper)", 0);
-  __pyx_r = __pyx_pf_9curlparse_30urldefrag(__pyx_self, ((PyObject *)__pyx_v_url));
+  __pyx_r = __pyx_pf_9curlparse_32urldefrag(__pyx_self, ((PyObject *)__pyx_v_url));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url) {
+static PyObject *__pyx_pf_9curlparse_32urldefrag(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url) {
   PyObject *__pyx_v_blank = NULL;
   PyObject *__pyx_v_pound = NULL;
   PyObject *__pyx_v_result_type = NULL;
@@ -13491,7 +14636,7 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
   Py_ssize_t __pyx_t_12;
   __Pyx_RefNannySetupContext("urldefrag", 0);
 
-  /* "curlparse.pyx":648
+  /* "curlparse.pyx":674
  *     empty string.
  *     """
  *     if isinstance(url, bytes):             # <<<<<<<<<<<<<<
@@ -13502,7 +14647,7 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "curlparse.pyx":649
+    /* "curlparse.pyx":675
  *     """
  *     if isinstance(url, bytes):
  *         blank = b''             # <<<<<<<<<<<<<<
@@ -13512,7 +14657,7 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
     __Pyx_INCREF(__pyx_kp_b__5);
     __pyx_v_blank = __pyx_kp_b__5;
 
-    /* "curlparse.pyx":650
+    /* "curlparse.pyx":676
  *     if isinstance(url, bytes):
  *         blank = b''
  *         pound = b'#'             # <<<<<<<<<<<<<<
@@ -13522,19 +14667,19 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
     __Pyx_INCREF(__pyx_kp_b__26);
     __pyx_v_pound = __pyx_kp_b__26;
 
-    /* "curlparse.pyx":651
+    /* "curlparse.pyx":677
  *         blank = b''
  *         pound = b'#'
  *         result_type = DefragResultBytes             # <<<<<<<<<<<<<<
  *     else:
  *         blank = ''
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_DefragResultBytes); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 651, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_DefragResultBytes); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 677, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_v_result_type = __pyx_t_3;
     __pyx_t_3 = 0;
 
-    /* "curlparse.pyx":648
+    /* "curlparse.pyx":674
  *     empty string.
  *     """
  *     if isinstance(url, bytes):             # <<<<<<<<<<<<<<
@@ -13544,7 +14689,7 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
     goto __pyx_L3;
   }
 
-  /* "curlparse.pyx":653
+  /* "curlparse.pyx":679
  *         result_type = DefragResultBytes
  *     else:
  *         blank = ''             # <<<<<<<<<<<<<<
@@ -13555,7 +14700,7 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
     __Pyx_INCREF(__pyx_kp_s__5);
     __pyx_v_blank = __pyx_kp_s__5;
 
-    /* "curlparse.pyx":654
+    /* "curlparse.pyx":680
  *     else:
  *         blank = ''
  *         pound = '#'             # <<<<<<<<<<<<<<
@@ -13565,39 +14710,39 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
     __Pyx_INCREF(__pyx_kp_s__26);
     __pyx_v_pound = __pyx_kp_s__26;
 
-    /* "curlparse.pyx":655
+    /* "curlparse.pyx":681
  *         blank = ''
  *         pound = '#'
  *         result_type = DefragResult             # <<<<<<<<<<<<<<
  *     if pound in url:
  *         s, n, p, a, q, frag = urlparse(url)
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_DefragResult); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 655, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_DefragResult); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 681, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_v_result_type = __pyx_t_3;
     __pyx_t_3 = 0;
   }
   __pyx_L3:;
 
-  /* "curlparse.pyx":656
+  /* "curlparse.pyx":682
  *         pound = '#'
  *         result_type = DefragResult
  *     if pound in url:             # <<<<<<<<<<<<<<
  *         s, n, p, a, q, frag = urlparse(url)
  *         defrag = urlunparse((s, n, p, a, q, blank))
  */
-  __pyx_t_2 = (__Pyx_PySequence_ContainsTF(__pyx_v_pound, __pyx_v_url, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 656, __pyx_L1_error)
+  __pyx_t_2 = (__Pyx_PySequence_ContainsTF(__pyx_v_pound, __pyx_v_url, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 682, __pyx_L1_error)
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
-    /* "curlparse.pyx":657
+    /* "curlparse.pyx":683
  *         result_type = DefragResult
  *     if pound in url:
  *         s, n, p, a, q, frag = urlparse(url)             # <<<<<<<<<<<<<<
  *         defrag = urlunparse((s, n, p, a, q, blank))
  *     else:
  */
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_urlparse); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 657, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_urlparse); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 683, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_4))) {
@@ -13610,16 +14755,16 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
       }
     }
     if (!__pyx_t_5) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_url); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 657, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_url); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 683, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
     } else {
-      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 657, __pyx_L1_error)
+      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 683, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __pyx_t_5 = NULL;
       __Pyx_INCREF(__pyx_v_url);
       __Pyx_GIVEREF(__pyx_v_url);
       PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_v_url);
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 657, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 683, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     }
@@ -13634,7 +14779,7 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
       if (unlikely(size != 6)) {
         if (size > 6) __Pyx_RaiseTooManyValuesError(6);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 657, __pyx_L1_error)
+        __PYX_ERR(0, 683, __pyx_L1_error)
       }
       #if CYTHON_COMPILING_IN_CPYTHON
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -13663,7 +14808,7 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
         Py_ssize_t i;
         PyObject** temps[6] = {&__pyx_t_4,&__pyx_t_6,&__pyx_t_5,&__pyx_t_7,&__pyx_t_8,&__pyx_t_9};
         for (i=0; i < 6; i++) {
-          PyObject* item = PySequence_ITEM(sequence, i); if (unlikely(!item)) __PYX_ERR(0, 657, __pyx_L1_error)
+          PyObject* item = PySequence_ITEM(sequence, i); if (unlikely(!item)) __PYX_ERR(0, 683, __pyx_L1_error)
           __Pyx_GOTREF(item);
           *(temps[i]) = item;
         }
@@ -13673,7 +14818,7 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
     } else {
       Py_ssize_t index = -1;
       PyObject** temps[6] = {&__pyx_t_4,&__pyx_t_6,&__pyx_t_5,&__pyx_t_7,&__pyx_t_8,&__pyx_t_9};
-      __pyx_t_10 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 657, __pyx_L1_error)
+      __pyx_t_10 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 683, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __pyx_t_11 = Py_TYPE(__pyx_t_10)->tp_iternext;
@@ -13682,7 +14827,7 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
         __Pyx_GOTREF(item);
         *(temps[index]) = item;
       }
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_11(__pyx_t_10), 6) < 0) __PYX_ERR(0, 657, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_11(__pyx_t_10), 6) < 0) __PYX_ERR(0, 683, __pyx_L1_error)
       __pyx_t_11 = NULL;
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       goto __pyx_L6_unpacking_done;
@@ -13690,7 +14835,7 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       __pyx_t_11 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 657, __pyx_L1_error)
+      __PYX_ERR(0, 683, __pyx_L1_error)
       __pyx_L6_unpacking_done:;
     }
     __pyx_v_s = __pyx_t_4;
@@ -13706,16 +14851,16 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
     __pyx_v_frag = __pyx_t_9;
     __pyx_t_9 = 0;
 
-    /* "curlparse.pyx":658
+    /* "curlparse.pyx":684
  *     if pound in url:
  *         s, n, p, a, q, frag = urlparse(url)
  *         defrag = urlunparse((s, n, p, a, q, blank))             # <<<<<<<<<<<<<<
  *     else:
  *         frag = blank
  */
-    __pyx_t_9 = __Pyx_GetModuleGlobalName(__pyx_n_s_urlunparse); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 658, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_GetModuleGlobalName(__pyx_n_s_urlunparse); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 684, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_8 = PyTuple_New(6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 658, __pyx_L1_error)
+    __pyx_t_8 = PyTuple_New(6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 684, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_INCREF(__pyx_v_s);
     __Pyx_GIVEREF(__pyx_v_s);
@@ -13746,17 +14891,17 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
       }
     }
     if (!__pyx_t_7) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 658, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 684, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_GOTREF(__pyx_t_3);
     } else {
-      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 658, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 684, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7); __pyx_t_7 = NULL;
       __Pyx_GIVEREF(__pyx_t_8);
       PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_8);
       __pyx_t_8 = 0;
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 658, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 684, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
@@ -13764,7 +14909,7 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
     __pyx_v_defrag = __pyx_t_3;
     __pyx_t_3 = 0;
 
-    /* "curlparse.pyx":656
+    /* "curlparse.pyx":682
  *         pound = '#'
  *         result_type = DefragResult
  *     if pound in url:             # <<<<<<<<<<<<<<
@@ -13774,7 +14919,7 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
     goto __pyx_L4;
   }
 
-  /* "curlparse.pyx":660
+  /* "curlparse.pyx":686
  *         defrag = urlunparse((s, n, p, a, q, blank))
  *     else:
  *         frag = blank             # <<<<<<<<<<<<<<
@@ -13785,7 +14930,7 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
     __Pyx_INCREF(__pyx_v_blank);
     __pyx_v_frag = __pyx_v_blank;
 
-    /* "curlparse.pyx":661
+    /* "curlparse.pyx":687
  *     else:
  *         frag = blank
  *         defrag = url             # <<<<<<<<<<<<<<
@@ -13797,7 +14942,7 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
   }
   __pyx_L4:;
 
-  /* "curlparse.pyx":662
+  /* "curlparse.pyx":688
  *         frag = blank
  *         defrag = url
  *     return result_type(defrag, frag)             # <<<<<<<<<<<<<<
@@ -13818,7 +14963,7 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
       __pyx_t_12 = 1;
     }
   }
-  __pyx_t_8 = PyTuple_New(2+__pyx_t_12); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 662, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(2+__pyx_t_12); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 688, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   if (__pyx_t_5) {
     __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -13829,7 +14974,7 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
   __Pyx_INCREF(__pyx_v_frag);
   __Pyx_GIVEREF(__pyx_v_frag);
   PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_12, __pyx_v_frag);
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_8, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 662, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_8, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 688, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
@@ -13837,7 +14982,7 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":641
+  /* "curlparse.pyx":667
  * 
  * 
  * def urldefrag(url):             # <<<<<<<<<<<<<<
@@ -13873,7 +15018,7 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
   return __pyx_r;
 }
 
-/* "curlparse.pyx":668
+/* "curlparse.pyx":694
  * _hextobyte = None
  * 
  * def unquote_to_bytes(string):             # <<<<<<<<<<<<<<
@@ -13882,21 +15027,21 @@ static PyObject *__pyx_pf_9curlparse_30urldefrag(CYTHON_UNUSED PyObject *__pyx_s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_33unquote_to_bytes(PyObject *__pyx_self, PyObject *__pyx_v_string); /*proto*/
-static char __pyx_doc_9curlparse_32unquote_to_bytes[] = "unquote_to_bytes('abc%20def') -> b'abc def'.";
-static PyMethodDef __pyx_mdef_9curlparse_33unquote_to_bytes = {"unquote_to_bytes", (PyCFunction)__pyx_pw_9curlparse_33unquote_to_bytes, METH_O, __pyx_doc_9curlparse_32unquote_to_bytes};
-static PyObject *__pyx_pw_9curlparse_33unquote_to_bytes(PyObject *__pyx_self, PyObject *__pyx_v_string) {
+static PyObject *__pyx_pw_9curlparse_35unquote_to_bytes(PyObject *__pyx_self, PyObject *__pyx_v_string); /*proto*/
+static char __pyx_doc_9curlparse_34unquote_to_bytes[] = "unquote_to_bytes('abc%20def') -> b'abc def'.";
+static PyMethodDef __pyx_mdef_9curlparse_35unquote_to_bytes = {"unquote_to_bytes", (PyCFunction)__pyx_pw_9curlparse_35unquote_to_bytes, METH_O, __pyx_doc_9curlparse_34unquote_to_bytes};
+static PyObject *__pyx_pw_9curlparse_35unquote_to_bytes(PyObject *__pyx_self, PyObject *__pyx_v_string) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("unquote_to_bytes (wrapper)", 0);
-  __pyx_r = __pyx_pf_9curlparse_32unquote_to_bytes(__pyx_self, ((PyObject *)__pyx_v_string));
+  __pyx_r = __pyx_pf_9curlparse_34unquote_to_bytes(__pyx_self, ((PyObject *)__pyx_v_string));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string) {
+static PyObject *__pyx_pf_9curlparse_34unquote_to_bytes(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string) {
   PyObject *__pyx_v_bits = NULL;
   PyObject *__pyx_v_res = NULL;
   PyObject *__pyx_v_append = NULL;
@@ -13923,29 +15068,29 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
   __Pyx_RefNannySetupContext("unquote_to_bytes", 0);
   __Pyx_INCREF(__pyx_v_string);
 
-  /* "curlparse.pyx":672
+  /* "curlparse.pyx":698
  *     # Note: strings are encoded as UTF-8. This is only an issue if it contains
  *     # unescaped non-ASCII characters, which URIs should not.
  *     if not string:             # <<<<<<<<<<<<<<
  *         # Is it a string-like object?
  *         string.split
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_string); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 672, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_string); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 698, __pyx_L1_error)
   __pyx_t_2 = ((!__pyx_t_1) != 0);
   if (__pyx_t_2) {
 
-    /* "curlparse.pyx":674
+    /* "curlparse.pyx":700
  *     if not string:
  *         # Is it a string-like object?
  *         string.split             # <<<<<<<<<<<<<<
  *         return b''
  *     if isinstance(string, str):
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_string, __pyx_n_s_split); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 674, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_string, __pyx_n_s_split); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 700, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "curlparse.pyx":675
+    /* "curlparse.pyx":701
  *         # Is it a string-like object?
  *         string.split
  *         return b''             # <<<<<<<<<<<<<<
@@ -13957,7 +15102,7 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
     __pyx_r = __pyx_kp_b__5;
     goto __pyx_L0;
 
-    /* "curlparse.pyx":672
+    /* "curlparse.pyx":698
  *     # Note: strings are encoded as UTF-8. This is only an issue if it contains
  *     # unescaped non-ASCII characters, which URIs should not.
  *     if not string:             # <<<<<<<<<<<<<<
@@ -13966,7 +15111,7 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
  */
   }
 
-  /* "curlparse.pyx":676
+  /* "curlparse.pyx":702
  *         string.split
  *         return b''
  *     if isinstance(string, str):             # <<<<<<<<<<<<<<
@@ -13977,22 +15122,22 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
-    /* "curlparse.pyx":677
+    /* "curlparse.pyx":703
  *         return b''
  *     if isinstance(string, str):
  *         string = string.encode('utf-8')             # <<<<<<<<<<<<<<
  *     bits = string.split(b'%')
  *     if len(bits) == 1:
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_string, __pyx_n_s_encode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 677, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_string, __pyx_n_s_encode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 703, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__39, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 677, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__50, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 703, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF_SET(__pyx_v_string, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "curlparse.pyx":676
+    /* "curlparse.pyx":702
  *         string.split
  *         return b''
  *     if isinstance(string, str):             # <<<<<<<<<<<<<<
@@ -14001,33 +15146,33 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
  */
   }
 
-  /* "curlparse.pyx":678
+  /* "curlparse.pyx":704
  *     if isinstance(string, str):
  *         string = string.encode('utf-8')
  *     bits = string.split(b'%')             # <<<<<<<<<<<<<<
  *     if len(bits) == 1:
  *         return string
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_string, __pyx_n_s_split); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 678, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_string, __pyx_n_s_split); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 704, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__41, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 678, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__52, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 704, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_v_bits = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "curlparse.pyx":679
+  /* "curlparse.pyx":705
  *         string = string.encode('utf-8')
  *     bits = string.split(b'%')
  *     if len(bits) == 1:             # <<<<<<<<<<<<<<
  *         return string
  *     res = [bits[0]]
  */
-  __pyx_t_5 = PyObject_Length(__pyx_v_bits); if (unlikely(__pyx_t_5 == -1)) __PYX_ERR(0, 679, __pyx_L1_error)
+  __pyx_t_5 = PyObject_Length(__pyx_v_bits); if (unlikely(__pyx_t_5 == -1)) __PYX_ERR(0, 705, __pyx_L1_error)
   __pyx_t_1 = ((__pyx_t_5 == 1) != 0);
   if (__pyx_t_1) {
 
-    /* "curlparse.pyx":680
+    /* "curlparse.pyx":706
  *     bits = string.split(b'%')
  *     if len(bits) == 1:
  *         return string             # <<<<<<<<<<<<<<
@@ -14039,7 +15184,7 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
     __pyx_r = __pyx_v_string;
     goto __pyx_L0;
 
-    /* "curlparse.pyx":679
+    /* "curlparse.pyx":705
  *         string = string.encode('utf-8')
  *     bits = string.split(b'%')
  *     if len(bits) == 1:             # <<<<<<<<<<<<<<
@@ -14048,16 +15193,16 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
  */
   }
 
-  /* "curlparse.pyx":681
+  /* "curlparse.pyx":707
  *     if len(bits) == 1:
  *         return string
  *     res = [bits[0]]             # <<<<<<<<<<<<<<
  *     append = res.append
  *     # Delay the initialization of the table to not waste memory
  */
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_bits, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 681, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_bits, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 707, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyList_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 681, __pyx_L1_error)
+  __pyx_t_4 = PyList_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 707, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_3);
   PyList_SET_ITEM(__pyx_t_4, 0, __pyx_t_3);
@@ -14065,33 +15210,33 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
   __pyx_v_res = ((PyObject*)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "curlparse.pyx":682
+  /* "curlparse.pyx":708
  *         return string
  *     res = [bits[0]]
  *     append = res.append             # <<<<<<<<<<<<<<
  *     # Delay the initialization of the table to not waste memory
  *     # if the function is never called
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_res, __pyx_n_s_append); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 682, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_res, __pyx_n_s_append); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 708, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_v_append = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "curlparse.pyx":686
+  /* "curlparse.pyx":712
  *     # if the function is never called
  *     global _hextobyte
  *     if _hextobyte is None:             # <<<<<<<<<<<<<<
  *         _hextobyte = {(a + b).encode(): bytes([int(a + b, 16)])
  *                       for a in _hexdig for b in _hexdig}
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_hextobyte); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 686, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_hextobyte); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 712, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_1 = (__pyx_t_4 == Py_None);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "curlparse.pyx":687
+    /* "curlparse.pyx":713
  *     global _hextobyte
  *     if _hextobyte is None:
  *         _hextobyte = {(a + b).encode(): bytes([int(a + b, 16)])             # <<<<<<<<<<<<<<
@@ -14099,27 +15244,27 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
  *     for item in bits[1:]:
  */
     { /* enter inner scope */
-      PyObject *__pyx_8genexpr7__pyx_v_a = NULL;
-      PyObject *__pyx_8genexpr7__pyx_v_b = NULL;
-      __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 687, __pyx_L9_error)
+      PyObject *__pyx_8genexpr8__pyx_v_a = NULL;
+      PyObject *__pyx_8genexpr8__pyx_v_b = NULL;
+      __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 713, __pyx_L9_error)
       __Pyx_GOTREF(__pyx_t_4);
 
-      /* "curlparse.pyx":688
+      /* "curlparse.pyx":714
  *     if _hextobyte is None:
  *         _hextobyte = {(a + b).encode(): bytes([int(a + b, 16)])
  *                       for a in _hexdig for b in _hexdig}             # <<<<<<<<<<<<<<
  *     for item in bits[1:]:
  *         try:
  */
-      __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_hexdig); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 688, __pyx_L9_error)
+      __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_hexdig); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 714, __pyx_L9_error)
       __Pyx_GOTREF(__pyx_t_3);
       if (likely(PyList_CheckExact(__pyx_t_3)) || PyTuple_CheckExact(__pyx_t_3)) {
         __pyx_t_6 = __pyx_t_3; __Pyx_INCREF(__pyx_t_6); __pyx_t_5 = 0;
         __pyx_t_7 = NULL;
       } else {
-        __pyx_t_5 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 688, __pyx_L9_error)
+        __pyx_t_5 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 714, __pyx_L9_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_7 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 688, __pyx_L9_error)
+        __pyx_t_7 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 714, __pyx_L9_error)
       }
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       for (;;) {
@@ -14127,17 +15272,17 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
           if (likely(PyList_CheckExact(__pyx_t_6))) {
             if (__pyx_t_5 >= PyList_GET_SIZE(__pyx_t_6)) break;
             #if CYTHON_COMPILING_IN_CPYTHON
-            __pyx_t_3 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_5); __Pyx_INCREF(__pyx_t_3); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 688, __pyx_L9_error)
+            __pyx_t_3 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_5); __Pyx_INCREF(__pyx_t_3); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 714, __pyx_L9_error)
             #else
-            __pyx_t_3 = PySequence_ITEM(__pyx_t_6, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 688, __pyx_L9_error)
+            __pyx_t_3 = PySequence_ITEM(__pyx_t_6, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 714, __pyx_L9_error)
             __Pyx_GOTREF(__pyx_t_3);
             #endif
           } else {
             if (__pyx_t_5 >= PyTuple_GET_SIZE(__pyx_t_6)) break;
             #if CYTHON_COMPILING_IN_CPYTHON
-            __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_5); __Pyx_INCREF(__pyx_t_3); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 688, __pyx_L9_error)
+            __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_5); __Pyx_INCREF(__pyx_t_3); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 714, __pyx_L9_error)
             #else
-            __pyx_t_3 = PySequence_ITEM(__pyx_t_6, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 688, __pyx_L9_error)
+            __pyx_t_3 = PySequence_ITEM(__pyx_t_6, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 714, __pyx_L9_error)
             __Pyx_GOTREF(__pyx_t_3);
             #endif
           }
@@ -14147,23 +15292,23 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
             PyObject* exc_type = PyErr_Occurred();
             if (exc_type) {
               if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-              else __PYX_ERR(0, 688, __pyx_L9_error)
+              else __PYX_ERR(0, 714, __pyx_L9_error)
             }
             break;
           }
           __Pyx_GOTREF(__pyx_t_3);
         }
-        __Pyx_XDECREF_SET(__pyx_8genexpr7__pyx_v_a, __pyx_t_3);
+        __Pyx_XDECREF_SET(__pyx_8genexpr8__pyx_v_a, __pyx_t_3);
         __pyx_t_3 = 0;
-        __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_hexdig); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 688, __pyx_L9_error)
+        __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_hexdig); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 714, __pyx_L9_error)
         __Pyx_GOTREF(__pyx_t_3);
         if (likely(PyList_CheckExact(__pyx_t_3)) || PyTuple_CheckExact(__pyx_t_3)) {
           __pyx_t_8 = __pyx_t_3; __Pyx_INCREF(__pyx_t_8); __pyx_t_9 = 0;
           __pyx_t_10 = NULL;
         } else {
-          __pyx_t_9 = -1; __pyx_t_8 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 688, __pyx_L9_error)
+          __pyx_t_9 = -1; __pyx_t_8 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 714, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_8);
-          __pyx_t_10 = Py_TYPE(__pyx_t_8)->tp_iternext; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 688, __pyx_L9_error)
+          __pyx_t_10 = Py_TYPE(__pyx_t_8)->tp_iternext; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 714, __pyx_L9_error)
         }
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         for (;;) {
@@ -14171,17 +15316,17 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
             if (likely(PyList_CheckExact(__pyx_t_8))) {
               if (__pyx_t_9 >= PyList_GET_SIZE(__pyx_t_8)) break;
               #if CYTHON_COMPILING_IN_CPYTHON
-              __pyx_t_3 = PyList_GET_ITEM(__pyx_t_8, __pyx_t_9); __Pyx_INCREF(__pyx_t_3); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 688, __pyx_L9_error)
+              __pyx_t_3 = PyList_GET_ITEM(__pyx_t_8, __pyx_t_9); __Pyx_INCREF(__pyx_t_3); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 714, __pyx_L9_error)
               #else
-              __pyx_t_3 = PySequence_ITEM(__pyx_t_8, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 688, __pyx_L9_error)
+              __pyx_t_3 = PySequence_ITEM(__pyx_t_8, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 714, __pyx_L9_error)
               __Pyx_GOTREF(__pyx_t_3);
               #endif
             } else {
               if (__pyx_t_9 >= PyTuple_GET_SIZE(__pyx_t_8)) break;
               #if CYTHON_COMPILING_IN_CPYTHON
-              __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_8, __pyx_t_9); __Pyx_INCREF(__pyx_t_3); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 688, __pyx_L9_error)
+              __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_8, __pyx_t_9); __Pyx_INCREF(__pyx_t_3); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 714, __pyx_L9_error)
               #else
-              __pyx_t_3 = PySequence_ITEM(__pyx_t_8, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 688, __pyx_L9_error)
+              __pyx_t_3 = PySequence_ITEM(__pyx_t_8, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 714, __pyx_L9_error)
               __Pyx_GOTREF(__pyx_t_3);
               #endif
             }
@@ -14191,25 +15336,25 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
               PyObject* exc_type = PyErr_Occurred();
               if (exc_type) {
                 if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-                else __PYX_ERR(0, 688, __pyx_L9_error)
+                else __PYX_ERR(0, 714, __pyx_L9_error)
               }
               break;
             }
             __Pyx_GOTREF(__pyx_t_3);
           }
-          __Pyx_XDECREF_SET(__pyx_8genexpr7__pyx_v_b, __pyx_t_3);
+          __Pyx_XDECREF_SET(__pyx_8genexpr8__pyx_v_b, __pyx_t_3);
           __pyx_t_3 = 0;
 
-          /* "curlparse.pyx":687
+          /* "curlparse.pyx":713
  *     global _hextobyte
  *     if _hextobyte is None:
  *         _hextobyte = {(a + b).encode(): bytes([int(a + b, 16)])             # <<<<<<<<<<<<<<
  *                       for a in _hexdig for b in _hexdig}
  *     for item in bits[1:]:
  */
-          __pyx_t_11 = PyNumber_Add(__pyx_8genexpr7__pyx_v_a, __pyx_8genexpr7__pyx_v_b); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 687, __pyx_L9_error)
+          __pyx_t_11 = PyNumber_Add(__pyx_8genexpr8__pyx_v_a, __pyx_8genexpr8__pyx_v_b); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 713, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_11);
-          __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_encode); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 687, __pyx_L9_error)
+          __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_encode); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 713, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
           __pyx_t_11 = NULL;
@@ -14223,16 +15368,16 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
             }
           }
           if (__pyx_t_11) {
-            __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 687, __pyx_L9_error)
+            __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 713, __pyx_L9_error)
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
           } else {
-            __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_12); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 687, __pyx_L9_error)
+            __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_12); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 713, __pyx_L9_error)
           }
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-          __pyx_t_12 = PyNumber_Add(__pyx_8genexpr7__pyx_v_a, __pyx_8genexpr7__pyx_v_b); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 687, __pyx_L9_error)
+          __pyx_t_12 = PyNumber_Add(__pyx_8genexpr8__pyx_v_a, __pyx_8genexpr8__pyx_v_b); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 713, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_12);
-          __pyx_t_11 = PyTuple_New(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 687, __pyx_L9_error)
+          __pyx_t_11 = PyTuple_New(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 713, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_11);
           __Pyx_GIVEREF(__pyx_t_12);
           PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_12);
@@ -14240,27 +15385,27 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
           __Pyx_GIVEREF(__pyx_int_16);
           PyTuple_SET_ITEM(__pyx_t_11, 1, __pyx_int_16);
           __pyx_t_12 = 0;
-          __pyx_t_12 = __Pyx_PyObject_Call(((PyObject *)(&PyInt_Type)), __pyx_t_11, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 687, __pyx_L9_error)
+          __pyx_t_12 = __Pyx_PyObject_Call(((PyObject *)(&PyInt_Type)), __pyx_t_11, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 713, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-          __pyx_t_11 = PyList_New(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 687, __pyx_L9_error)
+          __pyx_t_11 = PyList_New(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 713, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_11);
           __Pyx_GIVEREF(__pyx_t_12);
           PyList_SET_ITEM(__pyx_t_11, 0, __pyx_t_12);
           __pyx_t_12 = 0;
-          __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 687, __pyx_L9_error)
+          __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 713, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_GIVEREF(__pyx_t_11);
           PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_11);
           __pyx_t_11 = 0;
-          __pyx_t_11 = __Pyx_PyObject_Call(((PyObject *)(&PyBytes_Type)), __pyx_t_12, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 687, __pyx_L9_error)
+          __pyx_t_11 = __Pyx_PyObject_Call(((PyObject *)(&PyBytes_Type)), __pyx_t_12, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 713, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_11);
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-          if (unlikely(PyDict_SetItem(__pyx_t_4, (PyObject*)__pyx_t_3, (PyObject*)__pyx_t_11))) __PYX_ERR(0, 687, __pyx_L9_error)
+          if (unlikely(PyDict_SetItem(__pyx_t_4, (PyObject*)__pyx_t_3, (PyObject*)__pyx_t_11))) __PYX_ERR(0, 713, __pyx_L9_error)
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-          /* "curlparse.pyx":688
+          /* "curlparse.pyx":714
  *     if _hextobyte is None:
  *         _hextobyte = {(a + b).encode(): bytes([int(a + b, 16)])
  *                       for a in _hexdig for b in _hexdig}             # <<<<<<<<<<<<<<
@@ -14271,19 +15416,19 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       }
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __Pyx_XDECREF(__pyx_8genexpr7__pyx_v_a);
-      __Pyx_XDECREF(__pyx_8genexpr7__pyx_v_b);
+      __Pyx_XDECREF(__pyx_8genexpr8__pyx_v_a);
+      __Pyx_XDECREF(__pyx_8genexpr8__pyx_v_b);
       goto __pyx_L14_exit_scope;
       __pyx_L9_error:;
-      __Pyx_XDECREF(__pyx_8genexpr7__pyx_v_a);
-      __Pyx_XDECREF(__pyx_8genexpr7__pyx_v_b);
+      __Pyx_XDECREF(__pyx_8genexpr8__pyx_v_a);
+      __Pyx_XDECREF(__pyx_8genexpr8__pyx_v_b);
       goto __pyx_L1_error;
       __pyx_L14_exit_scope:;
     } /* exit inner scope */
-    if (PyDict_SetItem(__pyx_d, __pyx_n_s_hextobyte, __pyx_t_4) < 0) __PYX_ERR(0, 687, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_d, __pyx_n_s_hextobyte, __pyx_t_4) < 0) __PYX_ERR(0, 713, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "curlparse.pyx":686
+    /* "curlparse.pyx":712
  *     # if the function is never called
  *     global _hextobyte
  *     if _hextobyte is None:             # <<<<<<<<<<<<<<
@@ -14292,22 +15437,22 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
  */
   }
 
-  /* "curlparse.pyx":689
+  /* "curlparse.pyx":715
  *         _hextobyte = {(a + b).encode(): bytes([int(a + b, 16)])
  *                       for a in _hexdig for b in _hexdig}
  *     for item in bits[1:]:             # <<<<<<<<<<<<<<
  *         try:
  *             append(_hextobyte[item[:2]])
  */
-  __pyx_t_4 = __Pyx_PyObject_GetSlice(__pyx_v_bits, 1, 0, NULL, NULL, &__pyx_slice__42, 1, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 689, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetSlice(__pyx_v_bits, 1, 0, NULL, NULL, &__pyx_slice__53, 1, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 715, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (likely(PyList_CheckExact(__pyx_t_4)) || PyTuple_CheckExact(__pyx_t_4)) {
     __pyx_t_6 = __pyx_t_4; __Pyx_INCREF(__pyx_t_6); __pyx_t_5 = 0;
     __pyx_t_7 = NULL;
   } else {
-    __pyx_t_5 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 689, __pyx_L1_error)
+    __pyx_t_5 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 715, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 689, __pyx_L1_error)
+    __pyx_t_7 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 715, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   for (;;) {
@@ -14315,17 +15460,17 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
       if (likely(PyList_CheckExact(__pyx_t_6))) {
         if (__pyx_t_5 >= PyList_GET_SIZE(__pyx_t_6)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 689, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 715, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_6, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 689, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_6, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 715, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_5 >= PyTuple_GET_SIZE(__pyx_t_6)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 689, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 715, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_6, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 689, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_6, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 715, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -14335,7 +15480,7 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 689, __pyx_L1_error)
+          else __PYX_ERR(0, 715, __pyx_L1_error)
         }
         break;
       }
@@ -14344,7 +15489,7 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
     __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "curlparse.pyx":690
+    /* "curlparse.pyx":716
  *                       for a in _hexdig for b in _hexdig}
  *     for item in bits[1:]:
  *         try:             # <<<<<<<<<<<<<<
@@ -14360,37 +15505,37 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
       __Pyx_XGOTREF(__pyx_t_15);
       /*try:*/ {
 
-        /* "curlparse.pyx":691
+        /* "curlparse.pyx":717
  *     for item in bits[1:]:
  *         try:
  *             append(_hextobyte[item[:2]])             # <<<<<<<<<<<<<<
  *             append(item[2:])
  *         except KeyError:
  */
-        __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_hextobyte); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 691, __pyx_L17_error)
+        __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_hextobyte); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 717, __pyx_L17_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_8 = __Pyx_PyObject_GetSlice(__pyx_v_item, 0, 2, NULL, NULL, &__pyx_slice__43, 0, 1, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 691, __pyx_L17_error)
+        __pyx_t_8 = __Pyx_PyObject_GetSlice(__pyx_v_item, 0, 2, NULL, NULL, &__pyx_slice__54, 0, 1, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 717, __pyx_L17_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_11 = PyObject_GetItem(__pyx_t_4, __pyx_t_8); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 691, __pyx_L17_error)
+        __pyx_t_11 = PyObject_GetItem(__pyx_t_4, __pyx_t_8); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 717, __pyx_L17_error)
         __Pyx_GOTREF(__pyx_t_11);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_16 = __Pyx_PyList_Append(__pyx_v_res, __pyx_t_11); if (unlikely(__pyx_t_16 == -1)) __PYX_ERR(0, 691, __pyx_L17_error)
+        __pyx_t_16 = __Pyx_PyList_Append(__pyx_v_res, __pyx_t_11); if (unlikely(__pyx_t_16 == -1)) __PYX_ERR(0, 717, __pyx_L17_error)
         __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-        /* "curlparse.pyx":692
+        /* "curlparse.pyx":718
  *         try:
  *             append(_hextobyte[item[:2]])
  *             append(item[2:])             # <<<<<<<<<<<<<<
  *         except KeyError:
  *             append(b'%')
  */
-        __pyx_t_11 = __Pyx_PyObject_GetSlice(__pyx_v_item, 2, 0, NULL, NULL, &__pyx_slice__44, 1, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 692, __pyx_L17_error)
+        __pyx_t_11 = __Pyx_PyObject_GetSlice(__pyx_v_item, 2, 0, NULL, NULL, &__pyx_slice__55, 1, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 718, __pyx_L17_error)
         __Pyx_GOTREF(__pyx_t_11);
-        __pyx_t_16 = __Pyx_PyList_Append(__pyx_v_res, __pyx_t_11); if (unlikely(__pyx_t_16 == -1)) __PYX_ERR(0, 692, __pyx_L17_error)
+        __pyx_t_16 = __Pyx_PyList_Append(__pyx_v_res, __pyx_t_11); if (unlikely(__pyx_t_16 == -1)) __PYX_ERR(0, 718, __pyx_L17_error)
         __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-        /* "curlparse.pyx":690
+        /* "curlparse.pyx":716
  *                       for a in _hexdig for b in _hexdig}
  *     for item in bits[1:]:
  *         try:             # <<<<<<<<<<<<<<
@@ -14410,7 +15555,7 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
       __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-      /* "curlparse.pyx":693
+      /* "curlparse.pyx":719
  *             append(_hextobyte[item[:2]])
  *             append(item[2:])
  *         except KeyError:             # <<<<<<<<<<<<<<
@@ -14420,28 +15565,28 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
       __pyx_t_17 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
       if (__pyx_t_17) {
         __Pyx_AddTraceback("curlparse.unquote_to_bytes", __pyx_clineno, __pyx_lineno, __pyx_filename);
-        if (__Pyx_GetException(&__pyx_t_11, &__pyx_t_8, &__pyx_t_4) < 0) __PYX_ERR(0, 693, __pyx_L19_except_error)
+        if (__Pyx_GetException(&__pyx_t_11, &__pyx_t_8, &__pyx_t_4) < 0) __PYX_ERR(0, 719, __pyx_L19_except_error)
         __Pyx_GOTREF(__pyx_t_11);
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_GOTREF(__pyx_t_4);
 
-        /* "curlparse.pyx":694
+        /* "curlparse.pyx":720
  *             append(item[2:])
  *         except KeyError:
  *             append(b'%')             # <<<<<<<<<<<<<<
  *             append(item)
  *     return b''.join(res)
  */
-        __pyx_t_16 = __Pyx_PyList_Append(__pyx_v_res, __pyx_kp_b__40); if (unlikely(__pyx_t_16 == -1)) __PYX_ERR(0, 694, __pyx_L19_except_error)
+        __pyx_t_16 = __Pyx_PyList_Append(__pyx_v_res, __pyx_kp_b__51); if (unlikely(__pyx_t_16 == -1)) __PYX_ERR(0, 720, __pyx_L19_except_error)
 
-        /* "curlparse.pyx":695
+        /* "curlparse.pyx":721
  *         except KeyError:
  *             append(b'%')
  *             append(item)             # <<<<<<<<<<<<<<
  *     return b''.join(res)
  * 
  */
-        __pyx_t_16 = __Pyx_PyList_Append(__pyx_v_res, __pyx_v_item); if (unlikely(__pyx_t_16 == -1)) __PYX_ERR(0, 695, __pyx_L19_except_error)
+        __pyx_t_16 = __Pyx_PyList_Append(__pyx_v_res, __pyx_v_item); if (unlikely(__pyx_t_16 == -1)) __PYX_ERR(0, 721, __pyx_L19_except_error)
         __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -14450,7 +15595,7 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
       goto __pyx_L19_except_error;
       __pyx_L19_except_error:;
 
-      /* "curlparse.pyx":690
+      /* "curlparse.pyx":716
  *                       for a in _hexdig for b in _hexdig}
  *     for item in bits[1:]:
  *         try:             # <<<<<<<<<<<<<<
@@ -14472,7 +15617,7 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
       __pyx_L24_try_end:;
     }
 
-    /* "curlparse.pyx":689
+    /* "curlparse.pyx":715
  *         _hextobyte = {(a + b).encode(): bytes([int(a + b, 16)])
  *                       for a in _hexdig for b in _hexdig}
  *     for item in bits[1:]:             # <<<<<<<<<<<<<<
@@ -14482,7 +15627,7 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "curlparse.pyx":696
+  /* "curlparse.pyx":722
  *             append(b'%')
  *             append(item)
  *     return b''.join(res)             # <<<<<<<<<<<<<<
@@ -14490,13 +15635,13 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
  * _asciire = re.compile('([\x00-\x7f]+)')
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_6 = __Pyx_PyBytes_Join(__pyx_kp_b__5, __pyx_v_res); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 696, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyBytes_Join(__pyx_kp_b__5, __pyx_v_res); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 722, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_r = __pyx_t_6;
   __pyx_t_6 = 0;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":668
+  /* "curlparse.pyx":694
  * _hextobyte = None
  * 
  * def unquote_to_bytes(string):             # <<<<<<<<<<<<<<
@@ -14525,7 +15670,7 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
   return __pyx_r;
 }
 
-/* "curlparse.pyx":700
+/* "curlparse.pyx":726
  * _asciire = re.compile('([\x00-\x7f]+)')
  * 
  * def unquote(string, encoding='utf-8', errors='replace'):             # <<<<<<<<<<<<<<
@@ -14534,10 +15679,10 @@ static PyObject *__pyx_pf_9curlparse_32unquote_to_bytes(CYTHON_UNUSED PyObject *
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_35unquote(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_9curlparse_34unquote[] = "Replace %xx escapes by their single-character equivalent. The optional\n    encoding and errors parameters specify how to decode percent-encoded\n    sequences into Unicode characters, as accepted by the bytes.decode()\n    method.\n    By default, percent-encoded sequences are decoded with UTF-8, and invalid\n    sequences are replaced by a placeholder character.\n\n    unquote('abc%20def') -> 'abc def'.\n    ";
-static PyMethodDef __pyx_mdef_9curlparse_35unquote = {"unquote", (PyCFunction)__pyx_pw_9curlparse_35unquote, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_34unquote};
-static PyObject *__pyx_pw_9curlparse_35unquote(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_9curlparse_37unquote(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_9curlparse_36unquote[] = "Replace %xx escapes by their single-character equivalent. The optional\n    encoding and errors parameters specify how to decode percent-encoded\n    sequences into Unicode characters, as accepted by the bytes.decode()\n    method.\n    By default, percent-encoded sequences are decoded with UTF-8, and invalid\n    sequences are replaced by a placeholder character.\n\n    unquote('abc%20def') -> 'abc def'.\n    ";
+static PyMethodDef __pyx_mdef_9curlparse_37unquote = {"unquote", (PyCFunction)__pyx_pw_9curlparse_37unquote, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_36unquote};
+static PyObject *__pyx_pw_9curlparse_37unquote(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_string = 0;
   PyObject *__pyx_v_encoding = 0;
   PyObject *__pyx_v_errors = 0;
@@ -14576,7 +15721,7 @@ static PyObject *__pyx_pw_9curlparse_35unquote(PyObject *__pyx_self, PyObject *_
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "unquote") < 0)) __PYX_ERR(0, 700, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "unquote") < 0)) __PYX_ERR(0, 726, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -14593,20 +15738,20 @@ static PyObject *__pyx_pw_9curlparse_35unquote(PyObject *__pyx_self, PyObject *_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("unquote", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 700, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("unquote", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 726, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("curlparse.unquote", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_9curlparse_34unquote(__pyx_self, __pyx_v_string, __pyx_v_encoding, __pyx_v_errors);
+  __pyx_r = __pyx_pf_9curlparse_36unquote(__pyx_self, __pyx_v_string, __pyx_v_encoding, __pyx_v_errors);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors) {
+static PyObject *__pyx_pf_9curlparse_36unquote(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors) {
   PyObject *__pyx_v_percent = NULL;
   PyObject *__pyx_v_blank = NULL;
   PyObject *__pyx_v_bits = NULL;
@@ -14632,7 +15777,7 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
   __Pyx_INCREF(__pyx_v_encoding);
   __Pyx_INCREF(__pyx_v_errors);
 
-  /* "curlparse.pyx":710
+  /* "curlparse.pyx":736
  *     unquote('abc%20def') -> 'abc def'.
  *     """
  *     if isinstance(string, bytes):             # <<<<<<<<<<<<<<
@@ -14643,17 +15788,17 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "curlparse.pyx":711
+    /* "curlparse.pyx":737
  *     """
  *     if isinstance(string, bytes):
  *         percent = b'%'             # <<<<<<<<<<<<<<
  *         blank = b''
  *     else:
  */
-    __Pyx_INCREF(__pyx_kp_b__40);
-    __pyx_v_percent = __pyx_kp_b__40;
+    __Pyx_INCREF(__pyx_kp_b__51);
+    __pyx_v_percent = __pyx_kp_b__51;
 
-    /* "curlparse.pyx":712
+    /* "curlparse.pyx":738
  *     if isinstance(string, bytes):
  *         percent = b'%'
  *         blank = b''             # <<<<<<<<<<<<<<
@@ -14663,7 +15808,7 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
     __Pyx_INCREF(__pyx_kp_b__5);
     __pyx_v_blank = __pyx_kp_b__5;
 
-    /* "curlparse.pyx":710
+    /* "curlparse.pyx":736
  *     unquote('abc%20def') -> 'abc def'.
  *     """
  *     if isinstance(string, bytes):             # <<<<<<<<<<<<<<
@@ -14673,7 +15818,7 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
     goto __pyx_L3;
   }
 
-  /* "curlparse.pyx":714
+  /* "curlparse.pyx":740
  *         blank = b''
  *     else:
  *         percent = '%'             # <<<<<<<<<<<<<<
@@ -14681,10 +15826,10 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
  *     if percent not in string:
  */
   /*else*/ {
-    __Pyx_INCREF(__pyx_kp_s__40);
-    __pyx_v_percent = __pyx_kp_s__40;
+    __Pyx_INCREF(__pyx_kp_s__51);
+    __pyx_v_percent = __pyx_kp_s__51;
 
-    /* "curlparse.pyx":715
+    /* "curlparse.pyx":741
  *     else:
  *         percent = '%'
  *         blank = ''             # <<<<<<<<<<<<<<
@@ -14696,29 +15841,29 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
   }
   __pyx_L3:;
 
-  /* "curlparse.pyx":716
+  /* "curlparse.pyx":742
  *         percent = '%'
  *         blank = ''
  *     if percent not in string:             # <<<<<<<<<<<<<<
  *         string.split
  *         return string
  */
-  __pyx_t_2 = (__Pyx_PySequence_ContainsTF(__pyx_v_percent, __pyx_v_string, Py_NE)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 716, __pyx_L1_error)
+  __pyx_t_2 = (__Pyx_PySequence_ContainsTF(__pyx_v_percent, __pyx_v_string, Py_NE)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 742, __pyx_L1_error)
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
-    /* "curlparse.pyx":717
+    /* "curlparse.pyx":743
  *         blank = ''
  *     if percent not in string:
  *         string.split             # <<<<<<<<<<<<<<
  *         return string
  *     if encoding is None:
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_string, __pyx_n_s_split); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 717, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_string, __pyx_n_s_split); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 743, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "curlparse.pyx":718
+    /* "curlparse.pyx":744
  *     if percent not in string:
  *         string.split
  *         return string             # <<<<<<<<<<<<<<
@@ -14730,7 +15875,7 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
     __pyx_r = __pyx_v_string;
     goto __pyx_L0;
 
-    /* "curlparse.pyx":716
+    /* "curlparse.pyx":742
  *         percent = '%'
  *         blank = ''
  *     if percent not in string:             # <<<<<<<<<<<<<<
@@ -14739,7 +15884,7 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
  */
   }
 
-  /* "curlparse.pyx":719
+  /* "curlparse.pyx":745
  *         string.split
  *         return string
  *     if encoding is None:             # <<<<<<<<<<<<<<
@@ -14750,7 +15895,7 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "curlparse.pyx":720
+    /* "curlparse.pyx":746
  *         return string
  *     if encoding is None:
  *         encoding = 'utf-8'             # <<<<<<<<<<<<<<
@@ -14760,7 +15905,7 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
     __Pyx_INCREF(__pyx_kp_s_utf_8);
     __Pyx_DECREF_SET(__pyx_v_encoding, __pyx_kp_s_utf_8);
 
-    /* "curlparse.pyx":719
+    /* "curlparse.pyx":745
  *         string.split
  *         return string
  *     if encoding is None:             # <<<<<<<<<<<<<<
@@ -14769,7 +15914,7 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
  */
   }
 
-  /* "curlparse.pyx":721
+  /* "curlparse.pyx":747
  *     if encoding is None:
  *         encoding = 'utf-8'
  *     if errors is None:             # <<<<<<<<<<<<<<
@@ -14780,7 +15925,7 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
-    /* "curlparse.pyx":722
+    /* "curlparse.pyx":748
  *         encoding = 'utf-8'
  *     if errors is None:
  *         errors = 'replace'             # <<<<<<<<<<<<<<
@@ -14790,7 +15935,7 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
     __Pyx_INCREF(__pyx_n_s_replace);
     __Pyx_DECREF_SET(__pyx_v_errors, __pyx_n_s_replace);
 
-    /* "curlparse.pyx":721
+    /* "curlparse.pyx":747
  *     if encoding is None:
  *         encoding = 'utf-8'
  *     if errors is None:             # <<<<<<<<<<<<<<
@@ -14799,16 +15944,16 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
  */
   }
 
-  /* "curlparse.pyx":723
+  /* "curlparse.pyx":749
  *     if errors is None:
  *         errors = 'replace'
  *     bits = _asciire.split(string)             # <<<<<<<<<<<<<<
  *     res = [bits[0]]
  *     append = res.append
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_asciire); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 723, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_asciire); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 749, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_split); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 723, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_split); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 749, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = NULL;
@@ -14822,16 +15967,16 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
     }
   }
   if (!__pyx_t_4) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_string); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 723, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_string); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 749, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
   } else {
-    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 723, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 749, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
     __Pyx_INCREF(__pyx_v_string);
     __Pyx_GIVEREF(__pyx_v_string);
     PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_v_string);
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 723, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 749, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
@@ -14839,16 +15984,16 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
   __pyx_v_bits = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "curlparse.pyx":724
+  /* "curlparse.pyx":750
  *         errors = 'replace'
  *     bits = _asciire.split(string)
  *     res = [bits[0]]             # <<<<<<<<<<<<<<
  *     append = res.append
  *     for i in range(1, len(bits), 2):
  */
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_bits, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 724, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_bits, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 750, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = PyList_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 724, __pyx_L1_error)
+  __pyx_t_5 = PyList_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 750, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_3);
   PyList_SET_ITEM(__pyx_t_5, 0, __pyx_t_3);
@@ -14856,29 +16001,29 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
   __pyx_v_res = ((PyObject*)__pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "curlparse.pyx":725
+  /* "curlparse.pyx":751
  *     bits = _asciire.split(string)
  *     res = [bits[0]]
  *     append = res.append             # <<<<<<<<<<<<<<
  *     for i in range(1, len(bits), 2):
  *         append(unquote_to_bytes(bits[i]).decode(encoding, errors))
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_res, __pyx_n_s_append); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 725, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_res, __pyx_n_s_append); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 751, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_v_append = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "curlparse.pyx":726
+  /* "curlparse.pyx":752
  *     res = [bits[0]]
  *     append = res.append
  *     for i in range(1, len(bits), 2):             # <<<<<<<<<<<<<<
  *         append(unquote_to_bytes(bits[i]).decode(encoding, errors))
  *         append(bits[i + 1])
  */
-  __pyx_t_7 = PyObject_Length(__pyx_v_bits); if (unlikely(__pyx_t_7 == -1)) __PYX_ERR(0, 726, __pyx_L1_error)
-  __pyx_t_5 = PyInt_FromSsize_t(__pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 726, __pyx_L1_error)
+  __pyx_t_7 = PyObject_Length(__pyx_v_bits); if (unlikely(__pyx_t_7 == -1)) __PYX_ERR(0, 752, __pyx_L1_error)
+  __pyx_t_5 = PyInt_FromSsize_t(__pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 752, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 726, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 752, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_int_1);
   __Pyx_GIVEREF(__pyx_int_1);
@@ -14889,16 +16034,16 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
   __Pyx_GIVEREF(__pyx_int_2);
   PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_int_2);
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_3, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 726, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_3, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 752, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (likely(PyList_CheckExact(__pyx_t_5)) || PyTuple_CheckExact(__pyx_t_5)) {
     __pyx_t_3 = __pyx_t_5; __Pyx_INCREF(__pyx_t_3); __pyx_t_7 = 0;
     __pyx_t_8 = NULL;
   } else {
-    __pyx_t_7 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 726, __pyx_L1_error)
+    __pyx_t_7 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 752, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_8 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 726, __pyx_L1_error)
+    __pyx_t_8 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 752, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   for (;;) {
@@ -14906,17 +16051,17 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
       if (likely(PyList_CheckExact(__pyx_t_3))) {
         if (__pyx_t_7 >= PyList_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_7); __Pyx_INCREF(__pyx_t_5); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 726, __pyx_L1_error)
+        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_7); __Pyx_INCREF(__pyx_t_5); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 752, __pyx_L1_error)
         #else
-        __pyx_t_5 = PySequence_ITEM(__pyx_t_3, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 726, __pyx_L1_error)
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_3, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 752, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         #endif
       } else {
         if (__pyx_t_7 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_7); __Pyx_INCREF(__pyx_t_5); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 726, __pyx_L1_error)
+        __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_7); __Pyx_INCREF(__pyx_t_5); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 752, __pyx_L1_error)
         #else
-        __pyx_t_5 = PySequence_ITEM(__pyx_t_3, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 726, __pyx_L1_error)
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_3, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 752, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         #endif
       }
@@ -14926,7 +16071,7 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 726, __pyx_L1_error)
+          else __PYX_ERR(0, 752, __pyx_L1_error)
         }
         break;
       }
@@ -14935,16 +16080,16 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "curlparse.pyx":727
+    /* "curlparse.pyx":753
  *     append = res.append
  *     for i in range(1, len(bits), 2):
  *         append(unquote_to_bytes(bits[i]).decode(encoding, errors))             # <<<<<<<<<<<<<<
  *         append(bits[i + 1])
  *     return blank.join(res)
  */
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_unquote_to_bytes); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 727, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_unquote_to_bytes); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 753, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_9 = PyObject_GetItem(__pyx_v_bits, __pyx_v_i); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 727, __pyx_L1_error)
+    __pyx_t_9 = PyObject_GetItem(__pyx_v_bits, __pyx_v_i); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 753, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __pyx_t_10 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_4))) {
@@ -14957,22 +16102,22 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
       }
     }
     if (!__pyx_t_10) {
-      __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_9); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 727, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_9); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 753, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       __Pyx_GOTREF(__pyx_t_6);
     } else {
-      __pyx_t_11 = PyTuple_New(1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 727, __pyx_L1_error)
+      __pyx_t_11 = PyTuple_New(1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 753, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_10); __pyx_t_10 = NULL;
       __Pyx_GIVEREF(__pyx_t_9);
       PyTuple_SET_ITEM(__pyx_t_11, 0+1, __pyx_t_9);
       __pyx_t_9 = 0;
-      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_11, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 727, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_11, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 753, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_decode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 727, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_decode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 753, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __pyx_t_6 = NULL;
@@ -14987,7 +16132,7 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
         __pyx_t_12 = 1;
       }
     }
-    __pyx_t_11 = PyTuple_New(2+__pyx_t_12); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 727, __pyx_L1_error)
+    __pyx_t_11 = PyTuple_New(2+__pyx_t_12); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 753, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     if (__pyx_t_6) {
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -14998,29 +16143,29 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
     __Pyx_INCREF(__pyx_v_errors);
     __Pyx_GIVEREF(__pyx_v_errors);
     PyTuple_SET_ITEM(__pyx_t_11, 1+__pyx_t_12, __pyx_v_errors);
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_11, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 727, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_11, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 753, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_res, __pyx_t_5); if (unlikely(__pyx_t_13 == -1)) __PYX_ERR(0, 727, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_res, __pyx_t_5); if (unlikely(__pyx_t_13 == -1)) __PYX_ERR(0, 753, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "curlparse.pyx":728
+    /* "curlparse.pyx":754
  *     for i in range(1, len(bits), 2):
  *         append(unquote_to_bytes(bits[i]).decode(encoding, errors))
  *         append(bits[i + 1])             # <<<<<<<<<<<<<<
  *     return blank.join(res)
  * 
  */
-    __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 728, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 754, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = PyObject_GetItem(__pyx_v_bits, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 728, __pyx_L1_error)
+    __pyx_t_4 = PyObject_GetItem(__pyx_v_bits, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 754, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_res, __pyx_t_4); if (unlikely(__pyx_t_13 == -1)) __PYX_ERR(0, 728, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_res, __pyx_t_4); if (unlikely(__pyx_t_13 == -1)) __PYX_ERR(0, 754, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "curlparse.pyx":726
+    /* "curlparse.pyx":752
  *     res = [bits[0]]
  *     append = res.append
  *     for i in range(1, len(bits), 2):             # <<<<<<<<<<<<<<
@@ -15030,7 +16175,7 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "curlparse.pyx":729
+  /* "curlparse.pyx":755
  *         append(unquote_to_bytes(bits[i]).decode(encoding, errors))
  *         append(bits[i + 1])
  *     return blank.join(res)             # <<<<<<<<<<<<<<
@@ -15038,7 +16183,7 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
  * def parse_qs(qs, keep_blank_values=False, strict_parsing=False,
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_blank, __pyx_n_s_join); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 729, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_blank, __pyx_n_s_join); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 755, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_4))) {
@@ -15051,16 +16196,16 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
     }
   }
   if (!__pyx_t_5) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_res); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 729, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_res); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 755, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
   } else {
-    __pyx_t_11 = PyTuple_New(1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 729, __pyx_L1_error)
+    __pyx_t_11 = PyTuple_New(1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 755, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_5); __pyx_t_5 = NULL;
     __Pyx_INCREF(__pyx_v_res);
     __Pyx_GIVEREF(__pyx_v_res);
     PyTuple_SET_ITEM(__pyx_t_11, 0+1, __pyx_v_res);
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_11, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 729, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_11, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 755, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   }
@@ -15069,7 +16214,7 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":700
+  /* "curlparse.pyx":726
  * _asciire = re.compile('([\x00-\x7f]+)')
  * 
  * def unquote(string, encoding='utf-8', errors='replace'):             # <<<<<<<<<<<<<<
@@ -15102,7 +16247,7 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
   return __pyx_r;
 }
 
-/* "curlparse.pyx":731
+/* "curlparse.pyx":757
  *     return blank.join(res)
  * 
  * def parse_qs(qs, keep_blank_values=False, strict_parsing=False,             # <<<<<<<<<<<<<<
@@ -15111,10 +16256,10 @@ static PyObject *__pyx_pf_9curlparse_34unquote(CYTHON_UNUSED PyObject *__pyx_sel
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_37parse_qs(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_9curlparse_36parse_qs[] = "Parse a query given as a string argument.\n\n        Arguments:\n\n        qs: percent-encoded query string to be parsed\n\n        keep_blank_values: flag indicating whether blank values in\n            percent-encoded queries should be treated as blank strings.\n            A true value indicates that blanks should be retained as\n            blank strings.  The default false value indicates that\n            blank values are to be ignored and treated as if they were\n            not included.\n\n        strict_parsing: flag indicating what to do with parsing errors.\n            If false (the default), errors are silently ignored.\n            If true, errors raise a ValueError exception.\n\n        encoding and errors: specify how to decode percent-encoded sequences\n            into Unicode characters, as accepted by the bytes.decode() method.\n    ";
-static PyMethodDef __pyx_mdef_9curlparse_37parse_qs = {"parse_qs", (PyCFunction)__pyx_pw_9curlparse_37parse_qs, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_36parse_qs};
-static PyObject *__pyx_pw_9curlparse_37parse_qs(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_9curlparse_39parse_qs(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_9curlparse_38parse_qs[] = "Parse a query given as a string argument.\n\n        Arguments:\n\n        qs: percent-encoded query string to be parsed\n\n        keep_blank_values: flag indicating whether blank values in\n            percent-encoded queries should be treated as blank strings.\n            A true value indicates that blanks should be retained as\n            blank strings.  The default false value indicates that\n            blank values are to be ignored and treated as if they were\n            not included.\n\n        strict_parsing: flag indicating what to do with parsing errors.\n            If false (the default), errors are silently ignored.\n            If true, errors raise a ValueError exception.\n\n        encoding and errors: specify how to decode percent-encoded sequences\n            into Unicode characters, as accepted by the bytes.decode() method.\n    ";
+static PyMethodDef __pyx_mdef_9curlparse_39parse_qs = {"parse_qs", (PyCFunction)__pyx_pw_9curlparse_39parse_qs, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_38parse_qs};
+static PyObject *__pyx_pw_9curlparse_39parse_qs(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_qs = 0;
   PyObject *__pyx_v_keep_blank_values = 0;
   PyObject *__pyx_v_strict_parsing = 0;
@@ -15169,7 +16314,7 @@ static PyObject *__pyx_pw_9curlparse_37parse_qs(PyObject *__pyx_self, PyObject *
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "parse_qs") < 0)) __PYX_ERR(0, 731, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "parse_qs") < 0)) __PYX_ERR(0, 757, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -15190,20 +16335,20 @@ static PyObject *__pyx_pw_9curlparse_37parse_qs(PyObject *__pyx_self, PyObject *
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("parse_qs", 0, 1, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 731, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("parse_qs", 0, 1, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 757, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("curlparse.parse_qs", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_9curlparse_36parse_qs(__pyx_self, __pyx_v_qs, __pyx_v_keep_blank_values, __pyx_v_strict_parsing, __pyx_v_encoding, __pyx_v_errors);
+  __pyx_r = __pyx_pf_9curlparse_38parse_qs(__pyx_self, __pyx_v_qs, __pyx_v_keep_blank_values, __pyx_v_strict_parsing, __pyx_v_encoding, __pyx_v_errors);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_36parse_qs(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_qs, PyObject *__pyx_v_keep_blank_values, PyObject *__pyx_v_strict_parsing, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors) {
+static PyObject *__pyx_pf_9curlparse_38parse_qs(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_qs, PyObject *__pyx_v_keep_blank_values, PyObject *__pyx_v_strict_parsing, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors) {
   PyObject *__pyx_v_parsed_result = NULL;
   PyObject *__pyx_v_pairs = NULL;
   PyObject *__pyx_v_name = NULL;
@@ -15223,28 +16368,28 @@ static PyObject *__pyx_pf_9curlparse_36parse_qs(CYTHON_UNUSED PyObject *__pyx_se
   int __pyx_t_11;
   __Pyx_RefNannySetupContext("parse_qs", 0);
 
-  /* "curlparse.pyx":753
+  /* "curlparse.pyx":779
  *             into Unicode characters, as accepted by the bytes.decode() method.
  *     """
  *     parsed_result = {}             # <<<<<<<<<<<<<<
  *     pairs = parse_qsl(qs, keep_blank_values, strict_parsing,
  *                       encoding=encoding, errors=errors)
  */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 753, __pyx_L1_error)
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 779, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_parsed_result = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "curlparse.pyx":754
+  /* "curlparse.pyx":780
  *     """
  *     parsed_result = {}
  *     pairs = parse_qsl(qs, keep_blank_values, strict_parsing,             # <<<<<<<<<<<<<<
  *                       encoding=encoding, errors=errors)
  *     for name, value in pairs:
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_parse_qsl); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 754, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_parse_qsl); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 780, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 754, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 780, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_v_qs);
   __Pyx_GIVEREF(__pyx_v_qs);
@@ -15256,26 +16401,26 @@ static PyObject *__pyx_pf_9curlparse_36parse_qs(CYTHON_UNUSED PyObject *__pyx_se
   __Pyx_GIVEREF(__pyx_v_strict_parsing);
   PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_v_strict_parsing);
 
-  /* "curlparse.pyx":755
+  /* "curlparse.pyx":781
  *     parsed_result = {}
  *     pairs = parse_qsl(qs, keep_blank_values, strict_parsing,
  *                       encoding=encoding, errors=errors)             # <<<<<<<<<<<<<<
  *     for name, value in pairs:
  *         if name in parsed_result:
  */
-  __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 755, __pyx_L1_error)
+  __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 781, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_encoding, __pyx_v_encoding) < 0) __PYX_ERR(0, 755, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_errors, __pyx_v_errors) < 0) __PYX_ERR(0, 755, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_encoding, __pyx_v_encoding) < 0) __PYX_ERR(0, 781, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_errors, __pyx_v_errors) < 0) __PYX_ERR(0, 781, __pyx_L1_error)
 
-  /* "curlparse.pyx":754
+  /* "curlparse.pyx":780
  *     """
  *     parsed_result = {}
  *     pairs = parse_qsl(qs, keep_blank_values, strict_parsing,             # <<<<<<<<<<<<<<
  *                       encoding=encoding, errors=errors)
  *     for name, value in pairs:
  */
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 754, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 780, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -15283,7 +16428,7 @@ static PyObject *__pyx_pf_9curlparse_36parse_qs(CYTHON_UNUSED PyObject *__pyx_se
   __pyx_v_pairs = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "curlparse.pyx":756
+  /* "curlparse.pyx":782
  *     pairs = parse_qsl(qs, keep_blank_values, strict_parsing,
  *                       encoding=encoding, errors=errors)
  *     for name, value in pairs:             # <<<<<<<<<<<<<<
@@ -15294,26 +16439,26 @@ static PyObject *__pyx_pf_9curlparse_36parse_qs(CYTHON_UNUSED PyObject *__pyx_se
     __pyx_t_4 = __pyx_v_pairs; __Pyx_INCREF(__pyx_t_4); __pyx_t_5 = 0;
     __pyx_t_6 = NULL;
   } else {
-    __pyx_t_5 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_v_pairs); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 756, __pyx_L1_error)
+    __pyx_t_5 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_v_pairs); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 782, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_6 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 756, __pyx_L1_error)
+    __pyx_t_6 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 782, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_6)) {
       if (likely(PyList_CheckExact(__pyx_t_4))) {
         if (__pyx_t_5 >= PyList_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_5); __Pyx_INCREF(__pyx_t_3); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 756, __pyx_L1_error)
+        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_5); __Pyx_INCREF(__pyx_t_3); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 782, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 756, __pyx_L1_error)
+        __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 782, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         #endif
       } else {
         if (__pyx_t_5 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_5); __Pyx_INCREF(__pyx_t_3); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 756, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_5); __Pyx_INCREF(__pyx_t_3); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 782, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 756, __pyx_L1_error)
+        __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 782, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         #endif
       }
@@ -15323,7 +16468,7 @@ static PyObject *__pyx_pf_9curlparse_36parse_qs(CYTHON_UNUSED PyObject *__pyx_se
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 756, __pyx_L1_error)
+          else __PYX_ERR(0, 782, __pyx_L1_error)
         }
         break;
       }
@@ -15339,7 +16484,7 @@ static PyObject *__pyx_pf_9curlparse_36parse_qs(CYTHON_UNUSED PyObject *__pyx_se
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 756, __pyx_L1_error)
+        __PYX_ERR(0, 782, __pyx_L1_error)
       }
       #if CYTHON_COMPILING_IN_CPYTHON
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -15352,15 +16497,15 @@ static PyObject *__pyx_pf_9curlparse_36parse_qs(CYTHON_UNUSED PyObject *__pyx_se
       __Pyx_INCREF(__pyx_t_2);
       __Pyx_INCREF(__pyx_t_1);
       #else
-      __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 756, __pyx_L1_error)
+      __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 782, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 756, __pyx_L1_error)
+      __pyx_t_1 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 782, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       #endif
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_7 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 756, __pyx_L1_error)
+      __pyx_t_7 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 782, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __pyx_t_8 = Py_TYPE(__pyx_t_7)->tp_iternext;
@@ -15368,7 +16513,7 @@ static PyObject *__pyx_pf_9curlparse_36parse_qs(CYTHON_UNUSED PyObject *__pyx_se
       __Pyx_GOTREF(__pyx_t_2);
       index = 1; __pyx_t_1 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_1)) goto __pyx_L5_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_1);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 756, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 782, __pyx_L1_error)
       __pyx_t_8 = NULL;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       goto __pyx_L6_unpacking_done;
@@ -15376,7 +16521,7 @@ static PyObject *__pyx_pf_9curlparse_36parse_qs(CYTHON_UNUSED PyObject *__pyx_se
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __pyx_t_8 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 756, __pyx_L1_error)
+      __PYX_ERR(0, 782, __pyx_L1_error)
       __pyx_L6_unpacking_done:;
     }
     __Pyx_XDECREF_SET(__pyx_v_name, __pyx_t_2);
@@ -15384,30 +16529,30 @@ static PyObject *__pyx_pf_9curlparse_36parse_qs(CYTHON_UNUSED PyObject *__pyx_se
     __Pyx_XDECREF_SET(__pyx_v_value, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "curlparse.pyx":757
+    /* "curlparse.pyx":783
  *                       encoding=encoding, errors=errors)
  *     for name, value in pairs:
  *         if name in parsed_result:             # <<<<<<<<<<<<<<
  *             parsed_result[name].append(value)
  *         else:
  */
-    __pyx_t_9 = (__Pyx_PyDict_ContainsTF(__pyx_v_name, __pyx_v_parsed_result, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 757, __pyx_L1_error)
+    __pyx_t_9 = (__Pyx_PyDict_ContainsTF(__pyx_v_name, __pyx_v_parsed_result, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 783, __pyx_L1_error)
     __pyx_t_10 = (__pyx_t_9 != 0);
     if (__pyx_t_10) {
 
-      /* "curlparse.pyx":758
+      /* "curlparse.pyx":784
  *     for name, value in pairs:
  *         if name in parsed_result:
  *             parsed_result[name].append(value)             # <<<<<<<<<<<<<<
  *         else:
  *             parsed_result[name] = [value]
  */
-      __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_parsed_result, __pyx_v_name); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 758, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_parsed_result, __pyx_v_name); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 784, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_v_value); if (unlikely(__pyx_t_11 == -1)) __PYX_ERR(0, 758, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_v_value); if (unlikely(__pyx_t_11 == -1)) __PYX_ERR(0, 784, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "curlparse.pyx":757
+      /* "curlparse.pyx":783
  *                       encoding=encoding, errors=errors)
  *     for name, value in pairs:
  *         if name in parsed_result:             # <<<<<<<<<<<<<<
@@ -15417,7 +16562,7 @@ static PyObject *__pyx_pf_9curlparse_36parse_qs(CYTHON_UNUSED PyObject *__pyx_se
       goto __pyx_L7;
     }
 
-    /* "curlparse.pyx":760
+    /* "curlparse.pyx":786
  *             parsed_result[name].append(value)
  *         else:
  *             parsed_result[name] = [value]             # <<<<<<<<<<<<<<
@@ -15425,17 +16570,17 @@ static PyObject *__pyx_pf_9curlparse_36parse_qs(CYTHON_UNUSED PyObject *__pyx_se
  * 
  */
     /*else*/ {
-      __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 760, __pyx_L1_error)
+      __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 786, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_v_value);
       __Pyx_GIVEREF(__pyx_v_value);
       PyList_SET_ITEM(__pyx_t_3, 0, __pyx_v_value);
-      if (unlikely(PyDict_SetItem(__pyx_v_parsed_result, __pyx_v_name, __pyx_t_3) < 0)) __PYX_ERR(0, 760, __pyx_L1_error)
+      if (unlikely(PyDict_SetItem(__pyx_v_parsed_result, __pyx_v_name, __pyx_t_3) < 0)) __PYX_ERR(0, 786, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
     __pyx_L7:;
 
-    /* "curlparse.pyx":756
+    /* "curlparse.pyx":782
  *     pairs = parse_qsl(qs, keep_blank_values, strict_parsing,
  *                       encoding=encoding, errors=errors)
  *     for name, value in pairs:             # <<<<<<<<<<<<<<
@@ -15445,7 +16590,7 @@ static PyObject *__pyx_pf_9curlparse_36parse_qs(CYTHON_UNUSED PyObject *__pyx_se
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "curlparse.pyx":761
+  /* "curlparse.pyx":787
  *         else:
  *             parsed_result[name] = [value]
  *     return parsed_result             # <<<<<<<<<<<<<<
@@ -15457,7 +16602,7 @@ static PyObject *__pyx_pf_9curlparse_36parse_qs(CYTHON_UNUSED PyObject *__pyx_se
   __pyx_r = __pyx_v_parsed_result;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":731
+  /* "curlparse.pyx":757
  *     return blank.join(res)
  * 
  * def parse_qs(qs, keep_blank_values=False, strict_parsing=False,             # <<<<<<<<<<<<<<
@@ -15484,7 +16629,7 @@ static PyObject *__pyx_pf_9curlparse_36parse_qs(CYTHON_UNUSED PyObject *__pyx_se
   return __pyx_r;
 }
 
-/* "curlparse.pyx":763
+/* "curlparse.pyx":789
  *     return parsed_result
  * 
  * def parse_qsl(qs, keep_blank_values=False, strict_parsing=False,             # <<<<<<<<<<<<<<
@@ -15493,10 +16638,10 @@ static PyObject *__pyx_pf_9curlparse_36parse_qs(CYTHON_UNUSED PyObject *__pyx_se
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_39parse_qsl(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_9curlparse_38parse_qsl[] = "Parse a query given as a string argument.\n\n    Arguments:\n\n    qs: percent-encoded query string to be parsed\n\n    keep_blank_values: flag indicating whether blank values in\n        percent-encoded queries should be treated as blank strings.  A\n        true value indicates that blanks should be retained as blank\n        strings.  The default false value indicates that blank values\n        are to be ignored and treated as if they were  not included.\n\n    strict_parsing: flag indicating what to do with parsing errors. If\n        false (the default), errors are silently ignored. If true,\n        errors raise a ValueError exception.\n\n    encoding and errors: specify how to decode percent-encoded sequences\n        into Unicode characters, as accepted by the bytes.decode() method.\n\n    Returns a list, as G-d intended.\n    ";
-static PyMethodDef __pyx_mdef_9curlparse_39parse_qsl = {"parse_qsl", (PyCFunction)__pyx_pw_9curlparse_39parse_qsl, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_38parse_qsl};
-static PyObject *__pyx_pw_9curlparse_39parse_qsl(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_9curlparse_41parse_qsl(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_9curlparse_40parse_qsl[] = "Parse a query given as a string argument.\n\n    Arguments:\n\n    qs: percent-encoded query string to be parsed\n\n    keep_blank_values: flag indicating whether blank values in\n        percent-encoded queries should be treated as blank strings.  A\n        true value indicates that blanks should be retained as blank\n        strings.  The default false value indicates that blank values\n        are to be ignored and treated as if they were  not included.\n\n    strict_parsing: flag indicating what to do with parsing errors. If\n        false (the default), errors are silently ignored. If true,\n        errors raise a ValueError exception.\n\n    encoding and errors: specify how to decode percent-encoded sequences\n        into Unicode characters, as accepted by the bytes.decode() method.\n\n    Returns a list, as G-d intended.\n    ";
+static PyMethodDef __pyx_mdef_9curlparse_41parse_qsl = {"parse_qsl", (PyCFunction)__pyx_pw_9curlparse_41parse_qsl, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_40parse_qsl};
+static PyObject *__pyx_pw_9curlparse_41parse_qsl(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_qs = 0;
   PyObject *__pyx_v_keep_blank_values = 0;
   PyObject *__pyx_v_strict_parsing = 0;
@@ -15551,7 +16696,7 @@ static PyObject *__pyx_pw_9curlparse_39parse_qsl(PyObject *__pyx_self, PyObject 
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "parse_qsl") < 0)) __PYX_ERR(0, 763, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "parse_qsl") < 0)) __PYX_ERR(0, 789, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -15572,20 +16717,20 @@ static PyObject *__pyx_pw_9curlparse_39parse_qsl(PyObject *__pyx_self, PyObject 
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("parse_qsl", 0, 1, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 763, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("parse_qsl", 0, 1, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 789, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("curlparse.parse_qsl", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_9curlparse_38parse_qsl(__pyx_self, __pyx_v_qs, __pyx_v_keep_blank_values, __pyx_v_strict_parsing, __pyx_v_encoding, __pyx_v_errors);
+  __pyx_r = __pyx_pf_9curlparse_40parse_qsl(__pyx_self, __pyx_v_qs, __pyx_v_keep_blank_values, __pyx_v_strict_parsing, __pyx_v_encoding, __pyx_v_errors);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_qs, PyObject *__pyx_v_keep_blank_values, PyObject *__pyx_v_strict_parsing, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors) {
+static PyObject *__pyx_pf_9curlparse_40parse_qsl(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_qs, PyObject *__pyx_v_keep_blank_values, PyObject *__pyx_v_strict_parsing, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors) {
   PyObject *__pyx_v_ampersand = NULL;
   PyObject *__pyx_v_semicolon = NULL;
   PyObject *__pyx_v_equal = NULL;
@@ -15618,7 +16763,7 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
   int __pyx_t_14;
   __Pyx_RefNannySetupContext("parse_qsl", 0);
 
-  /* "curlparse.pyx":786
+  /* "curlparse.pyx":812
  *     Returns a list, as G-d intended.
  *     """
  *     if isinstance(qs, bytes):             # <<<<<<<<<<<<<<
@@ -15629,17 +16774,17 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "curlparse.pyx":787
+    /* "curlparse.pyx":813
  *     """
  *     if isinstance(qs, bytes):
  *         ampersand = b'&'             # <<<<<<<<<<<<<<
  *         semicolon = b';'
  *         equal = b'='
  */
-    __Pyx_INCREF(__pyx_kp_b__45);
-    __pyx_v_ampersand = __pyx_kp_b__45;
+    __Pyx_INCREF(__pyx_kp_b__56);
+    __pyx_v_ampersand = __pyx_kp_b__56;
 
-    /* "curlparse.pyx":788
+    /* "curlparse.pyx":814
  *     if isinstance(qs, bytes):
  *         ampersand = b'&'
  *         semicolon = b';'             # <<<<<<<<<<<<<<
@@ -15649,17 +16794,17 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
     __Pyx_INCREF(__pyx_kp_b__27);
     __pyx_v_semicolon = __pyx_kp_b__27;
 
-    /* "curlparse.pyx":789
+    /* "curlparse.pyx":815
  *         ampersand = b'&'
  *         semicolon = b';'
  *         equal = b'='             # <<<<<<<<<<<<<<
  *         blank = b''
  *         space = b' '
  */
-    __Pyx_INCREF(__pyx_kp_b__46);
-    __pyx_v_equal = __pyx_kp_b__46;
+    __Pyx_INCREF(__pyx_kp_b__57);
+    __pyx_v_equal = __pyx_kp_b__57;
 
-    /* "curlparse.pyx":790
+    /* "curlparse.pyx":816
  *         semicolon = b';'
  *         equal = b'='
  *         blank = b''             # <<<<<<<<<<<<<<
@@ -15669,27 +16814,27 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
     __Pyx_INCREF(__pyx_kp_b__5);
     __pyx_v_blank = __pyx_kp_b__5;
 
-    /* "curlparse.pyx":791
+    /* "curlparse.pyx":817
  *         equal = b'='
  *         blank = b''
  *         space = b' '             # <<<<<<<<<<<<<<
  *         plus = b'+'
  *     else:
  */
-    __Pyx_INCREF(__pyx_kp_b__47);
-    __pyx_v_space = __pyx_kp_b__47;
+    __Pyx_INCREF(__pyx_kp_b__58);
+    __pyx_v_space = __pyx_kp_b__58;
 
-    /* "curlparse.pyx":792
+    /* "curlparse.pyx":818
  *         blank = b''
  *         space = b' '
  *         plus = b'+'             # <<<<<<<<<<<<<<
  *     else:
  *         ampersand = '&'
  */
-    __Pyx_INCREF(__pyx_kp_b__48);
-    __pyx_v_plus = __pyx_kp_b__48;
+    __Pyx_INCREF(__pyx_kp_b__59);
+    __pyx_v_plus = __pyx_kp_b__59;
 
-    /* "curlparse.pyx":786
+    /* "curlparse.pyx":812
  *     Returns a list, as G-d intended.
  *     """
  *     if isinstance(qs, bytes):             # <<<<<<<<<<<<<<
@@ -15699,7 +16844,7 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
     goto __pyx_L3;
   }
 
-  /* "curlparse.pyx":794
+  /* "curlparse.pyx":820
  *         plus = b'+'
  *     else:
  *         ampersand = '&'             # <<<<<<<<<<<<<<
@@ -15707,10 +16852,10 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
  *         equal = '='
  */
   /*else*/ {
-    __Pyx_INCREF(__pyx_kp_s__45);
-    __pyx_v_ampersand = __pyx_kp_s__45;
+    __Pyx_INCREF(__pyx_kp_s__56);
+    __pyx_v_ampersand = __pyx_kp_s__56;
 
-    /* "curlparse.pyx":795
+    /* "curlparse.pyx":821
  *     else:
  *         ampersand = '&'
  *         semicolon = ';'             # <<<<<<<<<<<<<<
@@ -15720,17 +16865,17 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
     __Pyx_INCREF(__pyx_kp_s__27);
     __pyx_v_semicolon = __pyx_kp_s__27;
 
-    /* "curlparse.pyx":796
+    /* "curlparse.pyx":822
  *         ampersand = '&'
  *         semicolon = ';'
  *         equal = '='             # <<<<<<<<<<<<<<
  *         blank = ''
  *         space = ' '
  */
-    __Pyx_INCREF(__pyx_kp_s__46);
-    __pyx_v_equal = __pyx_kp_s__46;
+    __Pyx_INCREF(__pyx_kp_s__57);
+    __pyx_v_equal = __pyx_kp_s__57;
 
-    /* "curlparse.pyx":797
+    /* "curlparse.pyx":823
  *         semicolon = ';'
  *         equal = '='
  *         blank = ''             # <<<<<<<<<<<<<<
@@ -15740,38 +16885,38 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
     __Pyx_INCREF(__pyx_kp_s__5);
     __pyx_v_blank = __pyx_kp_s__5;
 
-    /* "curlparse.pyx":798
+    /* "curlparse.pyx":824
  *         equal = '='
  *         blank = ''
  *         space = ' '             # <<<<<<<<<<<<<<
  *         plus = '+'
  *     pairs = [s2 for s1 in qs.split(ampersand) for s2 in s1.split(semicolon)]
  */
-    __Pyx_INCREF(__pyx_kp_s__47);
-    __pyx_v_space = __pyx_kp_s__47;
+    __Pyx_INCREF(__pyx_kp_s__58);
+    __pyx_v_space = __pyx_kp_s__58;
 
-    /* "curlparse.pyx":799
+    /* "curlparse.pyx":825
  *         blank = ''
  *         space = ' '
  *         plus = '+'             # <<<<<<<<<<<<<<
  *     pairs = [s2 for s1 in qs.split(ampersand) for s2 in s1.split(semicolon)]
  *     r = []
  */
-    __Pyx_INCREF(__pyx_kp_s__48);
-    __pyx_v_plus = __pyx_kp_s__48;
+    __Pyx_INCREF(__pyx_kp_s__59);
+    __pyx_v_plus = __pyx_kp_s__59;
   }
   __pyx_L3:;
 
-  /* "curlparse.pyx":800
+  /* "curlparse.pyx":826
  *         space = ' '
  *         plus = '+'
  *     pairs = [s2 for s1 in qs.split(ampersand) for s2 in s1.split(semicolon)]             # <<<<<<<<<<<<<<
  *     r = []
  *     for name_value in pairs:
  */
-  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 800, __pyx_L1_error)
+  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 826, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_qs, __pyx_n_s_split); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 800, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_qs, __pyx_n_s_split); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 826, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_5))) {
@@ -15784,16 +16929,16 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
     }
   }
   if (!__pyx_t_6) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_ampersand); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 800, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_ampersand); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 826, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
   } else {
-    __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 800, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 826, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
     __Pyx_INCREF(__pyx_v_ampersand);
     __Pyx_GIVEREF(__pyx_v_ampersand);
     PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_v_ampersand);
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 800, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 826, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
@@ -15802,9 +16947,9 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
     __pyx_t_5 = __pyx_t_4; __Pyx_INCREF(__pyx_t_5); __pyx_t_8 = 0;
     __pyx_t_9 = NULL;
   } else {
-    __pyx_t_8 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 800, __pyx_L1_error)
+    __pyx_t_8 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 826, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_9 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 800, __pyx_L1_error)
+    __pyx_t_9 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 826, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   for (;;) {
@@ -15812,17 +16957,17 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
       if (likely(PyList_CheckExact(__pyx_t_5))) {
         if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_5)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_8); __Pyx_INCREF(__pyx_t_4); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 800, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_8); __Pyx_INCREF(__pyx_t_4); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 826, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_5, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 800, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_5, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 826, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_5)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_8); __Pyx_INCREF(__pyx_t_4); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 800, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_8); __Pyx_INCREF(__pyx_t_4); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 826, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_5, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 800, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_5, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 826, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -15832,7 +16977,7 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 800, __pyx_L1_error)
+          else __PYX_ERR(0, 826, __pyx_L1_error)
         }
         break;
       }
@@ -15840,7 +16985,7 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
     }
     __Pyx_XDECREF_SET(__pyx_v_s1, __pyx_t_4);
     __pyx_t_4 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_s1, __pyx_n_s_split); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 800, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_s1, __pyx_n_s_split); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 826, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_6 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_7))) {
@@ -15853,16 +16998,16 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
       }
     }
     if (!__pyx_t_6) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_v_semicolon); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 800, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_v_semicolon); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 826, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
     } else {
-      __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 800, __pyx_L1_error)
+      __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 826, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_6); __pyx_t_6 = NULL;
       __Pyx_INCREF(__pyx_v_semicolon);
       __Pyx_GIVEREF(__pyx_v_semicolon);
       PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_v_semicolon);
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_10, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 800, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_10, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 826, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     }
@@ -15871,9 +17016,9 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
       __pyx_t_7 = __pyx_t_4; __Pyx_INCREF(__pyx_t_7); __pyx_t_11 = 0;
       __pyx_t_12 = NULL;
     } else {
-      __pyx_t_11 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 800, __pyx_L1_error)
+      __pyx_t_11 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 826, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_12 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 800, __pyx_L1_error)
+      __pyx_t_12 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 826, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     for (;;) {
@@ -15881,17 +17026,17 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
         if (likely(PyList_CheckExact(__pyx_t_7))) {
           if (__pyx_t_11 >= PyList_GET_SIZE(__pyx_t_7)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_11); __Pyx_INCREF(__pyx_t_4); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(0, 800, __pyx_L1_error)
+          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_11); __Pyx_INCREF(__pyx_t_4); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(0, 826, __pyx_L1_error)
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_7, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 800, __pyx_L1_error)
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_7, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 826, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         } else {
           if (__pyx_t_11 >= PyTuple_GET_SIZE(__pyx_t_7)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_11); __Pyx_INCREF(__pyx_t_4); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(0, 800, __pyx_L1_error)
+          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_11); __Pyx_INCREF(__pyx_t_4); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(0, 826, __pyx_L1_error)
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_7, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 800, __pyx_L1_error)
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_7, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 826, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         }
@@ -15901,7 +17046,7 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 800, __pyx_L1_error)
+            else __PYX_ERR(0, 826, __pyx_L1_error)
           }
           break;
         }
@@ -15909,7 +17054,7 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
       }
       __Pyx_XDECREF_SET(__pyx_v_s2, __pyx_t_4);
       __pyx_t_4 = 0;
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_v_s2))) __PYX_ERR(0, 800, __pyx_L1_error)
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_v_s2))) __PYX_ERR(0, 826, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
@@ -15917,19 +17062,19 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
   __pyx_v_pairs = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "curlparse.pyx":801
+  /* "curlparse.pyx":827
  *         plus = '+'
  *     pairs = [s2 for s1 in qs.split(ampersand) for s2 in s1.split(semicolon)]
  *     r = []             # <<<<<<<<<<<<<<
  *     for name_value in pairs:
  *         if not name_value and not strict_parsing:
  */
-  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 801, __pyx_L1_error)
+  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 827, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_v_r = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "curlparse.pyx":802
+  /* "curlparse.pyx":828
  *     pairs = [s2 for s1 in qs.split(ampersand) for s2 in s1.split(semicolon)]
  *     r = []
  *     for name_value in pairs:             # <<<<<<<<<<<<<<
@@ -15940,35 +17085,35 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
   for (;;) {
     if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_3)) break;
     #if CYTHON_COMPILING_IN_CPYTHON
-    __pyx_t_5 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_8); __Pyx_INCREF(__pyx_t_5); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 802, __pyx_L1_error)
+    __pyx_t_5 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_8); __Pyx_INCREF(__pyx_t_5); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 828, __pyx_L1_error)
     #else
-    __pyx_t_5 = PySequence_ITEM(__pyx_t_3, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 802, __pyx_L1_error)
+    __pyx_t_5 = PySequence_ITEM(__pyx_t_3, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 828, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     #endif
     __Pyx_XDECREF_SET(__pyx_v_name_value, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "curlparse.pyx":803
+    /* "curlparse.pyx":829
  *     r = []
  *     for name_value in pairs:
  *         if not name_value and not strict_parsing:             # <<<<<<<<<<<<<<
  *             continue
  *         nv = name_value.split(equal, 1)
  */
-    __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_name_value); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 803, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_name_value); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 829, __pyx_L1_error)
     __pyx_t_13 = ((!__pyx_t_1) != 0);
     if (__pyx_t_13) {
     } else {
       __pyx_t_2 = __pyx_t_13;
       goto __pyx_L11_bool_binop_done;
     }
-    __pyx_t_13 = __Pyx_PyObject_IsTrue(__pyx_v_strict_parsing); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 803, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_IsTrue(__pyx_v_strict_parsing); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 829, __pyx_L1_error)
     __pyx_t_1 = ((!__pyx_t_13) != 0);
     __pyx_t_2 = __pyx_t_1;
     __pyx_L11_bool_binop_done:;
     if (__pyx_t_2) {
 
-      /* "curlparse.pyx":804
+      /* "curlparse.pyx":830
  *     for name_value in pairs:
  *         if not name_value and not strict_parsing:
  *             continue             # <<<<<<<<<<<<<<
@@ -15977,7 +17122,7 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
  */
       goto __pyx_L8_continue;
 
-      /* "curlparse.pyx":803
+      /* "curlparse.pyx":829
  *     r = []
  *     for name_value in pairs:
  *         if not name_value and not strict_parsing:             # <<<<<<<<<<<<<<
@@ -15986,14 +17131,14 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
  */
     }
 
-    /* "curlparse.pyx":805
+    /* "curlparse.pyx":831
  *         if not name_value and not strict_parsing:
  *             continue
  *         nv = name_value.split(equal, 1)             # <<<<<<<<<<<<<<
  *         if len(nv) != 2:
  *             if strict_parsing:
  */
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_name_value, __pyx_n_s_split); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 805, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_name_value, __pyx_n_s_split); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 831, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_4 = NULL;
     __pyx_t_11 = 0;
@@ -16007,7 +17152,7 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
         __pyx_t_11 = 1;
       }
     }
-    __pyx_t_10 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 805, __pyx_L1_error)
+    __pyx_t_10 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 831, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     if (__pyx_t_4) {
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -16018,62 +17163,62 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
     __Pyx_INCREF(__pyx_int_1);
     __Pyx_GIVEREF(__pyx_int_1);
     PyTuple_SET_ITEM(__pyx_t_10, 1+__pyx_t_11, __pyx_int_1);
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_10, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 805, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_10, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 831, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_XDECREF_SET(__pyx_v_nv, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "curlparse.pyx":806
+    /* "curlparse.pyx":832
  *             continue
  *         nv = name_value.split(equal, 1)
  *         if len(nv) != 2:             # <<<<<<<<<<<<<<
  *             if strict_parsing:
  *                 raise ValueError("bad query field: %r" % (name_value,))
  */
-    __pyx_t_11 = PyObject_Length(__pyx_v_nv); if (unlikely(__pyx_t_11 == -1)) __PYX_ERR(0, 806, __pyx_L1_error)
+    __pyx_t_11 = PyObject_Length(__pyx_v_nv); if (unlikely(__pyx_t_11 == -1)) __PYX_ERR(0, 832, __pyx_L1_error)
     __pyx_t_2 = ((__pyx_t_11 != 2) != 0);
     if (__pyx_t_2) {
 
-      /* "curlparse.pyx":807
+      /* "curlparse.pyx":833
  *         nv = name_value.split(equal, 1)
  *         if len(nv) != 2:
  *             if strict_parsing:             # <<<<<<<<<<<<<<
  *                 raise ValueError("bad query field: %r" % (name_value,))
  *             # Handle case of a control-name with no equal sign
  */
-      __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_strict_parsing); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 807, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_strict_parsing); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 833, __pyx_L1_error)
       if (__pyx_t_2) {
 
-        /* "curlparse.pyx":808
+        /* "curlparse.pyx":834
  *         if len(nv) != 2:
  *             if strict_parsing:
  *                 raise ValueError("bad query field: %r" % (name_value,))             # <<<<<<<<<<<<<<
  *             # Handle case of a control-name with no equal sign
  *             if keep_blank_values:
  */
-        __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 808, __pyx_L1_error)
+        __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 834, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_INCREF(__pyx_v_name_value);
         __Pyx_GIVEREF(__pyx_v_name_value);
         PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_v_name_value);
-        __pyx_t_7 = __Pyx_PyString_Format(__pyx_kp_s_bad_query_field_r, __pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 808, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyString_Format(__pyx_kp_s_bad_query_field_r, __pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 834, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 808, __pyx_L1_error)
+        __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 834, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_GIVEREF(__pyx_t_7);
         PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7);
         __pyx_t_7 = 0;
-        __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_t_5, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 808, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_t_5, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 834, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_Raise(__pyx_t_7, 0, 0, 0);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __PYX_ERR(0, 808, __pyx_L1_error)
+        __PYX_ERR(0, 834, __pyx_L1_error)
 
-        /* "curlparse.pyx":807
+        /* "curlparse.pyx":833
  *         nv = name_value.split(equal, 1)
  *         if len(nv) != 2:
  *             if strict_parsing:             # <<<<<<<<<<<<<<
@@ -16082,26 +17227,26 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
  */
       }
 
-      /* "curlparse.pyx":810
+      /* "curlparse.pyx":836
  *                 raise ValueError("bad query field: %r" % (name_value,))
  *             # Handle case of a control-name with no equal sign
  *             if keep_blank_values:             # <<<<<<<<<<<<<<
  *                 nv.append(blank)
  *             else:
  */
-      __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_keep_blank_values); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 810, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_keep_blank_values); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 836, __pyx_L1_error)
       if (__pyx_t_2) {
 
-        /* "curlparse.pyx":811
+        /* "curlparse.pyx":837
  *             # Handle case of a control-name with no equal sign
  *             if keep_blank_values:
  *                 nv.append(blank)             # <<<<<<<<<<<<<<
  *             else:
  *                 continue
  */
-        __pyx_t_14 = __Pyx_PyObject_Append(__pyx_v_nv, __pyx_v_blank); if (unlikely(__pyx_t_14 == -1)) __PYX_ERR(0, 811, __pyx_L1_error)
+        __pyx_t_14 = __Pyx_PyObject_Append(__pyx_v_nv, __pyx_v_blank); if (unlikely(__pyx_t_14 == -1)) __PYX_ERR(0, 837, __pyx_L1_error)
 
-        /* "curlparse.pyx":810
+        /* "curlparse.pyx":836
  *                 raise ValueError("bad query field: %r" % (name_value,))
  *             # Handle case of a control-name with no equal sign
  *             if keep_blank_values:             # <<<<<<<<<<<<<<
@@ -16111,7 +17256,7 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
         goto __pyx_L15;
       }
 
-      /* "curlparse.pyx":813
+      /* "curlparse.pyx":839
  *                 nv.append(blank)
  *             else:
  *                 continue             # <<<<<<<<<<<<<<
@@ -16123,7 +17268,7 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
       }
       __pyx_L15:;
 
-      /* "curlparse.pyx":806
+      /* "curlparse.pyx":832
  *             continue
  *         nv = name_value.split(equal, 1)
  *         if len(nv) != 2:             # <<<<<<<<<<<<<<
@@ -16132,16 +17277,16 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
  */
     }
 
-    /* "curlparse.pyx":814
+    /* "curlparse.pyx":840
  *             else:
  *                 continue
  *         if len(nv[1]) or keep_blank_values:             # <<<<<<<<<<<<<<
  *             name = nv[0].replace(plus, space)
  *             name = unquote(name, encoding=encoding, errors=errors)
  */
-    __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_nv, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 814, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_nv, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 840, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_11 = PyObject_Length(__pyx_t_7); if (unlikely(__pyx_t_11 == -1)) __PYX_ERR(0, 814, __pyx_L1_error)
+    __pyx_t_11 = PyObject_Length(__pyx_t_7); if (unlikely(__pyx_t_11 == -1)) __PYX_ERR(0, 840, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_t_1 = (__pyx_t_11 != 0);
     if (!__pyx_t_1) {
@@ -16149,21 +17294,21 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
       __pyx_t_2 = __pyx_t_1;
       goto __pyx_L17_bool_binop_done;
     }
-    __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_keep_blank_values); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 814, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_keep_blank_values); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 840, __pyx_L1_error)
     __pyx_t_2 = __pyx_t_1;
     __pyx_L17_bool_binop_done:;
     if (__pyx_t_2) {
 
-      /* "curlparse.pyx":815
+      /* "curlparse.pyx":841
  *                 continue
  *         if len(nv[1]) or keep_blank_values:
  *             name = nv[0].replace(plus, space)             # <<<<<<<<<<<<<<
  *             name = unquote(name, encoding=encoding, errors=errors)
  *             value = nv[1].replace(plus, space)
  */
-      __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_nv, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 815, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_nv, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 841, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_replace); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 815, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_replace); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 841, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __pyx_t_5 = NULL;
@@ -16178,7 +17323,7 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
           __pyx_t_11 = 1;
         }
       }
-      __pyx_t_4 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 815, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 841, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       if (__pyx_t_5) {
         __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -16189,32 +17334,32 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
       __Pyx_INCREF(__pyx_v_space);
       __Pyx_GIVEREF(__pyx_v_space);
       PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_11, __pyx_v_space);
-      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_4, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 815, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_4, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 841, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       __Pyx_XDECREF_SET(__pyx_v_name, __pyx_t_7);
       __pyx_t_7 = 0;
 
-      /* "curlparse.pyx":816
+      /* "curlparse.pyx":842
  *         if len(nv[1]) or keep_blank_values:
  *             name = nv[0].replace(plus, space)
  *             name = unquote(name, encoding=encoding, errors=errors)             # <<<<<<<<<<<<<<
  *             value = nv[1].replace(plus, space)
  *             value = unquote(value, encoding=encoding, errors=errors)
  */
-      __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_unquote); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 816, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_unquote); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 842, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 816, __pyx_L1_error)
+      __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 842, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_INCREF(__pyx_v_name);
       __Pyx_GIVEREF(__pyx_v_name);
       PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_v_name);
-      __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 816, __pyx_L1_error)
+      __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 842, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_encoding, __pyx_v_encoding) < 0) __PYX_ERR(0, 816, __pyx_L1_error)
-      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_errors, __pyx_v_errors) < 0) __PYX_ERR(0, 816, __pyx_L1_error)
-      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_10, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 816, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_encoding, __pyx_v_encoding) < 0) __PYX_ERR(0, 842, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_errors, __pyx_v_errors) < 0) __PYX_ERR(0, 842, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_10, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 842, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
@@ -16222,16 +17367,16 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
       __Pyx_DECREF_SET(__pyx_v_name, __pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "curlparse.pyx":817
+      /* "curlparse.pyx":843
  *             name = nv[0].replace(plus, space)
  *             name = unquote(name, encoding=encoding, errors=errors)
  *             value = nv[1].replace(plus, space)             # <<<<<<<<<<<<<<
  *             value = unquote(value, encoding=encoding, errors=errors)
  *             r.append((name, value))
  */
-      __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_nv, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 817, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_nv, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 843, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_replace); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 817, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_replace); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 843, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __pyx_t_4 = NULL;
@@ -16246,7 +17391,7 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
           __pyx_t_11 = 1;
         }
       }
-      __pyx_t_7 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 817, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 843, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       if (__pyx_t_4) {
         __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -16257,32 +17402,32 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
       __Pyx_INCREF(__pyx_v_space);
       __Pyx_GIVEREF(__pyx_v_space);
       PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_11, __pyx_v_space);
-      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 817, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 843, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       __Pyx_XDECREF_SET(__pyx_v_value, __pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "curlparse.pyx":818
+      /* "curlparse.pyx":844
  *             name = unquote(name, encoding=encoding, errors=errors)
  *             value = nv[1].replace(plus, space)
  *             value = unquote(value, encoding=encoding, errors=errors)             # <<<<<<<<<<<<<<
  *             r.append((name, value))
  *     return r
  */
-      __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_unquote); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 818, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_unquote); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 844, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 818, __pyx_L1_error)
+      __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 844, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_INCREF(__pyx_v_value);
       __Pyx_GIVEREF(__pyx_v_value);
       PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_v_value);
-      __pyx_t_7 = PyDict_New(); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 818, __pyx_L1_error)
+      __pyx_t_7 = PyDict_New(); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 844, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_encoding, __pyx_v_encoding) < 0) __PYX_ERR(0, 818, __pyx_L1_error)
-      if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_errors, __pyx_v_errors) < 0) __PYX_ERR(0, 818, __pyx_L1_error)
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_10, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 818, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_encoding, __pyx_v_encoding) < 0) __PYX_ERR(0, 844, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_errors, __pyx_v_errors) < 0) __PYX_ERR(0, 844, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_10, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 844, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
@@ -16290,14 +17435,14 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
       __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "curlparse.pyx":819
+      /* "curlparse.pyx":845
  *             value = nv[1].replace(plus, space)
  *             value = unquote(value, encoding=encoding, errors=errors)
  *             r.append((name, value))             # <<<<<<<<<<<<<<
  *     return r
  * 
  */
-      __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 819, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 845, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_INCREF(__pyx_v_name);
       __Pyx_GIVEREF(__pyx_v_name);
@@ -16305,10 +17450,10 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
       __Pyx_INCREF(__pyx_v_value);
       __Pyx_GIVEREF(__pyx_v_value);
       PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_v_value);
-      __pyx_t_14 = __Pyx_PyList_Append(__pyx_v_r, __pyx_t_4); if (unlikely(__pyx_t_14 == -1)) __PYX_ERR(0, 819, __pyx_L1_error)
+      __pyx_t_14 = __Pyx_PyList_Append(__pyx_v_r, __pyx_t_4); if (unlikely(__pyx_t_14 == -1)) __PYX_ERR(0, 845, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "curlparse.pyx":814
+      /* "curlparse.pyx":840
  *             else:
  *                 continue
  *         if len(nv[1]) or keep_blank_values:             # <<<<<<<<<<<<<<
@@ -16317,7 +17462,7 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
  */
     }
 
-    /* "curlparse.pyx":802
+    /* "curlparse.pyx":828
  *     pairs = [s2 for s1 in qs.split(ampersand) for s2 in s1.split(semicolon)]
  *     r = []
  *     for name_value in pairs:             # <<<<<<<<<<<<<<
@@ -16328,7 +17473,7 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "curlparse.pyx":820
+  /* "curlparse.pyx":846
  *             value = unquote(value, encoding=encoding, errors=errors)
  *             r.append((name, value))
  *     return r             # <<<<<<<<<<<<<<
@@ -16340,7 +17485,7 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
   __pyx_r = __pyx_v_r;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":763
+  /* "curlparse.pyx":789
  *     return parsed_result
  * 
  * def parse_qsl(qs, keep_blank_values=False, strict_parsing=False,             # <<<<<<<<<<<<<<
@@ -16378,7 +17523,7 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
   return __pyx_r;
 }
 
-/* "curlparse.pyx":822
+/* "curlparse.pyx":848
  *     return r
  * 
  * def unquote_plus(string, encoding='utf-8', errors='replace'):             # <<<<<<<<<<<<<<
@@ -16387,10 +17532,10 @@ static PyObject *__pyx_pf_9curlparse_38parse_qsl(CYTHON_UNUSED PyObject *__pyx_s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_41unquote_plus(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_9curlparse_40unquote_plus[] = "Like unquote(), but also replace plus signs by spaces, as required for\n    unquoting HTML form values.\n\n    unquote_plus('%7e/abc+def') -> '~/abc def'\n    ";
-static PyMethodDef __pyx_mdef_9curlparse_41unquote_plus = {"unquote_plus", (PyCFunction)__pyx_pw_9curlparse_41unquote_plus, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_40unquote_plus};
-static PyObject *__pyx_pw_9curlparse_41unquote_plus(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_9curlparse_43unquote_plus(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_9curlparse_42unquote_plus[] = "Like unquote(), but also replace plus signs by spaces, as required for\n    unquoting HTML form values.\n\n    unquote_plus('%7e/abc+def') -> '~/abc def'\n    ";
+static PyMethodDef __pyx_mdef_9curlparse_43unquote_plus = {"unquote_plus", (PyCFunction)__pyx_pw_9curlparse_43unquote_plus, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_42unquote_plus};
+static PyObject *__pyx_pw_9curlparse_43unquote_plus(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_string = 0;
   PyObject *__pyx_v_encoding = 0;
   PyObject *__pyx_v_errors = 0;
@@ -16429,7 +17574,7 @@ static PyObject *__pyx_pw_9curlparse_41unquote_plus(PyObject *__pyx_self, PyObje
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "unquote_plus") < 0)) __PYX_ERR(0, 822, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "unquote_plus") < 0)) __PYX_ERR(0, 848, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -16446,20 +17591,20 @@ static PyObject *__pyx_pw_9curlparse_41unquote_plus(PyObject *__pyx_self, PyObje
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("unquote_plus", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 822, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("unquote_plus", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 848, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("curlparse.unquote_plus", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_9curlparse_40unquote_plus(__pyx_self, __pyx_v_string, __pyx_v_encoding, __pyx_v_errors);
+  __pyx_r = __pyx_pf_9curlparse_42unquote_plus(__pyx_self, __pyx_v_string, __pyx_v_encoding, __pyx_v_errors);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_40unquote_plus(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors) {
+static PyObject *__pyx_pf_9curlparse_42unquote_plus(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors) {
   PyObject *__pyx_v_space = NULL;
   PyObject *__pyx_v_plus = NULL;
   PyObject *__pyx_r = NULL;
@@ -16474,7 +17619,7 @@ static PyObject *__pyx_pf_9curlparse_40unquote_plus(CYTHON_UNUSED PyObject *__py
   __Pyx_RefNannySetupContext("unquote_plus", 0);
   __Pyx_INCREF(__pyx_v_string);
 
-  /* "curlparse.pyx":828
+  /* "curlparse.pyx":854
  *     unquote_plus('%7e/abc+def') -> '~/abc def'
  *     """
  *     if isinstance(string, bytes):             # <<<<<<<<<<<<<<
@@ -16485,27 +17630,27 @@ static PyObject *__pyx_pf_9curlparse_40unquote_plus(CYTHON_UNUSED PyObject *__py
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "curlparse.pyx":829
+    /* "curlparse.pyx":855
  *     """
  *     if isinstance(string, bytes):
  *         space = b' '             # <<<<<<<<<<<<<<
  *         plus = b'+'
  *     else:
  */
-    __Pyx_INCREF(__pyx_kp_b__47);
-    __pyx_v_space = __pyx_kp_b__47;
+    __Pyx_INCREF(__pyx_kp_b__58);
+    __pyx_v_space = __pyx_kp_b__58;
 
-    /* "curlparse.pyx":830
+    /* "curlparse.pyx":856
  *     if isinstance(string, bytes):
  *         space = b' '
  *         plus = b'+'             # <<<<<<<<<<<<<<
  *     else:
  *         space = ' '
  */
-    __Pyx_INCREF(__pyx_kp_b__48);
-    __pyx_v_plus = __pyx_kp_b__48;
+    __Pyx_INCREF(__pyx_kp_b__59);
+    __pyx_v_plus = __pyx_kp_b__59;
 
-    /* "curlparse.pyx":828
+    /* "curlparse.pyx":854
  *     unquote_plus('%7e/abc+def') -> '~/abc def'
  *     """
  *     if isinstance(string, bytes):             # <<<<<<<<<<<<<<
@@ -16515,7 +17660,7 @@ static PyObject *__pyx_pf_9curlparse_40unquote_plus(CYTHON_UNUSED PyObject *__py
     goto __pyx_L3;
   }
 
-  /* "curlparse.pyx":832
+  /* "curlparse.pyx":858
  *         plus = b'+'
  *     else:
  *         space = ' '             # <<<<<<<<<<<<<<
@@ -16523,29 +17668,29 @@ static PyObject *__pyx_pf_9curlparse_40unquote_plus(CYTHON_UNUSED PyObject *__py
  *     string = string.replace(plus, space)
  */
   /*else*/ {
-    __Pyx_INCREF(__pyx_kp_s__47);
-    __pyx_v_space = __pyx_kp_s__47;
+    __Pyx_INCREF(__pyx_kp_s__58);
+    __pyx_v_space = __pyx_kp_s__58;
 
-    /* "curlparse.pyx":833
+    /* "curlparse.pyx":859
  *     else:
  *         space = ' '
  *         plus = '+'             # <<<<<<<<<<<<<<
  *     string = string.replace(plus, space)
  *     return unquote(string, encoding, errors)
  */
-    __Pyx_INCREF(__pyx_kp_s__48);
-    __pyx_v_plus = __pyx_kp_s__48;
+    __Pyx_INCREF(__pyx_kp_s__59);
+    __pyx_v_plus = __pyx_kp_s__59;
   }
   __pyx_L3:;
 
-  /* "curlparse.pyx":834
+  /* "curlparse.pyx":860
  *         space = ' '
  *         plus = '+'
  *     string = string.replace(plus, space)             # <<<<<<<<<<<<<<
  *     return unquote(string, encoding, errors)
  * 
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_string, __pyx_n_s_replace); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 834, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_string, __pyx_n_s_replace); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 860, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -16559,7 +17704,7 @@ static PyObject *__pyx_pf_9curlparse_40unquote_plus(CYTHON_UNUSED PyObject *__py
       __pyx_t_6 = 1;
     }
   }
-  __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 834, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 860, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   if (__pyx_t_5) {
     __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -16570,14 +17715,14 @@ static PyObject *__pyx_pf_9curlparse_40unquote_plus(CYTHON_UNUSED PyObject *__py
   __Pyx_INCREF(__pyx_v_space);
   __Pyx_GIVEREF(__pyx_v_space);
   PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_v_space);
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 834, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 860, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF_SET(__pyx_v_string, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "curlparse.pyx":835
+  /* "curlparse.pyx":861
  *         plus = '+'
  *     string = string.replace(plus, space)
  *     return unquote(string, encoding, errors)             # <<<<<<<<<<<<<<
@@ -16585,7 +17730,7 @@ static PyObject *__pyx_pf_9curlparse_40unquote_plus(CYTHON_UNUSED PyObject *__py
  * _ALWAYS_SAFE = frozenset(b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_unquote); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 835, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_unquote); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 861, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_7 = NULL;
   __pyx_t_6 = 0;
@@ -16599,7 +17744,7 @@ static PyObject *__pyx_pf_9curlparse_40unquote_plus(CYTHON_UNUSED PyObject *__py
       __pyx_t_6 = 1;
     }
   }
-  __pyx_t_5 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 835, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 861, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   if (__pyx_t_7) {
     __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7); __pyx_t_7 = NULL;
@@ -16613,7 +17758,7 @@ static PyObject *__pyx_pf_9curlparse_40unquote_plus(CYTHON_UNUSED PyObject *__py
   __Pyx_INCREF(__pyx_v_errors);
   __Pyx_GIVEREF(__pyx_v_errors);
   PyTuple_SET_ITEM(__pyx_t_5, 2+__pyx_t_6, __pyx_v_errors);
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 835, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 861, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -16621,7 +17766,7 @@ static PyObject *__pyx_pf_9curlparse_40unquote_plus(CYTHON_UNUSED PyObject *__py
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":822
+  /* "curlparse.pyx":848
  *     return r
  * 
  * def unquote_plus(string, encoding='utf-8', errors='replace'):             # <<<<<<<<<<<<<<
@@ -16646,7 +17791,7 @@ static PyObject *__pyx_pf_9curlparse_40unquote_plus(CYTHON_UNUSED PyObject *__py
   return __pyx_r;
 }
 
-/* "curlparse.pyx":852
+/* "curlparse.pyx":878
  *     # Keeps a cache internally, using defaultdict, for efficiency (lookups
  *     # of cached keys don't call Python code at all).
  *     def __init__(self, safe):             # <<<<<<<<<<<<<<
@@ -16684,11 +17829,11 @@ static PyObject *__pyx_pw_9curlparse_6Quoter_1__init__(PyObject *__pyx_self, PyO
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_safe)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, 1); __PYX_ERR(0, 852, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, 1); __PYX_ERR(0, 878, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 852, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 878, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -16701,7 +17846,7 @@ static PyObject *__pyx_pw_9curlparse_6Quoter_1__init__(PyObject *__pyx_self, PyO
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 852, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 878, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("curlparse.Quoter.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -16723,16 +17868,16 @@ static PyObject *__pyx_pf_9curlparse_6Quoter___init__(CYTHON_UNUSED PyObject *__
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "curlparse.pyx":854
+  /* "curlparse.pyx":880
  *     def __init__(self, safe):
  *         """safe: bytes object."""
  *         self.safe = _ALWAYS_SAFE.union(safe)             # <<<<<<<<<<<<<<
  * 
  *     def __repr__(self):
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ALWAYS_SAFE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 854, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ALWAYS_SAFE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 880, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_union); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 854, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_union); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 880, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -16746,24 +17891,24 @@ static PyObject *__pyx_pf_9curlparse_6Quoter___init__(CYTHON_UNUSED PyObject *__
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_safe); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 854, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_safe); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 880, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 854, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 880, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2); __pyx_t_2 = NULL;
     __Pyx_INCREF(__pyx_v_safe);
     __Pyx_GIVEREF(__pyx_v_safe);
     PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_safe);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 854, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 880, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_safe, __pyx_t_1) < 0) __PYX_ERR(0, 854, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_safe, __pyx_t_1) < 0) __PYX_ERR(0, 880, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "curlparse.pyx":852
+  /* "curlparse.pyx":878
  *     # Keeps a cache internally, using defaultdict, for efficiency (lookups
  *     # of cached keys don't call Python code at all).
  *     def __init__(self, safe):             # <<<<<<<<<<<<<<
@@ -16787,7 +17932,7 @@ static PyObject *__pyx_pf_9curlparse_6Quoter___init__(CYTHON_UNUSED PyObject *__
   return __pyx_r;
 }
 
-/* "curlparse.pyx":856
+/* "curlparse.pyx":882
  *         self.safe = _ALWAYS_SAFE.union(safe)
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -16817,7 +17962,7 @@ static PyObject *__pyx_pf_9curlparse_6Quoter_2__repr__(CYTHON_UNUSED PyObject *_
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("__repr__", 0);
 
-  /* "curlparse.pyx":858
+  /* "curlparse.pyx":884
  *     def __repr__(self):
  *         # Without this, will just display as a defaultdict
  *         return "<%s %r>" % (self.__class__.__name__, dict(self))             # <<<<<<<<<<<<<<
@@ -16825,20 +17970,20 @@ static PyObject *__pyx_pf_9curlparse_6Quoter_2__repr__(CYTHON_UNUSED PyObject *_
  *     def __missing__(self, b):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_class); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 858, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_class); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 884, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 858, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 884, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 858, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 884, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_self);
   __Pyx_GIVEREF(__pyx_v_self);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_self);
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)(&PyDict_Type)), __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 858, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)(&PyDict_Type)), __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 884, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 858, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 884, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
@@ -16846,14 +17991,14 @@ static PyObject *__pyx_pf_9curlparse_6Quoter_2__repr__(CYTHON_UNUSED PyObject *_
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_3);
   __pyx_t_2 = 0;
   __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyString_Format(__pyx_kp_s_s_r, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 858, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyString_Format(__pyx_kp_s_s_r, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 884, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":856
+  /* "curlparse.pyx":882
  *         self.safe = _ALWAYS_SAFE.union(safe)
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -16874,7 +18019,7 @@ static PyObject *__pyx_pf_9curlparse_6Quoter_2__repr__(CYTHON_UNUSED PyObject *_
   return __pyx_r;
 }
 
-/* "curlparse.pyx":860
+/* "curlparse.pyx":886
  *         return "<%s %r>" % (self.__class__.__name__, dict(self))
  * 
  *     def __missing__(self, b):             # <<<<<<<<<<<<<<
@@ -16911,11 +18056,11 @@ static PyObject *__pyx_pw_9curlparse_6Quoter_5__missing__(PyObject *__pyx_self, 
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_b)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__missing__", 1, 2, 2, 1); __PYX_ERR(0, 860, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__missing__", 1, 2, 2, 1); __PYX_ERR(0, 886, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__missing__") < 0)) __PYX_ERR(0, 860, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__missing__") < 0)) __PYX_ERR(0, 886, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -16928,7 +18073,7 @@ static PyObject *__pyx_pw_9curlparse_6Quoter_5__missing__(PyObject *__pyx_self, 
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__missing__", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 860, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__missing__", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 886, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("curlparse.Quoter.__missing__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -16953,30 +18098,30 @@ static PyObject *__pyx_pf_9curlparse_6Quoter_4__missing__(CYTHON_UNUSED PyObject
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("__missing__", 0);
 
-  /* "curlparse.pyx":862
+  /* "curlparse.pyx":888
  *     def __missing__(self, b):
  *         # Handle a cache miss. Store quoted string in cache and return.
  *         res = chr(b) if b in self.safe else '%{:02X}'.format(b)             # <<<<<<<<<<<<<<
  *         self[b] = res
  *         return res
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_safe); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 862, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_safe); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 888, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = (__Pyx_PySequence_ContainsTF(__pyx_v_b, __pyx_t_2, Py_EQ)); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 862, __pyx_L1_error)
+  __pyx_t_3 = (__Pyx_PySequence_ContainsTF(__pyx_v_b, __pyx_t_2, Py_EQ)); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 888, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if ((__pyx_t_3 != 0)) {
-    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 862, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 888, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_v_b);
     __Pyx_GIVEREF(__pyx_v_b);
     PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_b);
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_2, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 862, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_2, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 888, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_1 = __pyx_t_4;
     __pyx_t_4 = 0;
   } else {
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_02X, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 862, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_02X, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 888, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_5 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -16989,16 +18134,16 @@ static PyObject *__pyx_pf_9curlparse_6Quoter_4__missing__(CYTHON_UNUSED PyObject
       }
     }
     if (!__pyx_t_5) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_b); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 862, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_b); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 888, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
     } else {
-      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 862, __pyx_L1_error)
+      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 888, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __pyx_t_5 = NULL;
       __Pyx_INCREF(__pyx_v_b);
       __Pyx_GIVEREF(__pyx_v_b);
       PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_v_b);
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 862, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 888, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     }
@@ -17009,16 +18154,16 @@ static PyObject *__pyx_pf_9curlparse_6Quoter_4__missing__(CYTHON_UNUSED PyObject
   __pyx_v_res = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "curlparse.pyx":863
+  /* "curlparse.pyx":889
  *         # Handle a cache miss. Store quoted string in cache and return.
  *         res = chr(b) if b in self.safe else '%{:02X}'.format(b)
  *         self[b] = res             # <<<<<<<<<<<<<<
  *         return res
  * 
  */
-  if (unlikely(PyObject_SetItem(__pyx_v_self, __pyx_v_b, __pyx_v_res) < 0)) __PYX_ERR(0, 863, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(__pyx_v_self, __pyx_v_b, __pyx_v_res) < 0)) __PYX_ERR(0, 889, __pyx_L1_error)
 
-  /* "curlparse.pyx":864
+  /* "curlparse.pyx":890
  *         res = chr(b) if b in self.safe else '%{:02X}'.format(b)
  *         self[b] = res
  *         return res             # <<<<<<<<<<<<<<
@@ -17030,7 +18175,7 @@ static PyObject *__pyx_pf_9curlparse_6Quoter_4__missing__(CYTHON_UNUSED PyObject
   __pyx_r = __pyx_v_res;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":860
+  /* "curlparse.pyx":886
  *         return "<%s %r>" % (self.__class__.__name__, dict(self))
  * 
  *     def __missing__(self, b):             # <<<<<<<<<<<<<<
@@ -17054,7 +18199,7 @@ static PyObject *__pyx_pf_9curlparse_6Quoter_4__missing__(CYTHON_UNUSED PyObject
   return __pyx_r;
 }
 
-/* "curlparse.pyx":866
+/* "curlparse.pyx":892
  *         return res
  * 
  * def quote(string, safe='/', encoding=None, errors=None):             # <<<<<<<<<<<<<<
@@ -17063,10 +18208,10 @@ static PyObject *__pyx_pf_9curlparse_6Quoter_4__missing__(CYTHON_UNUSED PyObject
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_43quote(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_9curlparse_42quote[] = "quote('abc def') -> 'abc%20def'\n\n    Each part of a URL, e.g. the path info, the query, etc., has a\n    different set of reserved characters that must be quoted.\n\n    RFC 2396 Uniform Resource Identifiers (URI): Generic Syntax lists\n    the following reserved characters.\n\n    reserved    = \";\" | \"/\" | \"?\" | \":\" | \"@\" | \"&\" | \"=\" | \"+\" |\n                  \"$\" | \",\"\n\n    Each of these characters is reserved in some component of a URL,\n    but not necessarily in all of them.\n\n    By default, the quote function is intended for quoting the path\n    section of a URL.  Thus, it will not encode '/'.  This character\n    is reserved, but in typical usage the quote function is being\n    called on a path where the existing slash characters are used as\n    reserved characters.\n\n    string and safe may be either str or bytes objects. encoding and errors\n    must not be specified if string is a bytes object.\n\n    The optional encoding and errors parameters specify how to deal with\n    non-ASCII characters, as accepted by the str.encode method.\n    By default, encoding='utf-8' (characters are encoded with UTF-8), and\n    errors='strict' (unsupported characters raise a UnicodeEncodeError).\n    ";
-static PyMethodDef __pyx_mdef_9curlparse_43quote = {"quote", (PyCFunction)__pyx_pw_9curlparse_43quote, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_42quote};
-static PyObject *__pyx_pw_9curlparse_43quote(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_9curlparse_45quote(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_9curlparse_44quote[] = "quote('abc def') -> 'abc%20def'\n\n    Each part of a URL, e.g. the path info, the query, etc., has a\n    different set of reserved characters that must be quoted.\n\n    RFC 2396 Uniform Resource Identifiers (URI): Generic Syntax lists\n    the following reserved characters.\n\n    reserved    = \";\" | \"/\" | \"?\" | \":\" | \"@\" | \"&\" | \"=\" | \"+\" |\n                  \"$\" | \",\"\n\n    Each of these characters is reserved in some component of a URL,\n    but not necessarily in all of them.\n\n    By default, the quote function is intended for quoting the path\n    section of a URL.  Thus, it will not encode '/'.  This character\n    is reserved, but in typical usage the quote function is being\n    called on a path where the existing slash characters are used as\n    reserved characters.\n\n    string and safe may be either str or bytes objects. encoding and errors\n    must not be specified if string is a bytes object.\n\n    The optional encoding and errors parameters specify how to deal with\n    non-ASCII characters, as accepted by the str.encode method.\n    By default, encoding='utf-8' (characters are encoded with UTF-8), and\n    errors='strict' (unsupported characters raise a UnicodeEncodeError).\n    ";
+static PyMethodDef __pyx_mdef_9curlparse_45quote = {"quote", (PyCFunction)__pyx_pw_9curlparse_45quote, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_44quote};
+static PyObject *__pyx_pw_9curlparse_45quote(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_string = 0;
   PyObject *__pyx_v_safe = 0;
   PyObject *__pyx_v_encoding = 0;
@@ -17113,7 +18258,7 @@ static PyObject *__pyx_pw_9curlparse_43quote(PyObject *__pyx_self, PyObject *__p
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "quote") < 0)) __PYX_ERR(0, 866, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "quote") < 0)) __PYX_ERR(0, 892, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -17132,20 +18277,20 @@ static PyObject *__pyx_pw_9curlparse_43quote(PyObject *__pyx_self, PyObject *__p
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("quote", 0, 1, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 866, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("quote", 0, 1, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 892, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("curlparse.quote", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_9curlparse_42quote(__pyx_self, __pyx_v_string, __pyx_v_safe, __pyx_v_encoding, __pyx_v_errors);
+  __pyx_r = __pyx_pf_9curlparse_44quote(__pyx_self, __pyx_v_string, __pyx_v_safe, __pyx_v_encoding, __pyx_v_errors);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string, PyObject *__pyx_v_safe, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors) {
+static PyObject *__pyx_pf_9curlparse_44quote(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string, PyObject *__pyx_v_safe, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -17160,7 +18305,7 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
   __Pyx_INCREF(__pyx_v_encoding);
   __Pyx_INCREF(__pyx_v_errors);
 
-  /* "curlparse.pyx":895
+  /* "curlparse.pyx":921
  *     errors='strict' (unsupported characters raise a UnicodeEncodeError).
  *     """
  *     if isinstance(string, str):             # <<<<<<<<<<<<<<
@@ -17171,18 +18316,18 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "curlparse.pyx":896
+    /* "curlparse.pyx":922
  *     """
  *     if isinstance(string, str):
  *         if not string:             # <<<<<<<<<<<<<<
  *             return string
  *         if encoding is None:
  */
-    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_string); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 896, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_string); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 922, __pyx_L1_error)
     __pyx_t_1 = ((!__pyx_t_2) != 0);
     if (__pyx_t_1) {
 
-      /* "curlparse.pyx":897
+      /* "curlparse.pyx":923
  *     if isinstance(string, str):
  *         if not string:
  *             return string             # <<<<<<<<<<<<<<
@@ -17194,7 +18339,7 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
       __pyx_r = __pyx_v_string;
       goto __pyx_L0;
 
-      /* "curlparse.pyx":896
+      /* "curlparse.pyx":922
  *     """
  *     if isinstance(string, str):
  *         if not string:             # <<<<<<<<<<<<<<
@@ -17203,7 +18348,7 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
  */
     }
 
-    /* "curlparse.pyx":898
+    /* "curlparse.pyx":924
  *         if not string:
  *             return string
  *         if encoding is None:             # <<<<<<<<<<<<<<
@@ -17214,7 +18359,7 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
     __pyx_t_2 = (__pyx_t_1 != 0);
     if (__pyx_t_2) {
 
-      /* "curlparse.pyx":899
+      /* "curlparse.pyx":925
  *             return string
  *         if encoding is None:
  *             encoding = 'utf-8'             # <<<<<<<<<<<<<<
@@ -17224,7 +18369,7 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
       __Pyx_INCREF(__pyx_kp_s_utf_8);
       __Pyx_DECREF_SET(__pyx_v_encoding, __pyx_kp_s_utf_8);
 
-      /* "curlparse.pyx":898
+      /* "curlparse.pyx":924
  *         if not string:
  *             return string
  *         if encoding is None:             # <<<<<<<<<<<<<<
@@ -17233,7 +18378,7 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
  */
     }
 
-    /* "curlparse.pyx":900
+    /* "curlparse.pyx":926
  *         if encoding is None:
  *             encoding = 'utf-8'
  *         if errors is None:             # <<<<<<<<<<<<<<
@@ -17244,7 +18389,7 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
     __pyx_t_1 = (__pyx_t_2 != 0);
     if (__pyx_t_1) {
 
-      /* "curlparse.pyx":901
+      /* "curlparse.pyx":927
  *             encoding = 'utf-8'
  *         if errors is None:
  *             errors = 'strict'             # <<<<<<<<<<<<<<
@@ -17254,7 +18399,7 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
       __Pyx_INCREF(__pyx_n_s_strict);
       __Pyx_DECREF_SET(__pyx_v_errors, __pyx_n_s_strict);
 
-      /* "curlparse.pyx":900
+      /* "curlparse.pyx":926
  *         if encoding is None:
  *             encoding = 'utf-8'
  *         if errors is None:             # <<<<<<<<<<<<<<
@@ -17263,14 +18408,14 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
  */
     }
 
-    /* "curlparse.pyx":902
+    /* "curlparse.pyx":928
  *         if errors is None:
  *             errors = 'strict'
  *         string = string.encode(encoding, errors)             # <<<<<<<<<<<<<<
  *     else:
  *         if encoding is not None:
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_string, __pyx_n_s_encode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 902, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_string, __pyx_n_s_encode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 928, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     __pyx_t_6 = 0;
@@ -17284,7 +18429,7 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
         __pyx_t_6 = 1;
       }
     }
-    __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 902, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 928, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     if (__pyx_t_5) {
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -17295,14 +18440,14 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
     __Pyx_INCREF(__pyx_v_errors);
     __Pyx_GIVEREF(__pyx_v_errors);
     PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_v_errors);
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 902, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 928, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF_SET(__pyx_v_string, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "curlparse.pyx":895
+    /* "curlparse.pyx":921
  *     errors='strict' (unsupported characters raise a UnicodeEncodeError).
  *     """
  *     if isinstance(string, str):             # <<<<<<<<<<<<<<
@@ -17312,7 +18457,7 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
     goto __pyx_L3;
   }
 
-  /* "curlparse.pyx":904
+  /* "curlparse.pyx":930
  *         string = string.encode(encoding, errors)
  *     else:
  *         if encoding is not None:             # <<<<<<<<<<<<<<
@@ -17324,20 +18469,20 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
     __pyx_t_2 = (__pyx_t_1 != 0);
     if (__pyx_t_2) {
 
-      /* "curlparse.pyx":905
+      /* "curlparse.pyx":931
  *     else:
  *         if encoding is not None:
  *             raise TypeError("quote() doesn't support 'encoding' for bytes")             # <<<<<<<<<<<<<<
  *         if errors is not None:
  *             raise TypeError("quote() doesn't support 'errors' for bytes")
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__49, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 905, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__60, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 931, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __PYX_ERR(0, 905, __pyx_L1_error)
+      __PYX_ERR(0, 931, __pyx_L1_error)
 
-      /* "curlparse.pyx":904
+      /* "curlparse.pyx":930
  *         string = string.encode(encoding, errors)
  *     else:
  *         if encoding is not None:             # <<<<<<<<<<<<<<
@@ -17346,7 +18491,7 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
  */
     }
 
-    /* "curlparse.pyx":906
+    /* "curlparse.pyx":932
  *         if encoding is not None:
  *             raise TypeError("quote() doesn't support 'encoding' for bytes")
  *         if errors is not None:             # <<<<<<<<<<<<<<
@@ -17357,20 +18502,20 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
     __pyx_t_1 = (__pyx_t_2 != 0);
     if (__pyx_t_1) {
 
-      /* "curlparse.pyx":907
+      /* "curlparse.pyx":933
  *             raise TypeError("quote() doesn't support 'encoding' for bytes")
  *         if errors is not None:
  *             raise TypeError("quote() doesn't support 'errors' for bytes")             # <<<<<<<<<<<<<<
  *     return quote_from_bytes(string, safe)
  * 
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__50, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 907, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__61, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 933, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __PYX_ERR(0, 907, __pyx_L1_error)
+      __PYX_ERR(0, 933, __pyx_L1_error)
 
-      /* "curlparse.pyx":906
+      /* "curlparse.pyx":932
  *         if encoding is not None:
  *             raise TypeError("quote() doesn't support 'encoding' for bytes")
  *         if errors is not None:             # <<<<<<<<<<<<<<
@@ -17381,7 +18526,7 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
   }
   __pyx_L3:;
 
-  /* "curlparse.pyx":908
+  /* "curlparse.pyx":934
  *         if errors is not None:
  *             raise TypeError("quote() doesn't support 'errors' for bytes")
  *     return quote_from_bytes(string, safe)             # <<<<<<<<<<<<<<
@@ -17389,7 +18534,7 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
  * def quote_plus(string, safe='', encoding=None, errors=None):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_quote_from_bytes); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 908, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_quote_from_bytes); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 934, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_7 = NULL;
   __pyx_t_6 = 0;
@@ -17403,7 +18548,7 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
       __pyx_t_6 = 1;
     }
   }
-  __pyx_t_5 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 908, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 934, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   if (__pyx_t_7) {
     __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7); __pyx_t_7 = NULL;
@@ -17414,7 +18559,7 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
   __Pyx_INCREF(__pyx_v_safe);
   __Pyx_GIVEREF(__pyx_v_safe);
   PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_6, __pyx_v_safe);
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 908, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 934, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -17422,7 +18567,7 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":866
+  /* "curlparse.pyx":892
  *         return res
  * 
  * def quote(string, safe='/', encoding=None, errors=None):             # <<<<<<<<<<<<<<
@@ -17447,7 +18592,7 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
   return __pyx_r;
 }
 
-/* "curlparse.pyx":910
+/* "curlparse.pyx":936
  *     return quote_from_bytes(string, safe)
  * 
  * def quote_plus(string, safe='', encoding=None, errors=None):             # <<<<<<<<<<<<<<
@@ -17456,10 +18601,10 @@ static PyObject *__pyx_pf_9curlparse_42quote(CYTHON_UNUSED PyObject *__pyx_self,
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_45quote_plus(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_9curlparse_44quote_plus[] = "Like quote(), but also replace ' ' with '+', as required for quoting\n    HTML form values. Plus signs in the original string are escaped unless\n    they are included in safe. It also does not have safe default to '/'.\n    ";
-static PyMethodDef __pyx_mdef_9curlparse_45quote_plus = {"quote_plus", (PyCFunction)__pyx_pw_9curlparse_45quote_plus, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_44quote_plus};
-static PyObject *__pyx_pw_9curlparse_45quote_plus(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_9curlparse_47quote_plus(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_9curlparse_46quote_plus[] = "Like quote(), but also replace ' ' with '+', as required for quoting\n    HTML form values. Plus signs in the original string are escaped unless\n    they are included in safe. It also does not have safe default to '/'.\n    ";
+static PyMethodDef __pyx_mdef_9curlparse_47quote_plus = {"quote_plus", (PyCFunction)__pyx_pw_9curlparse_47quote_plus, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_46quote_plus};
+static PyObject *__pyx_pw_9curlparse_47quote_plus(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_string = 0;
   PyObject *__pyx_v_safe = 0;
   PyObject *__pyx_v_encoding = 0;
@@ -17506,7 +18651,7 @@ static PyObject *__pyx_pw_9curlparse_45quote_plus(PyObject *__pyx_self, PyObject
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "quote_plus") < 0)) __PYX_ERR(0, 910, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "quote_plus") < 0)) __PYX_ERR(0, 936, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -17525,20 +18670,20 @@ static PyObject *__pyx_pw_9curlparse_45quote_plus(PyObject *__pyx_self, PyObject
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("quote_plus", 0, 1, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 910, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("quote_plus", 0, 1, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 936, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("curlparse.quote_plus", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_9curlparse_44quote_plus(__pyx_self, __pyx_v_string, __pyx_v_safe, __pyx_v_encoding, __pyx_v_errors);
+  __pyx_r = __pyx_pf_9curlparse_46quote_plus(__pyx_self, __pyx_v_string, __pyx_v_safe, __pyx_v_encoding, __pyx_v_errors);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string, PyObject *__pyx_v_safe, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors) {
+static PyObject *__pyx_pf_9curlparse_46quote_plus(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_string, PyObject *__pyx_v_safe, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors) {
   PyObject *__pyx_v_space = NULL;
   PyObject *__pyx_v_plus = NULL;
   PyObject *__pyx_r = NULL;
@@ -17555,7 +18700,7 @@ static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_
   __Pyx_INCREF(__pyx_v_string);
   __Pyx_INCREF(__pyx_v_safe);
 
-  /* "curlparse.pyx":915
+  /* "curlparse.pyx":941
  *     they are included in safe. It also does not have safe default to '/'.
  *     """
  *     if isinstance(string, str):             # <<<<<<<<<<<<<<
@@ -17566,27 +18711,27 @@ static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "curlparse.pyx":916
+    /* "curlparse.pyx":942
  *     """
  *     if isinstance(string, str):
  *         space = ' '             # <<<<<<<<<<<<<<
  *         plus = '+'
  *     else:
  */
-    __Pyx_INCREF(__pyx_kp_s__47);
-    __pyx_v_space = __pyx_kp_s__47;
+    __Pyx_INCREF(__pyx_kp_s__58);
+    __pyx_v_space = __pyx_kp_s__58;
 
-    /* "curlparse.pyx":917
+    /* "curlparse.pyx":943
  *     if isinstance(string, str):
  *         space = ' '
  *         plus = '+'             # <<<<<<<<<<<<<<
  *     else:
  *         space = b' '
  */
-    __Pyx_INCREF(__pyx_kp_s__48);
-    __pyx_v_plus = __pyx_kp_s__48;
+    __Pyx_INCREF(__pyx_kp_s__59);
+    __pyx_v_plus = __pyx_kp_s__59;
 
-    /* "curlparse.pyx":915
+    /* "curlparse.pyx":941
  *     they are included in safe. It also does not have safe default to '/'.
  *     """
  *     if isinstance(string, str):             # <<<<<<<<<<<<<<
@@ -17596,7 +18741,7 @@ static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_
     goto __pyx_L3;
   }
 
-  /* "curlparse.pyx":919
+  /* "curlparse.pyx":945
  *         plus = '+'
  *     else:
  *         space = b' '             # <<<<<<<<<<<<<<
@@ -17604,31 +18749,31 @@ static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_
  *         if not safe:
  */
   /*else*/ {
-    __Pyx_INCREF(__pyx_kp_b__47);
-    __pyx_v_space = __pyx_kp_b__47;
+    __Pyx_INCREF(__pyx_kp_b__58);
+    __pyx_v_space = __pyx_kp_b__58;
 
-    /* "curlparse.pyx":920
+    /* "curlparse.pyx":946
  *     else:
  *         space = b' '
  *         plus = b'+'             # <<<<<<<<<<<<<<
  *         if not safe:
  *             safe = b''
  */
-    __Pyx_INCREF(__pyx_kp_b__48);
-    __pyx_v_plus = __pyx_kp_b__48;
+    __Pyx_INCREF(__pyx_kp_b__59);
+    __pyx_v_plus = __pyx_kp_b__59;
 
-    /* "curlparse.pyx":921
+    /* "curlparse.pyx":947
  *         space = b' '
  *         plus = b'+'
  *         if not safe:             # <<<<<<<<<<<<<<
  *             safe = b''
  *     # Check if ' ' in string, where string may either be a str or bytes.  If
  */
-    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_safe); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 921, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_safe); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 947, __pyx_L1_error)
     __pyx_t_1 = ((!__pyx_t_2) != 0);
     if (__pyx_t_1) {
 
-      /* "curlparse.pyx":922
+      /* "curlparse.pyx":948
  *         plus = b'+'
  *         if not safe:
  *             safe = b''             # <<<<<<<<<<<<<<
@@ -17638,7 +18783,7 @@ static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_
       __Pyx_INCREF(__pyx_kp_b__5);
       __Pyx_DECREF_SET(__pyx_v_safe, __pyx_kp_b__5);
 
-      /* "curlparse.pyx":921
+      /* "curlparse.pyx":947
  *         space = b' '
  *         plus = b'+'
  *         if not safe:             # <<<<<<<<<<<<<<
@@ -17649,18 +18794,18 @@ static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_
   }
   __pyx_L3:;
 
-  /* "curlparse.pyx":925
+  /* "curlparse.pyx":951
  *     # Check if ' ' in string, where string may either be a str or bytes.  If
  *     # there are no spaces, the regular quote will produce the right answer.
  *     if space not in string:             # <<<<<<<<<<<<<<
  *         return quote(string, safe, encoding, errors)
  *     string = quote(string, safe + space, encoding, errors)
  */
-  __pyx_t_1 = (__Pyx_PySequence_ContainsTF(__pyx_v_space, __pyx_v_string, Py_NE)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 925, __pyx_L1_error)
+  __pyx_t_1 = (__Pyx_PySequence_ContainsTF(__pyx_v_space, __pyx_v_string, Py_NE)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 951, __pyx_L1_error)
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "curlparse.pyx":926
+    /* "curlparse.pyx":952
  *     # there are no spaces, the regular quote will produce the right answer.
  *     if space not in string:
  *         return quote(string, safe, encoding, errors)             # <<<<<<<<<<<<<<
@@ -17668,7 +18813,7 @@ static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_
  *     return string.replace(space, plus)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_quote); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 926, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_quote); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 952, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     __pyx_t_6 = 0;
@@ -17682,7 +18827,7 @@ static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_
         __pyx_t_6 = 1;
       }
     }
-    __pyx_t_7 = PyTuple_New(4+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 926, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(4+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 952, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     if (__pyx_t_5) {
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -17699,7 +18844,7 @@ static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_INCREF(__pyx_v_errors);
     __Pyx_GIVEREF(__pyx_v_errors);
     PyTuple_SET_ITEM(__pyx_t_7, 3+__pyx_t_6, __pyx_v_errors);
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 926, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 952, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -17707,7 +18852,7 @@ static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_
     __pyx_t_3 = 0;
     goto __pyx_L0;
 
-    /* "curlparse.pyx":925
+    /* "curlparse.pyx":951
  *     # Check if ' ' in string, where string may either be a str or bytes.  If
  *     # there are no spaces, the regular quote will produce the right answer.
  *     if space not in string:             # <<<<<<<<<<<<<<
@@ -17716,16 +18861,16 @@ static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_
  */
   }
 
-  /* "curlparse.pyx":927
+  /* "curlparse.pyx":953
  *     if space not in string:
  *         return quote(string, safe, encoding, errors)
  *     string = quote(string, safe + space, encoding, errors)             # <<<<<<<<<<<<<<
  *     return string.replace(space, plus)
  * 
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_quote); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 927, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_quote); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 953, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_7 = PyNumber_Add(__pyx_v_safe, __pyx_v_space); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 927, __pyx_L1_error)
+  __pyx_t_7 = PyNumber_Add(__pyx_v_safe, __pyx_v_space); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 953, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -17739,7 +18884,7 @@ static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_
       __pyx_t_6 = 1;
     }
   }
-  __pyx_t_8 = PyTuple_New(4+__pyx_t_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 927, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(4+__pyx_t_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 953, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   if (__pyx_t_5) {
     __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -17756,14 +18901,14 @@ static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_
   __Pyx_GIVEREF(__pyx_v_errors);
   PyTuple_SET_ITEM(__pyx_t_8, 3+__pyx_t_6, __pyx_v_errors);
   __pyx_t_7 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_8, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 927, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_8, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 953, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF_SET(__pyx_v_string, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "curlparse.pyx":928
+  /* "curlparse.pyx":954
  *         return quote(string, safe, encoding, errors)
  *     string = quote(string, safe + space, encoding, errors)
  *     return string.replace(space, plus)             # <<<<<<<<<<<<<<
@@ -17771,7 +18916,7 @@ static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_
  * def quote_from_bytes(bs, safe='/'):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_string, __pyx_n_s_replace); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 928, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_string, __pyx_n_s_replace); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 954, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_8 = NULL;
   __pyx_t_6 = 0;
@@ -17785,7 +18930,7 @@ static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_
       __pyx_t_6 = 1;
     }
   }
-  __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 928, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 954, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   if (__pyx_t_8) {
     __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_8); __pyx_t_8 = NULL;
@@ -17796,7 +18941,7 @@ static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_
   __Pyx_INCREF(__pyx_v_plus);
   __Pyx_GIVEREF(__pyx_v_plus);
   PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_v_plus);
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 928, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 954, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -17804,7 +18949,7 @@ static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":910
+  /* "curlparse.pyx":936
  *     return quote_from_bytes(string, safe)
  * 
  * def quote_plus(string, safe='', encoding=None, errors=None):             # <<<<<<<<<<<<<<
@@ -17831,7 +18976,7 @@ static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_
   return __pyx_r;
 }
 
-/* "curlparse.pyx":930
+/* "curlparse.pyx":956
  *     return string.replace(space, plus)
  * 
  * def quote_from_bytes(bs, safe='/'):             # <<<<<<<<<<<<<<
@@ -17840,10 +18985,10 @@ static PyObject *__pyx_pf_9curlparse_44quote_plus(CYTHON_UNUSED PyObject *__pyx_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_47quote_from_bytes(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_9curlparse_46quote_from_bytes[] = "Like quote(), but accepts a bytes object rather than a str, and does\n    not perform string-to-bytes encoding.  It always returns an ASCII string.\n    quote_from_bytes(b'abc def?') -> 'abc%20def%3f'\n    ";
-static PyMethodDef __pyx_mdef_9curlparse_47quote_from_bytes = {"quote_from_bytes", (PyCFunction)__pyx_pw_9curlparse_47quote_from_bytes, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_46quote_from_bytes};
-static PyObject *__pyx_pw_9curlparse_47quote_from_bytes(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_9curlparse_49quote_from_bytes(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_9curlparse_48quote_from_bytes[] = "Like quote(), but accepts a bytes object rather than a str, and does\n    not perform string-to-bytes encoding.  It always returns an ASCII string.\n    quote_from_bytes(b'abc def?') -> 'abc%20def%3f'\n    ";
+static PyMethodDef __pyx_mdef_9curlparse_49quote_from_bytes = {"quote_from_bytes", (PyCFunction)__pyx_pw_9curlparse_49quote_from_bytes, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_48quote_from_bytes};
+static PyObject *__pyx_pw_9curlparse_49quote_from_bytes(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_bs = 0;
   PyObject *__pyx_v_safe = 0;
   PyObject *__pyx_r = 0;
@@ -17874,7 +19019,7 @@ static PyObject *__pyx_pw_9curlparse_47quote_from_bytes(PyObject *__pyx_self, Py
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "quote_from_bytes") < 0)) __PYX_ERR(0, 930, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "quote_from_bytes") < 0)) __PYX_ERR(0, 956, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -17889,20 +19034,20 @@ static PyObject *__pyx_pw_9curlparse_47quote_from_bytes(PyObject *__pyx_self, Py
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("quote_from_bytes", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 930, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("quote_from_bytes", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 956, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("curlparse.quote_from_bytes", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_9curlparse_46quote_from_bytes(__pyx_self, __pyx_v_bs, __pyx_v_safe);
+  __pyx_r = __pyx_pf_9curlparse_48quote_from_bytes(__pyx_self, __pyx_v_bs, __pyx_v_safe);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_bs, PyObject *__pyx_v_safe) {
+static PyObject *__pyx_pf_9curlparse_48quote_from_bytes(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_bs, PyObject *__pyx_v_safe) {
   PyObject *__pyx_v_quoter = NULL;
   PyObject *__pyx_v_c = NULL;
   PyObject *__pyx_v_char = NULL;
@@ -17927,7 +19072,7 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
   __Pyx_RefNannySetupContext("quote_from_bytes", 0);
   __Pyx_INCREF(__pyx_v_safe);
 
-  /* "curlparse.pyx":935
+  /* "curlparse.pyx":961
  *     quote_from_bytes(b'abc def\x3f') -> 'abc%20def%3f'
  *     """
  *     if not isinstance(bs, (bytes, bytearray)):             # <<<<<<<<<<<<<<
@@ -17948,20 +19093,20 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
   __pyx_t_2 = ((!(__pyx_t_1 != 0)) != 0);
   if (__pyx_t_2) {
 
-    /* "curlparse.pyx":936
+    /* "curlparse.pyx":962
  *     """
  *     if not isinstance(bs, (bytes, bytearray)):
  *         raise TypeError("quote_from_bytes() expected bytes")             # <<<<<<<<<<<<<<
  *     if not bs:
  *         return ''
  */
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__51, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 936, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__62, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 962, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_Raise(__pyx_t_4, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __PYX_ERR(0, 936, __pyx_L1_error)
+    __PYX_ERR(0, 962, __pyx_L1_error)
 
-    /* "curlparse.pyx":935
+    /* "curlparse.pyx":961
  *     quote_from_bytes(b'abc def\x3f') -> 'abc%20def%3f'
  *     """
  *     if not isinstance(bs, (bytes, bytearray)):             # <<<<<<<<<<<<<<
@@ -17970,18 +19115,18 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
  */
   }
 
-  /* "curlparse.pyx":937
+  /* "curlparse.pyx":963
  *     if not isinstance(bs, (bytes, bytearray)):
  *         raise TypeError("quote_from_bytes() expected bytes")
  *     if not bs:             # <<<<<<<<<<<<<<
  *         return ''
  *     if isinstance(safe, str):
  */
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_bs); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 937, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_bs); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 963, __pyx_L1_error)
   __pyx_t_1 = ((!__pyx_t_2) != 0);
   if (__pyx_t_1) {
 
-    /* "curlparse.pyx":938
+    /* "curlparse.pyx":964
  *         raise TypeError("quote_from_bytes() expected bytes")
  *     if not bs:
  *         return ''             # <<<<<<<<<<<<<<
@@ -17993,7 +19138,7 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
     __pyx_r = __pyx_kp_s__5;
     goto __pyx_L0;
 
-    /* "curlparse.pyx":937
+    /* "curlparse.pyx":963
  *     if not isinstance(bs, (bytes, bytearray)):
  *         raise TypeError("quote_from_bytes() expected bytes")
  *     if not bs:             # <<<<<<<<<<<<<<
@@ -18002,7 +19147,7 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
  */
   }
 
-  /* "curlparse.pyx":939
+  /* "curlparse.pyx":965
  *     if not bs:
  *         return ''
  *     if isinstance(safe, str):             # <<<<<<<<<<<<<<
@@ -18013,22 +19158,22 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "curlparse.pyx":941
+    /* "curlparse.pyx":967
  *     if isinstance(safe, str):
  *         # Normalize 'safe' by converting to bytes and removing non-ASCII chars
  *         safe = safe.encode('ascii', 'ignore')             # <<<<<<<<<<<<<<
  *     else:
  *         safe = bytes([c for c in safe if c < 128])
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_safe, __pyx_n_s_encode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 941, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_safe, __pyx_n_s_encode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 967, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__52, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 941, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__63, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 967, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF_SET(__pyx_v_safe, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "curlparse.pyx":939
+    /* "curlparse.pyx":965
  *     if not bs:
  *         return ''
  *     if isinstance(safe, str):             # <<<<<<<<<<<<<<
@@ -18038,7 +19183,7 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
     goto __pyx_L7;
   }
 
-  /* "curlparse.pyx":943
+  /* "curlparse.pyx":969
  *         safe = safe.encode('ascii', 'ignore')
  *     else:
  *         safe = bytes([c for c in safe if c < 128])             # <<<<<<<<<<<<<<
@@ -18046,32 +19191,32 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
  *         return bs.decode()
  */
   /*else*/ {
-    __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 943, __pyx_L1_error)
+    __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 969, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     if (likely(PyList_CheckExact(__pyx_v_safe)) || PyTuple_CheckExact(__pyx_v_safe)) {
       __pyx_t_4 = __pyx_v_safe; __Pyx_INCREF(__pyx_t_4); __pyx_t_6 = 0;
       __pyx_t_7 = NULL;
     } else {
-      __pyx_t_6 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_v_safe); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 943, __pyx_L1_error)
+      __pyx_t_6 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_v_safe); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 969, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_7 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 943, __pyx_L1_error)
+      __pyx_t_7 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 969, __pyx_L1_error)
     }
     for (;;) {
       if (likely(!__pyx_t_7)) {
         if (likely(PyList_CheckExact(__pyx_t_4))) {
           if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_4)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_8 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_6); __Pyx_INCREF(__pyx_t_8); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 943, __pyx_L1_error)
+          __pyx_t_8 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_6); __Pyx_INCREF(__pyx_t_8); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 969, __pyx_L1_error)
           #else
-          __pyx_t_8 = PySequence_ITEM(__pyx_t_4, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 943, __pyx_L1_error)
+          __pyx_t_8 = PySequence_ITEM(__pyx_t_4, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 969, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
           #endif
         } else {
           if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_8 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_6); __Pyx_INCREF(__pyx_t_8); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 943, __pyx_L1_error)
+          __pyx_t_8 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_6); __Pyx_INCREF(__pyx_t_8); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 969, __pyx_L1_error)
           #else
-          __pyx_t_8 = PySequence_ITEM(__pyx_t_4, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 943, __pyx_L1_error)
+          __pyx_t_8 = PySequence_ITEM(__pyx_t_4, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 969, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
           #endif
         }
@@ -18081,7 +19226,7 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 943, __pyx_L1_error)
+            else __PYX_ERR(0, 969, __pyx_L1_error)
           }
           break;
         }
@@ -18089,20 +19234,20 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
       }
       __Pyx_XDECREF_SET(__pyx_v_c, __pyx_t_8);
       __pyx_t_8 = 0;
-      __pyx_t_8 = PyObject_RichCompare(__pyx_v_c, __pyx_int_128, Py_LT); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 943, __pyx_L1_error)
-      __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 943, __pyx_L1_error)
+      __pyx_t_8 = PyObject_RichCompare(__pyx_v_c, __pyx_int_128, Py_LT); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 969, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 969, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       if (__pyx_t_2) {
-        if (unlikely(__Pyx_ListComp_Append(__pyx_t_5, (PyObject*)__pyx_v_c))) __PYX_ERR(0, 943, __pyx_L1_error)
+        if (unlikely(__Pyx_ListComp_Append(__pyx_t_5, (PyObject*)__pyx_v_c))) __PYX_ERR(0, 969, __pyx_L1_error)
       }
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 943, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 969, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_GIVEREF(__pyx_t_5);
     PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5);
     __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)(&PyBytes_Type)), __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 943, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)(&PyBytes_Type)), __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 969, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF_SET(__pyx_v_safe, __pyx_t_5);
@@ -18110,18 +19255,18 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
   }
   __pyx_L7:;
 
-  /* "curlparse.pyx":944
+  /* "curlparse.pyx":970
  *     else:
  *         safe = bytes([c for c in safe if c < 128])
  *     if not bs.rstrip(_ALWAYS_SAFE_BYTES + safe):             # <<<<<<<<<<<<<<
  *         return bs.decode()
  *     try:
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_bs, __pyx_n_s_rstrip); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 944, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_bs, __pyx_n_s_rstrip); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 970, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_ALWAYS_SAFE_BYTES); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 944, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_ALWAYS_SAFE_BYTES); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 970, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_9 = PyNumber_Add(__pyx_t_8, __pyx_v_safe); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 944, __pyx_L1_error)
+  __pyx_t_9 = PyNumber_Add(__pyx_t_8, __pyx_v_safe); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 970, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __pyx_t_8 = NULL;
@@ -18135,27 +19280,27 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
     }
   }
   if (!__pyx_t_8) {
-    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_9); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 944, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_9); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 970, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_GOTREF(__pyx_t_5);
   } else {
-    __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 944, __pyx_L1_error)
+    __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 970, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_8); __pyx_t_8 = NULL;
     __Pyx_GIVEREF(__pyx_t_9);
     PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_t_9);
     __pyx_t_9 = 0;
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_10, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 944, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_10, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 970, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 944, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 970, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_1 = ((!__pyx_t_2) != 0);
   if (__pyx_t_1) {
 
-    /* "curlparse.pyx":945
+    /* "curlparse.pyx":971
  *         safe = bytes([c for c in safe if c < 128])
  *     if not bs.rstrip(_ALWAYS_SAFE_BYTES + safe):
  *         return bs.decode()             # <<<<<<<<<<<<<<
@@ -18163,7 +19308,7 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
  *         quoter = _safe_quoters[safe]
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_bs, __pyx_n_s_decode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 945, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_bs, __pyx_n_s_decode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 971, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_10 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_4))) {
@@ -18176,10 +19321,10 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
       }
     }
     if (__pyx_t_10) {
-      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 945, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 971, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     } else {
-      __pyx_t_5 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 945, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 971, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -18187,7 +19332,7 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
     __pyx_t_5 = 0;
     goto __pyx_L0;
 
-    /* "curlparse.pyx":944
+    /* "curlparse.pyx":970
  *     else:
  *         safe = bytes([c for c in safe if c < 128])
  *     if not bs.rstrip(_ALWAYS_SAFE_BYTES + safe):             # <<<<<<<<<<<<<<
@@ -18196,7 +19341,7 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
  */
   }
 
-  /* "curlparse.pyx":946
+  /* "curlparse.pyx":972
  *     if not bs.rstrip(_ALWAYS_SAFE_BYTES + safe):
  *         return bs.decode()
  *     try:             # <<<<<<<<<<<<<<
@@ -18212,22 +19357,22 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
     __Pyx_XGOTREF(__pyx_t_13);
     /*try:*/ {
 
-      /* "curlparse.pyx":947
+      /* "curlparse.pyx":973
  *         return bs.decode()
  *     try:
  *         quoter = _safe_quoters[safe]             # <<<<<<<<<<<<<<
  *     except KeyError:
  *         _safe_quoters[safe] = quoter = Quoter(safe).__getitem__
  */
-      __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_safe_quoters); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 947, __pyx_L12_error)
+      __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_safe_quoters); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 973, __pyx_L12_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_4 = PyObject_GetItem(__pyx_t_5, __pyx_v_safe); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 947, __pyx_L12_error)
+      __pyx_t_4 = PyObject_GetItem(__pyx_t_5, __pyx_v_safe); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 973, __pyx_L12_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __pyx_v_quoter = __pyx_t_4;
       __pyx_t_4 = 0;
 
-      /* "curlparse.pyx":946
+      /* "curlparse.pyx":972
  *     if not bs.rstrip(_ALWAYS_SAFE_BYTES + safe):
  *         return bs.decode()
  *     try:             # <<<<<<<<<<<<<<
@@ -18247,7 +19392,7 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "curlparse.pyx":948
+    /* "curlparse.pyx":974
  *     try:
  *         quoter = _safe_quoters[safe]
  *     except KeyError:             # <<<<<<<<<<<<<<
@@ -18257,19 +19402,19 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
     __pyx_t_14 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
     if (__pyx_t_14) {
       __Pyx_AddTraceback("curlparse.quote_from_bytes", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_5, &__pyx_t_10) < 0) __PYX_ERR(0, 948, __pyx_L14_except_error)
+      if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_5, &__pyx_t_10) < 0) __PYX_ERR(0, 974, __pyx_L14_except_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_GOTREF(__pyx_t_10);
 
-      /* "curlparse.pyx":949
+      /* "curlparse.pyx":975
  *         quoter = _safe_quoters[safe]
  *     except KeyError:
  *         _safe_quoters[safe] = quoter = Quoter(safe).__getitem__             # <<<<<<<<<<<<<<
  *     return ''.join([quoter(char) for char in bs])
  * 
  */
-      __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_Quoter); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 949, __pyx_L14_except_error)
+      __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_Quoter); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 975, __pyx_L14_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __pyx_t_15 = NULL;
       if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_8))) {
@@ -18282,26 +19427,26 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
         }
       }
       if (!__pyx_t_15) {
-        __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_safe); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 949, __pyx_L14_except_error)
+        __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_safe); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 975, __pyx_L14_except_error)
         __Pyx_GOTREF(__pyx_t_9);
       } else {
-        __pyx_t_16 = PyTuple_New(1+1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 949, __pyx_L14_except_error)
+        __pyx_t_16 = PyTuple_New(1+1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 975, __pyx_L14_except_error)
         __Pyx_GOTREF(__pyx_t_16);
         __Pyx_GIVEREF(__pyx_t_15); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_15); __pyx_t_15 = NULL;
         __Pyx_INCREF(__pyx_v_safe);
         __Pyx_GIVEREF(__pyx_v_safe);
         PyTuple_SET_ITEM(__pyx_t_16, 0+1, __pyx_v_safe);
-        __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_16, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 949, __pyx_L14_except_error)
+        __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_16, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 975, __pyx_L14_except_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
       }
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_getitem); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 949, __pyx_L14_except_error)
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_getitem); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 975, __pyx_L14_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_GetModuleGlobalName(__pyx_n_s_safe_quoters); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 949, __pyx_L14_except_error)
+      __pyx_t_9 = __Pyx_GetModuleGlobalName(__pyx_n_s_safe_quoters); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 975, __pyx_L14_except_error)
       __Pyx_GOTREF(__pyx_t_9);
-      if (unlikely(PyObject_SetItem(__pyx_t_9, __pyx_v_safe, __pyx_t_8) < 0)) __PYX_ERR(0, 949, __pyx_L14_except_error)
+      if (unlikely(PyObject_SetItem(__pyx_t_9, __pyx_v_safe, __pyx_t_8) < 0)) __PYX_ERR(0, 975, __pyx_L14_except_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       __Pyx_INCREF(__pyx_t_8);
       __Pyx_XDECREF_SET(__pyx_v_quoter, __pyx_t_8);
@@ -18314,7 +19459,7 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
     goto __pyx_L14_except_error;
     __pyx_L14_except_error:;
 
-    /* "curlparse.pyx":946
+    /* "curlparse.pyx":972
  *     if not bs.rstrip(_ALWAYS_SAFE_BYTES + safe):
  *         return bs.decode()
  *     try:             # <<<<<<<<<<<<<<
@@ -18336,7 +19481,7 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
     __pyx_L19_try_end:;
   }
 
-  /* "curlparse.pyx":950
+  /* "curlparse.pyx":976
  *     except KeyError:
  *         _safe_quoters[safe] = quoter = Quoter(safe).__getitem__
  *     return ''.join([quoter(char) for char in bs])             # <<<<<<<<<<<<<<
@@ -18344,32 +19489,32 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
  * def urlencode(query, doseq=False, safe='', encoding=None, errors=None,
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_10 = PyList_New(0); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 950, __pyx_L1_error)
+  __pyx_t_10 = PyList_New(0); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 976, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   if (likely(PyList_CheckExact(__pyx_v_bs)) || PyTuple_CheckExact(__pyx_v_bs)) {
     __pyx_t_5 = __pyx_v_bs; __Pyx_INCREF(__pyx_t_5); __pyx_t_6 = 0;
     __pyx_t_7 = NULL;
   } else {
-    __pyx_t_6 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_v_bs); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 950, __pyx_L1_error)
+    __pyx_t_6 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_v_bs); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 976, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_7 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 950, __pyx_L1_error)
+    __pyx_t_7 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 976, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_7)) {
       if (likely(PyList_CheckExact(__pyx_t_5))) {
         if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_5)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 950, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 976, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_5, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 950, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_5, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 976, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_5)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 950, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 976, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_5, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 950, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_5, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 976, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -18379,7 +19524,7 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 950, __pyx_L1_error)
+          else __PYX_ERR(0, 976, __pyx_L1_error)
         }
         break;
       }
@@ -18399,32 +19544,32 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
       }
     }
     if (!__pyx_t_9) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_char); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 950, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_char); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 976, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
     } else {
-      __pyx_t_16 = PyTuple_New(1+1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 950, __pyx_L1_error)
+      __pyx_t_16 = PyTuple_New(1+1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 976, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_16);
       __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_9); __pyx_t_9 = NULL;
       __Pyx_INCREF(__pyx_v_char);
       __Pyx_GIVEREF(__pyx_v_char);
       PyTuple_SET_ITEM(__pyx_t_16, 0+1, __pyx_v_char);
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 950, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 976, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
     }
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_10, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 950, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_10, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 976, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyString_Join(__pyx_kp_s__5, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 950, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyString_Join(__pyx_kp_s__5, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 976, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __pyx_r = __pyx_t_5;
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":930
+  /* "curlparse.pyx":956
  *     return string.replace(space, plus)
  * 
  * def quote_from_bytes(bs, safe='/'):             # <<<<<<<<<<<<<<
@@ -18453,7 +19598,7 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
   return __pyx_r;
 }
 
-/* "curlparse.pyx":952
+/* "curlparse.pyx":978
  *     return ''.join([quoter(char) for char in bs])
  * 
  * def urlencode(query, doseq=False, safe='', encoding=None, errors=None,             # <<<<<<<<<<<<<<
@@ -18462,10 +19607,10 @@ static PyObject *__pyx_pf_9curlparse_46quote_from_bytes(CYTHON_UNUSED PyObject *
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_49urlencode(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_9curlparse_48urlencode[] = "Encode a dict or sequence of two-element tuples into a URL query string.\n\n    If any values in the query arg are sequences and doseq is true, each\n    sequence element is converted to a separate parameter.\n\n    If the query arg is a sequence of two-element tuples, the order of the\n    parameters in the output will match the order of parameters in the\n    input.\n\n    The components of a query arg may each be either a string or a bytes type.\n\n    The safe, encoding, and errors parameters are passed down to the function\n    specified by quote_via (encoding and errors only if a component is a str).\n    ";
-static PyMethodDef __pyx_mdef_9curlparse_49urlencode = {"urlencode", (PyCFunction)__pyx_pw_9curlparse_49urlencode, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_48urlencode};
-static PyObject *__pyx_pw_9curlparse_49urlencode(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_9curlparse_51urlencode(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_9curlparse_50urlencode[] = "Encode a dict or sequence of two-element tuples into a URL query string.\n\n    If any values in the query arg are sequences and doseq is true, each\n    sequence element is converted to a separate parameter.\n\n    If the query arg is a sequence of two-element tuples, the order of the\n    parameters in the output will match the order of parameters in the\n    input.\n\n    The components of a query arg may each be either a string or a bytes type.\n\n    The safe, encoding, and errors parameters are passed down to the function\n    specified by quote_via (encoding and errors only if a component is a str).\n    ";
+static PyMethodDef __pyx_mdef_9curlparse_51urlencode = {"urlencode", (PyCFunction)__pyx_pw_9curlparse_51urlencode, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_50urlencode};
+static PyObject *__pyx_pw_9curlparse_51urlencode(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_query = 0;
   PyObject *__pyx_v_doseq = 0;
   PyObject *__pyx_v_safe = 0;
@@ -18482,7 +19627,7 @@ static PyObject *__pyx_pw_9curlparse_49urlencode(PyObject *__pyx_self, PyObject 
     values[2] = ((PyObject *)__pyx_kp_s__5);
     values[3] = ((PyObject *)Py_None);
     values[4] = ((PyObject *)Py_None);
-    values[5] = __pyx_k__53;
+    values[5] = __pyx_k__64;
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
@@ -18528,7 +19673,7 @@ static PyObject *__pyx_pw_9curlparse_49urlencode(PyObject *__pyx_self, PyObject 
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "urlencode") < 0)) __PYX_ERR(0, 952, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "urlencode") < 0)) __PYX_ERR(0, 978, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -18551,20 +19696,20 @@ static PyObject *__pyx_pw_9curlparse_49urlencode(PyObject *__pyx_self, PyObject 
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("urlencode", 0, 1, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 952, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("urlencode", 0, 1, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 978, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("curlparse.urlencode", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_9curlparse_48urlencode(__pyx_self, __pyx_v_query, __pyx_v_doseq, __pyx_v_safe, __pyx_v_encoding, __pyx_v_errors, __pyx_v_quote_via);
+  __pyx_r = __pyx_pf_9curlparse_50urlencode(__pyx_self, __pyx_v_query, __pyx_v_doseq, __pyx_v_safe, __pyx_v_encoding, __pyx_v_errors, __pyx_v_quote_via);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_query, PyObject *__pyx_v_doseq, PyObject *__pyx_v_safe, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors, PyObject *__pyx_v_quote_via) {
+static PyObject *__pyx_pf_9curlparse_50urlencode(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_query, PyObject *__pyx_v_doseq, PyObject *__pyx_v_safe, PyObject *__pyx_v_encoding, PyObject *__pyx_v_errors, PyObject *__pyx_v_quote_via) {
   CYTHON_UNUSED PyObject *__pyx_v_ty = NULL;
   CYTHON_UNUSED PyObject *__pyx_v_va = NULL;
   PyObject *__pyx_v_tb = NULL;
@@ -18601,25 +19746,25 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
   __Pyx_RefNannySetupContext("urlencode", 0);
   __Pyx_INCREF(__pyx_v_query);
 
-  /* "curlparse.pyx":969
+  /* "curlparse.pyx":995
  *     """
  * 
  *     if hasattr(query, "items"):             # <<<<<<<<<<<<<<
  *         query = query.items()
  *     else:
  */
-  __pyx_t_1 = PyObject_HasAttr(__pyx_v_query, __pyx_n_s_items); if (unlikely(__pyx_t_1 == -1)) __PYX_ERR(0, 969, __pyx_L1_error)
+  __pyx_t_1 = PyObject_HasAttr(__pyx_v_query, __pyx_n_s_items); if (unlikely(__pyx_t_1 == -1)) __PYX_ERR(0, 995, __pyx_L1_error)
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "curlparse.pyx":970
+    /* "curlparse.pyx":996
  * 
  *     if hasattr(query, "items"):
  *         query = query.items()             # <<<<<<<<<<<<<<
  *     else:
  *         # It's a bother at times that strings and string-like objects are
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_query, __pyx_n_s_items); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 970, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_query, __pyx_n_s_items); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 996, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_4))) {
@@ -18632,17 +19777,17 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
       }
     }
     if (__pyx_t_5) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 970, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 996, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     } else {
-      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 970, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 996, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF_SET(__pyx_v_query, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "curlparse.pyx":969
+    /* "curlparse.pyx":995
  *     """
  * 
  *     if hasattr(query, "items"):             # <<<<<<<<<<<<<<
@@ -18652,7 +19797,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
     goto __pyx_L3;
   }
 
-  /* "curlparse.pyx":974
+  /* "curlparse.pyx":1000
  *         # It's a bother at times that strings and string-like objects are
  *         # sequences.
  *         try:             # <<<<<<<<<<<<<<
@@ -18669,21 +19814,21 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
       __Pyx_XGOTREF(__pyx_t_8);
       /*try:*/ {
 
-        /* "curlparse.pyx":977
+        /* "curlparse.pyx":1003
  *             # non-sequence items should not work with len()
  *             # non-empty strings will fail this
  *             if len(query) and not isinstance(query[0], tuple):             # <<<<<<<<<<<<<<
  *                 raise TypeError
  *             # Zero-length sequences of all types will get here and succeed,
  */
-        __pyx_t_9 = PyObject_Length(__pyx_v_query); if (unlikely(__pyx_t_9 == -1)) __PYX_ERR(0, 977, __pyx_L4_error)
+        __pyx_t_9 = PyObject_Length(__pyx_v_query); if (unlikely(__pyx_t_9 == -1)) __PYX_ERR(0, 1003, __pyx_L4_error)
         __pyx_t_1 = (__pyx_t_9 != 0);
         if (__pyx_t_1) {
         } else {
           __pyx_t_2 = __pyx_t_1;
           goto __pyx_L13_bool_binop_done;
         }
-        __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_query, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 977, __pyx_L4_error)
+        __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_query, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1003, __pyx_L4_error)
         __Pyx_GOTREF(__pyx_t_3);
         __pyx_t_1 = PyTuple_Check(__pyx_t_3); 
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -18692,7 +19837,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         __pyx_L13_bool_binop_done:;
         if (__pyx_t_2) {
 
-          /* "curlparse.pyx":978
+          /* "curlparse.pyx":1004
  *             # non-empty strings will fail this
  *             if len(query) and not isinstance(query[0], tuple):
  *                 raise TypeError             # <<<<<<<<<<<<<<
@@ -18700,9 +19845,9 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
  *             # but that's a minor nit.  Since the original implementation
  */
           __Pyx_Raise(__pyx_builtin_TypeError, 0, 0, 0);
-          __PYX_ERR(0, 978, __pyx_L4_error)
+          __PYX_ERR(0, 1004, __pyx_L4_error)
 
-          /* "curlparse.pyx":977
+          /* "curlparse.pyx":1003
  *             # non-sequence items should not work with len()
  *             # non-empty strings will fail this
  *             if len(query) and not isinstance(query[0], tuple):             # <<<<<<<<<<<<<<
@@ -18711,7 +19856,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
  */
         }
 
-        /* "curlparse.pyx":974
+        /* "curlparse.pyx":1000
  *         # It's a bother at times that strings and string-like objects are
  *         # sequences.
  *         try:             # <<<<<<<<<<<<<<
@@ -18729,7 +19874,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "curlparse.pyx":983
+      /* "curlparse.pyx":1009
  *             # allowed empty dicts that type of behavior probably should be
  *             # preserved for consistency
  *         except TypeError:             # <<<<<<<<<<<<<<
@@ -18739,21 +19884,21 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
       __pyx_t_11 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_TypeError);
       if (__pyx_t_11) {
         __Pyx_AddTraceback("curlparse.urlencode", __pyx_clineno, __pyx_lineno, __pyx_filename);
-        if (__Pyx_GetException(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5) < 0) __PYX_ERR(0, 983, __pyx_L6_except_error)
+        if (__Pyx_GetException(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5) < 0) __PYX_ERR(0, 1009, __pyx_L6_except_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_GOTREF(__pyx_t_5);
 
-        /* "curlparse.pyx":984
+        /* "curlparse.pyx":1010
  *             # preserved for consistency
  *         except TypeError:
  *             ty, va, tb = sys.exc_info()             # <<<<<<<<<<<<<<
  *             raise TypeError("not a valid non-string sequence "
  *                             "or mapping object").with_traceback(tb)
  */
-        __pyx_t_13 = __Pyx_GetModuleGlobalName(__pyx_n_s_sys); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 984, __pyx_L6_except_error)
+        __pyx_t_13 = __Pyx_GetModuleGlobalName(__pyx_n_s_sys); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1010, __pyx_L6_except_error)
         __Pyx_GOTREF(__pyx_t_13);
-        __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_exc_info); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 984, __pyx_L6_except_error)
+        __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_exc_info); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1010, __pyx_L6_except_error)
         __Pyx_GOTREF(__pyx_t_14);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         __pyx_t_13 = NULL;
@@ -18767,10 +19912,10 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
           }
         }
         if (__pyx_t_13) {
-          __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_14, __pyx_t_13); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 984, __pyx_L6_except_error)
+          __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_14, __pyx_t_13); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1010, __pyx_L6_except_error)
           __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         } else {
-          __pyx_t_12 = __Pyx_PyObject_CallNoArg(__pyx_t_14); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 984, __pyx_L6_except_error)
+          __pyx_t_12 = __Pyx_PyObject_CallNoArg(__pyx_t_14); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1010, __pyx_L6_except_error)
         }
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -18784,7 +19929,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
           if (unlikely(size != 3)) {
             if (size > 3) __Pyx_RaiseTooManyValuesError(3);
             else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-            __PYX_ERR(0, 984, __pyx_L6_except_error)
+            __PYX_ERR(0, 1010, __pyx_L6_except_error)
           }
           #if CYTHON_COMPILING_IN_CPYTHON
           if (likely(PyTuple_CheckExact(sequence))) {
@@ -18800,17 +19945,17 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
           __Pyx_INCREF(__pyx_t_13);
           __Pyx_INCREF(__pyx_t_15);
           #else
-          __pyx_t_14 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 984, __pyx_L6_except_error)
+          __pyx_t_14 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1010, __pyx_L6_except_error)
           __Pyx_GOTREF(__pyx_t_14);
-          __pyx_t_13 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 984, __pyx_L6_except_error)
+          __pyx_t_13 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1010, __pyx_L6_except_error)
           __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_15 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 984, __pyx_L6_except_error)
+          __pyx_t_15 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1010, __pyx_L6_except_error)
           __Pyx_GOTREF(__pyx_t_15);
           #endif
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         } else {
           Py_ssize_t index = -1;
-          __pyx_t_16 = PyObject_GetIter(__pyx_t_12); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 984, __pyx_L6_except_error)
+          __pyx_t_16 = PyObject_GetIter(__pyx_t_12); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1010, __pyx_L6_except_error)
           __Pyx_GOTREF(__pyx_t_16);
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
           __pyx_t_17 = Py_TYPE(__pyx_t_16)->tp_iternext;
@@ -18820,7 +19965,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
           __Pyx_GOTREF(__pyx_t_13);
           index = 2; __pyx_t_15 = __pyx_t_17(__pyx_t_16); if (unlikely(!__pyx_t_15)) goto __pyx_L17_unpacking_failed;
           __Pyx_GOTREF(__pyx_t_15);
-          if (__Pyx_IternextUnpackEndCheck(__pyx_t_17(__pyx_t_16), 3) < 0) __PYX_ERR(0, 984, __pyx_L6_except_error)
+          if (__Pyx_IternextUnpackEndCheck(__pyx_t_17(__pyx_t_16), 3) < 0) __PYX_ERR(0, 1010, __pyx_L6_except_error)
           __pyx_t_17 = NULL;
           __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
           goto __pyx_L18_unpacking_done;
@@ -18828,7 +19973,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
           __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
           __pyx_t_17 = NULL;
           if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-          __PYX_ERR(0, 984, __pyx_L6_except_error)
+          __PYX_ERR(0, 1010, __pyx_L6_except_error)
           __pyx_L18_unpacking_done:;
         }
         __pyx_v_ty = __pyx_t_14;
@@ -18838,24 +19983,24 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         __pyx_v_tb = __pyx_t_15;
         __pyx_t_15 = 0;
 
-        /* "curlparse.pyx":985
+        /* "curlparse.pyx":1011
  *         except TypeError:
  *             ty, va, tb = sys.exc_info()
  *             raise TypeError("not a valid non-string sequence "             # <<<<<<<<<<<<<<
  *                             "or mapping object").with_traceback(tb)
  * 
  */
-        __pyx_t_15 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__54, NULL); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 985, __pyx_L6_except_error)
+        __pyx_t_15 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__65, NULL); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1011, __pyx_L6_except_error)
         __Pyx_GOTREF(__pyx_t_15);
 
-        /* "curlparse.pyx":986
+        /* "curlparse.pyx":1012
  *             ty, va, tb = sys.exc_info()
  *             raise TypeError("not a valid non-string sequence "
  *                             "or mapping object").with_traceback(tb)             # <<<<<<<<<<<<<<
  * 
  *     l = []
  */
-        __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_15, __pyx_n_s_with_traceback); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 986, __pyx_L6_except_error)
+        __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_15, __pyx_n_s_with_traceback); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1012, __pyx_L6_except_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
         __pyx_t_15 = NULL;
@@ -18869,28 +20014,28 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
           }
         }
         if (!__pyx_t_15) {
-          __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_13, __pyx_v_tb); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 986, __pyx_L6_except_error)
+          __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_13, __pyx_v_tb); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1012, __pyx_L6_except_error)
           __Pyx_GOTREF(__pyx_t_12);
         } else {
-          __pyx_t_14 = PyTuple_New(1+1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 986, __pyx_L6_except_error)
+          __pyx_t_14 = PyTuple_New(1+1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1012, __pyx_L6_except_error)
           __Pyx_GOTREF(__pyx_t_14);
           __Pyx_GIVEREF(__pyx_t_15); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_15); __pyx_t_15 = NULL;
           __Pyx_INCREF(__pyx_v_tb);
           __Pyx_GIVEREF(__pyx_v_tb);
           PyTuple_SET_ITEM(__pyx_t_14, 0+1, __pyx_v_tb);
-          __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_13, __pyx_t_14, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 986, __pyx_L6_except_error)
+          __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_13, __pyx_t_14, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1012, __pyx_L6_except_error)
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
         }
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         __Pyx_Raise(__pyx_t_12, 0, 0, 0);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __PYX_ERR(0, 985, __pyx_L6_except_error)
+        __PYX_ERR(0, 1011, __pyx_L6_except_error)
       }
       goto __pyx_L6_except_error;
       __pyx_L6_except_error:;
 
-      /* "curlparse.pyx":974
+      /* "curlparse.pyx":1000
  *         # It's a bother at times that strings and string-like objects are
  *         # sequences.
  *         try:             # <<<<<<<<<<<<<<
@@ -18908,30 +20053,30 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
   }
   __pyx_L3:;
 
-  /* "curlparse.pyx":988
+  /* "curlparse.pyx":1014
  *                             "or mapping object").with_traceback(tb)
  * 
  *     l = []             # <<<<<<<<<<<<<<
  *     if not doseq:
  *         for k, v in query:
  */
-  __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 988, __pyx_L1_error)
+  __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1014, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_v_l = ((PyObject*)__pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "curlparse.pyx":989
+  /* "curlparse.pyx":1015
  * 
  *     l = []
  *     if not doseq:             # <<<<<<<<<<<<<<
  *         for k, v in query:
  *             if isinstance(k, bytes):
  */
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_doseq); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 989, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_doseq); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 1015, __pyx_L1_error)
   __pyx_t_10 = ((!__pyx_t_2) != 0);
   if (__pyx_t_10) {
 
-    /* "curlparse.pyx":990
+    /* "curlparse.pyx":1016
  *     l = []
  *     if not doseq:
  *         for k, v in query:             # <<<<<<<<<<<<<<
@@ -18942,26 +20087,26 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
       __pyx_t_5 = __pyx_v_query; __Pyx_INCREF(__pyx_t_5); __pyx_t_9 = 0;
       __pyx_t_18 = NULL;
     } else {
-      __pyx_t_9 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_v_query); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 990, __pyx_L1_error)
+      __pyx_t_9 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_v_query); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1016, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_18 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 990, __pyx_L1_error)
+      __pyx_t_18 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1016, __pyx_L1_error)
     }
     for (;;) {
       if (likely(!__pyx_t_18)) {
         if (likely(PyList_CheckExact(__pyx_t_5))) {
           if (__pyx_t_9 >= PyList_GET_SIZE(__pyx_t_5)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_9); __Pyx_INCREF(__pyx_t_4); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 990, __pyx_L1_error)
+          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_9); __Pyx_INCREF(__pyx_t_4); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 1016, __pyx_L1_error)
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_5, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 990, __pyx_L1_error)
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_5, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1016, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         } else {
           if (__pyx_t_9 >= PyTuple_GET_SIZE(__pyx_t_5)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_9); __Pyx_INCREF(__pyx_t_4); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 990, __pyx_L1_error)
+          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_9); __Pyx_INCREF(__pyx_t_4); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 1016, __pyx_L1_error)
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_5, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 990, __pyx_L1_error)
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_5, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1016, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         }
@@ -18971,7 +20116,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 990, __pyx_L1_error)
+            else __PYX_ERR(0, 1016, __pyx_L1_error)
           }
           break;
         }
@@ -18987,7 +20132,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         if (unlikely(size != 2)) {
           if (size > 2) __Pyx_RaiseTooManyValuesError(2);
           else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-          __PYX_ERR(0, 990, __pyx_L1_error)
+          __PYX_ERR(0, 1016, __pyx_L1_error)
         }
         #if CYTHON_COMPILING_IN_CPYTHON
         if (likely(PyTuple_CheckExact(sequence))) {
@@ -19000,15 +20145,15 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         __Pyx_INCREF(__pyx_t_3);
         __Pyx_INCREF(__pyx_t_12);
         #else
-        __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 990, __pyx_L1_error)
+        __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1016, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_12 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 990, __pyx_L1_error)
+        __pyx_t_12 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1016, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         #endif
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       } else {
         Py_ssize_t index = -1;
-        __pyx_t_13 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 990, __pyx_L1_error)
+        __pyx_t_13 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1016, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_t_17 = Py_TYPE(__pyx_t_13)->tp_iternext;
@@ -19016,7 +20161,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         __Pyx_GOTREF(__pyx_t_3);
         index = 1; __pyx_t_12 = __pyx_t_17(__pyx_t_13); if (unlikely(!__pyx_t_12)) goto __pyx_L22_unpacking_failed;
         __Pyx_GOTREF(__pyx_t_12);
-        if (__Pyx_IternextUnpackEndCheck(__pyx_t_17(__pyx_t_13), 2) < 0) __PYX_ERR(0, 990, __pyx_L1_error)
+        if (__Pyx_IternextUnpackEndCheck(__pyx_t_17(__pyx_t_13), 2) < 0) __PYX_ERR(0, 1016, __pyx_L1_error)
         __pyx_t_17 = NULL;
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         goto __pyx_L23_unpacking_done;
@@ -19024,7 +20169,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         __pyx_t_17 = NULL;
         if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-        __PYX_ERR(0, 990, __pyx_L1_error)
+        __PYX_ERR(0, 1016, __pyx_L1_error)
         __pyx_L23_unpacking_done:;
       }
       __Pyx_XDECREF_SET(__pyx_v_k, __pyx_t_3);
@@ -19032,7 +20177,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
       __Pyx_XDECREF_SET(__pyx_v_v, __pyx_t_12);
       __pyx_t_12 = 0;
 
-      /* "curlparse.pyx":991
+      /* "curlparse.pyx":1017
  *     if not doseq:
  *         for k, v in query:
  *             if isinstance(k, bytes):             # <<<<<<<<<<<<<<
@@ -19043,7 +20188,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
       __pyx_t_2 = (__pyx_t_10 != 0);
       if (__pyx_t_2) {
 
-        /* "curlparse.pyx":992
+        /* "curlparse.pyx":1018
  *         for k, v in query:
  *             if isinstance(k, bytes):
  *                 k = quote_via(k, safe)             # <<<<<<<<<<<<<<
@@ -19063,7 +20208,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
             __pyx_t_19 = 1;
           }
         }
-        __pyx_t_13 = PyTuple_New(2+__pyx_t_19); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 992, __pyx_L1_error)
+        __pyx_t_13 = PyTuple_New(2+__pyx_t_19); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1018, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         if (__pyx_t_3) {
           __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_3); __pyx_t_3 = NULL;
@@ -19074,14 +20219,14 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         __Pyx_INCREF(__pyx_v_safe);
         __Pyx_GIVEREF(__pyx_v_safe);
         PyTuple_SET_ITEM(__pyx_t_13, 1+__pyx_t_19, __pyx_v_safe);
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_13, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 992, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_13, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1018, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_DECREF_SET(__pyx_v_k, __pyx_t_4);
         __pyx_t_4 = 0;
 
-        /* "curlparse.pyx":991
+        /* "curlparse.pyx":1017
  *     if not doseq:
  *         for k, v in query:
  *             if isinstance(k, bytes):             # <<<<<<<<<<<<<<
@@ -19091,7 +20236,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         goto __pyx_L24;
       }
 
-      /* "curlparse.pyx":994
+      /* "curlparse.pyx":1020
  *                 k = quote_via(k, safe)
  *             else:
  *                 k = quote_via(str(k), safe, encoding, errors)             # <<<<<<<<<<<<<<
@@ -19099,12 +20244,12 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
  *             if isinstance(v, bytes):
  */
       /*else*/ {
-        __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 994, __pyx_L1_error)
+        __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1020, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_INCREF(__pyx_v_k);
         __Pyx_GIVEREF(__pyx_v_k);
         PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_v_k);
-        __pyx_t_13 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_12, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 994, __pyx_L1_error)
+        __pyx_t_13 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_12, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1020, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_INCREF(__pyx_v_quote_via);
@@ -19120,7 +20265,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
             __pyx_t_19 = 1;
           }
         }
-        __pyx_t_14 = PyTuple_New(4+__pyx_t_19); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 994, __pyx_L1_error)
+        __pyx_t_14 = PyTuple_New(4+__pyx_t_19); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1020, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         if (__pyx_t_3) {
           __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_3); __pyx_t_3 = NULL;
@@ -19137,7 +20282,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         __Pyx_GIVEREF(__pyx_v_errors);
         PyTuple_SET_ITEM(__pyx_t_14, 3+__pyx_t_19, __pyx_v_errors);
         __pyx_t_13 = 0;
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 994, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1020, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
@@ -19146,7 +20291,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
       }
       __pyx_L24:;
 
-      /* "curlparse.pyx":996
+      /* "curlparse.pyx":1022
  *                 k = quote_via(str(k), safe, encoding, errors)
  * 
  *             if isinstance(v, bytes):             # <<<<<<<<<<<<<<
@@ -19157,7 +20302,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
       __pyx_t_10 = (__pyx_t_2 != 0);
       if (__pyx_t_10) {
 
-        /* "curlparse.pyx":997
+        /* "curlparse.pyx":1023
  * 
  *             if isinstance(v, bytes):
  *                 v = quote_via(v, safe)             # <<<<<<<<<<<<<<
@@ -19177,7 +20322,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
             __pyx_t_19 = 1;
           }
         }
-        __pyx_t_13 = PyTuple_New(2+__pyx_t_19); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 997, __pyx_L1_error)
+        __pyx_t_13 = PyTuple_New(2+__pyx_t_19); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1023, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         if (__pyx_t_14) {
           __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_14); __pyx_t_14 = NULL;
@@ -19188,14 +20333,14 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         __Pyx_INCREF(__pyx_v_safe);
         __Pyx_GIVEREF(__pyx_v_safe);
         PyTuple_SET_ITEM(__pyx_t_13, 1+__pyx_t_19, __pyx_v_safe);
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_13, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 997, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_13, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1023, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_DECREF_SET(__pyx_v_v, __pyx_t_4);
         __pyx_t_4 = 0;
 
-        /* "curlparse.pyx":996
+        /* "curlparse.pyx":1022
  *                 k = quote_via(str(k), safe, encoding, errors)
  * 
  *             if isinstance(v, bytes):             # <<<<<<<<<<<<<<
@@ -19205,7 +20350,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         goto __pyx_L25;
       }
 
-      /* "curlparse.pyx":999
+      /* "curlparse.pyx":1025
  *                 v = quote_via(v, safe)
  *             else:
  *                 v = quote_via(str(v), safe, encoding, errors)             # <<<<<<<<<<<<<<
@@ -19213,12 +20358,12 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
  *     else:
  */
       /*else*/ {
-        __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 999, __pyx_L1_error)
+        __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1025, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_INCREF(__pyx_v_v);
         __Pyx_GIVEREF(__pyx_v_v);
         PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_v_v);
-        __pyx_t_13 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_12, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 999, __pyx_L1_error)
+        __pyx_t_13 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_12, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1025, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_INCREF(__pyx_v_quote_via);
@@ -19234,7 +20379,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
             __pyx_t_19 = 1;
           }
         }
-        __pyx_t_3 = PyTuple_New(4+__pyx_t_19); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 999, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_New(4+__pyx_t_19); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1025, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         if (__pyx_t_14) {
           __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_14); __pyx_t_14 = NULL;
@@ -19251,7 +20396,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         __Pyx_GIVEREF(__pyx_v_errors);
         PyTuple_SET_ITEM(__pyx_t_3, 3+__pyx_t_19, __pyx_v_errors);
         __pyx_t_13 = 0;
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 999, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1025, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
@@ -19260,22 +20405,22 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
       }
       __pyx_L25:;
 
-      /* "curlparse.pyx":1000
+      /* "curlparse.pyx":1026
  *             else:
  *                 v = quote_via(str(v), safe, encoding, errors)
  *             l.append(k + '=' + v)             # <<<<<<<<<<<<<<
  *     else:
  *         for k, v in query:
  */
-      __pyx_t_4 = PyNumber_Add(__pyx_v_k, __pyx_kp_s__46); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1000, __pyx_L1_error)
+      __pyx_t_4 = PyNumber_Add(__pyx_v_k, __pyx_kp_s__57); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1026, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_12 = PyNumber_Add(__pyx_t_4, __pyx_v_v); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1000, __pyx_L1_error)
+      __pyx_t_12 = PyNumber_Add(__pyx_t_4, __pyx_v_v); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1026, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_20 = __Pyx_PyList_Append(__pyx_v_l, __pyx_t_12); if (unlikely(__pyx_t_20 == -1)) __PYX_ERR(0, 1000, __pyx_L1_error)
+      __pyx_t_20 = __Pyx_PyList_Append(__pyx_v_l, __pyx_t_12); if (unlikely(__pyx_t_20 == -1)) __PYX_ERR(0, 1026, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-      /* "curlparse.pyx":990
+      /* "curlparse.pyx":1016
  *     l = []
  *     if not doseq:
  *         for k, v in query:             # <<<<<<<<<<<<<<
@@ -19285,7 +20430,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
     }
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "curlparse.pyx":989
+    /* "curlparse.pyx":1015
  * 
  *     l = []
  *     if not doseq:             # <<<<<<<<<<<<<<
@@ -19295,7 +20440,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
     goto __pyx_L19;
   }
 
-  /* "curlparse.pyx":1002
+  /* "curlparse.pyx":1028
  *             l.append(k + '=' + v)
  *     else:
  *         for k, v in query:             # <<<<<<<<<<<<<<
@@ -19307,26 +20452,26 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
       __pyx_t_5 = __pyx_v_query; __Pyx_INCREF(__pyx_t_5); __pyx_t_9 = 0;
       __pyx_t_18 = NULL;
     } else {
-      __pyx_t_9 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_v_query); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1002, __pyx_L1_error)
+      __pyx_t_9 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_v_query); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1028, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_18 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1002, __pyx_L1_error)
+      __pyx_t_18 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1028, __pyx_L1_error)
     }
     for (;;) {
       if (likely(!__pyx_t_18)) {
         if (likely(PyList_CheckExact(__pyx_t_5))) {
           if (__pyx_t_9 >= PyList_GET_SIZE(__pyx_t_5)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_12 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_9); __Pyx_INCREF(__pyx_t_12); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 1002, __pyx_L1_error)
+          __pyx_t_12 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_9); __Pyx_INCREF(__pyx_t_12); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 1028, __pyx_L1_error)
           #else
-          __pyx_t_12 = PySequence_ITEM(__pyx_t_5, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1002, __pyx_L1_error)
+          __pyx_t_12 = PySequence_ITEM(__pyx_t_5, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1028, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           #endif
         } else {
           if (__pyx_t_9 >= PyTuple_GET_SIZE(__pyx_t_5)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_12 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_9); __Pyx_INCREF(__pyx_t_12); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 1002, __pyx_L1_error)
+          __pyx_t_12 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_9); __Pyx_INCREF(__pyx_t_12); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 1028, __pyx_L1_error)
           #else
-          __pyx_t_12 = PySequence_ITEM(__pyx_t_5, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1002, __pyx_L1_error)
+          __pyx_t_12 = PySequence_ITEM(__pyx_t_5, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1028, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           #endif
         }
@@ -19336,7 +20481,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 1002, __pyx_L1_error)
+            else __PYX_ERR(0, 1028, __pyx_L1_error)
           }
           break;
         }
@@ -19352,7 +20497,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         if (unlikely(size != 2)) {
           if (size > 2) __Pyx_RaiseTooManyValuesError(2);
           else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-          __PYX_ERR(0, 1002, __pyx_L1_error)
+          __PYX_ERR(0, 1028, __pyx_L1_error)
         }
         #if CYTHON_COMPILING_IN_CPYTHON
         if (likely(PyTuple_CheckExact(sequence))) {
@@ -19365,15 +20510,15 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         __Pyx_INCREF(__pyx_t_4);
         __Pyx_INCREF(__pyx_t_3);
         #else
-        __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1002, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1028, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1002, __pyx_L1_error)
+        __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1028, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         #endif
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
       } else {
         Py_ssize_t index = -1;
-        __pyx_t_13 = PyObject_GetIter(__pyx_t_12); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1002, __pyx_L1_error)
+        __pyx_t_13 = PyObject_GetIter(__pyx_t_12); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1028, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         __pyx_t_17 = Py_TYPE(__pyx_t_13)->tp_iternext;
@@ -19381,7 +20526,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         __Pyx_GOTREF(__pyx_t_4);
         index = 1; __pyx_t_3 = __pyx_t_17(__pyx_t_13); if (unlikely(!__pyx_t_3)) goto __pyx_L28_unpacking_failed;
         __Pyx_GOTREF(__pyx_t_3);
-        if (__Pyx_IternextUnpackEndCheck(__pyx_t_17(__pyx_t_13), 2) < 0) __PYX_ERR(0, 1002, __pyx_L1_error)
+        if (__Pyx_IternextUnpackEndCheck(__pyx_t_17(__pyx_t_13), 2) < 0) __PYX_ERR(0, 1028, __pyx_L1_error)
         __pyx_t_17 = NULL;
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         goto __pyx_L29_unpacking_done;
@@ -19389,7 +20534,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         __pyx_t_17 = NULL;
         if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-        __PYX_ERR(0, 1002, __pyx_L1_error)
+        __PYX_ERR(0, 1028, __pyx_L1_error)
         __pyx_L29_unpacking_done:;
       }
       __Pyx_XDECREF_SET(__pyx_v_k, __pyx_t_4);
@@ -19397,7 +20542,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
       __Pyx_XDECREF_SET(__pyx_v_v, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "curlparse.pyx":1003
+      /* "curlparse.pyx":1029
  *     else:
  *         for k, v in query:
  *             if isinstance(k, bytes):             # <<<<<<<<<<<<<<
@@ -19408,7 +20553,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
       __pyx_t_2 = (__pyx_t_10 != 0);
       if (__pyx_t_2) {
 
-        /* "curlparse.pyx":1004
+        /* "curlparse.pyx":1030
  *         for k, v in query:
  *             if isinstance(k, bytes):
  *                 k = quote_via(k, safe)             # <<<<<<<<<<<<<<
@@ -19428,7 +20573,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
             __pyx_t_19 = 1;
           }
         }
-        __pyx_t_13 = PyTuple_New(2+__pyx_t_19); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1004, __pyx_L1_error)
+        __pyx_t_13 = PyTuple_New(2+__pyx_t_19); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1030, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         if (__pyx_t_4) {
           __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -19439,14 +20584,14 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         __Pyx_INCREF(__pyx_v_safe);
         __Pyx_GIVEREF(__pyx_v_safe);
         PyTuple_SET_ITEM(__pyx_t_13, 1+__pyx_t_19, __pyx_v_safe);
-        __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_13, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1004, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_13, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1030, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF_SET(__pyx_v_k, __pyx_t_12);
         __pyx_t_12 = 0;
 
-        /* "curlparse.pyx":1003
+        /* "curlparse.pyx":1029
  *     else:
  *         for k, v in query:
  *             if isinstance(k, bytes):             # <<<<<<<<<<<<<<
@@ -19456,7 +20601,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         goto __pyx_L30;
       }
 
-      /* "curlparse.pyx":1006
+      /* "curlparse.pyx":1032
  *                 k = quote_via(k, safe)
  *             else:
  *                 k = quote_via(str(k), safe, encoding, errors)             # <<<<<<<<<<<<<<
@@ -19464,12 +20609,12 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
  *             if isinstance(v, bytes):
  */
       /*else*/ {
-        __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1006, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1032, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_INCREF(__pyx_v_k);
         __Pyx_GIVEREF(__pyx_v_k);
         PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_k);
-        __pyx_t_13 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1006, __pyx_L1_error)
+        __pyx_t_13 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1032, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_INCREF(__pyx_v_quote_via);
@@ -19485,7 +20630,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
             __pyx_t_19 = 1;
           }
         }
-        __pyx_t_14 = PyTuple_New(4+__pyx_t_19); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1006, __pyx_L1_error)
+        __pyx_t_14 = PyTuple_New(4+__pyx_t_19); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1032, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         if (__pyx_t_4) {
           __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -19502,7 +20647,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         __Pyx_GIVEREF(__pyx_v_errors);
         PyTuple_SET_ITEM(__pyx_t_14, 3+__pyx_t_19, __pyx_v_errors);
         __pyx_t_13 = 0;
-        __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_14, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1006, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_14, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1032, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -19511,7 +20656,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
       }
       __pyx_L30:;
 
-      /* "curlparse.pyx":1008
+      /* "curlparse.pyx":1034
  *                 k = quote_via(str(k), safe, encoding, errors)
  * 
  *             if isinstance(v, bytes):             # <<<<<<<<<<<<<<
@@ -19522,7 +20667,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
       __pyx_t_10 = (__pyx_t_2 != 0);
       if (__pyx_t_10) {
 
-        /* "curlparse.pyx":1009
+        /* "curlparse.pyx":1035
  * 
  *             if isinstance(v, bytes):
  *                 v = quote_via(v, safe)             # <<<<<<<<<<<<<<
@@ -19542,7 +20687,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
             __pyx_t_19 = 1;
           }
         }
-        __pyx_t_13 = PyTuple_New(2+__pyx_t_19); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1009, __pyx_L1_error)
+        __pyx_t_13 = PyTuple_New(2+__pyx_t_19); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1035, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         if (__pyx_t_14) {
           __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_14); __pyx_t_14 = NULL;
@@ -19553,29 +20698,29 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         __Pyx_INCREF(__pyx_v_safe);
         __Pyx_GIVEREF(__pyx_v_safe);
         PyTuple_SET_ITEM(__pyx_t_13, 1+__pyx_t_19, __pyx_v_safe);
-        __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_13, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1009, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_13, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1035, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF_SET(__pyx_v_v, __pyx_t_12);
         __pyx_t_12 = 0;
 
-        /* "curlparse.pyx":1010
+        /* "curlparse.pyx":1036
  *             if isinstance(v, bytes):
  *                 v = quote_via(v, safe)
  *                 l.append(k + '=' + v)             # <<<<<<<<<<<<<<
  *             elif isinstance(v, str):
  *                 v = quote_via(v, safe, encoding, errors)
  */
-        __pyx_t_12 = PyNumber_Add(__pyx_v_k, __pyx_kp_s__46); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1010, __pyx_L1_error)
+        __pyx_t_12 = PyNumber_Add(__pyx_v_k, __pyx_kp_s__57); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1036, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_3 = PyNumber_Add(__pyx_t_12, __pyx_v_v); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1010, __pyx_L1_error)
+        __pyx_t_3 = PyNumber_Add(__pyx_t_12, __pyx_v_v); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1036, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __pyx_t_20 = __Pyx_PyList_Append(__pyx_v_l, __pyx_t_3); if (unlikely(__pyx_t_20 == -1)) __PYX_ERR(0, 1010, __pyx_L1_error)
+        __pyx_t_20 = __Pyx_PyList_Append(__pyx_v_l, __pyx_t_3); if (unlikely(__pyx_t_20 == -1)) __PYX_ERR(0, 1036, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "curlparse.pyx":1008
+        /* "curlparse.pyx":1034
  *                 k = quote_via(str(k), safe, encoding, errors)
  * 
  *             if isinstance(v, bytes):             # <<<<<<<<<<<<<<
@@ -19585,7 +20730,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         goto __pyx_L31;
       }
 
-      /* "curlparse.pyx":1011
+      /* "curlparse.pyx":1037
  *                 v = quote_via(v, safe)
  *                 l.append(k + '=' + v)
  *             elif isinstance(v, str):             # <<<<<<<<<<<<<<
@@ -19596,7 +20741,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
       __pyx_t_2 = (__pyx_t_10 != 0);
       if (__pyx_t_2) {
 
-        /* "curlparse.pyx":1012
+        /* "curlparse.pyx":1038
  *                 l.append(k + '=' + v)
  *             elif isinstance(v, str):
  *                 v = quote_via(v, safe, encoding, errors)             # <<<<<<<<<<<<<<
@@ -19616,7 +20761,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
             __pyx_t_19 = 1;
           }
         }
-        __pyx_t_14 = PyTuple_New(4+__pyx_t_19); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1012, __pyx_L1_error)
+        __pyx_t_14 = PyTuple_New(4+__pyx_t_19); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1038, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         if (__pyx_t_13) {
           __Pyx_GIVEREF(__pyx_t_13); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_13); __pyx_t_13 = NULL;
@@ -19633,29 +20778,29 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         __Pyx_INCREF(__pyx_v_errors);
         __Pyx_GIVEREF(__pyx_v_errors);
         PyTuple_SET_ITEM(__pyx_t_14, 3+__pyx_t_19, __pyx_v_errors);
-        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_14, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1012, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_14, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1038, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_DECREF_SET(__pyx_v_v, __pyx_t_3);
         __pyx_t_3 = 0;
 
-        /* "curlparse.pyx":1013
+        /* "curlparse.pyx":1039
  *             elif isinstance(v, str):
  *                 v = quote_via(v, safe, encoding, errors)
  *                 l.append(k + '=' + v)             # <<<<<<<<<<<<<<
  *             else:
  *                 try:
  */
-        __pyx_t_3 = PyNumber_Add(__pyx_v_k, __pyx_kp_s__46); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1013, __pyx_L1_error)
+        __pyx_t_3 = PyNumber_Add(__pyx_v_k, __pyx_kp_s__57); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1039, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_12 = PyNumber_Add(__pyx_t_3, __pyx_v_v); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1013, __pyx_L1_error)
+        __pyx_t_12 = PyNumber_Add(__pyx_t_3, __pyx_v_v); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1039, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_20 = __Pyx_PyList_Append(__pyx_v_l, __pyx_t_12); if (unlikely(__pyx_t_20 == -1)) __PYX_ERR(0, 1013, __pyx_L1_error)
+        __pyx_t_20 = __Pyx_PyList_Append(__pyx_v_l, __pyx_t_12); if (unlikely(__pyx_t_20 == -1)) __PYX_ERR(0, 1039, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-        /* "curlparse.pyx":1011
+        /* "curlparse.pyx":1037
  *                 v = quote_via(v, safe)
  *                 l.append(k + '=' + v)
  *             elif isinstance(v, str):             # <<<<<<<<<<<<<<
@@ -19665,7 +20810,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
         goto __pyx_L31;
       }
 
-      /* "curlparse.pyx":1015
+      /* "curlparse.pyx":1041
  *                 l.append(k + '=' + v)
  *             else:
  *                 try:             # <<<<<<<<<<<<<<
@@ -19682,17 +20827,17 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
           __Pyx_XGOTREF(__pyx_t_6);
           /*try:*/ {
 
-            /* "curlparse.pyx":1017
+            /* "curlparse.pyx":1043
  *                 try:
  *                     # Is this a sufficient test for sequence-ness?
  *                     x = len(v)             # <<<<<<<<<<<<<<
  *                 except TypeError:
  *                     # not a sequence
  */
-            __pyx_t_19 = PyObject_Length(__pyx_v_v); if (unlikely(__pyx_t_19 == -1)) __PYX_ERR(0, 1017, __pyx_L32_error)
+            __pyx_t_19 = PyObject_Length(__pyx_v_v); if (unlikely(__pyx_t_19 == -1)) __PYX_ERR(0, 1043, __pyx_L32_error)
             __pyx_v_x = __pyx_t_19;
 
-            /* "curlparse.pyx":1015
+            /* "curlparse.pyx":1041
  *                 l.append(k + '=' + v)
  *             else:
  *                 try:             # <<<<<<<<<<<<<<
@@ -19701,7 +20846,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
  */
           }
 
-          /* "curlparse.pyx":1024
+          /* "curlparse.pyx":1050
  *                 else:
  *                     # loop over the sequence
  *                     for elt in v:             # <<<<<<<<<<<<<<
@@ -19713,26 +20858,26 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
               __pyx_t_12 = __pyx_v_v; __Pyx_INCREF(__pyx_t_12); __pyx_t_19 = 0;
               __pyx_t_21 = NULL;
             } else {
-              __pyx_t_19 = -1; __pyx_t_12 = PyObject_GetIter(__pyx_v_v); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1024, __pyx_L34_except_error)
+              __pyx_t_19 = -1; __pyx_t_12 = PyObject_GetIter(__pyx_v_v); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1050, __pyx_L34_except_error)
               __Pyx_GOTREF(__pyx_t_12);
-              __pyx_t_21 = Py_TYPE(__pyx_t_12)->tp_iternext; if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 1024, __pyx_L34_except_error)
+              __pyx_t_21 = Py_TYPE(__pyx_t_12)->tp_iternext; if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 1050, __pyx_L34_except_error)
             }
             for (;;) {
               if (likely(!__pyx_t_21)) {
                 if (likely(PyList_CheckExact(__pyx_t_12))) {
                   if (__pyx_t_19 >= PyList_GET_SIZE(__pyx_t_12)) break;
                   #if CYTHON_COMPILING_IN_CPYTHON
-                  __pyx_t_3 = PyList_GET_ITEM(__pyx_t_12, __pyx_t_19); __Pyx_INCREF(__pyx_t_3); __pyx_t_19++; if (unlikely(0 < 0)) __PYX_ERR(0, 1024, __pyx_L34_except_error)
+                  __pyx_t_3 = PyList_GET_ITEM(__pyx_t_12, __pyx_t_19); __Pyx_INCREF(__pyx_t_3); __pyx_t_19++; if (unlikely(0 < 0)) __PYX_ERR(0, 1050, __pyx_L34_except_error)
                   #else
-                  __pyx_t_3 = PySequence_ITEM(__pyx_t_12, __pyx_t_19); __pyx_t_19++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1024, __pyx_L34_except_error)
+                  __pyx_t_3 = PySequence_ITEM(__pyx_t_12, __pyx_t_19); __pyx_t_19++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1050, __pyx_L34_except_error)
                   __Pyx_GOTREF(__pyx_t_3);
                   #endif
                 } else {
                   if (__pyx_t_19 >= PyTuple_GET_SIZE(__pyx_t_12)) break;
                   #if CYTHON_COMPILING_IN_CPYTHON
-                  __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_12, __pyx_t_19); __Pyx_INCREF(__pyx_t_3); __pyx_t_19++; if (unlikely(0 < 0)) __PYX_ERR(0, 1024, __pyx_L34_except_error)
+                  __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_12, __pyx_t_19); __Pyx_INCREF(__pyx_t_3); __pyx_t_19++; if (unlikely(0 < 0)) __PYX_ERR(0, 1050, __pyx_L34_except_error)
                   #else
-                  __pyx_t_3 = PySequence_ITEM(__pyx_t_12, __pyx_t_19); __pyx_t_19++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1024, __pyx_L34_except_error)
+                  __pyx_t_3 = PySequence_ITEM(__pyx_t_12, __pyx_t_19); __pyx_t_19++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1050, __pyx_L34_except_error)
                   __Pyx_GOTREF(__pyx_t_3);
                   #endif
                 }
@@ -19742,7 +20887,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
                   PyObject* exc_type = PyErr_Occurred();
                   if (exc_type) {
                     if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-                    else __PYX_ERR(0, 1024, __pyx_L34_except_error)
+                    else __PYX_ERR(0, 1050, __pyx_L34_except_error)
                   }
                   break;
                 }
@@ -19751,7 +20896,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
               __Pyx_XDECREF_SET(__pyx_v_elt, __pyx_t_3);
               __pyx_t_3 = 0;
 
-              /* "curlparse.pyx":1025
+              /* "curlparse.pyx":1051
  *                     # loop over the sequence
  *                     for elt in v:
  *                         if isinstance(elt, bytes):             # <<<<<<<<<<<<<<
@@ -19762,7 +20907,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
               __pyx_t_10 = (__pyx_t_2 != 0);
               if (__pyx_t_10) {
 
-                /* "curlparse.pyx":1026
+                /* "curlparse.pyx":1052
  *                     for elt in v:
  *                         if isinstance(elt, bytes):
  *                             elt = quote_via(elt, safe)             # <<<<<<<<<<<<<<
@@ -19782,7 +20927,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
                     __pyx_t_22 = 1;
                   }
                 }
-                __pyx_t_4 = PyTuple_New(2+__pyx_t_22); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1026, __pyx_L34_except_error)
+                __pyx_t_4 = PyTuple_New(2+__pyx_t_22); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1052, __pyx_L34_except_error)
                 __Pyx_GOTREF(__pyx_t_4);
                 if (__pyx_t_13) {
                   __Pyx_GIVEREF(__pyx_t_13); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_13); __pyx_t_13 = NULL;
@@ -19793,14 +20938,14 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
                 __Pyx_INCREF(__pyx_v_safe);
                 __Pyx_GIVEREF(__pyx_v_safe);
                 PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_22, __pyx_v_safe);
-                __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1026, __pyx_L34_except_error)
+                __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1052, __pyx_L34_except_error)
                 __Pyx_GOTREF(__pyx_t_3);
                 __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
                 __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
                 __Pyx_DECREF_SET(__pyx_v_elt, __pyx_t_3);
                 __pyx_t_3 = 0;
 
-                /* "curlparse.pyx":1025
+                /* "curlparse.pyx":1051
  *                     # loop over the sequence
  *                     for elt in v:
  *                         if isinstance(elt, bytes):             # <<<<<<<<<<<<<<
@@ -19810,7 +20955,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
                 goto __pyx_L42;
               }
 
-              /* "curlparse.pyx":1028
+              /* "curlparse.pyx":1054
  *                             elt = quote_via(elt, safe)
  *                         else:
  *                             elt = quote_via(str(elt), safe, encoding, errors)             # <<<<<<<<<<<<<<
@@ -19818,12 +20963,12 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
  *     return '&'.join(l)
  */
               /*else*/ {
-                __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1028, __pyx_L34_except_error)
+                __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1054, __pyx_L34_except_error)
                 __Pyx_GOTREF(__pyx_t_14);
                 __Pyx_INCREF(__pyx_v_elt);
                 __Pyx_GIVEREF(__pyx_v_elt);
                 PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_v_elt);
-                __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1028, __pyx_L34_except_error)
+                __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1054, __pyx_L34_except_error)
                 __Pyx_GOTREF(__pyx_t_4);
                 __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
                 __Pyx_INCREF(__pyx_v_quote_via);
@@ -19839,7 +20984,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
                     __pyx_t_22 = 1;
                   }
                 }
-                __pyx_t_15 = PyTuple_New(4+__pyx_t_22); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1028, __pyx_L34_except_error)
+                __pyx_t_15 = PyTuple_New(4+__pyx_t_22); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1054, __pyx_L34_except_error)
                 __Pyx_GOTREF(__pyx_t_15);
                 if (__pyx_t_13) {
                   __Pyx_GIVEREF(__pyx_t_13); PyTuple_SET_ITEM(__pyx_t_15, 0, __pyx_t_13); __pyx_t_13 = NULL;
@@ -19856,7 +21001,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
                 __Pyx_GIVEREF(__pyx_v_errors);
                 PyTuple_SET_ITEM(__pyx_t_15, 3+__pyx_t_22, __pyx_v_errors);
                 __pyx_t_4 = 0;
-                __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_15, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1028, __pyx_L34_except_error)
+                __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_15, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1054, __pyx_L34_except_error)
                 __Pyx_GOTREF(__pyx_t_3);
                 __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
                 __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -19865,22 +21010,22 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
               }
               __pyx_L42:;
 
-              /* "curlparse.pyx":1029
+              /* "curlparse.pyx":1055
  *                         else:
  *                             elt = quote_via(str(elt), safe, encoding, errors)
  *                         l.append(k + '=' + elt)             # <<<<<<<<<<<<<<
  *     return '&'.join(l)
  * 
  */
-              __pyx_t_3 = PyNumber_Add(__pyx_v_k, __pyx_kp_s__46); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1029, __pyx_L34_except_error)
+              __pyx_t_3 = PyNumber_Add(__pyx_v_k, __pyx_kp_s__57); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1055, __pyx_L34_except_error)
               __Pyx_GOTREF(__pyx_t_3);
-              __pyx_t_14 = PyNumber_Add(__pyx_t_3, __pyx_v_elt); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1029, __pyx_L34_except_error)
+              __pyx_t_14 = PyNumber_Add(__pyx_t_3, __pyx_v_elt); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1055, __pyx_L34_except_error)
               __Pyx_GOTREF(__pyx_t_14);
               __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-              __pyx_t_20 = __Pyx_PyList_Append(__pyx_v_l, __pyx_t_14); if (unlikely(__pyx_t_20 == -1)) __PYX_ERR(0, 1029, __pyx_L34_except_error)
+              __pyx_t_20 = __Pyx_PyList_Append(__pyx_v_l, __pyx_t_14); if (unlikely(__pyx_t_20 == -1)) __PYX_ERR(0, 1055, __pyx_L34_except_error)
               __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
 
-              /* "curlparse.pyx":1024
+              /* "curlparse.pyx":1050
  *                 else:
  *                     # loop over the sequence
  *                     for elt in v:             # <<<<<<<<<<<<<<
@@ -19904,7 +21049,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
           __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-          /* "curlparse.pyx":1018
+          /* "curlparse.pyx":1044
  *                     # Is this a sufficient test for sequence-ness?
  *                     x = len(v)
  *                 except TypeError:             # <<<<<<<<<<<<<<
@@ -19914,24 +21059,24 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
           __pyx_t_11 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_TypeError);
           if (__pyx_t_11) {
             __Pyx_AddTraceback("curlparse.urlencode", __pyx_clineno, __pyx_lineno, __pyx_filename);
-            if (__Pyx_GetException(&__pyx_t_12, &__pyx_t_14, &__pyx_t_3) < 0) __PYX_ERR(0, 1018, __pyx_L34_except_error)
+            if (__Pyx_GetException(&__pyx_t_12, &__pyx_t_14, &__pyx_t_3) < 0) __PYX_ERR(0, 1044, __pyx_L34_except_error)
             __Pyx_GOTREF(__pyx_t_12);
             __Pyx_GOTREF(__pyx_t_14);
             __Pyx_GOTREF(__pyx_t_3);
 
-            /* "curlparse.pyx":1020
+            /* "curlparse.pyx":1046
  *                 except TypeError:
  *                     # not a sequence
  *                     v = quote_via(str(v), safe, encoding, errors)             # <<<<<<<<<<<<<<
  *                     l.append(k + '=' + v)
  *                 else:
  */
-            __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1020, __pyx_L34_except_error)
+            __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1046, __pyx_L34_except_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_INCREF(__pyx_v_v);
             __Pyx_GIVEREF(__pyx_v_v);
             PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_v);
-            __pyx_t_13 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_4, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1020, __pyx_L34_except_error)
+            __pyx_t_13 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_4, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1046, __pyx_L34_except_error)
             __Pyx_GOTREF(__pyx_t_13);
             __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
             __Pyx_INCREF(__pyx_v_quote_via);
@@ -19947,7 +21092,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
                 __pyx_t_19 = 1;
               }
             }
-            __pyx_t_23 = PyTuple_New(4+__pyx_t_19); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1020, __pyx_L34_except_error)
+            __pyx_t_23 = PyTuple_New(4+__pyx_t_19); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1046, __pyx_L34_except_error)
             __Pyx_GOTREF(__pyx_t_23);
             if (__pyx_t_16) {
               __Pyx_GIVEREF(__pyx_t_16); PyTuple_SET_ITEM(__pyx_t_23, 0, __pyx_t_16); __pyx_t_16 = NULL;
@@ -19964,26 +21109,26 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
             __Pyx_GIVEREF(__pyx_v_errors);
             PyTuple_SET_ITEM(__pyx_t_23, 3+__pyx_t_19, __pyx_v_errors);
             __pyx_t_13 = 0;
-            __pyx_t_15 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_23, NULL); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1020, __pyx_L34_except_error)
+            __pyx_t_15 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_23, NULL); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1046, __pyx_L34_except_error)
             __Pyx_GOTREF(__pyx_t_15);
             __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
             __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
             __Pyx_DECREF_SET(__pyx_v_v, __pyx_t_15);
             __pyx_t_15 = 0;
 
-            /* "curlparse.pyx":1021
+            /* "curlparse.pyx":1047
  *                     # not a sequence
  *                     v = quote_via(str(v), safe, encoding, errors)
  *                     l.append(k + '=' + v)             # <<<<<<<<<<<<<<
  *                 else:
  *                     # loop over the sequence
  */
-            __pyx_t_15 = PyNumber_Add(__pyx_v_k, __pyx_kp_s__46); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1021, __pyx_L34_except_error)
+            __pyx_t_15 = PyNumber_Add(__pyx_v_k, __pyx_kp_s__57); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1047, __pyx_L34_except_error)
             __Pyx_GOTREF(__pyx_t_15);
-            __pyx_t_4 = PyNumber_Add(__pyx_t_15, __pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1021, __pyx_L34_except_error)
+            __pyx_t_4 = PyNumber_Add(__pyx_t_15, __pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1047, __pyx_L34_except_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-            __pyx_t_20 = __Pyx_PyList_Append(__pyx_v_l, __pyx_t_4); if (unlikely(__pyx_t_20 == -1)) __PYX_ERR(0, 1021, __pyx_L34_except_error)
+            __pyx_t_20 = __Pyx_PyList_Append(__pyx_v_l, __pyx_t_4); if (unlikely(__pyx_t_20 == -1)) __PYX_ERR(0, 1047, __pyx_L34_except_error)
             __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
             __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -19993,7 +21138,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
           goto __pyx_L34_except_error;
           __pyx_L34_except_error:;
 
-          /* "curlparse.pyx":1015
+          /* "curlparse.pyx":1041
  *                 l.append(k + '=' + v)
  *             else:
  *                 try:             # <<<<<<<<<<<<<<
@@ -20017,7 +21162,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
       }
       __pyx_L31:;
 
-      /* "curlparse.pyx":1002
+      /* "curlparse.pyx":1028
  *             l.append(k + '=' + v)
  *     else:
  *         for k, v in query:             # <<<<<<<<<<<<<<
@@ -20029,7 +21174,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
   }
   __pyx_L19:;
 
-  /* "curlparse.pyx":1030
+  /* "curlparse.pyx":1056
  *                             elt = quote_via(str(elt), safe, encoding, errors)
  *                         l.append(k + '=' + elt)
  *     return '&'.join(l)             # <<<<<<<<<<<<<<
@@ -20037,13 +21182,13 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
  * def unwrap(url):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_5 = __Pyx_PyString_Join(__pyx_kp_s__45, __pyx_v_l); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1030, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyString_Join(__pyx_kp_s__56, __pyx_v_l); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1056, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_r = __pyx_t_5;
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":952
+  /* "curlparse.pyx":978
  *     return ''.join([quoter(char) for char in bs])
  * 
  * def urlencode(query, doseq=False, safe='', encoding=None, errors=None,             # <<<<<<<<<<<<<<
@@ -20078,7 +21223,7 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
   return __pyx_r;
 }
 
-/* "curlparse.pyx":1032
+/* "curlparse.pyx":1058
  *     return '&'.join(l)
  * 
  * def unwrap(url):             # <<<<<<<<<<<<<<
@@ -20087,21 +21232,21 @@ static PyObject *__pyx_pf_9curlparse_48urlencode(CYTHON_UNUSED PyObject *__pyx_s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_51unwrap(PyObject *__pyx_self, PyObject *__pyx_v_url); /*proto*/
-static char __pyx_doc_9curlparse_50unwrap[] = "unwrap('<URL:type://host/path>') --> 'type://host/path'.";
-static PyMethodDef __pyx_mdef_9curlparse_51unwrap = {"unwrap", (PyCFunction)__pyx_pw_9curlparse_51unwrap, METH_O, __pyx_doc_9curlparse_50unwrap};
-static PyObject *__pyx_pw_9curlparse_51unwrap(PyObject *__pyx_self, PyObject *__pyx_v_url) {
+static PyObject *__pyx_pw_9curlparse_53unwrap(PyObject *__pyx_self, PyObject *__pyx_v_url); /*proto*/
+static char __pyx_doc_9curlparse_52unwrap[] = "unwrap('<URL:type://host/path>') --> 'type://host/path'.";
+static PyMethodDef __pyx_mdef_9curlparse_53unwrap = {"unwrap", (PyCFunction)__pyx_pw_9curlparse_53unwrap, METH_O, __pyx_doc_9curlparse_52unwrap};
+static PyObject *__pyx_pw_9curlparse_53unwrap(PyObject *__pyx_self, PyObject *__pyx_v_url) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("unwrap (wrapper)", 0);
-  __pyx_r = __pyx_pf_9curlparse_50unwrap(__pyx_self, ((PyObject *)__pyx_v_url));
+  __pyx_r = __pyx_pf_9curlparse_52unwrap(__pyx_self, ((PyObject *)__pyx_v_url));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_50unwrap(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url) {
+static PyObject *__pyx_pf_9curlparse_52unwrap(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -20112,22 +21257,22 @@ static PyObject *__pyx_pf_9curlparse_50unwrap(CYTHON_UNUSED PyObject *__pyx_self
   __Pyx_RefNannySetupContext("unwrap", 0);
   __Pyx_INCREF(__pyx_v_url);
 
-  /* "curlparse.pyx":1034
+  /* "curlparse.pyx":1060
  * def unwrap(url):
  *     """unwrap('<URL:type://host/path>') --> 'type://host/path'."""
  *     url = str(url).strip()             # <<<<<<<<<<<<<<
  *     if url[:1] == '<' and url[-1:] == '>':
  *         url = url[1:-1].strip()
  */
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1034, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1060, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_v_url);
   __Pyx_GIVEREF(__pyx_v_url);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_url);
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1034, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1060, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_strip); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1034, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_strip); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1060, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -20141,50 +21286,50 @@ static PyObject *__pyx_pf_9curlparse_50unwrap(CYTHON_UNUSED PyObject *__pyx_self
     }
   }
   if (__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1034, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1060, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1034, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1060, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF_SET(__pyx_v_url, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "curlparse.pyx":1035
+  /* "curlparse.pyx":1061
  *     """unwrap('<URL:type://host/path>') --> 'type://host/path'."""
  *     url = str(url).strip()
  *     if url[:1] == '<' and url[-1:] == '>':             # <<<<<<<<<<<<<<
  *         url = url[1:-1].strip()
  *     if url[:4] == 'URL:': url = url[4:].strip()
  */
-  __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_url, 0, 1, NULL, NULL, &__pyx_slice__55, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1035, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_url, 0, 1, NULL, NULL, &__pyx_slice__66, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1061, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = (__Pyx_PyString_Equals(__pyx_t_1, __pyx_kp_s__56, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 1035, __pyx_L1_error)
+  __pyx_t_5 = (__Pyx_PyString_Equals(__pyx_t_1, __pyx_kp_s__67, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 1061, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_5) {
   } else {
     __pyx_t_4 = __pyx_t_5;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_url, -1L, 0, NULL, NULL, &__pyx_slice__57, 1, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1035, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_url, -1L, 0, NULL, NULL, &__pyx_slice__68, 1, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1061, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = (__Pyx_PyString_Equals(__pyx_t_1, __pyx_kp_s__58, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 1035, __pyx_L1_error)
+  __pyx_t_5 = (__Pyx_PyString_Equals(__pyx_t_1, __pyx_kp_s__69, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 1061, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_4 = __pyx_t_5;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_4) {
 
-    /* "curlparse.pyx":1036
+    /* "curlparse.pyx":1062
  *     url = str(url).strip()
  *     if url[:1] == '<' and url[-1:] == '>':
  *         url = url[1:-1].strip()             # <<<<<<<<<<<<<<
  *     if url[:4] == 'URL:': url = url[4:].strip()
  *     return url
  */
-    __pyx_t_2 = __Pyx_PyObject_GetSlice(__pyx_v_url, 1, -1L, NULL, NULL, &__pyx_slice__59, 1, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1036, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetSlice(__pyx_v_url, 1, -1L, NULL, NULL, &__pyx_slice__70, 1, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1062, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_strip); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1036, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_strip); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1062, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_2 = NULL;
@@ -20198,17 +21343,17 @@ static PyObject *__pyx_pf_9curlparse_50unwrap(CYTHON_UNUSED PyObject *__pyx_self
       }
     }
     if (__pyx_t_2) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1036, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1062, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     } else {
-      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1036, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1062, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF_SET(__pyx_v_url, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "curlparse.pyx":1035
+    /* "curlparse.pyx":1061
  *     """unwrap('<URL:type://host/path>') --> 'type://host/path'."""
  *     url = str(url).strip()
  *     if url[:1] == '<' and url[-1:] == '>':             # <<<<<<<<<<<<<<
@@ -20217,21 +21362,21 @@ static PyObject *__pyx_pf_9curlparse_50unwrap(CYTHON_UNUSED PyObject *__pyx_self
  */
   }
 
-  /* "curlparse.pyx":1037
+  /* "curlparse.pyx":1063
  *     if url[:1] == '<' and url[-1:] == '>':
  *         url = url[1:-1].strip()
  *     if url[:4] == 'URL:': url = url[4:].strip()             # <<<<<<<<<<<<<<
  *     return url
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_url, 0, 4, NULL, NULL, &__pyx_slice__60, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1037, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_url, 0, 4, NULL, NULL, &__pyx_slice__71, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1063, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = (__Pyx_PyString_Equals(__pyx_t_1, __pyx_kp_s_URL, Py_EQ)); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 1037, __pyx_L1_error)
+  __pyx_t_4 = (__Pyx_PyString_Equals(__pyx_t_1, __pyx_kp_s_URL, Py_EQ)); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 1063, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_4) {
-    __pyx_t_3 = __Pyx_PyObject_GetSlice(__pyx_v_url, 4, 0, NULL, NULL, &__pyx_slice__61, 1, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1037, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetSlice(__pyx_v_url, 4, 0, NULL, NULL, &__pyx_slice__72, 1, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1063, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_strip); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1037, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_strip); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1063, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -20245,10 +21390,10 @@ static PyObject *__pyx_pf_9curlparse_50unwrap(CYTHON_UNUSED PyObject *__pyx_self
       }
     }
     if (__pyx_t_3) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1037, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1063, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else {
-      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1037, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1063, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -20256,7 +21401,7 @@ static PyObject *__pyx_pf_9curlparse_50unwrap(CYTHON_UNUSED PyObject *__pyx_self
     __pyx_t_1 = 0;
   }
 
-  /* "curlparse.pyx":1038
+  /* "curlparse.pyx":1064
  *         url = url[1:-1].strip()
  *     if url[:4] == 'URL:': url = url[4:].strip()
  *     return url             # <<<<<<<<<<<<<<
@@ -20268,7 +21413,7 @@ static PyObject *__pyx_pf_9curlparse_50unwrap(CYTHON_UNUSED PyObject *__pyx_self
   __pyx_r = __pyx_v_url;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":1032
+  /* "curlparse.pyx":1058
  *     return '&'.join(l)
  * 
  * def unwrap(url):             # <<<<<<<<<<<<<<
@@ -20290,7 +21435,7 @@ static PyObject *__pyx_pf_9curlparse_50unwrap(CYTHON_UNUSED PyObject *__pyx_self
   return __pyx_r;
 }
 
-/* "curlparse.pyx":1041
+/* "curlparse.pyx":1067
  * 
  * _typeprog = None
  * def splittype(url):             # <<<<<<<<<<<<<<
@@ -20299,21 +21444,21 @@ static PyObject *__pyx_pf_9curlparse_50unwrap(CYTHON_UNUSED PyObject *__pyx_self
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_53splittype(PyObject *__pyx_self, PyObject *__pyx_v_url); /*proto*/
-static char __pyx_doc_9curlparse_52splittype[] = "splittype('type:opaquestring') --> 'type', 'opaquestring'.";
-static PyMethodDef __pyx_mdef_9curlparse_53splittype = {"splittype", (PyCFunction)__pyx_pw_9curlparse_53splittype, METH_O, __pyx_doc_9curlparse_52splittype};
-static PyObject *__pyx_pw_9curlparse_53splittype(PyObject *__pyx_self, PyObject *__pyx_v_url) {
+static PyObject *__pyx_pw_9curlparse_55splittype(PyObject *__pyx_self, PyObject *__pyx_v_url); /*proto*/
+static char __pyx_doc_9curlparse_54splittype[] = "splittype('type:opaquestring') --> 'type', 'opaquestring'.";
+static PyMethodDef __pyx_mdef_9curlparse_55splittype = {"splittype", (PyCFunction)__pyx_pw_9curlparse_55splittype, METH_O, __pyx_doc_9curlparse_54splittype};
+static PyObject *__pyx_pw_9curlparse_55splittype(PyObject *__pyx_self, PyObject *__pyx_v_url) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("splittype (wrapper)", 0);
-  __pyx_r = __pyx_pf_9curlparse_52splittype(__pyx_self, ((PyObject *)__pyx_v_url));
+  __pyx_r = __pyx_pf_9curlparse_54splittype(__pyx_self, ((PyObject *)__pyx_v_url));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url) {
+static PyObject *__pyx_pf_9curlparse_54splittype(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url) {
   PyObject *__pyx_v_match = NULL;
   PyObject *__pyx_v_scheme = NULL;
   PyObject *__pyx_v_data = NULL;
@@ -20330,35 +21475,35 @@ static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_s
   PyObject *(*__pyx_t_9)(PyObject *);
   __Pyx_RefNannySetupContext("splittype", 0);
 
-  /* "curlparse.pyx":1044
+  /* "curlparse.pyx":1070
  *     """splittype('type:opaquestring') --> 'type', 'opaquestring'."""
  *     global _typeprog
  *     if _typeprog is None:             # <<<<<<<<<<<<<<
  *         _typeprog = re.compile('([^/:]+):(.*)', re.DOTALL)
  * 
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_typeprog); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1044, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_typeprog); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1070, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = (__pyx_t_1 == Py_None);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "curlparse.pyx":1045
+    /* "curlparse.pyx":1071
  *     global _typeprog
  *     if _typeprog is None:
  *         _typeprog = re.compile('([^/:]+):(.*)', re.DOTALL)             # <<<<<<<<<<<<<<
  * 
  *     match = _typeprog.match(url)
  */
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1045, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1071, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_compile); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1045, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_compile); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1071, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1045, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1071, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_DOTALL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1045, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_DOTALL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1071, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_4 = NULL;
@@ -20373,25 +21518,25 @@ static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_s
         __pyx_t_7 = 1;
       }
     }
-    __pyx_t_8 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1045, __pyx_L1_error)
+    __pyx_t_8 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1071, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     if (__pyx_t_4) {
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_4); __pyx_t_4 = NULL;
     }
-    __Pyx_INCREF(__pyx_kp_s__62);
-    __Pyx_GIVEREF(__pyx_kp_s__62);
-    PyTuple_SET_ITEM(__pyx_t_8, 0+__pyx_t_7, __pyx_kp_s__62);
+    __Pyx_INCREF(__pyx_kp_s__73);
+    __Pyx_GIVEREF(__pyx_kp_s__73);
+    PyTuple_SET_ITEM(__pyx_t_8, 0+__pyx_t_7, __pyx_kp_s__73);
     __Pyx_GIVEREF(__pyx_t_6);
     PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_7, __pyx_t_6);
     __pyx_t_6 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1045, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1071, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (PyDict_SetItem(__pyx_d, __pyx_n_s_typeprog, __pyx_t_1) < 0) __PYX_ERR(0, 1045, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_d, __pyx_n_s_typeprog, __pyx_t_1) < 0) __PYX_ERR(0, 1071, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "curlparse.pyx":1044
+    /* "curlparse.pyx":1070
  *     """splittype('type:opaquestring') --> 'type', 'opaquestring'."""
  *     global _typeprog
  *     if _typeprog is None:             # <<<<<<<<<<<<<<
@@ -20400,16 +21545,16 @@ static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_s
  */
   }
 
-  /* "curlparse.pyx":1047
+  /* "curlparse.pyx":1073
  *         _typeprog = re.compile('([^/:]+):(.*)', re.DOTALL)
  * 
  *     match = _typeprog.match(url)             # <<<<<<<<<<<<<<
  *     if match:
  *         scheme, data = match.groups()
  */
-  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_typeprog); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1047, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_typeprog); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1073, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_match); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1047, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_match); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1073, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_5 = NULL;
@@ -20423,16 +21568,16 @@ static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_s
     }
   }
   if (!__pyx_t_5) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_url); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1047, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_url); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1073, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1047, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1073, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __pyx_t_5 = NULL;
     __Pyx_INCREF(__pyx_v_url);
     __Pyx_GIVEREF(__pyx_v_url);
     PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_v_url);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1047, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1073, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
@@ -20440,24 +21585,24 @@ static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_s
   __pyx_v_match = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "curlparse.pyx":1048
+  /* "curlparse.pyx":1074
  * 
  *     match = _typeprog.match(url)
  *     if match:             # <<<<<<<<<<<<<<
  *         scheme, data = match.groups()
  *         return scheme.lower(), data
  */
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_v_match); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 1048, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_v_match); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 1074, __pyx_L1_error)
   if (__pyx_t_3) {
 
-    /* "curlparse.pyx":1049
+    /* "curlparse.pyx":1075
  *     match = _typeprog.match(url)
  *     if match:
  *         scheme, data = match.groups()             # <<<<<<<<<<<<<<
  *         return scheme.lower(), data
  *     return None, url
  */
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_match, __pyx_n_s_groups); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1049, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_match, __pyx_n_s_groups); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1075, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_6 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_8))) {
@@ -20470,10 +21615,10 @@ static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_s
       }
     }
     if (__pyx_t_6) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1049, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1075, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     } else {
-      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1049, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1075, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -20487,7 +21632,7 @@ static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_s
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 1049, __pyx_L1_error)
+        __PYX_ERR(0, 1075, __pyx_L1_error)
       }
       #if CYTHON_COMPILING_IN_CPYTHON
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -20500,15 +21645,15 @@ static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_s
       __Pyx_INCREF(__pyx_t_8);
       __Pyx_INCREF(__pyx_t_6);
       #else
-      __pyx_t_8 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1049, __pyx_L1_error)
+      __pyx_t_8 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1075, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1049, __pyx_L1_error)
+      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1075, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       #endif
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_5 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1049, __pyx_L1_error)
+      __pyx_t_5 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1075, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_9 = Py_TYPE(__pyx_t_5)->tp_iternext;
@@ -20516,7 +21661,7 @@ static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_s
       __Pyx_GOTREF(__pyx_t_8);
       index = 1; __pyx_t_6 = __pyx_t_9(__pyx_t_5); if (unlikely(!__pyx_t_6)) goto __pyx_L5_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_6);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_9(__pyx_t_5), 2) < 0) __PYX_ERR(0, 1049, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_9(__pyx_t_5), 2) < 0) __PYX_ERR(0, 1075, __pyx_L1_error)
       __pyx_t_9 = NULL;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       goto __pyx_L6_unpacking_done;
@@ -20524,7 +21669,7 @@ static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_s
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __pyx_t_9 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 1049, __pyx_L1_error)
+      __PYX_ERR(0, 1075, __pyx_L1_error)
       __pyx_L6_unpacking_done:;
     }
     __pyx_v_scheme = __pyx_t_8;
@@ -20532,7 +21677,7 @@ static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_s
     __pyx_v_data = __pyx_t_6;
     __pyx_t_6 = 0;
 
-    /* "curlparse.pyx":1050
+    /* "curlparse.pyx":1076
  *     if match:
  *         scheme, data = match.groups()
  *         return scheme.lower(), data             # <<<<<<<<<<<<<<
@@ -20540,7 +21685,7 @@ static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_s
  * 
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_scheme, __pyx_n_s_lower); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1050, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_scheme, __pyx_n_s_lower); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1076, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_8 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_6))) {
@@ -20553,14 +21698,14 @@ static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_s
       }
     }
     if (__pyx_t_8) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1050, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1076, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     } else {
-      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1050, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1076, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1050, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1076, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_1);
     PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_1);
@@ -20572,7 +21717,7 @@ static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_s
     __pyx_t_6 = 0;
     goto __pyx_L0;
 
-    /* "curlparse.pyx":1048
+    /* "curlparse.pyx":1074
  * 
  *     match = _typeprog.match(url)
  *     if match:             # <<<<<<<<<<<<<<
@@ -20581,7 +21726,7 @@ static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_s
  */
   }
 
-  /* "curlparse.pyx":1051
+  /* "curlparse.pyx":1077
  *         scheme, data = match.groups()
  *         return scheme.lower(), data
  *     return None, url             # <<<<<<<<<<<<<<
@@ -20589,7 +21734,7 @@ static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_s
  * _hostprog = None
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1051, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1077, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(Py_None);
   __Pyx_GIVEREF(Py_None);
@@ -20601,7 +21746,7 @@ static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_s
   __pyx_t_6 = 0;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":1041
+  /* "curlparse.pyx":1067
  * 
  * _typeprog = None
  * def splittype(url):             # <<<<<<<<<<<<<<
@@ -20627,7 +21772,7 @@ static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_s
   return __pyx_r;
 }
 
-/* "curlparse.pyx":1054
+/* "curlparse.pyx":1080
  * 
  * _hostprog = None
  * def splithost(url):             # <<<<<<<<<<<<<<
@@ -20636,21 +21781,21 @@ static PyObject *__pyx_pf_9curlparse_52splittype(CYTHON_UNUSED PyObject *__pyx_s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_55splithost(PyObject *__pyx_self, PyObject *__pyx_v_url); /*proto*/
-static char __pyx_doc_9curlparse_54splithost[] = "splithost('//host[:port]/path') --> 'host[:port]', '/path'.";
-static PyMethodDef __pyx_mdef_9curlparse_55splithost = {"splithost", (PyCFunction)__pyx_pw_9curlparse_55splithost, METH_O, __pyx_doc_9curlparse_54splithost};
-static PyObject *__pyx_pw_9curlparse_55splithost(PyObject *__pyx_self, PyObject *__pyx_v_url) {
+static PyObject *__pyx_pw_9curlparse_57splithost(PyObject *__pyx_self, PyObject *__pyx_v_url); /*proto*/
+static char __pyx_doc_9curlparse_56splithost[] = "splithost('//host[:port]/path') --> 'host[:port]', '/path'.";
+static PyMethodDef __pyx_mdef_9curlparse_57splithost = {"splithost", (PyCFunction)__pyx_pw_9curlparse_57splithost, METH_O, __pyx_doc_9curlparse_56splithost};
+static PyObject *__pyx_pw_9curlparse_57splithost(PyObject *__pyx_self, PyObject *__pyx_v_url) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("splithost (wrapper)", 0);
-  __pyx_r = __pyx_pf_9curlparse_54splithost(__pyx_self, ((PyObject *)__pyx_v_url));
+  __pyx_r = __pyx_pf_9curlparse_56splithost(__pyx_self, ((PyObject *)__pyx_v_url));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_54splithost(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url) {
+static PyObject *__pyx_pf_9curlparse_56splithost(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url) {
   PyObject *__pyx_v_match = NULL;
   PyObject *__pyx_v_host_port = NULL;
   PyObject *__pyx_v_path = NULL;
@@ -20667,709 +21812,14 @@ static PyObject *__pyx_pf_9curlparse_54splithost(CYTHON_UNUSED PyObject *__pyx_s
   PyObject *(*__pyx_t_9)(PyObject *);
   __Pyx_RefNannySetupContext("splithost", 0);
 
-  /* "curlparse.pyx":1057
- *     """splithost('//host[:port]/path') --> 'host[:port]', '/path'."""
- *     global _hostprog
- *     if _hostprog is None:             # <<<<<<<<<<<<<<
- *         _hostprog = re.compile('//([^/?]*)(.*)', re.DOTALL)
- * 
- */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_hostprog); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1057, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = (__pyx_t_1 == Py_None);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = (__pyx_t_2 != 0);
-  if (__pyx_t_3) {
-
-    /* "curlparse.pyx":1058
- *     global _hostprog
- *     if _hostprog is None:
- *         _hostprog = re.compile('//([^/?]*)(.*)', re.DOTALL)             # <<<<<<<<<<<<<<
- * 
- *     match = _hostprog.match(url)
- */
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1058, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_compile); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1058, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1058, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_DOTALL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1058, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = NULL;
-    __pyx_t_7 = 0;
-    if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_5))) {
-      __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_5);
-      if (likely(__pyx_t_4)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-        __Pyx_INCREF(__pyx_t_4);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_5, function);
-        __pyx_t_7 = 1;
-      }
-    }
-    __pyx_t_8 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1058, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_8);
-    if (__pyx_t_4) {
-      __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_4); __pyx_t_4 = NULL;
-    }
-    __Pyx_INCREF(__pyx_kp_s__63);
-    __Pyx_GIVEREF(__pyx_kp_s__63);
-    PyTuple_SET_ITEM(__pyx_t_8, 0+__pyx_t_7, __pyx_kp_s__63);
-    __Pyx_GIVEREF(__pyx_t_6);
-    PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_7, __pyx_t_6);
-    __pyx_t_6 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1058, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (PyDict_SetItem(__pyx_d, __pyx_n_s_hostprog, __pyx_t_1) < 0) __PYX_ERR(0, 1058, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-    /* "curlparse.pyx":1057
- *     """splithost('//host[:port]/path') --> 'host[:port]', '/path'."""
- *     global _hostprog
- *     if _hostprog is None:             # <<<<<<<<<<<<<<
- *         _hostprog = re.compile('//([^/?]*)(.*)', re.DOTALL)
- * 
- */
-  }
-
-  /* "curlparse.pyx":1060
- *         _hostprog = re.compile('//([^/?]*)(.*)', re.DOTALL)
- * 
- *     match = _hostprog.match(url)             # <<<<<<<<<<<<<<
- *     if match:
- *         host_port, path = match.groups()
- */
-  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_hostprog); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1060, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_match); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1060, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = NULL;
-  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_8))) {
-    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_8);
-    if (likely(__pyx_t_5)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-      __Pyx_INCREF(__pyx_t_5);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_8, function);
-    }
-  }
-  if (!__pyx_t_5) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_url); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1060, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-  } else {
-    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1060, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __pyx_t_5 = NULL;
-    __Pyx_INCREF(__pyx_v_url);
-    __Pyx_GIVEREF(__pyx_v_url);
-    PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_v_url);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1060, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  }
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_v_match = __pyx_t_1;
-  __pyx_t_1 = 0;
-
-  /* "curlparse.pyx":1061
- * 
- *     match = _hostprog.match(url)
- *     if match:             # <<<<<<<<<<<<<<
- *         host_port, path = match.groups()
- *         if path and path[0] != '/':
- */
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_v_match); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 1061, __pyx_L1_error)
-  if (__pyx_t_3) {
-
-    /* "curlparse.pyx":1062
- *     match = _hostprog.match(url)
- *     if match:
- *         host_port, path = match.groups()             # <<<<<<<<<<<<<<
- *         if path and path[0] != '/':
- *             path = '/' + path
- */
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_match, __pyx_n_s_groups); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1062, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_6 = NULL;
-    if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_8))) {
-      __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_8);
-      if (likely(__pyx_t_6)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-        __Pyx_INCREF(__pyx_t_6);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_8, function);
-      }
-    }
-    if (__pyx_t_6) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1062, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    } else {
-      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1062, __pyx_L1_error)
-    }
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
-      PyObject* sequence = __pyx_t_1;
-      #if CYTHON_COMPILING_IN_CPYTHON
-      Py_ssize_t size = Py_SIZE(sequence);
-      #else
-      Py_ssize_t size = PySequence_Size(sequence);
-      #endif
-      if (unlikely(size != 2)) {
-        if (size > 2) __Pyx_RaiseTooManyValuesError(2);
-        else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 1062, __pyx_L1_error)
-      }
-      #if CYTHON_COMPILING_IN_CPYTHON
-      if (likely(PyTuple_CheckExact(sequence))) {
-        __pyx_t_8 = PyTuple_GET_ITEM(sequence, 0); 
-        __pyx_t_6 = PyTuple_GET_ITEM(sequence, 1); 
-      } else {
-        __pyx_t_8 = PyList_GET_ITEM(sequence, 0); 
-        __pyx_t_6 = PyList_GET_ITEM(sequence, 1); 
-      }
-      __Pyx_INCREF(__pyx_t_8);
-      __Pyx_INCREF(__pyx_t_6);
-      #else
-      __pyx_t_8 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1062, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1062, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      #endif
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    } else {
-      Py_ssize_t index = -1;
-      __pyx_t_5 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1062, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_5);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_9 = Py_TYPE(__pyx_t_5)->tp_iternext;
-      index = 0; __pyx_t_8 = __pyx_t_9(__pyx_t_5); if (unlikely(!__pyx_t_8)) goto __pyx_L5_unpacking_failed;
-      __Pyx_GOTREF(__pyx_t_8);
-      index = 1; __pyx_t_6 = __pyx_t_9(__pyx_t_5); if (unlikely(!__pyx_t_6)) goto __pyx_L5_unpacking_failed;
-      __Pyx_GOTREF(__pyx_t_6);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_9(__pyx_t_5), 2) < 0) __PYX_ERR(0, 1062, __pyx_L1_error)
-      __pyx_t_9 = NULL;
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      goto __pyx_L6_unpacking_done;
-      __pyx_L5_unpacking_failed:;
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_9 = NULL;
-      if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 1062, __pyx_L1_error)
-      __pyx_L6_unpacking_done:;
-    }
-    __pyx_v_host_port = __pyx_t_8;
-    __pyx_t_8 = 0;
-    __pyx_v_path = __pyx_t_6;
-    __pyx_t_6 = 0;
-
-    /* "curlparse.pyx":1063
- *     if match:
- *         host_port, path = match.groups()
- *         if path and path[0] != '/':             # <<<<<<<<<<<<<<
- *             path = '/' + path
- *         return host_port, path
- */
-    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_path); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 1063, __pyx_L1_error)
-    if (__pyx_t_2) {
-    } else {
-      __pyx_t_3 = __pyx_t_2;
-      goto __pyx_L8_bool_binop_done;
-    }
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_path, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1063, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_t_1, __pyx_kp_s__28, Py_NE)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 1063, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_3 = __pyx_t_2;
-    __pyx_L8_bool_binop_done:;
-    if (__pyx_t_3) {
-
-      /* "curlparse.pyx":1064
- *         host_port, path = match.groups()
- *         if path and path[0] != '/':
- *             path = '/' + path             # <<<<<<<<<<<<<<
- *         return host_port, path
- *     return None, url
- */
-      __pyx_t_1 = PyNumber_Add(__pyx_kp_s__28, __pyx_v_path); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1064, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF_SET(__pyx_v_path, __pyx_t_1);
-      __pyx_t_1 = 0;
-
-      /* "curlparse.pyx":1063
- *     if match:
- *         host_port, path = match.groups()
- *         if path and path[0] != '/':             # <<<<<<<<<<<<<<
- *             path = '/' + path
- *         return host_port, path
- */
-    }
-
-    /* "curlparse.pyx":1065
- *         if path and path[0] != '/':
- *             path = '/' + path
- *         return host_port, path             # <<<<<<<<<<<<<<
- *     return None, url
- * 
- */
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1065, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_INCREF(__pyx_v_host_port);
-    __Pyx_GIVEREF(__pyx_v_host_port);
-    PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_host_port);
-    __Pyx_INCREF(__pyx_v_path);
-    __Pyx_GIVEREF(__pyx_v_path);
-    PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_path);
-    __pyx_r = __pyx_t_1;
-    __pyx_t_1 = 0;
-    goto __pyx_L0;
-
-    /* "curlparse.pyx":1061
- * 
- *     match = _hostprog.match(url)
- *     if match:             # <<<<<<<<<<<<<<
- *         host_port, path = match.groups()
- *         if path and path[0] != '/':
- */
-  }
-
-  /* "curlparse.pyx":1066
- *             path = '/' + path
- *         return host_port, path
- *     return None, url             # <<<<<<<<<<<<<<
- * 
- * def splituser(host):
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1066, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_INCREF(Py_None);
-  __Pyx_GIVEREF(Py_None);
-  PyTuple_SET_ITEM(__pyx_t_1, 0, Py_None);
-  __Pyx_INCREF(__pyx_v_url);
-  __Pyx_GIVEREF(__pyx_v_url);
-  PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_url);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "curlparse.pyx":1054
- * 
- * _hostprog = None
- * def splithost(url):             # <<<<<<<<<<<<<<
- *     """splithost('//host[:port]/path') --> 'host[:port]', '/path'."""
- *     global _hostprog
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("curlparse.splithost", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_match);
-  __Pyx_XDECREF(__pyx_v_host_port);
-  __Pyx_XDECREF(__pyx_v_path);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "curlparse.pyx":1068
- *     return None, url
- * 
- * def splituser(host):             # <<<<<<<<<<<<<<
- *     """splituser('user[:passwd]@host[:port]') --> 'user[:passwd]', 'host[:port]'."""
- *     user, delim, host = host.rpartition('@')
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_57splituser(PyObject *__pyx_self, PyObject *__pyx_v_host); /*proto*/
-static char __pyx_doc_9curlparse_56splituser[] = "splituser('user[:passwd]@host[:port]') --> 'user[:passwd]', 'host[:port]'.";
-static PyMethodDef __pyx_mdef_9curlparse_57splituser = {"splituser", (PyCFunction)__pyx_pw_9curlparse_57splituser, METH_O, __pyx_doc_9curlparse_56splituser};
-static PyObject *__pyx_pw_9curlparse_57splituser(PyObject *__pyx_self, PyObject *__pyx_v_host) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("splituser (wrapper)", 0);
-  __pyx_r = __pyx_pf_9curlparse_56splituser(__pyx_self, ((PyObject *)__pyx_v_host));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_9curlparse_56splituser(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_host) {
-  PyObject *__pyx_v_user = NULL;
-  PyObject *__pyx_v_delim = NULL;
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  PyObject *(*__pyx_t_6)(PyObject *);
-  int __pyx_t_7;
-  __Pyx_RefNannySetupContext("splituser", 0);
-  __Pyx_INCREF(__pyx_v_host);
-
-  /* "curlparse.pyx":1070
- * def splituser(host):
- *     """splituser('user[:passwd]@host[:port]') --> 'user[:passwd]', 'host[:port]'."""
- *     user, delim, host = host.rpartition('@')             # <<<<<<<<<<<<<<
- *     return (user if delim else None), host
- * 
- */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_host, __pyx_n_s_rpartition); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1070, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__64, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1070, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
-    PyObject* sequence = __pyx_t_2;
-    #if CYTHON_COMPILING_IN_CPYTHON
-    Py_ssize_t size = Py_SIZE(sequence);
-    #else
-    Py_ssize_t size = PySequence_Size(sequence);
-    #endif
-    if (unlikely(size != 3)) {
-      if (size > 3) __Pyx_RaiseTooManyValuesError(3);
-      else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 1070, __pyx_L1_error)
-    }
-    #if CYTHON_COMPILING_IN_CPYTHON
-    if (likely(PyTuple_CheckExact(sequence))) {
-      __pyx_t_1 = PyTuple_GET_ITEM(sequence, 0); 
-      __pyx_t_3 = PyTuple_GET_ITEM(sequence, 1); 
-      __pyx_t_4 = PyTuple_GET_ITEM(sequence, 2); 
-    } else {
-      __pyx_t_1 = PyList_GET_ITEM(sequence, 0); 
-      __pyx_t_3 = PyList_GET_ITEM(sequence, 1); 
-      __pyx_t_4 = PyList_GET_ITEM(sequence, 2); 
-    }
-    __Pyx_INCREF(__pyx_t_1);
-    __Pyx_INCREF(__pyx_t_3);
-    __Pyx_INCREF(__pyx_t_4);
-    #else
-    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1070, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1070, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1070, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    #endif
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  } else {
-    Py_ssize_t index = -1;
-    __pyx_t_5 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1070, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_6 = Py_TYPE(__pyx_t_5)->tp_iternext;
-    index = 0; __pyx_t_1 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_1)) goto __pyx_L3_unpacking_failed;
-    __Pyx_GOTREF(__pyx_t_1);
-    index = 1; __pyx_t_3 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_3)) goto __pyx_L3_unpacking_failed;
-    __Pyx_GOTREF(__pyx_t_3);
-    index = 2; __pyx_t_4 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_4)) goto __pyx_L3_unpacking_failed;
-    __Pyx_GOTREF(__pyx_t_4);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 3) < 0) __PYX_ERR(0, 1070, __pyx_L1_error)
-    __pyx_t_6 = NULL;
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L4_unpacking_done;
-    __pyx_L3_unpacking_failed:;
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_6 = NULL;
-    if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 1070, __pyx_L1_error)
-    __pyx_L4_unpacking_done:;
-  }
-  __pyx_v_user = __pyx_t_1;
-  __pyx_t_1 = 0;
-  __pyx_v_delim = __pyx_t_3;
-  __pyx_t_3 = 0;
-  __Pyx_DECREF_SET(__pyx_v_host, __pyx_t_4);
-  __pyx_t_4 = 0;
-
-  /* "curlparse.pyx":1071
- *     """splituser('user[:passwd]@host[:port]') --> 'user[:passwd]', 'host[:port]'."""
- *     user, delim, host = host.rpartition('@')
- *     return (user if delim else None), host             # <<<<<<<<<<<<<<
- * 
- * def splitpasswd(user):
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_v_delim); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 1071, __pyx_L1_error)
-  if (__pyx_t_7) {
-    __Pyx_INCREF(__pyx_v_user);
-    __pyx_t_2 = __pyx_v_user;
-  } else {
-    __Pyx_INCREF(Py_None);
-    __pyx_t_2 = Py_None;
-  }
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1071, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
-  __Pyx_INCREF(__pyx_v_host);
-  __Pyx_GIVEREF(__pyx_v_host);
-  PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_v_host);
-  __pyx_t_2 = 0;
-  __pyx_r = __pyx_t_4;
-  __pyx_t_4 = 0;
-  goto __pyx_L0;
-
-  /* "curlparse.pyx":1068
- *     return None, url
- * 
- * def splituser(host):             # <<<<<<<<<<<<<<
- *     """splituser('user[:passwd]@host[:port]') --> 'user[:passwd]', 'host[:port]'."""
- *     user, delim, host = host.rpartition('@')
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("curlparse.splituser", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_user);
-  __Pyx_XDECREF(__pyx_v_delim);
-  __Pyx_XDECREF(__pyx_v_host);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "curlparse.pyx":1073
- *     return (user if delim else None), host
- * 
- * def splitpasswd(user):             # <<<<<<<<<<<<<<
- *     """splitpasswd('user:passwd') -> 'user', 'passwd'."""
- *     user, delim, passwd = user.partition(':')
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_59splitpasswd(PyObject *__pyx_self, PyObject *__pyx_v_user); /*proto*/
-static char __pyx_doc_9curlparse_58splitpasswd[] = "splitpasswd('user:passwd') -> 'user', 'passwd'.";
-static PyMethodDef __pyx_mdef_9curlparse_59splitpasswd = {"splitpasswd", (PyCFunction)__pyx_pw_9curlparse_59splitpasswd, METH_O, __pyx_doc_9curlparse_58splitpasswd};
-static PyObject *__pyx_pw_9curlparse_59splitpasswd(PyObject *__pyx_self, PyObject *__pyx_v_user) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("splitpasswd (wrapper)", 0);
-  __pyx_r = __pyx_pf_9curlparse_58splitpasswd(__pyx_self, ((PyObject *)__pyx_v_user));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_9curlparse_58splitpasswd(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_user) {
-  PyObject *__pyx_v_delim = NULL;
-  PyObject *__pyx_v_passwd = NULL;
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  PyObject *(*__pyx_t_6)(PyObject *);
-  int __pyx_t_7;
-  __Pyx_RefNannySetupContext("splitpasswd", 0);
-  __Pyx_INCREF(__pyx_v_user);
-
-  /* "curlparse.pyx":1075
- * def splitpasswd(user):
- *     """splitpasswd('user:passwd') -> 'user', 'passwd'."""
- *     user, delim, passwd = user.partition(':')             # <<<<<<<<<<<<<<
- *     return user, (passwd if delim else None)
- * 
- */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_user, __pyx_n_s_partition); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1075, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__65, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1075, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
-    PyObject* sequence = __pyx_t_2;
-    #if CYTHON_COMPILING_IN_CPYTHON
-    Py_ssize_t size = Py_SIZE(sequence);
-    #else
-    Py_ssize_t size = PySequence_Size(sequence);
-    #endif
-    if (unlikely(size != 3)) {
-      if (size > 3) __Pyx_RaiseTooManyValuesError(3);
-      else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 1075, __pyx_L1_error)
-    }
-    #if CYTHON_COMPILING_IN_CPYTHON
-    if (likely(PyTuple_CheckExact(sequence))) {
-      __pyx_t_1 = PyTuple_GET_ITEM(sequence, 0); 
-      __pyx_t_3 = PyTuple_GET_ITEM(sequence, 1); 
-      __pyx_t_4 = PyTuple_GET_ITEM(sequence, 2); 
-    } else {
-      __pyx_t_1 = PyList_GET_ITEM(sequence, 0); 
-      __pyx_t_3 = PyList_GET_ITEM(sequence, 1); 
-      __pyx_t_4 = PyList_GET_ITEM(sequence, 2); 
-    }
-    __Pyx_INCREF(__pyx_t_1);
-    __Pyx_INCREF(__pyx_t_3);
-    __Pyx_INCREF(__pyx_t_4);
-    #else
-    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1075, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1075, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1075, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    #endif
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  } else {
-    Py_ssize_t index = -1;
-    __pyx_t_5 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1075, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_6 = Py_TYPE(__pyx_t_5)->tp_iternext;
-    index = 0; __pyx_t_1 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_1)) goto __pyx_L3_unpacking_failed;
-    __Pyx_GOTREF(__pyx_t_1);
-    index = 1; __pyx_t_3 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_3)) goto __pyx_L3_unpacking_failed;
-    __Pyx_GOTREF(__pyx_t_3);
-    index = 2; __pyx_t_4 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_4)) goto __pyx_L3_unpacking_failed;
-    __Pyx_GOTREF(__pyx_t_4);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 3) < 0) __PYX_ERR(0, 1075, __pyx_L1_error)
-    __pyx_t_6 = NULL;
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L4_unpacking_done;
-    __pyx_L3_unpacking_failed:;
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_6 = NULL;
-    if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 1075, __pyx_L1_error)
-    __pyx_L4_unpacking_done:;
-  }
-  __Pyx_DECREF_SET(__pyx_v_user, __pyx_t_1);
-  __pyx_t_1 = 0;
-  __pyx_v_delim = __pyx_t_3;
-  __pyx_t_3 = 0;
-  __pyx_v_passwd = __pyx_t_4;
-  __pyx_t_4 = 0;
-
-  /* "curlparse.pyx":1076
- *     """splitpasswd('user:passwd') -> 'user', 'passwd'."""
- *     user, delim, passwd = user.partition(':')
- *     return user, (passwd if delim else None)             # <<<<<<<<<<<<<<
- * 
- * # splittag('/path#tag') --> '/path', 'tag'
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_v_delim); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 1076, __pyx_L1_error)
-  if (__pyx_t_7) {
-    __Pyx_INCREF(__pyx_v_passwd);
-    __pyx_t_2 = __pyx_v_passwd;
-  } else {
-    __Pyx_INCREF(Py_None);
-    __pyx_t_2 = Py_None;
-  }
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1076, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_INCREF(__pyx_v_user);
-  __Pyx_GIVEREF(__pyx_v_user);
-  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_user);
-  __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_2);
-  __pyx_t_2 = 0;
-  __pyx_r = __pyx_t_4;
-  __pyx_t_4 = 0;
-  goto __pyx_L0;
-
-  /* "curlparse.pyx":1073
- *     return (user if delim else None), host
- * 
- * def splitpasswd(user):             # <<<<<<<<<<<<<<
- *     """splitpasswd('user:passwd') -> 'user', 'passwd'."""
- *     user, delim, passwd = user.partition(':')
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("curlparse.splitpasswd", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_delim);
-  __Pyx_XDECREF(__pyx_v_passwd);
-  __Pyx_XDECREF(__pyx_v_user);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "curlparse.pyx":1080
- * # splittag('/path#tag') --> '/path', 'tag'
- * _portprog = None
- * def splitport(host):             # <<<<<<<<<<<<<<
- *     """splitport('host:port') --> 'host', 'port'."""
- *     global _portprog
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_61splitport(PyObject *__pyx_self, PyObject *__pyx_v_host); /*proto*/
-static char __pyx_doc_9curlparse_60splitport[] = "splitport('host:port') --> 'host', 'port'.";
-static PyMethodDef __pyx_mdef_9curlparse_61splitport = {"splitport", (PyCFunction)__pyx_pw_9curlparse_61splitport, METH_O, __pyx_doc_9curlparse_60splitport};
-static PyObject *__pyx_pw_9curlparse_61splitport(PyObject *__pyx_self, PyObject *__pyx_v_host) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("splitport (wrapper)", 0);
-  __pyx_r = __pyx_pf_9curlparse_60splitport(__pyx_self, ((PyObject *)__pyx_v_host));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_9curlparse_60splitport(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_host) {
-  PyObject *__pyx_v_match = NULL;
-  PyObject *__pyx_v_port = NULL;
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_t_2;
-  int __pyx_t_3;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  PyObject *__pyx_t_6 = NULL;
-  Py_ssize_t __pyx_t_7;
-  PyObject *__pyx_t_8 = NULL;
-  PyObject *(*__pyx_t_9)(PyObject *);
-  __Pyx_RefNannySetupContext("splitport", 0);
-  __Pyx_INCREF(__pyx_v_host);
-
   /* "curlparse.pyx":1083
- *     """splitport('host:port') --> 'host', 'port'."""
- *     global _portprog
- *     if _portprog is None:             # <<<<<<<<<<<<<<
- *         _portprog = re.compile('(.*):([0-9]*)$', re.DOTALL)
+ *     """splithost('//host[:port]/path') --> 'host[:port]', '/path'."""
+ *     global _hostprog
+ *     if _hostprog is None:             # <<<<<<<<<<<<<<
+ *         _hostprog = re.compile('//([^/?]*)(.*)', re.DOTALL)
  * 
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_portprog); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1083, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_hostprog); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1083, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = (__pyx_t_1 == Py_None);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21377,11 +21827,11 @@ static PyObject *__pyx_pf_9curlparse_60splitport(CYTHON_UNUSED PyObject *__pyx_s
   if (__pyx_t_3) {
 
     /* "curlparse.pyx":1084
- *     global _portprog
- *     if _portprog is None:
- *         _portprog = re.compile('(.*):([0-9]*)$', re.DOTALL)             # <<<<<<<<<<<<<<
+ *     global _hostprog
+ *     if _hostprog is None:
+ *         _hostprog = re.compile('//([^/?]*)(.*)', re.DOTALL)             # <<<<<<<<<<<<<<
  * 
- *     match = _portprog.match(host)
+ *     match = _hostprog.match(url)
  */
     __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1084, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
@@ -21410,9 +21860,9 @@ static PyObject *__pyx_pf_9curlparse_60splitport(CYTHON_UNUSED PyObject *__pyx_s
     if (__pyx_t_4) {
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_4); __pyx_t_4 = NULL;
     }
-    __Pyx_INCREF(__pyx_kp_s_0_9);
-    __Pyx_GIVEREF(__pyx_kp_s_0_9);
-    PyTuple_SET_ITEM(__pyx_t_8, 0+__pyx_t_7, __pyx_kp_s_0_9);
+    __Pyx_INCREF(__pyx_kp_s__74);
+    __Pyx_GIVEREF(__pyx_kp_s__74);
+    PyTuple_SET_ITEM(__pyx_t_8, 0+__pyx_t_7, __pyx_kp_s__74);
     __Pyx_GIVEREF(__pyx_t_6);
     PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_7, __pyx_t_6);
     __pyx_t_6 = 0;
@@ -21420,26 +21870,26 @@ static PyObject *__pyx_pf_9curlparse_60splitport(CYTHON_UNUSED PyObject *__pyx_s
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (PyDict_SetItem(__pyx_d, __pyx_n_s_portprog, __pyx_t_1) < 0) __PYX_ERR(0, 1084, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_d, __pyx_n_s_hostprog, __pyx_t_1) < 0) __PYX_ERR(0, 1084, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
     /* "curlparse.pyx":1083
- *     """splitport('host:port') --> 'host', 'port'."""
- *     global _portprog
- *     if _portprog is None:             # <<<<<<<<<<<<<<
- *         _portprog = re.compile('(.*):([0-9]*)$', re.DOTALL)
+ *     """splithost('//host[:port]/path') --> 'host[:port]', '/path'."""
+ *     global _hostprog
+ *     if _hostprog is None:             # <<<<<<<<<<<<<<
+ *         _hostprog = re.compile('//([^/?]*)(.*)', re.DOTALL)
  * 
  */
   }
 
   /* "curlparse.pyx":1086
- *         _portprog = re.compile('(.*):([0-9]*)$', re.DOTALL)
+ *         _hostprog = re.compile('//([^/?]*)(.*)', re.DOTALL)
  * 
- *     match = _portprog.match(host)             # <<<<<<<<<<<<<<
+ *     match = _hostprog.match(url)             # <<<<<<<<<<<<<<
  *     if match:
- *         host, port = match.groups()
+ *         host_port, path = match.groups()
  */
-  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_portprog); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1086, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_hostprog); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1086, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_match); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1086, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
@@ -21455,15 +21905,15 @@ static PyObject *__pyx_pf_9curlparse_60splitport(CYTHON_UNUSED PyObject *__pyx_s
     }
   }
   if (!__pyx_t_5) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_host); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1086, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_url); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1086, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1086, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __pyx_t_5 = NULL;
-    __Pyx_INCREF(__pyx_v_host);
-    __Pyx_GIVEREF(__pyx_v_host);
-    PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_v_host);
+    __Pyx_INCREF(__pyx_v_url);
+    __Pyx_GIVEREF(__pyx_v_url);
+    PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_v_url);
     __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1086, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -21474,20 +21924,20 @@ static PyObject *__pyx_pf_9curlparse_60splitport(CYTHON_UNUSED PyObject *__pyx_s
 
   /* "curlparse.pyx":1087
  * 
- *     match = _portprog.match(host)
+ *     match = _hostprog.match(url)
  *     if match:             # <<<<<<<<<<<<<<
- *         host, port = match.groups()
- *         if port:
+ *         host_port, path = match.groups()
+ *         if path and path[0] != '/':
  */
   __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_v_match); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 1087, __pyx_L1_error)
   if (__pyx_t_3) {
 
     /* "curlparse.pyx":1088
- *     match = _portprog.match(host)
+ *     match = _hostprog.match(url)
  *     if match:
- *         host, port = match.groups()             # <<<<<<<<<<<<<<
- *         if port:
- *             return host, port
+ *         host_port, path = match.groups()             # <<<<<<<<<<<<<<
+ *         if path and path[0] != '/':
+ *             path = '/' + path
  */
     __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_match, __pyx_n_s_groups); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1088, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
@@ -21559,22 +22009,717 @@ static PyObject *__pyx_pf_9curlparse_60splitport(CYTHON_UNUSED PyObject *__pyx_s
       __PYX_ERR(0, 1088, __pyx_L1_error)
       __pyx_L6_unpacking_done:;
     }
+    __pyx_v_host_port = __pyx_t_8;
+    __pyx_t_8 = 0;
+    __pyx_v_path = __pyx_t_6;
+    __pyx_t_6 = 0;
+
+    /* "curlparse.pyx":1089
+ *     if match:
+ *         host_port, path = match.groups()
+ *         if path and path[0] != '/':             # <<<<<<<<<<<<<<
+ *             path = '/' + path
+ *         return host_port, path
+ */
+    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_path); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 1089, __pyx_L1_error)
+    if (__pyx_t_2) {
+    } else {
+      __pyx_t_3 = __pyx_t_2;
+      goto __pyx_L8_bool_binop_done;
+    }
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_path, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1089, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_t_1, __pyx_kp_s__28, Py_NE)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 1089, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_3 = __pyx_t_2;
+    __pyx_L8_bool_binop_done:;
+    if (__pyx_t_3) {
+
+      /* "curlparse.pyx":1090
+ *         host_port, path = match.groups()
+ *         if path and path[0] != '/':
+ *             path = '/' + path             # <<<<<<<<<<<<<<
+ *         return host_port, path
+ *     return None, url
+ */
+      __pyx_t_1 = PyNumber_Add(__pyx_kp_s__28, __pyx_v_path); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1090, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF_SET(__pyx_v_path, __pyx_t_1);
+      __pyx_t_1 = 0;
+
+      /* "curlparse.pyx":1089
+ *     if match:
+ *         host_port, path = match.groups()
+ *         if path and path[0] != '/':             # <<<<<<<<<<<<<<
+ *             path = '/' + path
+ *         return host_port, path
+ */
+    }
+
+    /* "curlparse.pyx":1091
+ *         if path and path[0] != '/':
+ *             path = '/' + path
+ *         return host_port, path             # <<<<<<<<<<<<<<
+ *     return None, url
+ * 
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1091, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_INCREF(__pyx_v_host_port);
+    __Pyx_GIVEREF(__pyx_v_host_port);
+    PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_host_port);
+    __Pyx_INCREF(__pyx_v_path);
+    __Pyx_GIVEREF(__pyx_v_path);
+    PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_path);
+    __pyx_r = __pyx_t_1;
+    __pyx_t_1 = 0;
+    goto __pyx_L0;
+
+    /* "curlparse.pyx":1087
+ * 
+ *     match = _hostprog.match(url)
+ *     if match:             # <<<<<<<<<<<<<<
+ *         host_port, path = match.groups()
+ *         if path and path[0] != '/':
+ */
+  }
+
+  /* "curlparse.pyx":1092
+ *             path = '/' + path
+ *         return host_port, path
+ *     return None, url             # <<<<<<<<<<<<<<
+ * 
+ * def splituser(host):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1092, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, Py_None);
+  __Pyx_INCREF(__pyx_v_url);
+  __Pyx_GIVEREF(__pyx_v_url);
+  PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_url);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "curlparse.pyx":1080
+ * 
+ * _hostprog = None
+ * def splithost(url):             # <<<<<<<<<<<<<<
+ *     """splithost('//host[:port]/path') --> 'host[:port]', '/path'."""
+ *     global _hostprog
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_AddTraceback("curlparse.splithost", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_match);
+  __Pyx_XDECREF(__pyx_v_host_port);
+  __Pyx_XDECREF(__pyx_v_path);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "curlparse.pyx":1094
+ *     return None, url
+ * 
+ * def splituser(host):             # <<<<<<<<<<<<<<
+ *     """splituser('user[:passwd]@host[:port]') --> 'user[:passwd]', 'host[:port]'."""
+ *     user, delim, host = host.rpartition('@')
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_9curlparse_59splituser(PyObject *__pyx_self, PyObject *__pyx_v_host); /*proto*/
+static char __pyx_doc_9curlparse_58splituser[] = "splituser('user[:passwd]@host[:port]') --> 'user[:passwd]', 'host[:port]'.";
+static PyMethodDef __pyx_mdef_9curlparse_59splituser = {"splituser", (PyCFunction)__pyx_pw_9curlparse_59splituser, METH_O, __pyx_doc_9curlparse_58splituser};
+static PyObject *__pyx_pw_9curlparse_59splituser(PyObject *__pyx_self, PyObject *__pyx_v_host) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("splituser (wrapper)", 0);
+  __pyx_r = __pyx_pf_9curlparse_58splituser(__pyx_self, ((PyObject *)__pyx_v_host));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_9curlparse_58splituser(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_host) {
+  PyObject *__pyx_v_user = NULL;
+  PyObject *__pyx_v_delim = NULL;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *(*__pyx_t_6)(PyObject *);
+  int __pyx_t_7;
+  __Pyx_RefNannySetupContext("splituser", 0);
+  __Pyx_INCREF(__pyx_v_host);
+
+  /* "curlparse.pyx":1096
+ * def splituser(host):
+ *     """splituser('user[:passwd]@host[:port]') --> 'user[:passwd]', 'host[:port]'."""
+ *     user, delim, host = host.rpartition('@')             # <<<<<<<<<<<<<<
+ *     return (user if delim else None), host
+ * 
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_host, __pyx_n_s_rpartition); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1096, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__75, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1096, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
+    PyObject* sequence = __pyx_t_2;
+    #if CYTHON_COMPILING_IN_CPYTHON
+    Py_ssize_t size = Py_SIZE(sequence);
+    #else
+    Py_ssize_t size = PySequence_Size(sequence);
+    #endif
+    if (unlikely(size != 3)) {
+      if (size > 3) __Pyx_RaiseTooManyValuesError(3);
+      else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
+      __PYX_ERR(0, 1096, __pyx_L1_error)
+    }
+    #if CYTHON_COMPILING_IN_CPYTHON
+    if (likely(PyTuple_CheckExact(sequence))) {
+      __pyx_t_1 = PyTuple_GET_ITEM(sequence, 0); 
+      __pyx_t_3 = PyTuple_GET_ITEM(sequence, 1); 
+      __pyx_t_4 = PyTuple_GET_ITEM(sequence, 2); 
+    } else {
+      __pyx_t_1 = PyList_GET_ITEM(sequence, 0); 
+      __pyx_t_3 = PyList_GET_ITEM(sequence, 1); 
+      __pyx_t_4 = PyList_GET_ITEM(sequence, 2); 
+    }
+    __Pyx_INCREF(__pyx_t_1);
+    __Pyx_INCREF(__pyx_t_3);
+    __Pyx_INCREF(__pyx_t_4);
+    #else
+    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1096, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1096, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_4 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1096, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    #endif
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  } else {
+    Py_ssize_t index = -1;
+    __pyx_t_5 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1096, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_6 = Py_TYPE(__pyx_t_5)->tp_iternext;
+    index = 0; __pyx_t_1 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_1)) goto __pyx_L3_unpacking_failed;
+    __Pyx_GOTREF(__pyx_t_1);
+    index = 1; __pyx_t_3 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_3)) goto __pyx_L3_unpacking_failed;
+    __Pyx_GOTREF(__pyx_t_3);
+    index = 2; __pyx_t_4 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_4)) goto __pyx_L3_unpacking_failed;
+    __Pyx_GOTREF(__pyx_t_4);
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 3) < 0) __PYX_ERR(0, 1096, __pyx_L1_error)
+    __pyx_t_6 = NULL;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    goto __pyx_L4_unpacking_done;
+    __pyx_L3_unpacking_failed:;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_6 = NULL;
+    if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
+    __PYX_ERR(0, 1096, __pyx_L1_error)
+    __pyx_L4_unpacking_done:;
+  }
+  __pyx_v_user = __pyx_t_1;
+  __pyx_t_1 = 0;
+  __pyx_v_delim = __pyx_t_3;
+  __pyx_t_3 = 0;
+  __Pyx_DECREF_SET(__pyx_v_host, __pyx_t_4);
+  __pyx_t_4 = 0;
+
+  /* "curlparse.pyx":1097
+ *     """splituser('user[:passwd]@host[:port]') --> 'user[:passwd]', 'host[:port]'."""
+ *     user, delim, host = host.rpartition('@')
+ *     return (user if delim else None), host             # <<<<<<<<<<<<<<
+ * 
+ * def splitpasswd(user):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_v_delim); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 1097, __pyx_L1_error)
+  if (__pyx_t_7) {
+    __Pyx_INCREF(__pyx_v_user);
+    __pyx_t_2 = __pyx_v_user;
+  } else {
+    __Pyx_INCREF(Py_None);
+    __pyx_t_2 = Py_None;
+  }
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1097, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_GIVEREF(__pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
+  __Pyx_INCREF(__pyx_v_host);
+  __Pyx_GIVEREF(__pyx_v_host);
+  PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_v_host);
+  __pyx_t_2 = 0;
+  __pyx_r = __pyx_t_4;
+  __pyx_t_4 = 0;
+  goto __pyx_L0;
+
+  /* "curlparse.pyx":1094
+ *     return None, url
+ * 
+ * def splituser(host):             # <<<<<<<<<<<<<<
+ *     """splituser('user[:passwd]@host[:port]') --> 'user[:passwd]', 'host[:port]'."""
+ *     user, delim, host = host.rpartition('@')
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("curlparse.splituser", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_user);
+  __Pyx_XDECREF(__pyx_v_delim);
+  __Pyx_XDECREF(__pyx_v_host);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "curlparse.pyx":1099
+ *     return (user if delim else None), host
+ * 
+ * def splitpasswd(user):             # <<<<<<<<<<<<<<
+ *     """splitpasswd('user:passwd') -> 'user', 'passwd'."""
+ *     user, delim, passwd = user.partition(':')
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_9curlparse_61splitpasswd(PyObject *__pyx_self, PyObject *__pyx_v_user); /*proto*/
+static char __pyx_doc_9curlparse_60splitpasswd[] = "splitpasswd('user:passwd') -> 'user', 'passwd'.";
+static PyMethodDef __pyx_mdef_9curlparse_61splitpasswd = {"splitpasswd", (PyCFunction)__pyx_pw_9curlparse_61splitpasswd, METH_O, __pyx_doc_9curlparse_60splitpasswd};
+static PyObject *__pyx_pw_9curlparse_61splitpasswd(PyObject *__pyx_self, PyObject *__pyx_v_user) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("splitpasswd (wrapper)", 0);
+  __pyx_r = __pyx_pf_9curlparse_60splitpasswd(__pyx_self, ((PyObject *)__pyx_v_user));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_9curlparse_60splitpasswd(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_user) {
+  PyObject *__pyx_v_delim = NULL;
+  PyObject *__pyx_v_passwd = NULL;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *(*__pyx_t_6)(PyObject *);
+  int __pyx_t_7;
+  __Pyx_RefNannySetupContext("splitpasswd", 0);
+  __Pyx_INCREF(__pyx_v_user);
+
+  /* "curlparse.pyx":1101
+ * def splitpasswd(user):
+ *     """splitpasswd('user:passwd') -> 'user', 'passwd'."""
+ *     user, delim, passwd = user.partition(':')             # <<<<<<<<<<<<<<
+ *     return user, (passwd if delim else None)
+ * 
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_user, __pyx_n_s_partition); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1101, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__76, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1101, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
+    PyObject* sequence = __pyx_t_2;
+    #if CYTHON_COMPILING_IN_CPYTHON
+    Py_ssize_t size = Py_SIZE(sequence);
+    #else
+    Py_ssize_t size = PySequence_Size(sequence);
+    #endif
+    if (unlikely(size != 3)) {
+      if (size > 3) __Pyx_RaiseTooManyValuesError(3);
+      else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
+      __PYX_ERR(0, 1101, __pyx_L1_error)
+    }
+    #if CYTHON_COMPILING_IN_CPYTHON
+    if (likely(PyTuple_CheckExact(sequence))) {
+      __pyx_t_1 = PyTuple_GET_ITEM(sequence, 0); 
+      __pyx_t_3 = PyTuple_GET_ITEM(sequence, 1); 
+      __pyx_t_4 = PyTuple_GET_ITEM(sequence, 2); 
+    } else {
+      __pyx_t_1 = PyList_GET_ITEM(sequence, 0); 
+      __pyx_t_3 = PyList_GET_ITEM(sequence, 1); 
+      __pyx_t_4 = PyList_GET_ITEM(sequence, 2); 
+    }
+    __Pyx_INCREF(__pyx_t_1);
+    __Pyx_INCREF(__pyx_t_3);
+    __Pyx_INCREF(__pyx_t_4);
+    #else
+    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1101, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1101, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_4 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1101, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    #endif
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  } else {
+    Py_ssize_t index = -1;
+    __pyx_t_5 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1101, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_6 = Py_TYPE(__pyx_t_5)->tp_iternext;
+    index = 0; __pyx_t_1 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_1)) goto __pyx_L3_unpacking_failed;
+    __Pyx_GOTREF(__pyx_t_1);
+    index = 1; __pyx_t_3 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_3)) goto __pyx_L3_unpacking_failed;
+    __Pyx_GOTREF(__pyx_t_3);
+    index = 2; __pyx_t_4 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_4)) goto __pyx_L3_unpacking_failed;
+    __Pyx_GOTREF(__pyx_t_4);
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 3) < 0) __PYX_ERR(0, 1101, __pyx_L1_error)
+    __pyx_t_6 = NULL;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    goto __pyx_L4_unpacking_done;
+    __pyx_L3_unpacking_failed:;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_6 = NULL;
+    if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
+    __PYX_ERR(0, 1101, __pyx_L1_error)
+    __pyx_L4_unpacking_done:;
+  }
+  __Pyx_DECREF_SET(__pyx_v_user, __pyx_t_1);
+  __pyx_t_1 = 0;
+  __pyx_v_delim = __pyx_t_3;
+  __pyx_t_3 = 0;
+  __pyx_v_passwd = __pyx_t_4;
+  __pyx_t_4 = 0;
+
+  /* "curlparse.pyx":1102
+ *     """splitpasswd('user:passwd') -> 'user', 'passwd'."""
+ *     user, delim, passwd = user.partition(':')
+ *     return user, (passwd if delim else None)             # <<<<<<<<<<<<<<
+ * 
+ * # splittag('/path#tag') --> '/path', 'tag'
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_v_delim); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 1102, __pyx_L1_error)
+  if (__pyx_t_7) {
+    __Pyx_INCREF(__pyx_v_passwd);
+    __pyx_t_2 = __pyx_v_passwd;
+  } else {
+    __Pyx_INCREF(Py_None);
+    __pyx_t_2 = Py_None;
+  }
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1102, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_INCREF(__pyx_v_user);
+  __Pyx_GIVEREF(__pyx_v_user);
+  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_user);
+  __Pyx_GIVEREF(__pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_2);
+  __pyx_t_2 = 0;
+  __pyx_r = __pyx_t_4;
+  __pyx_t_4 = 0;
+  goto __pyx_L0;
+
+  /* "curlparse.pyx":1099
+ *     return (user if delim else None), host
+ * 
+ * def splitpasswd(user):             # <<<<<<<<<<<<<<
+ *     """splitpasswd('user:passwd') -> 'user', 'passwd'."""
+ *     user, delim, passwd = user.partition(':')
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("curlparse.splitpasswd", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_delim);
+  __Pyx_XDECREF(__pyx_v_passwd);
+  __Pyx_XDECREF(__pyx_v_user);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "curlparse.pyx":1106
+ * # splittag('/path#tag') --> '/path', 'tag'
+ * _portprog = None
+ * def splitport(host):             # <<<<<<<<<<<<<<
+ *     """splitport('host:port') --> 'host', 'port'."""
+ *     global _portprog
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_9curlparse_63splitport(PyObject *__pyx_self, PyObject *__pyx_v_host); /*proto*/
+static char __pyx_doc_9curlparse_62splitport[] = "splitport('host:port') --> 'host', 'port'.";
+static PyMethodDef __pyx_mdef_9curlparse_63splitport = {"splitport", (PyCFunction)__pyx_pw_9curlparse_63splitport, METH_O, __pyx_doc_9curlparse_62splitport};
+static PyObject *__pyx_pw_9curlparse_63splitport(PyObject *__pyx_self, PyObject *__pyx_v_host) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("splitport (wrapper)", 0);
+  __pyx_r = __pyx_pf_9curlparse_62splitport(__pyx_self, ((PyObject *)__pyx_v_host));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_9curlparse_62splitport(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_host) {
+  PyObject *__pyx_v_match = NULL;
+  PyObject *__pyx_v_port = NULL;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_t_2;
+  int __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  Py_ssize_t __pyx_t_7;
+  PyObject *__pyx_t_8 = NULL;
+  PyObject *(*__pyx_t_9)(PyObject *);
+  __Pyx_RefNannySetupContext("splitport", 0);
+  __Pyx_INCREF(__pyx_v_host);
+
+  /* "curlparse.pyx":1109
+ *     """splitport('host:port') --> 'host', 'port'."""
+ *     global _portprog
+ *     if _portprog is None:             # <<<<<<<<<<<<<<
+ *         _portprog = re.compile('(.*):([0-9]*)$', re.DOTALL)
+ * 
+ */
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_portprog); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1109, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = (__pyx_t_1 == Py_None);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_3 = (__pyx_t_2 != 0);
+  if (__pyx_t_3) {
+
+    /* "curlparse.pyx":1110
+ *     global _portprog
+ *     if _portprog is None:
+ *         _portprog = re.compile('(.*):([0-9]*)$', re.DOTALL)             # <<<<<<<<<<<<<<
+ * 
+ *     match = _portprog.match(host)
+ */
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1110, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_compile); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1110, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1110, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_DOTALL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1110, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_4 = NULL;
+    __pyx_t_7 = 0;
+    if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_5))) {
+      __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_5);
+      if (likely(__pyx_t_4)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+        __Pyx_INCREF(__pyx_t_4);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_5, function);
+        __pyx_t_7 = 1;
+      }
+    }
+    __pyx_t_8 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1110, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    if (__pyx_t_4) {
+      __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_4); __pyx_t_4 = NULL;
+    }
+    __Pyx_INCREF(__pyx_kp_s_0_9);
+    __Pyx_GIVEREF(__pyx_kp_s_0_9);
+    PyTuple_SET_ITEM(__pyx_t_8, 0+__pyx_t_7, __pyx_kp_s_0_9);
+    __Pyx_GIVEREF(__pyx_t_6);
+    PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_7, __pyx_t_6);
+    __pyx_t_6 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1110, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    if (PyDict_SetItem(__pyx_d, __pyx_n_s_portprog, __pyx_t_1) < 0) __PYX_ERR(0, 1110, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "curlparse.pyx":1109
+ *     """splitport('host:port') --> 'host', 'port'."""
+ *     global _portprog
+ *     if _portprog is None:             # <<<<<<<<<<<<<<
+ *         _portprog = re.compile('(.*):([0-9]*)$', re.DOTALL)
+ * 
+ */
+  }
+
+  /* "curlparse.pyx":1112
+ *         _portprog = re.compile('(.*):([0-9]*)$', re.DOTALL)
+ * 
+ *     match = _portprog.match(host)             # <<<<<<<<<<<<<<
+ *     if match:
+ *         host, port = match.groups()
+ */
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_portprog); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1112, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_match); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1112, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_5 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_8))) {
+    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_8);
+    if (likely(__pyx_t_5)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+      __Pyx_INCREF(__pyx_t_5);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_8, function);
+    }
+  }
+  if (!__pyx_t_5) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_host); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1112, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+  } else {
+    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1112, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __pyx_t_5 = NULL;
+    __Pyx_INCREF(__pyx_v_host);
+    __Pyx_GIVEREF(__pyx_v_host);
+    PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_v_host);
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1112, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __pyx_v_match = __pyx_t_1;
+  __pyx_t_1 = 0;
+
+  /* "curlparse.pyx":1113
+ * 
+ *     match = _portprog.match(host)
+ *     if match:             # <<<<<<<<<<<<<<
+ *         host, port = match.groups()
+ *         if port:
+ */
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_v_match); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 1113, __pyx_L1_error)
+  if (__pyx_t_3) {
+
+    /* "curlparse.pyx":1114
+ *     match = _portprog.match(host)
+ *     if match:
+ *         host, port = match.groups()             # <<<<<<<<<<<<<<
+ *         if port:
+ *             return host, port
+ */
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_match, __pyx_n_s_groups); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1114, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __pyx_t_6 = NULL;
+    if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_8))) {
+      __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_8);
+      if (likely(__pyx_t_6)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+        __Pyx_INCREF(__pyx_t_6);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_8, function);
+      }
+    }
+    if (__pyx_t_6) {
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1114, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    } else {
+      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1114, __pyx_L1_error)
+    }
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
+      PyObject* sequence = __pyx_t_1;
+      #if CYTHON_COMPILING_IN_CPYTHON
+      Py_ssize_t size = Py_SIZE(sequence);
+      #else
+      Py_ssize_t size = PySequence_Size(sequence);
+      #endif
+      if (unlikely(size != 2)) {
+        if (size > 2) __Pyx_RaiseTooManyValuesError(2);
+        else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
+        __PYX_ERR(0, 1114, __pyx_L1_error)
+      }
+      #if CYTHON_COMPILING_IN_CPYTHON
+      if (likely(PyTuple_CheckExact(sequence))) {
+        __pyx_t_8 = PyTuple_GET_ITEM(sequence, 0); 
+        __pyx_t_6 = PyTuple_GET_ITEM(sequence, 1); 
+      } else {
+        __pyx_t_8 = PyList_GET_ITEM(sequence, 0); 
+        __pyx_t_6 = PyList_GET_ITEM(sequence, 1); 
+      }
+      __Pyx_INCREF(__pyx_t_8);
+      __Pyx_INCREF(__pyx_t_6);
+      #else
+      __pyx_t_8 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1114, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1114, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      #endif
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    } else {
+      Py_ssize_t index = -1;
+      __pyx_t_5 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1114, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_9 = Py_TYPE(__pyx_t_5)->tp_iternext;
+      index = 0; __pyx_t_8 = __pyx_t_9(__pyx_t_5); if (unlikely(!__pyx_t_8)) goto __pyx_L5_unpacking_failed;
+      __Pyx_GOTREF(__pyx_t_8);
+      index = 1; __pyx_t_6 = __pyx_t_9(__pyx_t_5); if (unlikely(!__pyx_t_6)) goto __pyx_L5_unpacking_failed;
+      __Pyx_GOTREF(__pyx_t_6);
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_9(__pyx_t_5), 2) < 0) __PYX_ERR(0, 1114, __pyx_L1_error)
+      __pyx_t_9 = NULL;
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      goto __pyx_L6_unpacking_done;
+      __pyx_L5_unpacking_failed:;
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_9 = NULL;
+      if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
+      __PYX_ERR(0, 1114, __pyx_L1_error)
+      __pyx_L6_unpacking_done:;
+    }
     __Pyx_DECREF_SET(__pyx_v_host, __pyx_t_8);
     __pyx_t_8 = 0;
     __pyx_v_port = __pyx_t_6;
     __pyx_t_6 = 0;
 
-    /* "curlparse.pyx":1089
+    /* "curlparse.pyx":1115
  *     if match:
  *         host, port = match.groups()
  *         if port:             # <<<<<<<<<<<<<<
  *             return host, port
  *     return host, None
  */
-    __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_v_port); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 1089, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_v_port); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 1115, __pyx_L1_error)
     if (__pyx_t_3) {
 
-      /* "curlparse.pyx":1090
+      /* "curlparse.pyx":1116
  *         host, port = match.groups()
  *         if port:
  *             return host, port             # <<<<<<<<<<<<<<
@@ -21582,7 +22727,7 @@ static PyObject *__pyx_pf_9curlparse_60splitport(CYTHON_UNUSED PyObject *__pyx_s
  * 
  */
       __Pyx_XDECREF(__pyx_r);
-      __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1090, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1116, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_v_host);
       __Pyx_GIVEREF(__pyx_v_host);
@@ -21594,7 +22739,7 @@ static PyObject *__pyx_pf_9curlparse_60splitport(CYTHON_UNUSED PyObject *__pyx_s
       __pyx_t_1 = 0;
       goto __pyx_L0;
 
-      /* "curlparse.pyx":1089
+      /* "curlparse.pyx":1115
  *     if match:
  *         host, port = match.groups()
  *         if port:             # <<<<<<<<<<<<<<
@@ -21603,7 +22748,7 @@ static PyObject *__pyx_pf_9curlparse_60splitport(CYTHON_UNUSED PyObject *__pyx_s
  */
     }
 
-    /* "curlparse.pyx":1087
+    /* "curlparse.pyx":1113
  * 
  *     match = _portprog.match(host)
  *     if match:             # <<<<<<<<<<<<<<
@@ -21612,7 +22757,7 @@ static PyObject *__pyx_pf_9curlparse_60splitport(CYTHON_UNUSED PyObject *__pyx_s
  */
   }
 
-  /* "curlparse.pyx":1091
+  /* "curlparse.pyx":1117
  *         if port:
  *             return host, port
  *     return host, None             # <<<<<<<<<<<<<<
@@ -21620,7 +22765,7 @@ static PyObject *__pyx_pf_9curlparse_60splitport(CYTHON_UNUSED PyObject *__pyx_s
  * def splitnport(host, defport=-1):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1091, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_host);
   __Pyx_GIVEREF(__pyx_v_host);
@@ -21632,7 +22777,7 @@ static PyObject *__pyx_pf_9curlparse_60splitport(CYTHON_UNUSED PyObject *__pyx_s
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":1080
+  /* "curlparse.pyx":1106
  * # splittag('/path#tag') --> '/path', 'tag'
  * _portprog = None
  * def splitport(host):             # <<<<<<<<<<<<<<
@@ -21658,7 +22803,7 @@ static PyObject *__pyx_pf_9curlparse_60splitport(CYTHON_UNUSED PyObject *__pyx_s
   return __pyx_r;
 }
 
-/* "curlparse.pyx":1093
+/* "curlparse.pyx":1119
  *     return host, None
  * 
  * def splitnport(host, defport=-1):             # <<<<<<<<<<<<<<
@@ -21667,10 +22812,10 @@ static PyObject *__pyx_pf_9curlparse_60splitport(CYTHON_UNUSED PyObject *__pyx_s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_63splitnport(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_9curlparse_62splitnport[] = "Split host and port, returning numeric port.\n    Return given default port if no ':' found; defaults to -1.\n    Return numerical port if a valid number are found after ':'.\n    Return None if ':' but not a valid number.";
-static PyMethodDef __pyx_mdef_9curlparse_63splitnport = {"splitnport", (PyCFunction)__pyx_pw_9curlparse_63splitnport, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_62splitnport};
-static PyObject *__pyx_pw_9curlparse_63splitnport(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_9curlparse_65splitnport(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_9curlparse_64splitnport[] = "Split host and port, returning numeric port.\n    Return given default port if no ':' found; defaults to -1.\n    Return numerical port if a valid number are found after ':'.\n    Return None if ':' but not a valid number.";
+static PyMethodDef __pyx_mdef_9curlparse_65splitnport = {"splitnport", (PyCFunction)__pyx_pw_9curlparse_65splitnport, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9curlparse_64splitnport};
+static PyObject *__pyx_pw_9curlparse_65splitnport(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_host = 0;
   PyObject *__pyx_v_defport = 0;
   PyObject *__pyx_r = 0;
@@ -21701,7 +22846,7 @@ static PyObject *__pyx_pw_9curlparse_63splitnport(PyObject *__pyx_self, PyObject
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "splitnport") < 0)) __PYX_ERR(0, 1093, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "splitnport") < 0)) __PYX_ERR(0, 1119, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -21716,20 +22861,20 @@ static PyObject *__pyx_pw_9curlparse_63splitnport(PyObject *__pyx_self, PyObject
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("splitnport", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1093, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("splitnport", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1119, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("curlparse.splitnport", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_9curlparse_62splitnport(__pyx_self, __pyx_v_host, __pyx_v_defport);
+  __pyx_r = __pyx_pf_9curlparse_64splitnport(__pyx_self, __pyx_v_host, __pyx_v_defport);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_host, PyObject *__pyx_v_defport) {
+static PyObject *__pyx_pf_9curlparse_64splitnport(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_host, PyObject *__pyx_v_defport) {
   PyObject *__pyx_v_delim = NULL;
   PyObject *__pyx_v_port = NULL;
   PyObject *__pyx_v_nport = NULL;
@@ -21750,16 +22895,16 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
   __Pyx_RefNannySetupContext("splitnport", 0);
   __Pyx_INCREF(__pyx_v_host);
 
-  /* "curlparse.pyx":1098
+  /* "curlparse.pyx":1124
  *     Return numerical port if a valid number are found after ':'.
  *     Return None if ':' but not a valid number."""
  *     host, delim, port = host.rpartition(':')             # <<<<<<<<<<<<<<
  *     if not delim:
  *         host = port
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_host, __pyx_n_s_rpartition); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1098, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_host, __pyx_n_s_rpartition); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1124, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__66, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1098, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__77, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1124, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
@@ -21772,7 +22917,7 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
     if (unlikely(size != 3)) {
       if (size > 3) __Pyx_RaiseTooManyValuesError(3);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 1098, __pyx_L1_error)
+      __PYX_ERR(0, 1124, __pyx_L1_error)
     }
     #if CYTHON_COMPILING_IN_CPYTHON
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -21788,17 +22933,17 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_INCREF(__pyx_t_3);
     __Pyx_INCREF(__pyx_t_4);
     #else
-    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1098, __pyx_L1_error)
+    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1124, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1098, __pyx_L1_error)
+    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1124, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1098, __pyx_L1_error)
+    __pyx_t_4 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1124, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     #endif
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_5 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1098, __pyx_L1_error)
+    __pyx_t_5 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1124, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_6 = Py_TYPE(__pyx_t_5)->tp_iternext;
@@ -21808,7 +22953,7 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_GOTREF(__pyx_t_3);
     index = 2; __pyx_t_4 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_4)) goto __pyx_L3_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_4);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 3) < 0) __PYX_ERR(0, 1098, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 3) < 0) __PYX_ERR(0, 1124, __pyx_L1_error)
     __pyx_t_6 = NULL;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     goto __pyx_L4_unpacking_done;
@@ -21816,7 +22961,7 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_6 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 1098, __pyx_L1_error)
+    __PYX_ERR(0, 1124, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
   __Pyx_DECREF_SET(__pyx_v_host, __pyx_t_1);
@@ -21826,18 +22971,18 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
   __pyx_v_port = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "curlparse.pyx":1099
+  /* "curlparse.pyx":1125
  *     Return None if ':' but not a valid number."""
  *     host, delim, port = host.rpartition(':')
  *     if not delim:             # <<<<<<<<<<<<<<
  *         host = port
  *     elif port:
  */
-  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_v_delim); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 1099, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_v_delim); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 1125, __pyx_L1_error)
   __pyx_t_8 = ((!__pyx_t_7) != 0);
   if (__pyx_t_8) {
 
-    /* "curlparse.pyx":1100
+    /* "curlparse.pyx":1126
  *     host, delim, port = host.rpartition(':')
  *     if not delim:
  *         host = port             # <<<<<<<<<<<<<<
@@ -21847,7 +22992,7 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_INCREF(__pyx_v_port);
     __Pyx_DECREF_SET(__pyx_v_host, __pyx_v_port);
 
-    /* "curlparse.pyx":1099
+    /* "curlparse.pyx":1125
  *     Return None if ':' but not a valid number."""
  *     host, delim, port = host.rpartition(':')
  *     if not delim:             # <<<<<<<<<<<<<<
@@ -21857,17 +23002,17 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
     goto __pyx_L5;
   }
 
-  /* "curlparse.pyx":1101
+  /* "curlparse.pyx":1127
  *     if not delim:
  *         host = port
  *     elif port:             # <<<<<<<<<<<<<<
  *         try:
  *             nport = int(port)
  */
-  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_v_port); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 1101, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_v_port); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 1127, __pyx_L1_error)
   if (__pyx_t_8) {
 
-    /* "curlparse.pyx":1102
+    /* "curlparse.pyx":1128
  *         host = port
  *     elif port:
  *         try:             # <<<<<<<<<<<<<<
@@ -21883,19 +23028,19 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
       __Pyx_XGOTREF(__pyx_t_11);
       /*try:*/ {
 
-        /* "curlparse.pyx":1103
+        /* "curlparse.pyx":1129
  *     elif port:
  *         try:
  *             nport = int(port)             # <<<<<<<<<<<<<<
  *         except ValueError:
  *             nport = None
  */
-        __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_v_port); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1103, __pyx_L6_error)
+        __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_v_port); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1129, __pyx_L6_error)
         __Pyx_GOTREF(__pyx_t_2);
         __pyx_v_nport = __pyx_t_2;
         __pyx_t_2 = 0;
 
-        /* "curlparse.pyx":1102
+        /* "curlparse.pyx":1128
  *         host = port
  *     elif port:
  *         try:             # <<<<<<<<<<<<<<
@@ -21915,7 +23060,7 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "curlparse.pyx":1104
+      /* "curlparse.pyx":1130
  *         try:
  *             nport = int(port)
  *         except ValueError:             # <<<<<<<<<<<<<<
@@ -21925,12 +23070,12 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
       __pyx_t_12 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_ValueError);
       if (__pyx_t_12) {
         __Pyx_AddTraceback("curlparse.splitnport", __pyx_clineno, __pyx_lineno, __pyx_filename);
-        if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_4, &__pyx_t_3) < 0) __PYX_ERR(0, 1104, __pyx_L8_except_error)
+        if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_4, &__pyx_t_3) < 0) __PYX_ERR(0, 1130, __pyx_L8_except_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_GOTREF(__pyx_t_3);
 
-        /* "curlparse.pyx":1105
+        /* "curlparse.pyx":1131
  *             nport = int(port)
  *         except ValueError:
  *             nport = None             # <<<<<<<<<<<<<<
@@ -21947,7 +23092,7 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
       goto __pyx_L8_except_error;
       __pyx_L8_except_error:;
 
-      /* "curlparse.pyx":1102
+      /* "curlparse.pyx":1128
  *         host = port
  *     elif port:
  *         try:             # <<<<<<<<<<<<<<
@@ -21969,7 +23114,7 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
       __pyx_L13_try_end:;
     }
 
-    /* "curlparse.pyx":1106
+    /* "curlparse.pyx":1132
  *         except ValueError:
  *             nport = None
  *         return host, nport             # <<<<<<<<<<<<<<
@@ -21977,7 +23122,7 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
  * 
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1106, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1132, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_INCREF(__pyx_v_host);
     __Pyx_GIVEREF(__pyx_v_host);
@@ -21989,7 +23134,7 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
     __pyx_t_3 = 0;
     goto __pyx_L0;
 
-    /* "curlparse.pyx":1101
+    /* "curlparse.pyx":1127
  *     if not delim:
  *         host = port
  *     elif port:             # <<<<<<<<<<<<<<
@@ -21999,7 +23144,7 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
   }
   __pyx_L5:;
 
-  /* "curlparse.pyx":1107
+  /* "curlparse.pyx":1133
  *             nport = None
  *         return host, nport
  *     return host, defport             # <<<<<<<<<<<<<<
@@ -22007,7 +23152,7 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
  * def splitquery(url):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1107, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_v_host);
   __Pyx_GIVEREF(__pyx_v_host);
@@ -22019,7 +23164,7 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":1093
+  /* "curlparse.pyx":1119
  *     return host, None
  * 
  * def splitnport(host, defport=-1):             # <<<<<<<<<<<<<<
@@ -22046,7 +23191,7 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
   return __pyx_r;
 }
 
-/* "curlparse.pyx":1109
+/* "curlparse.pyx":1135
  *     return host, defport
  * 
  * def splitquery(url):             # <<<<<<<<<<<<<<
@@ -22055,21 +23200,21 @@ static PyObject *__pyx_pf_9curlparse_62splitnport(CYTHON_UNUSED PyObject *__pyx_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_65splitquery(PyObject *__pyx_self, PyObject *__pyx_v_url); /*proto*/
-static char __pyx_doc_9curlparse_64splitquery[] = "splitquery('/path?query') --> '/path', 'query'.";
-static PyMethodDef __pyx_mdef_9curlparse_65splitquery = {"splitquery", (PyCFunction)__pyx_pw_9curlparse_65splitquery, METH_O, __pyx_doc_9curlparse_64splitquery};
-static PyObject *__pyx_pw_9curlparse_65splitquery(PyObject *__pyx_self, PyObject *__pyx_v_url) {
+static PyObject *__pyx_pw_9curlparse_67splitquery(PyObject *__pyx_self, PyObject *__pyx_v_url); /*proto*/
+static char __pyx_doc_9curlparse_66splitquery[] = "splitquery('/path?query') --> '/path', 'query'.";
+static PyMethodDef __pyx_mdef_9curlparse_67splitquery = {"splitquery", (PyCFunction)__pyx_pw_9curlparse_67splitquery, METH_O, __pyx_doc_9curlparse_66splitquery};
+static PyObject *__pyx_pw_9curlparse_67splitquery(PyObject *__pyx_self, PyObject *__pyx_v_url) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("splitquery (wrapper)", 0);
-  __pyx_r = __pyx_pf_9curlparse_64splitquery(__pyx_self, ((PyObject *)__pyx_v_url));
+  __pyx_r = __pyx_pf_9curlparse_66splitquery(__pyx_self, ((PyObject *)__pyx_v_url));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_64splitquery(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url) {
+static PyObject *__pyx_pf_9curlparse_66splitquery(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url) {
   PyObject *__pyx_v_path = NULL;
   PyObject *__pyx_v_delim = NULL;
   PyObject *__pyx_v_query = NULL;
@@ -22084,16 +23229,16 @@ static PyObject *__pyx_pf_9curlparse_64splitquery(CYTHON_UNUSED PyObject *__pyx_
   int __pyx_t_7;
   __Pyx_RefNannySetupContext("splitquery", 0);
 
-  /* "curlparse.pyx":1111
+  /* "curlparse.pyx":1137
  * def splitquery(url):
  *     """splitquery('/path?query') --> '/path', 'query'."""
  *     path, delim, query = url.rpartition('?')             # <<<<<<<<<<<<<<
  *     if delim:
  *         return path, query
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_rpartition); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1111, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_rpartition); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__67, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1111, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__78, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
@@ -22106,7 +23251,7 @@ static PyObject *__pyx_pf_9curlparse_64splitquery(CYTHON_UNUSED PyObject *__pyx_
     if (unlikely(size != 3)) {
       if (size > 3) __Pyx_RaiseTooManyValuesError(3);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 1111, __pyx_L1_error)
+      __PYX_ERR(0, 1137, __pyx_L1_error)
     }
     #if CYTHON_COMPILING_IN_CPYTHON
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -22122,17 +23267,17 @@ static PyObject *__pyx_pf_9curlparse_64splitquery(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_INCREF(__pyx_t_3);
     __Pyx_INCREF(__pyx_t_4);
     #else
-    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1111, __pyx_L1_error)
+    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1137, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1111, __pyx_L1_error)
+    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1137, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1111, __pyx_L1_error)
+    __pyx_t_4 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1137, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     #endif
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_5 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1111, __pyx_L1_error)
+    __pyx_t_5 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1137, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_6 = Py_TYPE(__pyx_t_5)->tp_iternext;
@@ -22142,7 +23287,7 @@ static PyObject *__pyx_pf_9curlparse_64splitquery(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_GOTREF(__pyx_t_3);
     index = 2; __pyx_t_4 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_4)) goto __pyx_L3_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_4);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 3) < 0) __PYX_ERR(0, 1111, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 3) < 0) __PYX_ERR(0, 1137, __pyx_L1_error)
     __pyx_t_6 = NULL;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     goto __pyx_L4_unpacking_done;
@@ -22150,7 +23295,7 @@ static PyObject *__pyx_pf_9curlparse_64splitquery(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_6 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 1111, __pyx_L1_error)
+    __PYX_ERR(0, 1137, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
   __pyx_v_path = __pyx_t_1;
@@ -22160,17 +23305,17 @@ static PyObject *__pyx_pf_9curlparse_64splitquery(CYTHON_UNUSED PyObject *__pyx_
   __pyx_v_query = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "curlparse.pyx":1112
+  /* "curlparse.pyx":1138
  *     """splitquery('/path?query') --> '/path', 'query'."""
  *     path, delim, query = url.rpartition('?')
  *     if delim:             # <<<<<<<<<<<<<<
  *         return path, query
  *     return url, None
  */
-  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_v_delim); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 1112, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_v_delim); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 1138, __pyx_L1_error)
   if (__pyx_t_7) {
 
-    /* "curlparse.pyx":1113
+    /* "curlparse.pyx":1139
  *     path, delim, query = url.rpartition('?')
  *     if delim:
  *         return path, query             # <<<<<<<<<<<<<<
@@ -22178,7 +23323,7 @@ static PyObject *__pyx_pf_9curlparse_64splitquery(CYTHON_UNUSED PyObject *__pyx_
  * 
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1113, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1139, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_v_path);
     __Pyx_GIVEREF(__pyx_v_path);
@@ -22190,7 +23335,7 @@ static PyObject *__pyx_pf_9curlparse_64splitquery(CYTHON_UNUSED PyObject *__pyx_
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "curlparse.pyx":1112
+    /* "curlparse.pyx":1138
  *     """splitquery('/path?query') --> '/path', 'query'."""
  *     path, delim, query = url.rpartition('?')
  *     if delim:             # <<<<<<<<<<<<<<
@@ -22199,7 +23344,7 @@ static PyObject *__pyx_pf_9curlparse_64splitquery(CYTHON_UNUSED PyObject *__pyx_
  */
   }
 
-  /* "curlparse.pyx":1114
+  /* "curlparse.pyx":1140
  *     if delim:
  *         return path, query
  *     return url, None             # <<<<<<<<<<<<<<
@@ -22207,7 +23352,7 @@ static PyObject *__pyx_pf_9curlparse_64splitquery(CYTHON_UNUSED PyObject *__pyx_
  * def splittag(url):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1114, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1140, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_v_url);
   __Pyx_GIVEREF(__pyx_v_url);
@@ -22219,7 +23364,7 @@ static PyObject *__pyx_pf_9curlparse_64splitquery(CYTHON_UNUSED PyObject *__pyx_
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":1109
+  /* "curlparse.pyx":1135
  *     return host, defport
  * 
  * def splitquery(url):             # <<<<<<<<<<<<<<
@@ -22245,7 +23390,7 @@ static PyObject *__pyx_pf_9curlparse_64splitquery(CYTHON_UNUSED PyObject *__pyx_
   return __pyx_r;
 }
 
-/* "curlparse.pyx":1116
+/* "curlparse.pyx":1142
  *     return url, None
  * 
  * def splittag(url):             # <<<<<<<<<<<<<<
@@ -22254,21 +23399,21 @@ static PyObject *__pyx_pf_9curlparse_64splitquery(CYTHON_UNUSED PyObject *__pyx_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_67splittag(PyObject *__pyx_self, PyObject *__pyx_v_url); /*proto*/
-static char __pyx_doc_9curlparse_66splittag[] = "splittag('/path#tag') --> '/path', 'tag'.";
-static PyMethodDef __pyx_mdef_9curlparse_67splittag = {"splittag", (PyCFunction)__pyx_pw_9curlparse_67splittag, METH_O, __pyx_doc_9curlparse_66splittag};
-static PyObject *__pyx_pw_9curlparse_67splittag(PyObject *__pyx_self, PyObject *__pyx_v_url) {
+static PyObject *__pyx_pw_9curlparse_69splittag(PyObject *__pyx_self, PyObject *__pyx_v_url); /*proto*/
+static char __pyx_doc_9curlparse_68splittag[] = "splittag('/path#tag') --> '/path', 'tag'.";
+static PyMethodDef __pyx_mdef_9curlparse_69splittag = {"splittag", (PyCFunction)__pyx_pw_9curlparse_69splittag, METH_O, __pyx_doc_9curlparse_68splittag};
+static PyObject *__pyx_pw_9curlparse_69splittag(PyObject *__pyx_self, PyObject *__pyx_v_url) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("splittag (wrapper)", 0);
-  __pyx_r = __pyx_pf_9curlparse_66splittag(__pyx_self, ((PyObject *)__pyx_v_url));
+  __pyx_r = __pyx_pf_9curlparse_68splittag(__pyx_self, ((PyObject *)__pyx_v_url));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_66splittag(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url) {
+static PyObject *__pyx_pf_9curlparse_68splittag(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url) {
   PyObject *__pyx_v_path = NULL;
   PyObject *__pyx_v_delim = NULL;
   PyObject *__pyx_v_tag = NULL;
@@ -22283,16 +23428,16 @@ static PyObject *__pyx_pf_9curlparse_66splittag(CYTHON_UNUSED PyObject *__pyx_se
   int __pyx_t_7;
   __Pyx_RefNannySetupContext("splittag", 0);
 
-  /* "curlparse.pyx":1118
+  /* "curlparse.pyx":1144
  * def splittag(url):
  *     """splittag('/path#tag') --> '/path', 'tag'."""
  *     path, delim, tag = url.rpartition('#')             # <<<<<<<<<<<<<<
  *     if delim:
  *         return path, tag
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_rpartition); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1118, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_rpartition); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1144, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__68, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1118, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__79, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1144, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
@@ -22305,7 +23450,7 @@ static PyObject *__pyx_pf_9curlparse_66splittag(CYTHON_UNUSED PyObject *__pyx_se
     if (unlikely(size != 3)) {
       if (size > 3) __Pyx_RaiseTooManyValuesError(3);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 1118, __pyx_L1_error)
+      __PYX_ERR(0, 1144, __pyx_L1_error)
     }
     #if CYTHON_COMPILING_IN_CPYTHON
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -22321,17 +23466,17 @@ static PyObject *__pyx_pf_9curlparse_66splittag(CYTHON_UNUSED PyObject *__pyx_se
     __Pyx_INCREF(__pyx_t_3);
     __Pyx_INCREF(__pyx_t_4);
     #else
-    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1118, __pyx_L1_error)
+    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1144, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1118, __pyx_L1_error)
+    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1144, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1118, __pyx_L1_error)
+    __pyx_t_4 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1144, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     #endif
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_5 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1118, __pyx_L1_error)
+    __pyx_t_5 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1144, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_6 = Py_TYPE(__pyx_t_5)->tp_iternext;
@@ -22341,7 +23486,7 @@ static PyObject *__pyx_pf_9curlparse_66splittag(CYTHON_UNUSED PyObject *__pyx_se
     __Pyx_GOTREF(__pyx_t_3);
     index = 2; __pyx_t_4 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_4)) goto __pyx_L3_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_4);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 3) < 0) __PYX_ERR(0, 1118, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 3) < 0) __PYX_ERR(0, 1144, __pyx_L1_error)
     __pyx_t_6 = NULL;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     goto __pyx_L4_unpacking_done;
@@ -22349,7 +23494,7 @@ static PyObject *__pyx_pf_9curlparse_66splittag(CYTHON_UNUSED PyObject *__pyx_se
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_6 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 1118, __pyx_L1_error)
+    __PYX_ERR(0, 1144, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
   __pyx_v_path = __pyx_t_1;
@@ -22359,17 +23504,17 @@ static PyObject *__pyx_pf_9curlparse_66splittag(CYTHON_UNUSED PyObject *__pyx_se
   __pyx_v_tag = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "curlparse.pyx":1119
+  /* "curlparse.pyx":1145
  *     """splittag('/path#tag') --> '/path', 'tag'."""
  *     path, delim, tag = url.rpartition('#')
  *     if delim:             # <<<<<<<<<<<<<<
  *         return path, tag
  *     return url, None
  */
-  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_v_delim); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 1119, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_v_delim); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 1145, __pyx_L1_error)
   if (__pyx_t_7) {
 
-    /* "curlparse.pyx":1120
+    /* "curlparse.pyx":1146
  *     path, delim, tag = url.rpartition('#')
  *     if delim:
  *         return path, tag             # <<<<<<<<<<<<<<
@@ -22377,7 +23522,7 @@ static PyObject *__pyx_pf_9curlparse_66splittag(CYTHON_UNUSED PyObject *__pyx_se
  * 
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1120, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1146, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_v_path);
     __Pyx_GIVEREF(__pyx_v_path);
@@ -22389,7 +23534,7 @@ static PyObject *__pyx_pf_9curlparse_66splittag(CYTHON_UNUSED PyObject *__pyx_se
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "curlparse.pyx":1119
+    /* "curlparse.pyx":1145
  *     """splittag('/path#tag') --> '/path', 'tag'."""
  *     path, delim, tag = url.rpartition('#')
  *     if delim:             # <<<<<<<<<<<<<<
@@ -22398,7 +23543,7 @@ static PyObject *__pyx_pf_9curlparse_66splittag(CYTHON_UNUSED PyObject *__pyx_se
  */
   }
 
-  /* "curlparse.pyx":1121
+  /* "curlparse.pyx":1147
  *     if delim:
  *         return path, tag
  *     return url, None             # <<<<<<<<<<<<<<
@@ -22406,7 +23551,7 @@ static PyObject *__pyx_pf_9curlparse_66splittag(CYTHON_UNUSED PyObject *__pyx_se
  * def splitattr(url):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1121, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_v_url);
   __Pyx_GIVEREF(__pyx_v_url);
@@ -22418,7 +23563,7 @@ static PyObject *__pyx_pf_9curlparse_66splittag(CYTHON_UNUSED PyObject *__pyx_se
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":1116
+  /* "curlparse.pyx":1142
  *     return url, None
  * 
  * def splittag(url):             # <<<<<<<<<<<<<<
@@ -22444,7 +23589,7 @@ static PyObject *__pyx_pf_9curlparse_66splittag(CYTHON_UNUSED PyObject *__pyx_se
   return __pyx_r;
 }
 
-/* "curlparse.pyx":1123
+/* "curlparse.pyx":1149
  *     return url, None
  * 
  * def splitattr(url):             # <<<<<<<<<<<<<<
@@ -22453,21 +23598,21 @@ static PyObject *__pyx_pf_9curlparse_66splittag(CYTHON_UNUSED PyObject *__pyx_se
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_69splitattr(PyObject *__pyx_self, PyObject *__pyx_v_url); /*proto*/
-static char __pyx_doc_9curlparse_68splitattr[] = "splitattr('/path;attr1=value1;attr2=value2;...') ->\n        '/path', ['attr1=value1', 'attr2=value2', ...].";
-static PyMethodDef __pyx_mdef_9curlparse_69splitattr = {"splitattr", (PyCFunction)__pyx_pw_9curlparse_69splitattr, METH_O, __pyx_doc_9curlparse_68splitattr};
-static PyObject *__pyx_pw_9curlparse_69splitattr(PyObject *__pyx_self, PyObject *__pyx_v_url) {
+static PyObject *__pyx_pw_9curlparse_71splitattr(PyObject *__pyx_self, PyObject *__pyx_v_url); /*proto*/
+static char __pyx_doc_9curlparse_70splitattr[] = "splitattr('/path;attr1=value1;attr2=value2;...') ->\n        '/path', ['attr1=value1', 'attr2=value2', ...].";
+static PyMethodDef __pyx_mdef_9curlparse_71splitattr = {"splitattr", (PyCFunction)__pyx_pw_9curlparse_71splitattr, METH_O, __pyx_doc_9curlparse_70splitattr};
+static PyObject *__pyx_pw_9curlparse_71splitattr(PyObject *__pyx_self, PyObject *__pyx_v_url) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("splitattr (wrapper)", 0);
-  __pyx_r = __pyx_pf_9curlparse_68splitattr(__pyx_self, ((PyObject *)__pyx_v_url));
+  __pyx_r = __pyx_pf_9curlparse_70splitattr(__pyx_self, ((PyObject *)__pyx_v_url));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_68splitattr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url) {
+static PyObject *__pyx_pf_9curlparse_70splitattr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_url) {
   PyObject *__pyx_v_words = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -22476,22 +23621,22 @@ static PyObject *__pyx_pf_9curlparse_68splitattr(CYTHON_UNUSED PyObject *__pyx_s
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("splitattr", 0);
 
-  /* "curlparse.pyx":1126
+  /* "curlparse.pyx":1152
  *     """splitattr('/path;attr1=value1;attr2=value2;...') ->
  *         '/path', ['attr1=value1', 'attr2=value2', ...]."""
  *     words = url.split(';')             # <<<<<<<<<<<<<<
  *     return words[0], words[1:]
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_split); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1126, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_url, __pyx_n_s_split); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1152, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__69, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1126, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__80, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1152, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_words = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":1127
+  /* "curlparse.pyx":1153
  *         '/path', ['attr1=value1', 'attr2=value2', ...]."""
  *     words = url.split(';')
  *     return words[0], words[1:]             # <<<<<<<<<<<<<<
@@ -22499,11 +23644,11 @@ static PyObject *__pyx_pf_9curlparse_68splitattr(CYTHON_UNUSED PyObject *__pyx_s
  * def splitvalue(attr):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_words, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1127, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_words, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_words, 1, 0, NULL, NULL, &__pyx_slice__70, 1, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1127, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_words, 1, 0, NULL, NULL, &__pyx_slice__81, 1, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1127, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
@@ -22515,7 +23660,7 @@ static PyObject *__pyx_pf_9curlparse_68splitattr(CYTHON_UNUSED PyObject *__pyx_s
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":1123
+  /* "curlparse.pyx":1149
  *     return url, None
  * 
  * def splitattr(url):             # <<<<<<<<<<<<<<
@@ -22537,7 +23682,7 @@ static PyObject *__pyx_pf_9curlparse_68splitattr(CYTHON_UNUSED PyObject *__pyx_s
   return __pyx_r;
 }
 
-/* "curlparse.pyx":1129
+/* "curlparse.pyx":1155
  *     return words[0], words[1:]
  * 
  * def splitvalue(attr):             # <<<<<<<<<<<<<<
@@ -22546,21 +23691,21 @@ static PyObject *__pyx_pf_9curlparse_68splitattr(CYTHON_UNUSED PyObject *__pyx_s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9curlparse_71splitvalue(PyObject *__pyx_self, PyObject *__pyx_v_attr); /*proto*/
-static char __pyx_doc_9curlparse_70splitvalue[] = "splitvalue('attr=value') --> 'attr', 'value'.";
-static PyMethodDef __pyx_mdef_9curlparse_71splitvalue = {"splitvalue", (PyCFunction)__pyx_pw_9curlparse_71splitvalue, METH_O, __pyx_doc_9curlparse_70splitvalue};
-static PyObject *__pyx_pw_9curlparse_71splitvalue(PyObject *__pyx_self, PyObject *__pyx_v_attr) {
+static PyObject *__pyx_pw_9curlparse_73splitvalue(PyObject *__pyx_self, PyObject *__pyx_v_attr); /*proto*/
+static char __pyx_doc_9curlparse_72splitvalue[] = "splitvalue('attr=value') --> 'attr', 'value'.";
+static PyMethodDef __pyx_mdef_9curlparse_73splitvalue = {"splitvalue", (PyCFunction)__pyx_pw_9curlparse_73splitvalue, METH_O, __pyx_doc_9curlparse_72splitvalue};
+static PyObject *__pyx_pw_9curlparse_73splitvalue(PyObject *__pyx_self, PyObject *__pyx_v_attr) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("splitvalue (wrapper)", 0);
-  __pyx_r = __pyx_pf_9curlparse_70splitvalue(__pyx_self, ((PyObject *)__pyx_v_attr));
+  __pyx_r = __pyx_pf_9curlparse_72splitvalue(__pyx_self, ((PyObject *)__pyx_v_attr));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9curlparse_70splitvalue(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_attr) {
+static PyObject *__pyx_pf_9curlparse_72splitvalue(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_attr) {
   PyObject *__pyx_v_delim = NULL;
   PyObject *__pyx_v_value = NULL;
   PyObject *__pyx_r = NULL;
@@ -22575,15 +23720,15 @@ static PyObject *__pyx_pf_9curlparse_70splitvalue(CYTHON_UNUSED PyObject *__pyx_
   __Pyx_RefNannySetupContext("splitvalue", 0);
   __Pyx_INCREF(__pyx_v_attr);
 
-  /* "curlparse.pyx":1131
+  /* "curlparse.pyx":1157
  * def splitvalue(attr):
  *     """splitvalue('attr=value') --> 'attr', 'value'."""
  *     attr, delim, value = attr.partition('=')             # <<<<<<<<<<<<<<
  *     return attr, (value if delim else None)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_attr, __pyx_n_s_partition); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1131, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_attr, __pyx_n_s_partition); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1157, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__71, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1131, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__82, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1157, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
@@ -22596,7 +23741,7 @@ static PyObject *__pyx_pf_9curlparse_70splitvalue(CYTHON_UNUSED PyObject *__pyx_
     if (unlikely(size != 3)) {
       if (size > 3) __Pyx_RaiseTooManyValuesError(3);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 1131, __pyx_L1_error)
+      __PYX_ERR(0, 1157, __pyx_L1_error)
     }
     #if CYTHON_COMPILING_IN_CPYTHON
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -22612,17 +23757,17 @@ static PyObject *__pyx_pf_9curlparse_70splitvalue(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_INCREF(__pyx_t_3);
     __Pyx_INCREF(__pyx_t_4);
     #else
-    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1131, __pyx_L1_error)
+    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1131, __pyx_L1_error)
+    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1131, __pyx_L1_error)
+    __pyx_t_4 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     #endif
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_5 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1131, __pyx_L1_error)
+    __pyx_t_5 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_6 = Py_TYPE(__pyx_t_5)->tp_iternext;
@@ -22632,7 +23777,7 @@ static PyObject *__pyx_pf_9curlparse_70splitvalue(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_GOTREF(__pyx_t_3);
     index = 2; __pyx_t_4 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_4)) goto __pyx_L3_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_4);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 3) < 0) __PYX_ERR(0, 1131, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 3) < 0) __PYX_ERR(0, 1157, __pyx_L1_error)
     __pyx_t_6 = NULL;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     goto __pyx_L4_unpacking_done;
@@ -22640,7 +23785,7 @@ static PyObject *__pyx_pf_9curlparse_70splitvalue(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_6 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 1131, __pyx_L1_error)
+    __PYX_ERR(0, 1157, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
   __Pyx_DECREF_SET(__pyx_v_attr, __pyx_t_1);
@@ -22650,13 +23795,13 @@ static PyObject *__pyx_pf_9curlparse_70splitvalue(CYTHON_UNUSED PyObject *__pyx_
   __pyx_v_value = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "curlparse.pyx":1132
+  /* "curlparse.pyx":1158
  *     """splitvalue('attr=value') --> 'attr', 'value'."""
  *     attr, delim, value = attr.partition('=')
  *     return attr, (value if delim else None)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_v_delim); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 1132, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_v_delim); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 1158, __pyx_L1_error)
   if (__pyx_t_7) {
     __Pyx_INCREF(__pyx_v_value);
     __pyx_t_2 = __pyx_v_value;
@@ -22664,7 +23809,7 @@ static PyObject *__pyx_pf_9curlparse_70splitvalue(CYTHON_UNUSED PyObject *__pyx_
     __Pyx_INCREF(Py_None);
     __pyx_t_2 = Py_None;
   }
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1132, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1158, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_v_attr);
   __Pyx_GIVEREF(__pyx_v_attr);
@@ -22676,7 +23821,7 @@ static PyObject *__pyx_pf_9curlparse_70splitvalue(CYTHON_UNUSED PyObject *__pyx_
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "curlparse.pyx":1129
+  /* "curlparse.pyx":1155
  *     return words[0], words[1:]
  * 
  * def splitvalue(attr):             # <<<<<<<<<<<<<<
@@ -23419,7 +24564,6 @@ static PyObject *__pyx_tp_new_9curlparse___pyx_scope_struct_6_urlsplit(PyTypeObj
     o = (PyObject*)__pyx_freelist_9curlparse___pyx_scope_struct_6_urlsplit[--__pyx_freecount_9curlparse___pyx_scope_struct_6_urlsplit];
     memset(o, 0, sizeof(struct __pyx_obj_9curlparse___pyx_scope_struct_6_urlsplit));
     (void) PyObject_INIT(o, t);
-    PyObject_GC_Track(o);
   } else {
     o = (*t->tp_alloc)(t, 0);
     if (unlikely(!o)) return 0;
@@ -23429,38 +24573,12 @@ static PyObject *__pyx_tp_new_9curlparse___pyx_scope_struct_6_urlsplit(PyTypeObj
 
 static void __pyx_tp_dealloc_9curlparse___pyx_scope_struct_6_urlsplit(PyObject *o) {
   struct __pyx_obj_9curlparse___pyx_scope_struct_6_urlsplit *p = (struct __pyx_obj_9curlparse___pyx_scope_struct_6_urlsplit *)o;
-  PyObject_GC_UnTrack(o);
-  Py_CLEAR(p->__pyx_v_digits);
   Py_CLEAR(p->__pyx_v_rest);
   if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_9curlparse___pyx_scope_struct_6_urlsplit < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_9curlparse___pyx_scope_struct_6_urlsplit)))) {
     __pyx_freelist_9curlparse___pyx_scope_struct_6_urlsplit[__pyx_freecount_9curlparse___pyx_scope_struct_6_urlsplit++] = ((struct __pyx_obj_9curlparse___pyx_scope_struct_6_urlsplit *)o);
   } else {
     (*Py_TYPE(o)->tp_free)(o);
   }
-}
-
-static int __pyx_tp_traverse_9curlparse___pyx_scope_struct_6_urlsplit(PyObject *o, visitproc v, void *a) {
-  int e;
-  struct __pyx_obj_9curlparse___pyx_scope_struct_6_urlsplit *p = (struct __pyx_obj_9curlparse___pyx_scope_struct_6_urlsplit *)o;
-  if (p->__pyx_v_digits) {
-    e = (*v)(p->__pyx_v_digits, a); if (e) return e;
-  }
-  if (p->__pyx_v_rest) {
-    e = (*v)(p->__pyx_v_rest, a); if (e) return e;
-  }
-  return 0;
-}
-
-static int __pyx_tp_clear_9curlparse___pyx_scope_struct_6_urlsplit(PyObject *o) {
-  PyObject* tmp;
-  struct __pyx_obj_9curlparse___pyx_scope_struct_6_urlsplit *p = (struct __pyx_obj_9curlparse___pyx_scope_struct_6_urlsplit *)o;
-  tmp = ((PyObject*)p->__pyx_v_digits);
-  p->__pyx_v_digits = Py_None; Py_INCREF(Py_None);
-  Py_XDECREF(tmp);
-  tmp = ((PyObject*)p->__pyx_v_rest);
-  p->__pyx_v_rest = Py_None; Py_INCREF(Py_None);
-  Py_XDECREF(tmp);
-  return 0;
 }
 
 static PyTypeObject __pyx_type_9curlparse___pyx_scope_struct_6_urlsplit = {
@@ -23488,10 +24606,10 @@ static PyTypeObject __pyx_type_9curlparse___pyx_scope_struct_6_urlsplit = {
   0, /*tp_getattro*/
   0, /*tp_setattro*/
   0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER, /*tp_flags*/
   0, /*tp_doc*/
-  __pyx_tp_traverse_9curlparse___pyx_scope_struct_6_urlsplit, /*tp_traverse*/
-  __pyx_tp_clear_9curlparse___pyx_scope_struct_6_urlsplit, /*tp_clear*/
+  0, /*tp_traverse*/
+  0, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
@@ -23632,6 +24750,221 @@ static PyTypeObject __pyx_type_9curlparse___pyx_scope_struct_7_genexpr = {
   #endif
 };
 
+static struct __pyx_obj_9curlparse___pyx_scope_struct_8_urlsplit *__pyx_freelist_9curlparse___pyx_scope_struct_8_urlsplit[8];
+static int __pyx_freecount_9curlparse___pyx_scope_struct_8_urlsplit = 0;
+
+static PyObject *__pyx_tp_new_9curlparse___pyx_scope_struct_8_urlsplit(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_9curlparse___pyx_scope_struct_8_urlsplit > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_9curlparse___pyx_scope_struct_8_urlsplit)))) {
+    o = (PyObject*)__pyx_freelist_9curlparse___pyx_scope_struct_8_urlsplit[--__pyx_freecount_9curlparse___pyx_scope_struct_8_urlsplit];
+    memset(o, 0, sizeof(struct __pyx_obj_9curlparse___pyx_scope_struct_8_urlsplit));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_9curlparse___pyx_scope_struct_8_urlsplit(PyObject *o) {
+  struct __pyx_obj_9curlparse___pyx_scope_struct_8_urlsplit *p = (struct __pyx_obj_9curlparse___pyx_scope_struct_8_urlsplit *)o;
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->__pyx_v_rest);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_9curlparse___pyx_scope_struct_8_urlsplit < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_9curlparse___pyx_scope_struct_8_urlsplit)))) {
+    __pyx_freelist_9curlparse___pyx_scope_struct_8_urlsplit[__pyx_freecount_9curlparse___pyx_scope_struct_8_urlsplit++] = ((struct __pyx_obj_9curlparse___pyx_scope_struct_8_urlsplit *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_9curlparse___pyx_scope_struct_8_urlsplit(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_9curlparse___pyx_scope_struct_8_urlsplit *p = (struct __pyx_obj_9curlparse___pyx_scope_struct_8_urlsplit *)o;
+  if (p->__pyx_v_rest) {
+    e = (*v)(p->__pyx_v_rest, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_9curlparse___pyx_scope_struct_8_urlsplit(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_9curlparse___pyx_scope_struct_8_urlsplit *p = (struct __pyx_obj_9curlparse___pyx_scope_struct_8_urlsplit *)o;
+  tmp = ((PyObject*)p->__pyx_v_rest);
+  p->__pyx_v_rest = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_9curlparse___pyx_scope_struct_8_urlsplit = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "curlparse.__pyx_scope_struct_8_urlsplit", /*tp_name*/
+  sizeof(struct __pyx_obj_9curlparse___pyx_scope_struct_8_urlsplit), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_9curlparse___pyx_scope_struct_8_urlsplit, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_9curlparse___pyx_scope_struct_8_urlsplit, /*tp_traverse*/
+  __pyx_tp_clear_9curlparse___pyx_scope_struct_8_urlsplit, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_9curlparse___pyx_scope_struct_8_urlsplit, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+};
+
+static struct __pyx_obj_9curlparse___pyx_scope_struct_9_genexpr *__pyx_freelist_9curlparse___pyx_scope_struct_9_genexpr[8];
+static int __pyx_freecount_9curlparse___pyx_scope_struct_9_genexpr = 0;
+
+static PyObject *__pyx_tp_new_9curlparse___pyx_scope_struct_9_genexpr(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_9curlparse___pyx_scope_struct_9_genexpr > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_9curlparse___pyx_scope_struct_9_genexpr)))) {
+    o = (PyObject*)__pyx_freelist_9curlparse___pyx_scope_struct_9_genexpr[--__pyx_freecount_9curlparse___pyx_scope_struct_9_genexpr];
+    memset(o, 0, sizeof(struct __pyx_obj_9curlparse___pyx_scope_struct_9_genexpr));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_9curlparse___pyx_scope_struct_9_genexpr(PyObject *o) {
+  struct __pyx_obj_9curlparse___pyx_scope_struct_9_genexpr *p = (struct __pyx_obj_9curlparse___pyx_scope_struct_9_genexpr *)o;
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->__pyx_outer_scope);
+  Py_CLEAR(p->__pyx_v_c);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_9curlparse___pyx_scope_struct_9_genexpr < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_9curlparse___pyx_scope_struct_9_genexpr)))) {
+    __pyx_freelist_9curlparse___pyx_scope_struct_9_genexpr[__pyx_freecount_9curlparse___pyx_scope_struct_9_genexpr++] = ((struct __pyx_obj_9curlparse___pyx_scope_struct_9_genexpr *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_9curlparse___pyx_scope_struct_9_genexpr(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_9curlparse___pyx_scope_struct_9_genexpr *p = (struct __pyx_obj_9curlparse___pyx_scope_struct_9_genexpr *)o;
+  if (p->__pyx_outer_scope) {
+    e = (*v)(((PyObject*)p->__pyx_outer_scope), a); if (e) return e;
+  }
+  if (p->__pyx_v_c) {
+    e = (*v)(p->__pyx_v_c, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_9curlparse___pyx_scope_struct_9_genexpr(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_9curlparse___pyx_scope_struct_9_genexpr *p = (struct __pyx_obj_9curlparse___pyx_scope_struct_9_genexpr *)o;
+  tmp = ((PyObject*)p->__pyx_outer_scope);
+  p->__pyx_outer_scope = ((struct __pyx_obj_9curlparse___pyx_scope_struct_8_urlsplit *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->__pyx_v_c);
+  p->__pyx_v_c = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_9curlparse___pyx_scope_struct_9_genexpr = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "curlparse.__pyx_scope_struct_9_genexpr", /*tp_name*/
+  sizeof(struct __pyx_obj_9curlparse___pyx_scope_struct_9_genexpr), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_9curlparse___pyx_scope_struct_9_genexpr, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_9curlparse___pyx_scope_struct_9_genexpr, /*tp_traverse*/
+  __pyx_tp_clear_9curlparse___pyx_scope_struct_9_genexpr, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_9curlparse___pyx_scope_struct_9_genexpr, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+};
+
 static PyMethodDef __pyx_methods[] = {
   {0, 0, 0, 0}
 };
@@ -23728,44 +25061,44 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_kp_b__10, __pyx_k__10, sizeof(__pyx_k__10), 0, 0, 0, 0},
   {&__pyx_kp_s__10, __pyx_k__10, sizeof(__pyx_k__10), 0, 0, 1, 0},
-  {&__pyx_n_s__100, __pyx_k__100, sizeof(__pyx_k__100), 0, 0, 1, 1},
+  {&__pyx_n_s__111, __pyx_k__111, sizeof(__pyx_k__111), 0, 0, 1, 1},
   {&__pyx_kp_b__13, __pyx_k__13, sizeof(__pyx_k__13), 0, 0, 0, 0},
   {&__pyx_kp_s__13, __pyx_k__13, sizeof(__pyx_k__13), 0, 0, 1, 0},
-  {&__pyx_kp_s__146, __pyx_k__146, sizeof(__pyx_k__146), 0, 0, 1, 0},
   {&__pyx_kp_b__15, __pyx_k__15, sizeof(__pyx_k__15), 0, 0, 0, 0},
   {&__pyx_kp_s__15, __pyx_k__15, sizeof(__pyx_k__15), 0, 0, 1, 0},
+  {&__pyx_kp_s__159, __pyx_k__159, sizeof(__pyx_k__159), 0, 0, 1, 0},
   {&__pyx_kp_b__26, __pyx_k__26, sizeof(__pyx_k__26), 0, 0, 0, 0},
   {&__pyx_kp_s__26, __pyx_k__26, sizeof(__pyx_k__26), 0, 0, 1, 0},
   {&__pyx_kp_b__27, __pyx_k__27, sizeof(__pyx_k__27), 0, 0, 0, 0},
   {&__pyx_kp_s__27, __pyx_k__27, sizeof(__pyx_k__27), 0, 0, 1, 0},
   {&__pyx_kp_b__28, __pyx_k__28, sizeof(__pyx_k__28), 0, 0, 0, 0},
   {&__pyx_kp_s__28, __pyx_k__28, sizeof(__pyx_k__28), 0, 0, 1, 0},
-  {&__pyx_kp_b__29, __pyx_k__29, sizeof(__pyx_k__29), 0, 0, 0, 0},
-  {&__pyx_kp_s__29, __pyx_k__29, sizeof(__pyx_k__29), 0, 0, 1, 0},
   {&__pyx_kp_b__30, __pyx_k__30, sizeof(__pyx_k__30), 0, 0, 0, 0},
   {&__pyx_kp_s__30, __pyx_k__30, sizeof(__pyx_k__30), 0, 0, 1, 0},
-  {&__pyx_kp_b__32, __pyx_k__32, sizeof(__pyx_k__32), 0, 0, 0, 0},
-  {&__pyx_kp_s__32, __pyx_k__32, sizeof(__pyx_k__32), 0, 0, 1, 0},
-  {&__pyx_kp_b__35, __pyx_k__35, sizeof(__pyx_k__35), 0, 0, 0, 0},
-  {&__pyx_kp_s__35, __pyx_k__35, sizeof(__pyx_k__35), 0, 0, 1, 0},
-  {&__pyx_kp_b__36, __pyx_k__36, sizeof(__pyx_k__36), 0, 0, 0, 0},
-  {&__pyx_kp_s__36, __pyx_k__36, sizeof(__pyx_k__36), 0, 0, 1, 0},
-  {&__pyx_kp_b__40, __pyx_k__40, sizeof(__pyx_k__40), 0, 0, 0, 0},
-  {&__pyx_kp_s__40, __pyx_k__40, sizeof(__pyx_k__40), 0, 0, 1, 0},
-  {&__pyx_kp_b__45, __pyx_k__45, sizeof(__pyx_k__45), 0, 0, 0, 0},
-  {&__pyx_kp_s__45, __pyx_k__45, sizeof(__pyx_k__45), 0, 0, 1, 0},
+  {&__pyx_kp_b__31, __pyx_k__31, sizeof(__pyx_k__31), 0, 0, 0, 0},
+  {&__pyx_kp_s__31, __pyx_k__31, sizeof(__pyx_k__31), 0, 0, 1, 0},
+  {&__pyx_kp_b__34, __pyx_k__34, sizeof(__pyx_k__34), 0, 0, 0, 0},
+  {&__pyx_kp_s__34, __pyx_k__34, sizeof(__pyx_k__34), 0, 0, 1, 0},
   {&__pyx_kp_b__46, __pyx_k__46, sizeof(__pyx_k__46), 0, 0, 0, 0},
   {&__pyx_kp_s__46, __pyx_k__46, sizeof(__pyx_k__46), 0, 0, 1, 0},
   {&__pyx_kp_b__47, __pyx_k__47, sizeof(__pyx_k__47), 0, 0, 0, 0},
   {&__pyx_kp_s__47, __pyx_k__47, sizeof(__pyx_k__47), 0, 0, 1, 0},
-  {&__pyx_kp_b__48, __pyx_k__48, sizeof(__pyx_k__48), 0, 0, 0, 0},
-  {&__pyx_kp_s__48, __pyx_k__48, sizeof(__pyx_k__48), 0, 0, 1, 0},
   {&__pyx_kp_b__5, __pyx_k__5, sizeof(__pyx_k__5), 0, 0, 0, 0},
   {&__pyx_kp_s__5, __pyx_k__5, sizeof(__pyx_k__5), 0, 0, 1, 0},
+  {&__pyx_kp_b__51, __pyx_k__51, sizeof(__pyx_k__51), 0, 0, 0, 0},
+  {&__pyx_kp_s__51, __pyx_k__51, sizeof(__pyx_k__51), 0, 0, 1, 0},
+  {&__pyx_kp_b__56, __pyx_k__56, sizeof(__pyx_k__56), 0, 0, 0, 0},
   {&__pyx_kp_s__56, __pyx_k__56, sizeof(__pyx_k__56), 0, 0, 1, 0},
+  {&__pyx_kp_b__57, __pyx_k__57, sizeof(__pyx_k__57), 0, 0, 0, 0},
+  {&__pyx_kp_s__57, __pyx_k__57, sizeof(__pyx_k__57), 0, 0, 1, 0},
+  {&__pyx_kp_b__58, __pyx_k__58, sizeof(__pyx_k__58), 0, 0, 0, 0},
   {&__pyx_kp_s__58, __pyx_k__58, sizeof(__pyx_k__58), 0, 0, 1, 0},
-  {&__pyx_kp_s__62, __pyx_k__62, sizeof(__pyx_k__62), 0, 0, 1, 0},
-  {&__pyx_kp_s__63, __pyx_k__63, sizeof(__pyx_k__63), 0, 0, 1, 0},
+  {&__pyx_kp_b__59, __pyx_k__59, sizeof(__pyx_k__59), 0, 0, 0, 0},
+  {&__pyx_kp_s__59, __pyx_k__59, sizeof(__pyx_k__59), 0, 0, 1, 0},
+  {&__pyx_kp_s__67, __pyx_k__67, sizeof(__pyx_k__67), 0, 0, 1, 0},
+  {&__pyx_kp_s__69, __pyx_k__69, sizeof(__pyx_k__69), 0, 0, 1, 0},
+  {&__pyx_kp_s__73, __pyx_k__73, sizeof(__pyx_k__73), 0, 0, 1, 0},
+  {&__pyx_kp_s__74, __pyx_k__74, sizeof(__pyx_k__74), 0, 0, 1, 0},
   {&__pyx_kp_b__8, __pyx_k__8, sizeof(__pyx_k__8), 0, 0, 0, 0},
   {&__pyx_kp_s__8, __pyx_k__8, sizeof(__pyx_k__8), 0, 0, 1, 0},
   {&__pyx_n_s_a, __pyx_k_a, sizeof(__pyx_k_a), 0, 0, 1, 1},
@@ -23819,7 +25152,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_defrag, __pyx_k_defrag, sizeof(__pyx_k_defrag), 0, 0, 1, 1},
   {&__pyx_n_s_delim, __pyx_k_delim, sizeof(__pyx_k_delim), 0, 0, 1, 1},
   {&__pyx_n_s_delimiters, __pyx_k_delimiters, sizeof(__pyx_k_delimiters), 0, 0, 1, 1},
-  {&__pyx_n_s_digits, __pyx_k_digits, sizeof(__pyx_k_digits), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
   {&__pyx_n_s_doseq, __pyx_k_doseq, sizeof(__pyx_k_doseq), 0, 0, 1, 1},
   {&__pyx_n_s_dot, __pyx_k_dot, sizeof(__pyx_k_dot), 0, 0, 1, 1},
@@ -23879,7 +25211,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_keep_blank_values, __pyx_k_keep_blank_values, sizeof(__pyx_k_keep_blank_values), 0, 0, 1, 1},
   {&__pyx_n_s_key, __pyx_k_key, sizeof(__pyx_k_key), 0, 0, 1, 1},
   {&__pyx_n_s_l, __pyx_k_l, sizeof(__pyx_k_l), 0, 0, 1, 1},
-  {&__pyx_n_s_l_bracket, __pyx_k_l_bracket, sizeof(__pyx_k_l_bracket), 0, 0, 1, 1},
   {&__pyx_n_s_lower, __pyx_k_lower, sizeof(__pyx_k_lower), 0, 0, 1, 1},
   {&__pyx_n_s_mailto, __pyx_k_mailto, sizeof(__pyx_k_mailto), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
@@ -23894,7 +25225,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_name_value, __pyx_k_name_value, sizeof(__pyx_k_name_value), 0, 0, 1, 1},
   {&__pyx_n_s_namedtuple, __pyx_k_namedtuple, sizeof(__pyx_k_namedtuple), 0, 0, 1, 1},
   {&__pyx_n_s_netloc, __pyx_k_netloc, sizeof(__pyx_k_netloc), 0, 0, 1, 1},
-  {&__pyx_n_s_netloc_delimiters, __pyx_k_netloc_delimiters, sizeof(__pyx_k_netloc_delimiters), 0, 0, 1, 1},
   {&__pyx_n_s_news, __pyx_k_news, sizeof(__pyx_k_news), 0, 0, 1, 1},
   {&__pyx_n_s_nfs, __pyx_k_nfs, sizeof(__pyx_k_nfs), 0, 0, 1, 1},
   {&__pyx_n_s_nntp, __pyx_k_nntp, sizeof(__pyx_k_nntp), 0, 0, 1, 1},
@@ -23939,7 +25269,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_quote_via, __pyx_k_quote_via, sizeof(__pyx_k_quote_via), 0, 0, 1, 1},
   {&__pyx_n_s_quoter, __pyx_k_quoter, sizeof(__pyx_k_quoter), 0, 0, 1, 1},
   {&__pyx_n_s_r, __pyx_k_r, sizeof(__pyx_k_r), 0, 0, 1, 1},
-  {&__pyx_n_s_r_bracket, __pyx_k_r_bracket, sizeof(__pyx_k_r_bracket), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_re, __pyx_k_re, sizeof(__pyx_k_re), 0, 0, 1, 1},
   {&__pyx_n_s_replace, __pyx_k_replace, sizeof(__pyx_k_replace), 0, 0, 1, 1},
@@ -24060,11 +25389,11 @@ static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 147, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 121, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 170, __pyx_L1_error)
-  __pyx_builtin_filter = __Pyx_GetBuiltinName(__pyx_n_s_filter); if (!__pyx_builtin_filter) __PYX_ERR(0, 615, __pyx_L1_error)
-  __pyx_builtin_IndexError = __Pyx_GetBuiltinName(__pyx_n_s_IndexError); if (!__pyx_builtin_IndexError) __PYX_ERR(0, 623, __pyx_L1_error)
-  __pyx_builtin_KeyError = __Pyx_GetBuiltinName(__pyx_n_s_KeyError); if (!__pyx_builtin_KeyError) __PYX_ERR(0, 693, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 726, __pyx_L1_error)
-  __pyx_builtin_chr = __Pyx_GetBuiltinName(__pyx_n_s_chr); if (!__pyx_builtin_chr) __PYX_ERR(0, 862, __pyx_L1_error)
+  __pyx_builtin_filter = __Pyx_GetBuiltinName(__pyx_n_s_filter); if (!__pyx_builtin_filter) __PYX_ERR(0, 641, __pyx_L1_error)
+  __pyx_builtin_IndexError = __Pyx_GetBuiltinName(__pyx_n_s_IndexError); if (!__pyx_builtin_IndexError) __PYX_ERR(0, 649, __pyx_L1_error)
+  __pyx_builtin_KeyError = __Pyx_GetBuiltinName(__pyx_n_s_KeyError); if (!__pyx_builtin_KeyError) __PYX_ERR(0, 719, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 752, __pyx_L1_error)
+  __pyx_builtin_chr = __Pyx_GetBuiltinName(__pyx_n_s_chr); if (!__pyx_builtin_chr) __PYX_ERR(0, 888, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -24250,288 +25579,409 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__25);
   __Pyx_GIVEREF(__pyx_tuple__25);
 
-  /* "curlparse.pyx":437
- *         question_mark = b'?'
- *         digits = b'0123456789'
- *         double_slash = b'//',             # <<<<<<<<<<<<<<
- *         netloc_delimiters = b'/?#'
- *         result_type = SplitResultBytes
+  /* "curlparse.pyx":432
+ *         clear_cache()
+ *     netloc = query = fragment = b''
+ *     i = url.find(b':')             # <<<<<<<<<<<<<<
+ *     if i > 0:
+ *         if url.startswith(b'http', i):  # optimize the common case
  */
-  __pyx_tuple__31 = PyTuple_Pack(1, __pyx_kp_b__30); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 437, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__31);
-  __Pyx_GIVEREF(__pyx_tuple__31);
+  __pyx_tuple__29 = PyTuple_Pack(1, __pyx_kp_b__10); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 432, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__29);
+  __Pyx_GIVEREF(__pyx_tuple__29);
 
-  /* "curlparse.pyx":476
- *                 if ((l_bracket in netloc and r_bracket not in netloc) or
- *                         (r_bracket in netloc and l_bracket not in netloc)):
+  /* "curlparse.pyx":441
+ *                 if ((b'[' in netloc and b']' not in netloc) or
+ *                         (b']' in netloc and b'[' not in netloc)):
  *                     raise ValueError("Invalid IPv6 URL")             # <<<<<<<<<<<<<<
- *             if allow_fragments and pound in url:
- *                 url, fragment = url.split(pound, 1)
+ *             if allow_fragments and b'#' in url:
+ *                 url, fragment = url.split(b'#', 1)
  */
-  __pyx_tuple__33 = PyTuple_Pack(1, __pyx_kp_s_Invalid_IPv6_URL); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 476, __pyx_L1_error)
+  __pyx_tuple__32 = PyTuple_Pack(1, __pyx_kp_s_Invalid_IPv6_URL); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(0, 441, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__32);
+  __Pyx_GIVEREF(__pyx_tuple__32);
+
+  /* "curlparse.pyx":443
+ *                     raise ValueError("Invalid IPv6 URL")
+ *             if allow_fragments and b'#' in url:
+ *                 url, fragment = url.split(b'#', 1)             # <<<<<<<<<<<<<<
+ *             if b'?' in url:
+ *                 url, query = url.split(b'?', 1)
+ */
+  __pyx_tuple__33 = PyTuple_Pack(2, __pyx_kp_b__26, __pyx_int_1); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 443, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__33);
   __Pyx_GIVEREF(__pyx_tuple__33);
 
-  /* "curlparse.pyx":499
- *         if ((l_bracket in netloc and r_bracket not in netloc) or
- *                 (r_bracket in netloc and l_bracket not in netloc)):
- *             raise ValueError("Invalid IPv6 URL")             # <<<<<<<<<<<<<<
- *     if allow_fragments and pound in url:
- *         url, fragment = url.split(pound, 1)
+  /* "curlparse.pyx":445
+ *                 url, fragment = url.split(b'#', 1)
+ *             if b'?' in url:
+ *                 url, query = url.split(b'?', 1)             # <<<<<<<<<<<<<<
+ *             v = SplitResultBytes(scheme, netloc, url, query, fragment)
+ *             _parse_cache[key] = v
  */
-  __pyx_tuple__34 = PyTuple_Pack(1, __pyx_kp_s_Invalid_IPv6_URL); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 499, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__34);
-  __Pyx_GIVEREF(__pyx_tuple__34);
+  __pyx_tuple__35 = PyTuple_Pack(2, __pyx_kp_b__34, __pyx_int_1); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(0, 445, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__35);
+  __Pyx_GIVEREF(__pyx_tuple__35);
 
-  /* "curlparse.pyx":615
+  /* "curlparse.pyx":467
+ *         if ((b'[' in netloc and b']' not in netloc) or
+ *                 (b']' in netloc and b'[' not in netloc)):
+ *             raise ValueError("Invalid IPv6 URL")             # <<<<<<<<<<<<<<
+ *     if allow_fragments and b'#' in url:
+ *         url, fragment = url.split(b'#', 1)
+ */
+  __pyx_tuple__36 = PyTuple_Pack(1, __pyx_kp_s_Invalid_IPv6_URL); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(0, 467, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__36);
+  __Pyx_GIVEREF(__pyx_tuple__36);
+
+  /* "curlparse.pyx":469
+ *             raise ValueError("Invalid IPv6 URL")
+ *     if allow_fragments and b'#' in url:
+ *         url, fragment = url.split(b'#', 1)             # <<<<<<<<<<<<<<
+ *     if b'?' in url:
+ *         url, query = url.split(b'?', 1)
+ */
+  __pyx_tuple__37 = PyTuple_Pack(2, __pyx_kp_b__26, __pyx_int_1); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 469, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__37);
+  __Pyx_GIVEREF(__pyx_tuple__37);
+
+  /* "curlparse.pyx":471
+ *         url, fragment = url.split(b'#', 1)
+ *     if b'?' in url:
+ *         url, query = url.split(b'?', 1)             # <<<<<<<<<<<<<<
+ *     v = SplitResultBytes(scheme, netloc, url, query, fragment)
+ *     _parse_cache[key] = v
+ */
+  __pyx_tuple__38 = PyTuple_Pack(2, __pyx_kp_b__34, __pyx_int_1); if (unlikely(!__pyx_tuple__38)) __PYX_ERR(0, 471, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__38);
+  __Pyx_GIVEREF(__pyx_tuple__38);
+
+  /* "curlparse.pyx":490
+ *         clear_cache()
+ *     netloc = query = fragment = ''
+ *     i = url.find(':')             # <<<<<<<<<<<<<<
+ *     if i > 0:
+ *         if url.startswith('http', i):  # optimize the common case
+ */
+  __pyx_tuple__39 = PyTuple_Pack(1, __pyx_kp_s__10); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 490, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__39);
+  __Pyx_GIVEREF(__pyx_tuple__39);
+
+  /* "curlparse.pyx":499
+ *                 if (('[' in netloc and ']' not in netloc) or
+ *                         (']' in netloc and '[' not in netloc)):
+ *                     raise ValueError("Invalid IPv6 URL")             # <<<<<<<<<<<<<<
+ *             if allow_fragments and '#' in url:
+ *                 url, fragment = url.split('#', 1)
+ */
+  __pyx_tuple__40 = PyTuple_Pack(1, __pyx_kp_s_Invalid_IPv6_URL); if (unlikely(!__pyx_tuple__40)) __PYX_ERR(0, 499, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__40);
+  __Pyx_GIVEREF(__pyx_tuple__40);
+
+  /* "curlparse.pyx":501
+ *                     raise ValueError("Invalid IPv6 URL")
+ *             if allow_fragments and '#' in url:
+ *                 url, fragment = url.split('#', 1)             # <<<<<<<<<<<<<<
+ *             if '?' in url:
+ *                 url, query = url.split('?', 1)
+ */
+  __pyx_tuple__41 = PyTuple_Pack(2, __pyx_kp_s__26, __pyx_int_1); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 501, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__41);
+  __Pyx_GIVEREF(__pyx_tuple__41);
+
+  /* "curlparse.pyx":503
+ *                 url, fragment = url.split('#', 1)
+ *             if '?' in url:
+ *                 url, query = url.split('?', 1)             # <<<<<<<<<<<<<<
+ *             v = SplitResult(scheme, netloc, url, query, fragment)
+ *             _parse_cache[key] = v
+ */
+  __pyx_tuple__42 = PyTuple_Pack(2, __pyx_kp_s__34, __pyx_int_1); if (unlikely(!__pyx_tuple__42)) __PYX_ERR(0, 503, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__42);
+  __Pyx_GIVEREF(__pyx_tuple__42);
+
+  /* "curlparse.pyx":525
+ *         if (('[' in netloc and ']' not in netloc) or
+ *                 (']' in netloc and '[' not in netloc)):
+ *             raise ValueError("Invalid IPv6 URL")             # <<<<<<<<<<<<<<
+ *     if allow_fragments and '#' in url:
+ *         url, fragment = url.split('#', 1)
+ */
+  __pyx_tuple__43 = PyTuple_Pack(1, __pyx_kp_s_Invalid_IPv6_URL); if (unlikely(!__pyx_tuple__43)) __PYX_ERR(0, 525, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__43);
+  __Pyx_GIVEREF(__pyx_tuple__43);
+
+  /* "curlparse.pyx":527
+ *             raise ValueError("Invalid IPv6 URL")
+ *     if allow_fragments and '#' in url:
+ *         url, fragment = url.split('#', 1)             # <<<<<<<<<<<<<<
+ *     if '?' in url:
+ *         url, query = url.split('?', 1)
+ */
+  __pyx_tuple__44 = PyTuple_Pack(2, __pyx_kp_s__26, __pyx_int_1); if (unlikely(!__pyx_tuple__44)) __PYX_ERR(0, 527, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__44);
+  __Pyx_GIVEREF(__pyx_tuple__44);
+
+  /* "curlparse.pyx":529
+ *         url, fragment = url.split('#', 1)
+ *     if '?' in url:
+ *         url, query = url.split('?', 1)             # <<<<<<<<<<<<<<
+ *     v = SplitResult(scheme, netloc, url, query, fragment)
+ *     _parse_cache[key] = v
+ */
+  __pyx_tuple__45 = PyTuple_Pack(2, __pyx_kp_s__34, __pyx_int_1); if (unlikely(!__pyx_tuple__45)) __PYX_ERR(0, 529, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__45);
+  __Pyx_GIVEREF(__pyx_tuple__45);
+
+  /* "curlparse.pyx":641
  *         # filter out elements that would cause redundant slashes on re-joining
  *         # the resolved_path
  *         segments[1:-1] = filter(None, segments[1:-1])             # <<<<<<<<<<<<<<
  * 
  *     resolved_path = []
  */
-  __pyx_slice__37 = PySlice_New(__pyx_int_1, __pyx_int_neg_1, Py_None); if (unlikely(!__pyx_slice__37)) __PYX_ERR(0, 615, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__37);
-  __Pyx_GIVEREF(__pyx_slice__37);
-  __pyx_slice__38 = PySlice_New(__pyx_int_1, __pyx_int_neg_1, Py_None); if (unlikely(!__pyx_slice__38)) __PYX_ERR(0, 615, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__38);
-  __Pyx_GIVEREF(__pyx_slice__38);
+  __pyx_slice__48 = PySlice_New(__pyx_int_1, __pyx_int_neg_1, Py_None); if (unlikely(!__pyx_slice__48)) __PYX_ERR(0, 641, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__48);
+  __Pyx_GIVEREF(__pyx_slice__48);
+  __pyx_slice__49 = PySlice_New(__pyx_int_1, __pyx_int_neg_1, Py_None); if (unlikely(!__pyx_slice__49)) __PYX_ERR(0, 641, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__49);
+  __Pyx_GIVEREF(__pyx_slice__49);
 
-  /* "curlparse.pyx":677
+  /* "curlparse.pyx":703
  *         return b''
  *     if isinstance(string, str):
  *         string = string.encode('utf-8')             # <<<<<<<<<<<<<<
  *     bits = string.split(b'%')
  *     if len(bits) == 1:
  */
-  __pyx_tuple__39 = PyTuple_Pack(1, __pyx_kp_s_utf_8); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 677, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__39);
-  __Pyx_GIVEREF(__pyx_tuple__39);
+  __pyx_tuple__50 = PyTuple_Pack(1, __pyx_kp_s_utf_8); if (unlikely(!__pyx_tuple__50)) __PYX_ERR(0, 703, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__50);
+  __Pyx_GIVEREF(__pyx_tuple__50);
 
-  /* "curlparse.pyx":678
+  /* "curlparse.pyx":704
  *     if isinstance(string, str):
  *         string = string.encode('utf-8')
  *     bits = string.split(b'%')             # <<<<<<<<<<<<<<
  *     if len(bits) == 1:
  *         return string
  */
-  __pyx_tuple__41 = PyTuple_Pack(1, __pyx_kp_b__40); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 678, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__41);
-  __Pyx_GIVEREF(__pyx_tuple__41);
+  __pyx_tuple__52 = PyTuple_Pack(1, __pyx_kp_b__51); if (unlikely(!__pyx_tuple__52)) __PYX_ERR(0, 704, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__52);
+  __Pyx_GIVEREF(__pyx_tuple__52);
 
-  /* "curlparse.pyx":689
+  /* "curlparse.pyx":715
  *         _hextobyte = {(a + b).encode(): bytes([int(a + b, 16)])
  *                       for a in _hexdig for b in _hexdig}
  *     for item in bits[1:]:             # <<<<<<<<<<<<<<
  *         try:
  *             append(_hextobyte[item[:2]])
  */
-  __pyx_slice__42 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__42)) __PYX_ERR(0, 689, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__42);
-  __Pyx_GIVEREF(__pyx_slice__42);
+  __pyx_slice__53 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__53)) __PYX_ERR(0, 715, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__53);
+  __Pyx_GIVEREF(__pyx_slice__53);
 
-  /* "curlparse.pyx":691
+  /* "curlparse.pyx":717
  *     for item in bits[1:]:
  *         try:
  *             append(_hextobyte[item[:2]])             # <<<<<<<<<<<<<<
  *             append(item[2:])
  *         except KeyError:
  */
-  __pyx_slice__43 = PySlice_New(Py_None, __pyx_int_2, Py_None); if (unlikely(!__pyx_slice__43)) __PYX_ERR(0, 691, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__43);
-  __Pyx_GIVEREF(__pyx_slice__43);
+  __pyx_slice__54 = PySlice_New(Py_None, __pyx_int_2, Py_None); if (unlikely(!__pyx_slice__54)) __PYX_ERR(0, 717, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__54);
+  __Pyx_GIVEREF(__pyx_slice__54);
 
-  /* "curlparse.pyx":692
+  /* "curlparse.pyx":718
  *         try:
  *             append(_hextobyte[item[:2]])
  *             append(item[2:])             # <<<<<<<<<<<<<<
  *         except KeyError:
  *             append(b'%')
  */
-  __pyx_slice__44 = PySlice_New(__pyx_int_2, Py_None, Py_None); if (unlikely(!__pyx_slice__44)) __PYX_ERR(0, 692, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__44);
-  __Pyx_GIVEREF(__pyx_slice__44);
+  __pyx_slice__55 = PySlice_New(__pyx_int_2, Py_None, Py_None); if (unlikely(!__pyx_slice__55)) __PYX_ERR(0, 718, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__55);
+  __Pyx_GIVEREF(__pyx_slice__55);
 
-  /* "curlparse.pyx":905
+  /* "curlparse.pyx":931
  *     else:
  *         if encoding is not None:
  *             raise TypeError("quote() doesn't support 'encoding' for bytes")             # <<<<<<<<<<<<<<
  *         if errors is not None:
  *             raise TypeError("quote() doesn't support 'errors' for bytes")
  */
-  __pyx_tuple__49 = PyTuple_Pack(1, __pyx_kp_s_quote_doesn_t_support_encoding_f); if (unlikely(!__pyx_tuple__49)) __PYX_ERR(0, 905, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__49);
-  __Pyx_GIVEREF(__pyx_tuple__49);
+  __pyx_tuple__60 = PyTuple_Pack(1, __pyx_kp_s_quote_doesn_t_support_encoding_f); if (unlikely(!__pyx_tuple__60)) __PYX_ERR(0, 931, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__60);
+  __Pyx_GIVEREF(__pyx_tuple__60);
 
-  /* "curlparse.pyx":907
+  /* "curlparse.pyx":933
  *             raise TypeError("quote() doesn't support 'encoding' for bytes")
  *         if errors is not None:
  *             raise TypeError("quote() doesn't support 'errors' for bytes")             # <<<<<<<<<<<<<<
  *     return quote_from_bytes(string, safe)
  * 
  */
-  __pyx_tuple__50 = PyTuple_Pack(1, __pyx_kp_s_quote_doesn_t_support_errors_for); if (unlikely(!__pyx_tuple__50)) __PYX_ERR(0, 907, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__50);
-  __Pyx_GIVEREF(__pyx_tuple__50);
+  __pyx_tuple__61 = PyTuple_Pack(1, __pyx_kp_s_quote_doesn_t_support_errors_for); if (unlikely(!__pyx_tuple__61)) __PYX_ERR(0, 933, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__61);
+  __Pyx_GIVEREF(__pyx_tuple__61);
 
-  /* "curlparse.pyx":936
+  /* "curlparse.pyx":962
  *     """
  *     if not isinstance(bs, (bytes, bytearray)):
  *         raise TypeError("quote_from_bytes() expected bytes")             # <<<<<<<<<<<<<<
  *     if not bs:
  *         return ''
  */
-  __pyx_tuple__51 = PyTuple_Pack(1, __pyx_kp_s_quote_from_bytes_expected_bytes); if (unlikely(!__pyx_tuple__51)) __PYX_ERR(0, 936, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__51);
-  __Pyx_GIVEREF(__pyx_tuple__51);
+  __pyx_tuple__62 = PyTuple_Pack(1, __pyx_kp_s_quote_from_bytes_expected_bytes); if (unlikely(!__pyx_tuple__62)) __PYX_ERR(0, 962, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__62);
+  __Pyx_GIVEREF(__pyx_tuple__62);
 
-  /* "curlparse.pyx":941
+  /* "curlparse.pyx":967
  *     if isinstance(safe, str):
  *         # Normalize 'safe' by converting to bytes and removing non-ASCII chars
  *         safe = safe.encode('ascii', 'ignore')             # <<<<<<<<<<<<<<
  *     else:
  *         safe = bytes([c for c in safe if c < 128])
  */
-  __pyx_tuple__52 = PyTuple_Pack(2, __pyx_n_s_ascii, __pyx_n_s_ignore); if (unlikely(!__pyx_tuple__52)) __PYX_ERR(0, 941, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__52);
-  __Pyx_GIVEREF(__pyx_tuple__52);
+  __pyx_tuple__63 = PyTuple_Pack(2, __pyx_n_s_ascii, __pyx_n_s_ignore); if (unlikely(!__pyx_tuple__63)) __PYX_ERR(0, 967, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__63);
+  __Pyx_GIVEREF(__pyx_tuple__63);
 
-  /* "curlparse.pyx":985
+  /* "curlparse.pyx":1011
  *         except TypeError:
  *             ty, va, tb = sys.exc_info()
  *             raise TypeError("not a valid non-string sequence "             # <<<<<<<<<<<<<<
  *                             "or mapping object").with_traceback(tb)
  * 
  */
-  __pyx_tuple__54 = PyTuple_Pack(1, __pyx_kp_s_not_a_valid_non_string_sequence); if (unlikely(!__pyx_tuple__54)) __PYX_ERR(0, 985, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__54);
-  __Pyx_GIVEREF(__pyx_tuple__54);
+  __pyx_tuple__65 = PyTuple_Pack(1, __pyx_kp_s_not_a_valid_non_string_sequence); if (unlikely(!__pyx_tuple__65)) __PYX_ERR(0, 1011, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__65);
+  __Pyx_GIVEREF(__pyx_tuple__65);
 
-  /* "curlparse.pyx":1035
+  /* "curlparse.pyx":1061
  *     """unwrap('<URL:type://host/path>') --> 'type://host/path'."""
  *     url = str(url).strip()
  *     if url[:1] == '<' and url[-1:] == '>':             # <<<<<<<<<<<<<<
  *         url = url[1:-1].strip()
  *     if url[:4] == 'URL:': url = url[4:].strip()
  */
-  __pyx_slice__55 = PySlice_New(Py_None, __pyx_int_1, Py_None); if (unlikely(!__pyx_slice__55)) __PYX_ERR(0, 1035, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__55);
-  __Pyx_GIVEREF(__pyx_slice__55);
-  __pyx_slice__57 = PySlice_New(__pyx_int_neg_1, Py_None, Py_None); if (unlikely(!__pyx_slice__57)) __PYX_ERR(0, 1035, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__57);
-  __Pyx_GIVEREF(__pyx_slice__57);
+  __pyx_slice__66 = PySlice_New(Py_None, __pyx_int_1, Py_None); if (unlikely(!__pyx_slice__66)) __PYX_ERR(0, 1061, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__66);
+  __Pyx_GIVEREF(__pyx_slice__66);
+  __pyx_slice__68 = PySlice_New(__pyx_int_neg_1, Py_None, Py_None); if (unlikely(!__pyx_slice__68)) __PYX_ERR(0, 1061, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__68);
+  __Pyx_GIVEREF(__pyx_slice__68);
 
-  /* "curlparse.pyx":1036
+  /* "curlparse.pyx":1062
  *     url = str(url).strip()
  *     if url[:1] == '<' and url[-1:] == '>':
  *         url = url[1:-1].strip()             # <<<<<<<<<<<<<<
  *     if url[:4] == 'URL:': url = url[4:].strip()
  *     return url
  */
-  __pyx_slice__59 = PySlice_New(__pyx_int_1, __pyx_int_neg_1, Py_None); if (unlikely(!__pyx_slice__59)) __PYX_ERR(0, 1036, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__59);
-  __Pyx_GIVEREF(__pyx_slice__59);
+  __pyx_slice__70 = PySlice_New(__pyx_int_1, __pyx_int_neg_1, Py_None); if (unlikely(!__pyx_slice__70)) __PYX_ERR(0, 1062, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__70);
+  __Pyx_GIVEREF(__pyx_slice__70);
 
-  /* "curlparse.pyx":1037
+  /* "curlparse.pyx":1063
  *     if url[:1] == '<' and url[-1:] == '>':
  *         url = url[1:-1].strip()
  *     if url[:4] == 'URL:': url = url[4:].strip()             # <<<<<<<<<<<<<<
  *     return url
  * 
  */
-  __pyx_slice__60 = PySlice_New(Py_None, __pyx_int_4, Py_None); if (unlikely(!__pyx_slice__60)) __PYX_ERR(0, 1037, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__60);
-  __Pyx_GIVEREF(__pyx_slice__60);
-  __pyx_slice__61 = PySlice_New(__pyx_int_4, Py_None, Py_None); if (unlikely(!__pyx_slice__61)) __PYX_ERR(0, 1037, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__61);
-  __Pyx_GIVEREF(__pyx_slice__61);
+  __pyx_slice__71 = PySlice_New(Py_None, __pyx_int_4, Py_None); if (unlikely(!__pyx_slice__71)) __PYX_ERR(0, 1063, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__71);
+  __Pyx_GIVEREF(__pyx_slice__71);
+  __pyx_slice__72 = PySlice_New(__pyx_int_4, Py_None, Py_None); if (unlikely(!__pyx_slice__72)) __PYX_ERR(0, 1063, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__72);
+  __Pyx_GIVEREF(__pyx_slice__72);
 
-  /* "curlparse.pyx":1070
+  /* "curlparse.pyx":1096
  * def splituser(host):
  *     """splituser('user[:passwd]@host[:port]') --> 'user[:passwd]', 'host[:port]'."""
  *     user, delim, host = host.rpartition('@')             # <<<<<<<<<<<<<<
  *     return (user if delim else None), host
  * 
  */
-  __pyx_tuple__64 = PyTuple_Pack(1, __pyx_kp_s__8); if (unlikely(!__pyx_tuple__64)) __PYX_ERR(0, 1070, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__64);
-  __Pyx_GIVEREF(__pyx_tuple__64);
+  __pyx_tuple__75 = PyTuple_Pack(1, __pyx_kp_s__8); if (unlikely(!__pyx_tuple__75)) __PYX_ERR(0, 1096, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__75);
+  __Pyx_GIVEREF(__pyx_tuple__75);
 
-  /* "curlparse.pyx":1075
+  /* "curlparse.pyx":1101
  * def splitpasswd(user):
  *     """splitpasswd('user:passwd') -> 'user', 'passwd'."""
  *     user, delim, passwd = user.partition(':')             # <<<<<<<<<<<<<<
  *     return user, (passwd if delim else None)
  * 
  */
-  __pyx_tuple__65 = PyTuple_Pack(1, __pyx_kp_s__10); if (unlikely(!__pyx_tuple__65)) __PYX_ERR(0, 1075, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__65);
-  __Pyx_GIVEREF(__pyx_tuple__65);
+  __pyx_tuple__76 = PyTuple_Pack(1, __pyx_kp_s__10); if (unlikely(!__pyx_tuple__76)) __PYX_ERR(0, 1101, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__76);
+  __Pyx_GIVEREF(__pyx_tuple__76);
 
-  /* "curlparse.pyx":1098
+  /* "curlparse.pyx":1124
  *     Return numerical port if a valid number are found after ':'.
  *     Return None if ':' but not a valid number."""
  *     host, delim, port = host.rpartition(':')             # <<<<<<<<<<<<<<
  *     if not delim:
  *         host = port
  */
-  __pyx_tuple__66 = PyTuple_Pack(1, __pyx_kp_s__10); if (unlikely(!__pyx_tuple__66)) __PYX_ERR(0, 1098, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__66);
-  __Pyx_GIVEREF(__pyx_tuple__66);
+  __pyx_tuple__77 = PyTuple_Pack(1, __pyx_kp_s__10); if (unlikely(!__pyx_tuple__77)) __PYX_ERR(0, 1124, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__77);
+  __Pyx_GIVEREF(__pyx_tuple__77);
 
-  /* "curlparse.pyx":1111
+  /* "curlparse.pyx":1137
  * def splitquery(url):
  *     """splitquery('/path?query') --> '/path', 'query'."""
  *     path, delim, query = url.rpartition('?')             # <<<<<<<<<<<<<<
  *     if delim:
  *         return path, query
  */
-  __pyx_tuple__67 = PyTuple_Pack(1, __pyx_kp_s__29); if (unlikely(!__pyx_tuple__67)) __PYX_ERR(0, 1111, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__67);
-  __Pyx_GIVEREF(__pyx_tuple__67);
+  __pyx_tuple__78 = PyTuple_Pack(1, __pyx_kp_s__34); if (unlikely(!__pyx_tuple__78)) __PYX_ERR(0, 1137, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__78);
+  __Pyx_GIVEREF(__pyx_tuple__78);
 
-  /* "curlparse.pyx":1118
+  /* "curlparse.pyx":1144
  * def splittag(url):
  *     """splittag('/path#tag') --> '/path', 'tag'."""
  *     path, delim, tag = url.rpartition('#')             # <<<<<<<<<<<<<<
  *     if delim:
  *         return path, tag
  */
-  __pyx_tuple__68 = PyTuple_Pack(1, __pyx_kp_s__26); if (unlikely(!__pyx_tuple__68)) __PYX_ERR(0, 1118, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__68);
-  __Pyx_GIVEREF(__pyx_tuple__68);
+  __pyx_tuple__79 = PyTuple_Pack(1, __pyx_kp_s__26); if (unlikely(!__pyx_tuple__79)) __PYX_ERR(0, 1144, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__79);
+  __Pyx_GIVEREF(__pyx_tuple__79);
 
-  /* "curlparse.pyx":1126
+  /* "curlparse.pyx":1152
  *     """splitattr('/path;attr1=value1;attr2=value2;...') ->
  *         '/path', ['attr1=value1', 'attr2=value2', ...]."""
  *     words = url.split(';')             # <<<<<<<<<<<<<<
  *     return words[0], words[1:]
  * 
  */
-  __pyx_tuple__69 = PyTuple_Pack(1, __pyx_kp_s__27); if (unlikely(!__pyx_tuple__69)) __PYX_ERR(0, 1126, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__69);
-  __Pyx_GIVEREF(__pyx_tuple__69);
+  __pyx_tuple__80 = PyTuple_Pack(1, __pyx_kp_s__27); if (unlikely(!__pyx_tuple__80)) __PYX_ERR(0, 1152, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__80);
+  __Pyx_GIVEREF(__pyx_tuple__80);
 
-  /* "curlparse.pyx":1127
+  /* "curlparse.pyx":1153
  *         '/path', ['attr1=value1', 'attr2=value2', ...]."""
  *     words = url.split(';')
  *     return words[0], words[1:]             # <<<<<<<<<<<<<<
  * 
  * def splitvalue(attr):
  */
-  __pyx_slice__70 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__70)) __PYX_ERR(0, 1127, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__70);
-  __Pyx_GIVEREF(__pyx_slice__70);
+  __pyx_slice__81 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__81)) __PYX_ERR(0, 1153, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__81);
+  __Pyx_GIVEREF(__pyx_slice__81);
 
-  /* "curlparse.pyx":1131
+  /* "curlparse.pyx":1157
  * def splitvalue(attr):
  *     """splitvalue('attr=value') --> 'attr', 'value'."""
  *     attr, delim, value = attr.partition('=')             # <<<<<<<<<<<<<<
  *     return attr, (value if delim else None)
  */
-  __pyx_tuple__71 = PyTuple_Pack(1, __pyx_kp_s__46); if (unlikely(!__pyx_tuple__71)) __PYX_ERR(0, 1131, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__71);
-  __Pyx_GIVEREF(__pyx_tuple__71);
+  __pyx_tuple__82 = PyTuple_Pack(1, __pyx_kp_s__57); if (unlikely(!__pyx_tuple__82)) __PYX_ERR(0, 1157, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__82);
+  __Pyx_GIVEREF(__pyx_tuple__82);
 
   /* "curlparse.pyx":57
  *                    'https', 'shttp', 'rtsp', 'rtspu', 'sip', 'sips',
@@ -24540,9 +25990,9 @@ static int __Pyx_InitCachedConstants(void) {
  * uses_netloc_bytes = {scheme.encode('ascii') for scheme in uses_netloc_str}
  * uses_params_bytes = {scheme.encode('ascii') for scheme in uses_params_str}
  */
-  __pyx_tuple__72 = PyTuple_Pack(1, __pyx_n_s_ascii); if (unlikely(!__pyx_tuple__72)) __PYX_ERR(0, 57, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__72);
-  __Pyx_GIVEREF(__pyx_tuple__72);
+  __pyx_tuple__83 = PyTuple_Pack(1, __pyx_n_s_ascii); if (unlikely(!__pyx_tuple__83)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__83);
+  __Pyx_GIVEREF(__pyx_tuple__83);
 
   /* "curlparse.pyx":58
  *                    'mms', '', 'sftp', 'tel'}
@@ -24551,9 +26001,9 @@ static int __Pyx_InitCachedConstants(void) {
  * uses_params_bytes = {scheme.encode('ascii') for scheme in uses_params_str}
  * uses_relative = uses_relative_str
  */
-  __pyx_tuple__73 = PyTuple_Pack(1, __pyx_n_s_ascii); if (unlikely(!__pyx_tuple__73)) __PYX_ERR(0, 58, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__73);
-  __Pyx_GIVEREF(__pyx_tuple__73);
+  __pyx_tuple__84 = PyTuple_Pack(1, __pyx_n_s_ascii); if (unlikely(!__pyx_tuple__84)) __PYX_ERR(0, 58, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__84);
+  __Pyx_GIVEREF(__pyx_tuple__84);
 
   /* "curlparse.pyx":59
  * uses_relative_bytes = {scheme.encode('ascii') for scheme in uses_relative_str}
@@ -24562,9 +26012,9 @@ static int __Pyx_InitCachedConstants(void) {
  * uses_relative = uses_relative_str
  * uses_netloc = uses_netloc_str
  */
-  __pyx_tuple__74 = PyTuple_Pack(1, __pyx_n_s_ascii); if (unlikely(!__pyx_tuple__74)) __PYX_ERR(0, 59, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__74);
-  __Pyx_GIVEREF(__pyx_tuple__74);
+  __pyx_tuple__85 = PyTuple_Pack(1, __pyx_n_s_ascii); if (unlikely(!__pyx_tuple__85)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__85);
+  __Pyx_GIVEREF(__pyx_tuple__85);
 
   /* "curlparse.pyx":84
  * _parse_cache = {}
@@ -24573,7 +26023,7 @@ static int __Pyx_InitCachedConstants(void) {
  *     """Clear the parse cache and the quoters cache."""
  *     _parse_cache.clear()
  */
-  __pyx_codeobj__75 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_clear_cache, 84, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__75)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_codeobj__86 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_clear_cache, 84, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__86)) __PYX_ERR(0, 84, __pyx_L1_error)
 
   /* "curlparse.pyx":99
  * _implicit_errors = 'strict'
@@ -24582,10 +26032,10 @@ static int __Pyx_InitCachedConstants(void) {
  *     return obj
  * 
  */
-  __pyx_tuple__76 = PyTuple_Pack(1, __pyx_n_s_obj); if (unlikely(!__pyx_tuple__76)) __PYX_ERR(0, 99, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__76);
-  __Pyx_GIVEREF(__pyx_tuple__76);
-  __pyx_codeobj__77 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_noop, 99, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__77)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_tuple__87 = PyTuple_Pack(1, __pyx_n_s_obj); if (unlikely(!__pyx_tuple__87)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__87);
+  __Pyx_GIVEREF(__pyx_tuple__87);
+  __pyx_codeobj__88 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__87, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_noop, 99, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__88)) __PYX_ERR(0, 99, __pyx_L1_error)
 
   /* "curlparse.pyx":102
  *     return obj
@@ -24594,10 +26044,10 @@ static int __Pyx_InitCachedConstants(void) {
  *                         errors=_implicit_errors):
  *     return obj.encode(encoding, errors)
  */
-  __pyx_tuple__78 = PyTuple_Pack(3, __pyx_n_s_obj, __pyx_n_s_encoding, __pyx_n_s_errors); if (unlikely(!__pyx_tuple__78)) __PYX_ERR(0, 102, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__78);
-  __Pyx_GIVEREF(__pyx_tuple__78);
-  __pyx_codeobj__79 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__78, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_encode_result, 102, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__79)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_tuple__89 = PyTuple_Pack(3, __pyx_n_s_obj, __pyx_n_s_encoding, __pyx_n_s_errors); if (unlikely(!__pyx_tuple__89)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__89);
+  __Pyx_GIVEREF(__pyx_tuple__89);
+  __pyx_codeobj__90 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__89, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_encode_result, 102, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__90)) __PYX_ERR(0, 102, __pyx_L1_error)
 
   /* "curlparse.pyx":106
  *     return obj.encode(encoding, errors)
@@ -24606,10 +26056,10 @@ static int __Pyx_InitCachedConstants(void) {
  *                        errors=_implicit_errors):
  *     return tuple(x.decode(encoding, errors) if x else '' for x in args)
  */
-  __pyx_tuple__80 = PyTuple_Pack(5, __pyx_n_s_args, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__80)) __PYX_ERR(0, 106, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__80);
-  __Pyx_GIVEREF(__pyx_tuple__80);
-  __pyx_codeobj__81 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__80, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_decode_args, 106, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__81)) __PYX_ERR(0, 106, __pyx_L1_error)
+  __pyx_tuple__91 = PyTuple_Pack(5, __pyx_n_s_args, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__91)) __PYX_ERR(0, 106, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__91);
+  __Pyx_GIVEREF(__pyx_tuple__91);
+  __pyx_codeobj__92 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__91, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_decode_args, 106, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__92)) __PYX_ERR(0, 106, __pyx_L1_error)
 
   /* "curlparse.pyx":110
  *     return tuple(x.decode(encoding, errors) if x else '' for x in args)
@@ -24618,10 +26068,10 @@ static int __Pyx_InitCachedConstants(void) {
  *     # Invokes decode if necessary to create str args
  *     # and returns the coerced inputs along with
  */
-  __pyx_tuple__82 = PyTuple_Pack(3, __pyx_n_s_args, __pyx_n_s_str_input, __pyx_n_s_arg); if (unlikely(!__pyx_tuple__82)) __PYX_ERR(0, 110, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__82);
-  __Pyx_GIVEREF(__pyx_tuple__82);
-  __pyx_codeobj__83 = (PyObject*)__Pyx_PyCode_New(0, 0, 3, 0, CO_VARARGS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__82, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_coerce_args, 110, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__83)) __PYX_ERR(0, 110, __pyx_L1_error)
+  __pyx_tuple__93 = PyTuple_Pack(3, __pyx_n_s_args, __pyx_n_s_str_input, __pyx_n_s_arg); if (unlikely(!__pyx_tuple__93)) __PYX_ERR(0, 110, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__93);
+  __Pyx_GIVEREF(__pyx_tuple__93);
+  __pyx_codeobj__94 = (PyObject*)__Pyx_PyCode_New(0, 0, 3, 0, CO_VARARGS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__93, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_coerce_args, 110, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__94)) __PYX_ERR(0, 110, __pyx_L1_error)
 
   /* "curlparse.pyx":131
  *     __slots__ = ()
@@ -24630,13 +26080,13 @@ static int __Pyx_InitCachedConstants(void) {
  *         return self._encoded_counterpart(*(x.encode(encoding, errors) for x in self))
  * 
  */
-  __pyx_tuple__84 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__84)) __PYX_ERR(0, 131, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__84);
-  __Pyx_GIVEREF(__pyx_tuple__84);
-  __pyx_codeobj__85 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__84, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_encode, 131, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__85)) __PYX_ERR(0, 131, __pyx_L1_error)
-  __pyx_tuple__86 = PyTuple_Pack(2, ((PyObject*)__pyx_n_s_ascii), ((PyObject*)__pyx_n_s_strict)); if (unlikely(!__pyx_tuple__86)) __PYX_ERR(0, 131, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__86);
-  __Pyx_GIVEREF(__pyx_tuple__86);
+  __pyx_tuple__95 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__95)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__95);
+  __Pyx_GIVEREF(__pyx_tuple__95);
+  __pyx_codeobj__96 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__95, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_encode, 131, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__96)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __pyx_tuple__97 = PyTuple_Pack(2, ((PyObject*)__pyx_n_s_ascii), ((PyObject*)__pyx_n_s_strict)); if (unlikely(!__pyx_tuple__97)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__97);
+  __Pyx_GIVEREF(__pyx_tuple__97);
 
   /* "curlparse.pyx":139
  *     __slots__ = ()
@@ -24645,13 +26095,13 @@ static int __Pyx_InitCachedConstants(void) {
  *         return self._decoded_counterpart(*(x.decode(encoding, errors) for x in self))
  * 
  */
-  __pyx_tuple__87 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__87)) __PYX_ERR(0, 139, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__87);
-  __Pyx_GIVEREF(__pyx_tuple__87);
-  __pyx_codeobj__88 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__87, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_decode, 139, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__88)) __PYX_ERR(0, 139, __pyx_L1_error)
-  __pyx_tuple__89 = PyTuple_Pack(2, ((PyObject*)__pyx_n_s_ascii), ((PyObject*)__pyx_n_s_strict)); if (unlikely(!__pyx_tuple__89)) __PYX_ERR(0, 139, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__89);
-  __Pyx_GIVEREF(__pyx_tuple__89);
+  __pyx_tuple__98 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__98)) __PYX_ERR(0, 139, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__98);
+  __Pyx_GIVEREF(__pyx_tuple__98);
+  __pyx_codeobj__99 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__98, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_decode, 139, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__99)) __PYX_ERR(0, 139, __pyx_L1_error)
+  __pyx_tuple__100 = PyTuple_Pack(2, ((PyObject*)__pyx_n_s_ascii), ((PyObject*)__pyx_n_s_strict)); if (unlikely(!__pyx_tuple__100)) __PYX_ERR(0, 139, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__100);
+  __Pyx_GIVEREF(__pyx_tuple__100);
 
   /* "curlparse.pyx":148
  * 
@@ -24660,10 +26110,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         return self._userinfo[0]
  * 
  */
-  __pyx_tuple__90 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__90)) __PYX_ERR(0, 148, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__90);
-  __Pyx_GIVEREF(__pyx_tuple__90);
-  __pyx_codeobj__91 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__90, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_username, 148, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__91)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_tuple__101 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__101)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__101);
+  __Pyx_GIVEREF(__pyx_tuple__101);
+  __pyx_codeobj__102 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__101, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_username, 148, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__102)) __PYX_ERR(0, 148, __pyx_L1_error)
 
   /* "curlparse.pyx":152
  * 
@@ -24672,10 +26122,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         return self._userinfo[1]
  * 
  */
-  __pyx_tuple__92 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__92)) __PYX_ERR(0, 152, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__92);
-  __Pyx_GIVEREF(__pyx_tuple__92);
-  __pyx_codeobj__93 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__92, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_password, 152, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__93)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_tuple__103 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__103)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__103);
+  __Pyx_GIVEREF(__pyx_tuple__103);
+  __pyx_codeobj__104 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__103, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_password, 152, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__104)) __PYX_ERR(0, 152, __pyx_L1_error)
 
   /* "curlparse.pyx":156
  * 
@@ -24684,10 +26134,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         hostname = self._hostinfo[0]
  *         if not hostname:
  */
-  __pyx_tuple__94 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_hostname); if (unlikely(!__pyx_tuple__94)) __PYX_ERR(0, 156, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__94);
-  __Pyx_GIVEREF(__pyx_tuple__94);
-  __pyx_codeobj__95 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__94, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_hostname, 156, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__95)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_tuple__105 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_hostname); if (unlikely(!__pyx_tuple__105)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__105);
+  __Pyx_GIVEREF(__pyx_tuple__105);
+  __pyx_codeobj__106 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__105, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_hostname, 156, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__106)) __PYX_ERR(0, 156, __pyx_L1_error)
 
   /* "curlparse.pyx":165
  * 
@@ -24696,10 +26146,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         port = self._hostinfo[1]
  *         if port is not None:
  */
-  __pyx_tuple__96 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_port); if (unlikely(!__pyx_tuple__96)) __PYX_ERR(0, 165, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__96);
-  __Pyx_GIVEREF(__pyx_tuple__96);
-  __pyx_codeobj__97 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__96, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_port, 165, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__97)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __pyx_tuple__107 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_port); if (unlikely(!__pyx_tuple__107)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__107);
+  __Pyx_GIVEREF(__pyx_tuple__107);
+  __pyx_codeobj__108 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__107, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_port, 165, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__108)) __PYX_ERR(0, 165, __pyx_L1_error)
 
   /* "curlparse.pyx":178
  * 
@@ -24708,10 +26158,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         netloc = self.netloc
  *         userinfo, have_info, hostinfo = netloc.rpartition('@')
  */
-  __pyx_tuple__98 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_netloc, __pyx_n_s_userinfo_2, __pyx_n_s_have_info, __pyx_n_s_hostinfo_2, __pyx_n_s_username, __pyx_n_s_have_password, __pyx_n_s_password); if (unlikely(!__pyx_tuple__98)) __PYX_ERR(0, 178, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__98);
-  __Pyx_GIVEREF(__pyx_tuple__98);
-  __pyx_codeobj__99 = (PyObject*)__Pyx_PyCode_New(1, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__98, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_userinfo, 178, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__99)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_tuple__109 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_netloc, __pyx_n_s_userinfo_2, __pyx_n_s_have_info, __pyx_n_s_hostinfo_2, __pyx_n_s_username, __pyx_n_s_have_password, __pyx_n_s_password); if (unlikely(!__pyx_tuple__109)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__109);
+  __Pyx_GIVEREF(__pyx_tuple__109);
+  __pyx_codeobj__110 = (PyObject*)__Pyx_PyCode_New(1, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__109, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_userinfo, 178, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__110)) __PYX_ERR(0, 178, __pyx_L1_error)
 
   /* "curlparse.pyx":190
  * 
@@ -24720,10 +26170,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         netloc = self.netloc
  *         _, _, hostinfo = netloc.rpartition('@')
  */
-  __pyx_tuple__101 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_netloc, __pyx_n_s__100, __pyx_n_s_hostinfo_2, __pyx_n_s_have_open_br, __pyx_n_s_bracketed, __pyx_n_s_hostname, __pyx_n_s_port); if (unlikely(!__pyx_tuple__101)) __PYX_ERR(0, 190, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__101);
-  __Pyx_GIVEREF(__pyx_tuple__101);
-  __pyx_codeobj__102 = (PyObject*)__Pyx_PyCode_New(1, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__101, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_hostinfo, 190, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__102)) __PYX_ERR(0, 190, __pyx_L1_error)
+  __pyx_tuple__112 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_netloc, __pyx_n_s__111, __pyx_n_s_hostinfo_2, __pyx_n_s_have_open_br, __pyx_n_s_bracketed, __pyx_n_s_hostname, __pyx_n_s_port); if (unlikely(!__pyx_tuple__112)) __PYX_ERR(0, 190, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__112);
+  __Pyx_GIVEREF(__pyx_tuple__112);
+  __pyx_codeobj__113 = (PyObject*)__Pyx_PyCode_New(1, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__112, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_hostinfo, 190, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__113)) __PYX_ERR(0, 190, __pyx_L1_error)
 
   /* "curlparse.pyx":208
  * 
@@ -24732,10 +26182,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         netloc = self.netloc
  *         userinfo, have_info, hostinfo = netloc.rpartition(b'@')
  */
-  __pyx_tuple__103 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_netloc, __pyx_n_s_userinfo_2, __pyx_n_s_have_info, __pyx_n_s_hostinfo_2, __pyx_n_s_username, __pyx_n_s_have_password, __pyx_n_s_password); if (unlikely(!__pyx_tuple__103)) __PYX_ERR(0, 208, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__103);
-  __Pyx_GIVEREF(__pyx_tuple__103);
-  __pyx_codeobj__104 = (PyObject*)__Pyx_PyCode_New(1, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__103, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_userinfo, 208, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__104)) __PYX_ERR(0, 208, __pyx_L1_error)
+  __pyx_tuple__114 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_netloc, __pyx_n_s_userinfo_2, __pyx_n_s_have_info, __pyx_n_s_hostinfo_2, __pyx_n_s_username, __pyx_n_s_have_password, __pyx_n_s_password); if (unlikely(!__pyx_tuple__114)) __PYX_ERR(0, 208, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__114);
+  __Pyx_GIVEREF(__pyx_tuple__114);
+  __pyx_codeobj__115 = (PyObject*)__Pyx_PyCode_New(1, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__114, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_userinfo, 208, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__115)) __PYX_ERR(0, 208, __pyx_L1_error)
 
   /* "curlparse.pyx":220
  * 
@@ -24744,10 +26194,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         netloc = self.netloc
  *         _, _, hostinfo = netloc.rpartition(b'@')
  */
-  __pyx_tuple__105 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_netloc, __pyx_n_s__100, __pyx_n_s_hostinfo_2, __pyx_n_s_have_open_br, __pyx_n_s_bracketed, __pyx_n_s_hostname, __pyx_n_s_port); if (unlikely(!__pyx_tuple__105)) __PYX_ERR(0, 220, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__105);
-  __Pyx_GIVEREF(__pyx_tuple__105);
-  __pyx_codeobj__106 = (PyObject*)__Pyx_PyCode_New(1, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__105, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_hostinfo, 220, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__106)) __PYX_ERR(0, 220, __pyx_L1_error)
+  __pyx_tuple__116 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_netloc, __pyx_n_s__111, __pyx_n_s_hostinfo_2, __pyx_n_s_have_open_br, __pyx_n_s_bracketed, __pyx_n_s_hostname, __pyx_n_s_port); if (unlikely(!__pyx_tuple__116)) __PYX_ERR(0, 220, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__116);
+  __Pyx_GIVEREF(__pyx_tuple__116);
+  __pyx_codeobj__117 = (PyObject*)__Pyx_PyCode_New(1, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__116, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_hostinfo, 220, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__117)) __PYX_ERR(0, 220, __pyx_L1_error)
 
   /* "curlparse.pyx":234
  * 
@@ -24756,9 +26206,9 @@ static int __Pyx_InitCachedConstants(void) {
  * _SplitResultBase = namedtuple(
  *     'SplitResult', 'scheme netloc path query fragment')
  */
-  __pyx_tuple__107 = PyTuple_Pack(2, __pyx_n_s_DefragResult, __pyx_kp_s_url_fragment); if (unlikely(!__pyx_tuple__107)) __PYX_ERR(0, 234, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__107);
-  __Pyx_GIVEREF(__pyx_tuple__107);
+  __pyx_tuple__118 = PyTuple_Pack(2, __pyx_n_s_DefragResult, __pyx_kp_s_url_fragment); if (unlikely(!__pyx_tuple__118)) __PYX_ERR(0, 234, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__118);
+  __Pyx_GIVEREF(__pyx_tuple__118);
 
   /* "curlparse.pyx":235
  * 
@@ -24767,9 +26217,9 @@ static int __Pyx_InitCachedConstants(void) {
  *     'SplitResult', 'scheme netloc path query fragment')
  * _ParseResultBase = namedtuple(
  */
-  __pyx_tuple__108 = PyTuple_Pack(2, __pyx_n_s_SplitResult, __pyx_kp_s_scheme_netloc_path_query_fragmen); if (unlikely(!__pyx_tuple__108)) __PYX_ERR(0, 235, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__108);
-  __Pyx_GIVEREF(__pyx_tuple__108);
+  __pyx_tuple__119 = PyTuple_Pack(2, __pyx_n_s_SplitResult, __pyx_kp_s_scheme_netloc_path_query_fragmen); if (unlikely(!__pyx_tuple__119)) __PYX_ERR(0, 235, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__119);
+  __Pyx_GIVEREF(__pyx_tuple__119);
 
   /* "curlparse.pyx":237
  * _SplitResultBase = namedtuple(
@@ -24778,9 +26228,9 @@ static int __Pyx_InitCachedConstants(void) {
  *     'ParseResult', 'scheme netloc path params query fragment')
  * 
  */
-  __pyx_tuple__109 = PyTuple_Pack(2, __pyx_n_s_ParseResult, __pyx_kp_s_scheme_netloc_path_params_query); if (unlikely(!__pyx_tuple__109)) __PYX_ERR(0, 237, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__109);
-  __Pyx_GIVEREF(__pyx_tuple__109);
+  __pyx_tuple__120 = PyTuple_Pack(2, __pyx_n_s_ParseResult, __pyx_kp_s_scheme_netloc_path_params_query); if (unlikely(!__pyx_tuple__120)) __PYX_ERR(0, 237, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__120);
+  __Pyx_GIVEREF(__pyx_tuple__120);
 
   /* "curlparse.pyx":309
  * class DefragResult(_DefragResultBase, _ResultMixinStr):
@@ -24789,10 +26239,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         if self.fragment:
  *             return self.url + '#' + self.fragment
  */
-  __pyx_tuple__110 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__110)) __PYX_ERR(0, 309, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__110);
-  __Pyx_GIVEREF(__pyx_tuple__110);
-  __pyx_codeobj__111 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__110, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_geturl, 309, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__111)) __PYX_ERR(0, 309, __pyx_L1_error)
+  __pyx_tuple__121 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__121)) __PYX_ERR(0, 309, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__121);
+  __Pyx_GIVEREF(__pyx_tuple__121);
+  __pyx_codeobj__122 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__121, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_geturl, 309, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__122)) __PYX_ERR(0, 309, __pyx_L1_error)
 
   /* "curlparse.pyx":317
  * class SplitResult(_SplitResultBase, _NetlocResultMixinStr):
@@ -24801,10 +26251,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         return urlunsplit(self)
  * 
  */
-  __pyx_tuple__112 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__112)) __PYX_ERR(0, 317, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__112);
-  __Pyx_GIVEREF(__pyx_tuple__112);
-  __pyx_codeobj__113 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__112, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_geturl, 317, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__113)) __PYX_ERR(0, 317, __pyx_L1_error)
+  __pyx_tuple__123 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__123)) __PYX_ERR(0, 317, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__123);
+  __Pyx_GIVEREF(__pyx_tuple__123);
+  __pyx_codeobj__124 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__123, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_geturl, 317, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__124)) __PYX_ERR(0, 317, __pyx_L1_error)
 
   /* "curlparse.pyx":322
  * class ParseResult(_ParseResultBase, _NetlocResultMixinStr):
@@ -24813,10 +26263,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         return urlunparse(self)
  * 
  */
-  __pyx_tuple__114 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__114)) __PYX_ERR(0, 322, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__114);
-  __Pyx_GIVEREF(__pyx_tuple__114);
-  __pyx_codeobj__115 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__114, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_geturl, 322, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__115)) __PYX_ERR(0, 322, __pyx_L1_error)
+  __pyx_tuple__125 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__125)) __PYX_ERR(0, 322, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__125);
+  __Pyx_GIVEREF(__pyx_tuple__125);
+  __pyx_codeobj__126 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__125, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_geturl, 322, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__126)) __PYX_ERR(0, 322, __pyx_L1_error)
 
   /* "curlparse.pyx":328
  * class DefragResultBytes(_DefragResultBase, _ResultMixinBytes):
@@ -24825,10 +26275,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         if self.fragment:
  *             return self.url + b'#' + self.fragment
  */
-  __pyx_tuple__116 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__116)) __PYX_ERR(0, 328, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__116);
-  __Pyx_GIVEREF(__pyx_tuple__116);
-  __pyx_codeobj__117 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__116, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_geturl, 328, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__117)) __PYX_ERR(0, 328, __pyx_L1_error)
+  __pyx_tuple__127 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__127)) __PYX_ERR(0, 328, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__127);
+  __Pyx_GIVEREF(__pyx_tuple__127);
+  __pyx_codeobj__128 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__127, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_geturl, 328, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__128)) __PYX_ERR(0, 328, __pyx_L1_error)
 
   /* "curlparse.pyx":336
  * class SplitResultBytes(_SplitResultBase, _NetlocResultMixinBytes):
@@ -24837,10 +26287,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         return urlunsplit(self)
  * 
  */
-  __pyx_tuple__118 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__118)) __PYX_ERR(0, 336, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__118);
-  __Pyx_GIVEREF(__pyx_tuple__118);
-  __pyx_codeobj__119 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__118, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_geturl, 336, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__119)) __PYX_ERR(0, 336, __pyx_L1_error)
+  __pyx_tuple__129 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__129)) __PYX_ERR(0, 336, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__129);
+  __Pyx_GIVEREF(__pyx_tuple__129);
+  __pyx_codeobj__130 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__129, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_geturl, 336, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__130)) __PYX_ERR(0, 336, __pyx_L1_error)
 
   /* "curlparse.pyx":341
  * class ParseResultBytes(_ParseResultBase, _NetlocResultMixinBytes):
@@ -24849,10 +26299,10 @@ static int __Pyx_InitCachedConstants(void) {
  *         return urlunparse(self)
  * 
  */
-  __pyx_tuple__120 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__120)) __PYX_ERR(0, 341, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__120);
-  __Pyx_GIVEREF(__pyx_tuple__120);
-  __pyx_codeobj__121 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__120, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_geturl, 341, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__121)) __PYX_ERR(0, 341, __pyx_L1_error)
+  __pyx_tuple__131 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__131)) __PYX_ERR(0, 341, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__131);
+  __Pyx_GIVEREF(__pyx_tuple__131);
+  __pyx_codeobj__132 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__131, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_geturl, 341, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__132)) __PYX_ERR(0, 341, __pyx_L1_error)
 
   /* "curlparse.pyx":345
  * 
@@ -24861,10 +26311,10 @@ static int __Pyx_InitCachedConstants(void) {
  *     _result_pairs = (
  *         (DefragResult, DefragResultBytes),
  */
-  __pyx_tuple__122 = PyTuple_Pack(3, __pyx_n_s_result_pairs, __pyx_n_s_decoded, __pyx_n_s_encoded); if (unlikely(!__pyx_tuple__122)) __PYX_ERR(0, 345, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__122);
-  __Pyx_GIVEREF(__pyx_tuple__122);
-  __pyx_codeobj__123 = (PyObject*)__Pyx_PyCode_New(0, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__122, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_fix_result_transcoding, 345, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__123)) __PYX_ERR(0, 345, __pyx_L1_error)
+  __pyx_tuple__133 = PyTuple_Pack(3, __pyx_n_s_result_pairs, __pyx_n_s_decoded, __pyx_n_s_encoded); if (unlikely(!__pyx_tuple__133)) __PYX_ERR(0, 345, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__133);
+  __Pyx_GIVEREF(__pyx_tuple__133);
+  __pyx_codeobj__134 = (PyObject*)__Pyx_PyCode_New(0, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__133, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_fix_result_transcoding, 345, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__134)) __PYX_ERR(0, 345, __pyx_L1_error)
 
   /* "curlparse.pyx":359
  * 
@@ -24873,10 +26323,10 @@ static int __Pyx_InitCachedConstants(void) {
  *     """Parse a URL into 6 components:
  *     <scheme>://<netloc>/<path>;<params>?<query>#<fragment>
  */
-  __pyx_tuple__124 = PyTuple_Pack(8, __pyx_n_s_url, __pyx_n_s_scheme, __pyx_n_s_allow_fragments, __pyx_n_s_splitresult, __pyx_n_s_netloc, __pyx_n_s_query, __pyx_n_s_fragment, __pyx_n_s_params); if (unlikely(!__pyx_tuple__124)) __PYX_ERR(0, 359, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__124);
-  __Pyx_GIVEREF(__pyx_tuple__124);
-  __pyx_codeobj__125 = (PyObject*)__Pyx_PyCode_New(3, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__124, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urlparse, 359, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__125)) __PYX_ERR(0, 359, __pyx_L1_error)
+  __pyx_tuple__135 = PyTuple_Pack(8, __pyx_n_s_url, __pyx_n_s_scheme, __pyx_n_s_allow_fragments, __pyx_n_s_splitresult, __pyx_n_s_netloc, __pyx_n_s_query, __pyx_n_s_fragment, __pyx_n_s_params); if (unlikely(!__pyx_tuple__135)) __PYX_ERR(0, 359, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__135);
+  __Pyx_GIVEREF(__pyx_tuple__135);
+  __pyx_codeobj__136 = (PyObject*)__Pyx_PyCode_New(3, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__135, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urlparse, 359, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__136)) __PYX_ERR(0, 359, __pyx_L1_error)
 
   /* "curlparse.pyx":375
  * 
@@ -24885,10 +26335,10 @@ static int __Pyx_InitCachedConstants(void) {
  *     """Parse a URL into 6 components:
  *     <scheme>://<netloc>/<path>;<params>?<query>#<fragment>
  */
-  __pyx_tuple__126 = PyTuple_Pack(8, __pyx_n_s_url, __pyx_n_s_scheme, __pyx_n_s_allow_fragments, __pyx_n_s_splitresult, __pyx_n_s_netloc, __pyx_n_s_query, __pyx_n_s_fragment, __pyx_n_s_params); if (unlikely(!__pyx_tuple__126)) __PYX_ERR(0, 375, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__126);
-  __Pyx_GIVEREF(__pyx_tuple__126);
-  __pyx_codeobj__127 = (PyObject*)__Pyx_PyCode_New(3, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__126, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urlparse, 375, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__127)) __PYX_ERR(0, 375, __pyx_L1_error)
+  __pyx_tuple__137 = PyTuple_Pack(8, __pyx_n_s_url, __pyx_n_s_scheme, __pyx_n_s_allow_fragments, __pyx_n_s_splitresult, __pyx_n_s_netloc, __pyx_n_s_query, __pyx_n_s_fragment, __pyx_n_s_params); if (unlikely(!__pyx_tuple__137)) __PYX_ERR(0, 375, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__137);
+  __Pyx_GIVEREF(__pyx_tuple__137);
+  __pyx_codeobj__138 = (PyObject*)__Pyx_PyCode_New(3, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__137, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urlparse, 375, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__138)) __PYX_ERR(0, 375, __pyx_L1_error)
 
   /* "curlparse.pyx":391
  * 
@@ -24897,10 +26347,10 @@ static int __Pyx_InitCachedConstants(void) {
  *     if slash in url:
  *         i = url.find(semicolon, url.rfind(slash))
  */
-  __pyx_tuple__128 = PyTuple_Pack(5, __pyx_n_s_url, __pyx_n_s_semicolon, __pyx_n_s_slash, __pyx_n_s_blank, __pyx_n_s_i); if (unlikely(!__pyx_tuple__128)) __PYX_ERR(0, 391, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__128);
-  __Pyx_GIVEREF(__pyx_tuple__128);
-  __pyx_codeobj__129 = (PyObject*)__Pyx_PyCode_New(4, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__128, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitparams, 391, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__129)) __PYX_ERR(0, 391, __pyx_L1_error)
+  __pyx_tuple__139 = PyTuple_Pack(5, __pyx_n_s_url, __pyx_n_s_semicolon, __pyx_n_s_slash, __pyx_n_s_blank, __pyx_n_s_i); if (unlikely(!__pyx_tuple__139)) __PYX_ERR(0, 391, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__139);
+  __Pyx_GIVEREF(__pyx_tuple__139);
+  __pyx_codeobj__140 = (PyObject*)__Pyx_PyCode_New(4, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__139, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitparams, 391, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__140)) __PYX_ERR(0, 391, __pyx_L1_error)
 
   /* "curlparse.pyx":400
  *     return url[:i], url[i+1:]
@@ -24909,10 +26359,10 @@ static int __Pyx_InitCachedConstants(void) {
  *     if slash in url:
  *         i = url.find(semicolon, url.rfind(slash))
  */
-  __pyx_tuple__130 = PyTuple_Pack(5, __pyx_n_s_url, __pyx_n_s_semicolon, __pyx_n_s_slash, __pyx_n_s_blank, __pyx_n_s_i); if (unlikely(!__pyx_tuple__130)) __PYX_ERR(0, 400, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__130);
-  __Pyx_GIVEREF(__pyx_tuple__130);
-  __pyx_codeobj__131 = (PyObject*)__Pyx_PyCode_New(4, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__130, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitparams, 400, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__131)) __PYX_ERR(0, 400, __pyx_L1_error)
+  __pyx_tuple__141 = PyTuple_Pack(5, __pyx_n_s_url, __pyx_n_s_semicolon, __pyx_n_s_slash, __pyx_n_s_blank, __pyx_n_s_i); if (unlikely(!__pyx_tuple__141)) __PYX_ERR(0, 400, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__141);
+  __Pyx_GIVEREF(__pyx_tuple__141);
+  __pyx_codeobj__142 = (PyObject*)__Pyx_PyCode_New(4, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__141, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitparams, 400, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__142)) __PYX_ERR(0, 400, __pyx_L1_error)
 
   /* "curlparse.pyx":410
  * 
@@ -24921,357 +26371,369 @@ static int __Pyx_InitCachedConstants(void) {
  *     delim = len(url)   # position of end of domain part of url, default is end
  *     for c in delimiters:  # look for delimiters; the order is NOT important
  */
-  __pyx_tuple__132 = PyTuple_Pack(6, __pyx_n_s_url, __pyx_n_s_start, __pyx_n_s_delimiters, __pyx_n_s_delim, __pyx_n_s_c, __pyx_n_s_wdelim); if (unlikely(!__pyx_tuple__132)) __PYX_ERR(0, 410, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__132);
-  __Pyx_GIVEREF(__pyx_tuple__132);
-  __pyx_codeobj__133 = (PyObject*)__Pyx_PyCode_New(2, 1, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__132, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitnetloc, 410, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__133)) __PYX_ERR(0, 410, __pyx_L1_error)
+  __pyx_tuple__143 = PyTuple_Pack(6, __pyx_n_s_url, __pyx_n_s_start, __pyx_n_s_delimiters, __pyx_n_s_delim, __pyx_n_s_c, __pyx_n_s_wdelim); if (unlikely(!__pyx_tuple__143)) __PYX_ERR(0, 410, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__143);
+  __Pyx_GIVEREF(__pyx_tuple__143);
+  __pyx_codeobj__144 = (PyObject*)__Pyx_PyCode_New(2, 1, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__143, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitnetloc, 410, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__144)) __PYX_ERR(0, 410, __pyx_L1_error)
 
   /* "curlparse.pyx":419
  * 
  * 
- * def urlsplit(url, scheme='', allow_fragments=True):             # <<<<<<<<<<<<<<
+ * def urlsplit(bytes url, bytes scheme=b'', bool allow_fragments=True):             # <<<<<<<<<<<<<<
  *     """Parse a URL into 5 components:
  *     <scheme>://<netloc>/<path>?<query>#<fragment>
  */
-  __pyx_tuple__134 = PyTuple_Pack(26, __pyx_n_s_url, __pyx_n_s_scheme, __pyx_n_s_allow_fragments, __pyx_n_s_blank, __pyx_n_s_colon, __pyx_n_s_http, __pyx_n_s_l_bracket, __pyx_n_s_r_bracket, __pyx_n_s_pound, __pyx_n_s_question_mark, __pyx_n_s_digits, __pyx_n_s_double_slash, __pyx_n_s_netloc_delimiters, __pyx_n_s_result_type, __pyx_n_s_scheme_chars, __pyx_n_s_key, __pyx_n_s_cached, __pyx_n_s_netloc, __pyx_n_s_query, __pyx_n_s_fragment, __pyx_n_s_i, __pyx_n_s_v, __pyx_n_s_c, __pyx_n_s_rest, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__134)) __PYX_ERR(0, 419, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__134);
-  __Pyx_GIVEREF(__pyx_tuple__134);
-  __pyx_codeobj__135 = (PyObject*)__Pyx_PyCode_New(3, 0, 26, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__134, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urlsplit, 419, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__135)) __PYX_ERR(0, 419, __pyx_L1_error)
+  __pyx_tuple__145 = PyTuple_Pack(14, __pyx_n_s_url, __pyx_n_s_scheme, __pyx_n_s_allow_fragments, __pyx_n_s_key, __pyx_n_s_cached, __pyx_n_s_netloc, __pyx_n_s_query, __pyx_n_s_fragment, __pyx_n_s_i, __pyx_n_s_v, __pyx_n_s_c, __pyx_n_s_rest, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__145)) __PYX_ERR(0, 419, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__145);
+  __Pyx_GIVEREF(__pyx_tuple__145);
+  __pyx_codeobj__146 = (PyObject*)__Pyx_PyCode_New(3, 0, 14, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__145, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urlsplit, 419, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__146)) __PYX_ERR(0, 419, __pyx_L1_error)
 
-  /* "curlparse.pyx":509
+  /* "curlparse.pyx":477
+ * 
+ * 
+ * def urlsplit(str url, str scheme='', bool allow_fragments=True):             # <<<<<<<<<<<<<<
+ *     """Parse a URL into 5 components:
+ *     <scheme>://<netloc>/<path>?<query>#<fragment>
+ */
+  __pyx_tuple__147 = PyTuple_Pack(14, __pyx_n_s_url, __pyx_n_s_scheme, __pyx_n_s_allow_fragments, __pyx_n_s_key, __pyx_n_s_cached, __pyx_n_s_netloc, __pyx_n_s_query, __pyx_n_s_fragment, __pyx_n_s_i, __pyx_n_s_v, __pyx_n_s_c, __pyx_n_s_rest, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__147)) __PYX_ERR(0, 477, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__147);
+  __Pyx_GIVEREF(__pyx_tuple__147);
+  __pyx_codeobj__148 = (PyObject*)__Pyx_PyCode_New(3, 0, 14, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__147, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urlsplit, 477, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__148)) __PYX_ERR(0, 477, __pyx_L1_error)
+
+  /* "curlparse.pyx":535
  * 
  * 
  * def urlunparse(components):             # <<<<<<<<<<<<<<
  *     """Put a parsed URL back together again.  This may result in a
  *     slightly different, but equivalent URL, if the URL that was parsed
  */
-  __pyx_tuple__136 = PyTuple_Pack(7, __pyx_n_s_components, __pyx_n_s_scheme, __pyx_n_s_netloc, __pyx_n_s_url, __pyx_n_s_params, __pyx_n_s_query, __pyx_n_s_fragment); if (unlikely(!__pyx_tuple__136)) __PYX_ERR(0, 509, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__136);
-  __Pyx_GIVEREF(__pyx_tuple__136);
-  __pyx_codeobj__137 = (PyObject*)__Pyx_PyCode_New(1, 0, 7, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__136, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urlunparse, 509, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__137)) __PYX_ERR(0, 509, __pyx_L1_error)
+  __pyx_tuple__149 = PyTuple_Pack(7, __pyx_n_s_components, __pyx_n_s_scheme, __pyx_n_s_netloc, __pyx_n_s_url, __pyx_n_s_params, __pyx_n_s_query, __pyx_n_s_fragment); if (unlikely(!__pyx_tuple__149)) __PYX_ERR(0, 535, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__149);
+  __Pyx_GIVEREF(__pyx_tuple__149);
+  __pyx_codeobj__150 = (PyObject*)__Pyx_PyCode_New(1, 0, 7, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__149, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urlunparse, 535, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__150)) __PYX_ERR(0, 535, __pyx_L1_error)
 
-  /* "curlparse.pyx":523
+  /* "curlparse.pyx":549
  * 
  * 
  * def urlunsplit(components):             # <<<<<<<<<<<<<<
  *     """Combine the elements of a tuple as returned by urlsplit() into a
  *     complete URL as a string. The data argument can be any five-item iterable.
  */
-  __pyx_tuple__138 = PyTuple_Pack(13, __pyx_n_s_components, __pyx_n_s_scheme, __pyx_n_s_netloc, __pyx_n_s_url, __pyx_n_s_query, __pyx_n_s_fragment, __pyx_n_s_slash, __pyx_n_s_double_slash, __pyx_n_s_blank, __pyx_n_s_colon, __pyx_n_s_question_mark, __pyx_n_s_pound, __pyx_n_s_uses_netloc); if (unlikely(!__pyx_tuple__138)) __PYX_ERR(0, 523, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__138);
-  __Pyx_GIVEREF(__pyx_tuple__138);
-  __pyx_codeobj__139 = (PyObject*)__Pyx_PyCode_New(1, 0, 13, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__138, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urlunsplit, 523, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__139)) __PYX_ERR(0, 523, __pyx_L1_error)
+  __pyx_tuple__151 = PyTuple_Pack(13, __pyx_n_s_components, __pyx_n_s_scheme, __pyx_n_s_netloc, __pyx_n_s_url, __pyx_n_s_query, __pyx_n_s_fragment, __pyx_n_s_slash, __pyx_n_s_double_slash, __pyx_n_s_blank, __pyx_n_s_colon, __pyx_n_s_question_mark, __pyx_n_s_pound, __pyx_n_s_uses_netloc); if (unlikely(!__pyx_tuple__151)) __PYX_ERR(0, 549, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__151);
+  __Pyx_GIVEREF(__pyx_tuple__151);
+  __pyx_codeobj__152 = (PyObject*)__Pyx_PyCode_New(1, 0, 13, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__151, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urlunsplit, 549, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__152)) __PYX_ERR(0, 549, __pyx_L1_error)
 
-  /* "curlparse.pyx":560
+  /* "curlparse.pyx":586
  * 
  * 
  * def urljoin(base, url, allow_fragments=True):             # <<<<<<<<<<<<<<
  *     """Join a base URL and a possibly relative URL to form an absolute
  *     interpretation of the latter."""
  */
-  __pyx_tuple__140 = PyTuple_Pack(25, __pyx_n_s_base, __pyx_n_s_url, __pyx_n_s_allow_fragments, __pyx_n_s_slash, __pyx_n_s_blank, __pyx_n_s_dot, __pyx_n_s_double_dot, __pyx_n_s_uses_netloc, __pyx_n_s_uses_relative, __pyx_n_s_bscheme, __pyx_n_s_bnetloc, __pyx_n_s_bpath, __pyx_n_s_bparams, __pyx_n_s_bquery, __pyx_n_s_bfragment, __pyx_n_s_scheme, __pyx_n_s_netloc, __pyx_n_s_path, __pyx_n_s_params, __pyx_n_s_query, __pyx_n_s_fragment, __pyx_n_s_base_parts, __pyx_n_s_segments, __pyx_n_s_resolved_path, __pyx_n_s_seg); if (unlikely(!__pyx_tuple__140)) __PYX_ERR(0, 560, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__140);
-  __Pyx_GIVEREF(__pyx_tuple__140);
-  __pyx_codeobj__141 = (PyObject*)__Pyx_PyCode_New(3, 0, 25, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__140, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urljoin, 560, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__141)) __PYX_ERR(0, 560, __pyx_L1_error)
+  __pyx_tuple__153 = PyTuple_Pack(25, __pyx_n_s_base, __pyx_n_s_url, __pyx_n_s_allow_fragments, __pyx_n_s_slash, __pyx_n_s_blank, __pyx_n_s_dot, __pyx_n_s_double_dot, __pyx_n_s_uses_netloc, __pyx_n_s_uses_relative, __pyx_n_s_bscheme, __pyx_n_s_bnetloc, __pyx_n_s_bpath, __pyx_n_s_bparams, __pyx_n_s_bquery, __pyx_n_s_bfragment, __pyx_n_s_scheme, __pyx_n_s_netloc, __pyx_n_s_path, __pyx_n_s_params, __pyx_n_s_query, __pyx_n_s_fragment, __pyx_n_s_base_parts, __pyx_n_s_segments, __pyx_n_s_resolved_path, __pyx_n_s_seg); if (unlikely(!__pyx_tuple__153)) __PYX_ERR(0, 586, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__153);
+  __Pyx_GIVEREF(__pyx_tuple__153);
+  __pyx_codeobj__154 = (PyObject*)__Pyx_PyCode_New(3, 0, 25, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__153, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urljoin, 586, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__154)) __PYX_ERR(0, 586, __pyx_L1_error)
 
-  /* "curlparse.pyx":641
+  /* "curlparse.pyx":667
  * 
  * 
  * def urldefrag(url):             # <<<<<<<<<<<<<<
  *     """Removes any existing fragment from URL.
  * 
  */
-  __pyx_tuple__142 = PyTuple_Pack(11, __pyx_n_s_url, __pyx_n_s_blank, __pyx_n_s_pound, __pyx_n_s_result_type, __pyx_n_s_s, __pyx_n_s_n, __pyx_n_s_p, __pyx_n_s_a, __pyx_n_s_q, __pyx_n_s_frag, __pyx_n_s_defrag); if (unlikely(!__pyx_tuple__142)) __PYX_ERR(0, 641, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__142);
-  __Pyx_GIVEREF(__pyx_tuple__142);
-  __pyx_codeobj__143 = (PyObject*)__Pyx_PyCode_New(1, 0, 11, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__142, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urldefrag, 641, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__143)) __PYX_ERR(0, 641, __pyx_L1_error)
+  __pyx_tuple__155 = PyTuple_Pack(11, __pyx_n_s_url, __pyx_n_s_blank, __pyx_n_s_pound, __pyx_n_s_result_type, __pyx_n_s_s, __pyx_n_s_n, __pyx_n_s_p, __pyx_n_s_a, __pyx_n_s_q, __pyx_n_s_frag, __pyx_n_s_defrag); if (unlikely(!__pyx_tuple__155)) __PYX_ERR(0, 667, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__155);
+  __Pyx_GIVEREF(__pyx_tuple__155);
+  __pyx_codeobj__156 = (PyObject*)__Pyx_PyCode_New(1, 0, 11, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__155, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urldefrag, 667, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__156)) __PYX_ERR(0, 667, __pyx_L1_error)
 
-  /* "curlparse.pyx":668
+  /* "curlparse.pyx":694
  * _hextobyte = None
  * 
  * def unquote_to_bytes(string):             # <<<<<<<<<<<<<<
  *     """unquote_to_bytes('abc%20def') -> b'abc def'."""
  *     # Note: strings are encoded as UTF-8. This is only an issue if it contains
  */
-  __pyx_tuple__144 = PyTuple_Pack(5, __pyx_n_s_string, __pyx_n_s_bits, __pyx_n_s_res, __pyx_n_s_append, __pyx_n_s_item); if (unlikely(!__pyx_tuple__144)) __PYX_ERR(0, 668, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__144);
-  __Pyx_GIVEREF(__pyx_tuple__144);
-  __pyx_codeobj__145 = (PyObject*)__Pyx_PyCode_New(1, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__144, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_unquote_to_bytes, 668, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__145)) __PYX_ERR(0, 668, __pyx_L1_error)
+  __pyx_tuple__157 = PyTuple_Pack(5, __pyx_n_s_string, __pyx_n_s_bits, __pyx_n_s_res, __pyx_n_s_append, __pyx_n_s_item); if (unlikely(!__pyx_tuple__157)) __PYX_ERR(0, 694, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__157);
+  __Pyx_GIVEREF(__pyx_tuple__157);
+  __pyx_codeobj__158 = (PyObject*)__Pyx_PyCode_New(1, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__157, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_unquote_to_bytes, 694, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__158)) __PYX_ERR(0, 694, __pyx_L1_error)
 
-  /* "curlparse.pyx":698
+  /* "curlparse.pyx":724
  *     return b''.join(res)
  * 
  * _asciire = re.compile('([\x00-\x7f]+)')             # <<<<<<<<<<<<<<
  * 
  * def unquote(string, encoding='utf-8', errors='replace'):
  */
-  __pyx_tuple__147 = PyTuple_Pack(1, __pyx_kp_s__146); if (unlikely(!__pyx_tuple__147)) __PYX_ERR(0, 698, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__147);
-  __Pyx_GIVEREF(__pyx_tuple__147);
+  __pyx_tuple__160 = PyTuple_Pack(1, __pyx_kp_s__159); if (unlikely(!__pyx_tuple__160)) __PYX_ERR(0, 724, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__160);
+  __Pyx_GIVEREF(__pyx_tuple__160);
 
-  /* "curlparse.pyx":700
+  /* "curlparse.pyx":726
  * _asciire = re.compile('([\x00-\x7f]+)')
  * 
  * def unquote(string, encoding='utf-8', errors='replace'):             # <<<<<<<<<<<<<<
  *     """Replace %xx escapes by their single-character equivalent. The optional
  *     encoding and errors parameters specify how to decode percent-encoded
  */
-  __pyx_tuple__148 = PyTuple_Pack(9, __pyx_n_s_string, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_percent, __pyx_n_s_blank, __pyx_n_s_bits, __pyx_n_s_res, __pyx_n_s_append, __pyx_n_s_i); if (unlikely(!__pyx_tuple__148)) __PYX_ERR(0, 700, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__148);
-  __Pyx_GIVEREF(__pyx_tuple__148);
-  __pyx_codeobj__149 = (PyObject*)__Pyx_PyCode_New(3, 0, 9, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__148, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_unquote, 700, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__149)) __PYX_ERR(0, 700, __pyx_L1_error)
+  __pyx_tuple__161 = PyTuple_Pack(9, __pyx_n_s_string, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_percent, __pyx_n_s_blank, __pyx_n_s_bits, __pyx_n_s_res, __pyx_n_s_append, __pyx_n_s_i); if (unlikely(!__pyx_tuple__161)) __PYX_ERR(0, 726, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__161);
+  __Pyx_GIVEREF(__pyx_tuple__161);
+  __pyx_codeobj__162 = (PyObject*)__Pyx_PyCode_New(3, 0, 9, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__161, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_unquote, 726, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__162)) __PYX_ERR(0, 726, __pyx_L1_error)
 
-  /* "curlparse.pyx":731
+  /* "curlparse.pyx":757
  *     return blank.join(res)
  * 
  * def parse_qs(qs, keep_blank_values=False, strict_parsing=False,             # <<<<<<<<<<<<<<
  *              encoding='utf-8', errors='replace'):
  *     """Parse a query given as a string argument.
  */
-  __pyx_tuple__150 = PyTuple_Pack(9, __pyx_n_s_qs, __pyx_n_s_keep_blank_values, __pyx_n_s_strict_parsing, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_parsed_result, __pyx_n_s_pairs, __pyx_n_s_name_2, __pyx_n_s_value); if (unlikely(!__pyx_tuple__150)) __PYX_ERR(0, 731, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__150);
-  __Pyx_GIVEREF(__pyx_tuple__150);
-  __pyx_codeobj__151 = (PyObject*)__Pyx_PyCode_New(5, 0, 9, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__150, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_parse_qs, 731, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__151)) __PYX_ERR(0, 731, __pyx_L1_error)
+  __pyx_tuple__163 = PyTuple_Pack(9, __pyx_n_s_qs, __pyx_n_s_keep_blank_values, __pyx_n_s_strict_parsing, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_parsed_result, __pyx_n_s_pairs, __pyx_n_s_name_2, __pyx_n_s_value); if (unlikely(!__pyx_tuple__163)) __PYX_ERR(0, 757, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__163);
+  __Pyx_GIVEREF(__pyx_tuple__163);
+  __pyx_codeobj__164 = (PyObject*)__Pyx_PyCode_New(5, 0, 9, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__163, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_parse_qs, 757, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__164)) __PYX_ERR(0, 757, __pyx_L1_error)
 
-  /* "curlparse.pyx":763
+  /* "curlparse.pyx":789
  *     return parsed_result
  * 
  * def parse_qsl(qs, keep_blank_values=False, strict_parsing=False,             # <<<<<<<<<<<<<<
  *               encoding='utf-8', errors='replace'):
  *     """Parse a query given as a string argument.
  */
-  __pyx_tuple__152 = PyTuple_Pack(19, __pyx_n_s_qs, __pyx_n_s_keep_blank_values, __pyx_n_s_strict_parsing, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_ampersand, __pyx_n_s_semicolon, __pyx_n_s_equal, __pyx_n_s_blank, __pyx_n_s_space, __pyx_n_s_plus, __pyx_n_s_pairs, __pyx_n_s_r, __pyx_n_s_name_value, __pyx_n_s_nv, __pyx_n_s_name_2, __pyx_n_s_value, __pyx_n_s_s1, __pyx_n_s_s2); if (unlikely(!__pyx_tuple__152)) __PYX_ERR(0, 763, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__152);
-  __Pyx_GIVEREF(__pyx_tuple__152);
-  __pyx_codeobj__153 = (PyObject*)__Pyx_PyCode_New(5, 0, 19, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__152, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_parse_qsl, 763, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__153)) __PYX_ERR(0, 763, __pyx_L1_error)
+  __pyx_tuple__165 = PyTuple_Pack(19, __pyx_n_s_qs, __pyx_n_s_keep_blank_values, __pyx_n_s_strict_parsing, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_ampersand, __pyx_n_s_semicolon, __pyx_n_s_equal, __pyx_n_s_blank, __pyx_n_s_space, __pyx_n_s_plus, __pyx_n_s_pairs, __pyx_n_s_r, __pyx_n_s_name_value, __pyx_n_s_nv, __pyx_n_s_name_2, __pyx_n_s_value, __pyx_n_s_s1, __pyx_n_s_s2); if (unlikely(!__pyx_tuple__165)) __PYX_ERR(0, 789, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__165);
+  __Pyx_GIVEREF(__pyx_tuple__165);
+  __pyx_codeobj__166 = (PyObject*)__Pyx_PyCode_New(5, 0, 19, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__165, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_parse_qsl, 789, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__166)) __PYX_ERR(0, 789, __pyx_L1_error)
 
-  /* "curlparse.pyx":822
+  /* "curlparse.pyx":848
  *     return r
  * 
  * def unquote_plus(string, encoding='utf-8', errors='replace'):             # <<<<<<<<<<<<<<
  *     """Like unquote(), but also replace plus signs by spaces, as required for
  *     unquoting HTML form values.
  */
-  __pyx_tuple__154 = PyTuple_Pack(5, __pyx_n_s_string, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_space, __pyx_n_s_plus); if (unlikely(!__pyx_tuple__154)) __PYX_ERR(0, 822, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__154);
-  __Pyx_GIVEREF(__pyx_tuple__154);
-  __pyx_codeobj__155 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__154, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_unquote_plus, 822, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__155)) __PYX_ERR(0, 822, __pyx_L1_error)
+  __pyx_tuple__167 = PyTuple_Pack(5, __pyx_n_s_string, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_space, __pyx_n_s_plus); if (unlikely(!__pyx_tuple__167)) __PYX_ERR(0, 848, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__167);
+  __Pyx_GIVEREF(__pyx_tuple__167);
+  __pyx_codeobj__168 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__167, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_unquote_plus, 848, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__168)) __PYX_ERR(0, 848, __pyx_L1_error)
 
-  /* "curlparse.pyx":852
+  /* "curlparse.pyx":878
  *     # Keeps a cache internally, using defaultdict, for efficiency (lookups
  *     # of cached keys don't call Python code at all).
  *     def __init__(self, safe):             # <<<<<<<<<<<<<<
  *         """safe: bytes object."""
  *         self.safe = _ALWAYS_SAFE.union(safe)
  */
-  __pyx_tuple__156 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_safe); if (unlikely(!__pyx_tuple__156)) __PYX_ERR(0, 852, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__156);
-  __Pyx_GIVEREF(__pyx_tuple__156);
-  __pyx_codeobj__157 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__156, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_init, 852, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__157)) __PYX_ERR(0, 852, __pyx_L1_error)
+  __pyx_tuple__169 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_safe); if (unlikely(!__pyx_tuple__169)) __PYX_ERR(0, 878, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__169);
+  __Pyx_GIVEREF(__pyx_tuple__169);
+  __pyx_codeobj__170 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__169, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_init, 878, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__170)) __PYX_ERR(0, 878, __pyx_L1_error)
 
-  /* "curlparse.pyx":856
+  /* "curlparse.pyx":882
  *         self.safe = _ALWAYS_SAFE.union(safe)
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
  *         # Without this, will just display as a defaultdict
  *         return "<%s %r>" % (self.__class__.__name__, dict(self))
  */
-  __pyx_tuple__158 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__158)) __PYX_ERR(0, 856, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__158);
-  __Pyx_GIVEREF(__pyx_tuple__158);
-  __pyx_codeobj__159 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__158, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_repr, 856, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__159)) __PYX_ERR(0, 856, __pyx_L1_error)
+  __pyx_tuple__171 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__171)) __PYX_ERR(0, 882, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__171);
+  __Pyx_GIVEREF(__pyx_tuple__171);
+  __pyx_codeobj__172 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__171, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_repr, 882, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__172)) __PYX_ERR(0, 882, __pyx_L1_error)
 
-  /* "curlparse.pyx":860
+  /* "curlparse.pyx":886
  *         return "<%s %r>" % (self.__class__.__name__, dict(self))
  * 
  *     def __missing__(self, b):             # <<<<<<<<<<<<<<
  *         # Handle a cache miss. Store quoted string in cache and return.
  *         res = chr(b) if b in self.safe else '%{:02X}'.format(b)
  */
-  __pyx_tuple__160 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_b, __pyx_n_s_res); if (unlikely(!__pyx_tuple__160)) __PYX_ERR(0, 860, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__160);
-  __Pyx_GIVEREF(__pyx_tuple__160);
-  __pyx_codeobj__161 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__160, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_missing, 860, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__161)) __PYX_ERR(0, 860, __pyx_L1_error)
+  __pyx_tuple__173 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_b, __pyx_n_s_res); if (unlikely(!__pyx_tuple__173)) __PYX_ERR(0, 886, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__173);
+  __Pyx_GIVEREF(__pyx_tuple__173);
+  __pyx_codeobj__174 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__173, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_missing, 886, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__174)) __PYX_ERR(0, 886, __pyx_L1_error)
 
-  /* "curlparse.pyx":866
+  /* "curlparse.pyx":892
  *         return res
  * 
  * def quote(string, safe='/', encoding=None, errors=None):             # <<<<<<<<<<<<<<
  *     """quote('abc def') -> 'abc%20def'
  * 
  */
-  __pyx_tuple__162 = PyTuple_Pack(4, __pyx_n_s_string, __pyx_n_s_safe, __pyx_n_s_encoding, __pyx_n_s_errors); if (unlikely(!__pyx_tuple__162)) __PYX_ERR(0, 866, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__162);
-  __Pyx_GIVEREF(__pyx_tuple__162);
-  __pyx_codeobj__163 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__162, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_quote, 866, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__163)) __PYX_ERR(0, 866, __pyx_L1_error)
+  __pyx_tuple__175 = PyTuple_Pack(4, __pyx_n_s_string, __pyx_n_s_safe, __pyx_n_s_encoding, __pyx_n_s_errors); if (unlikely(!__pyx_tuple__175)) __PYX_ERR(0, 892, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__175);
+  __Pyx_GIVEREF(__pyx_tuple__175);
+  __pyx_codeobj__176 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__175, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_quote, 892, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__176)) __PYX_ERR(0, 892, __pyx_L1_error)
 
-  /* "curlparse.pyx":910
+  /* "curlparse.pyx":936
  *     return quote_from_bytes(string, safe)
  * 
  * def quote_plus(string, safe='', encoding=None, errors=None):             # <<<<<<<<<<<<<<
  *     """Like quote(), but also replace ' ' with '+', as required for quoting
  *     HTML form values. Plus signs in the original string are escaped unless
  */
-  __pyx_tuple__164 = PyTuple_Pack(6, __pyx_n_s_string, __pyx_n_s_safe, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_space, __pyx_n_s_plus); if (unlikely(!__pyx_tuple__164)) __PYX_ERR(0, 910, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__164);
-  __Pyx_GIVEREF(__pyx_tuple__164);
-  __pyx_codeobj__165 = (PyObject*)__Pyx_PyCode_New(4, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__164, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_quote_plus, 910, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__165)) __PYX_ERR(0, 910, __pyx_L1_error)
+  __pyx_tuple__177 = PyTuple_Pack(6, __pyx_n_s_string, __pyx_n_s_safe, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_space, __pyx_n_s_plus); if (unlikely(!__pyx_tuple__177)) __PYX_ERR(0, 936, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__177);
+  __Pyx_GIVEREF(__pyx_tuple__177);
+  __pyx_codeobj__178 = (PyObject*)__Pyx_PyCode_New(4, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__177, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_quote_plus, 936, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__178)) __PYX_ERR(0, 936, __pyx_L1_error)
 
-  /* "curlparse.pyx":930
+  /* "curlparse.pyx":956
  *     return string.replace(space, plus)
  * 
  * def quote_from_bytes(bs, safe='/'):             # <<<<<<<<<<<<<<
  *     """Like quote(), but accepts a bytes object rather than a str, and does
  *     not perform string-to-bytes encoding.  It always returns an ASCII string.
  */
-  __pyx_tuple__166 = PyTuple_Pack(5, __pyx_n_s_bs, __pyx_n_s_safe, __pyx_n_s_quoter, __pyx_n_s_c, __pyx_n_s_char); if (unlikely(!__pyx_tuple__166)) __PYX_ERR(0, 930, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__166);
-  __Pyx_GIVEREF(__pyx_tuple__166);
-  __pyx_codeobj__167 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__166, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_quote_from_bytes, 930, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__167)) __PYX_ERR(0, 930, __pyx_L1_error)
+  __pyx_tuple__179 = PyTuple_Pack(5, __pyx_n_s_bs, __pyx_n_s_safe, __pyx_n_s_quoter, __pyx_n_s_c, __pyx_n_s_char); if (unlikely(!__pyx_tuple__179)) __PYX_ERR(0, 956, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__179);
+  __Pyx_GIVEREF(__pyx_tuple__179);
+  __pyx_codeobj__180 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__179, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_quote_from_bytes, 956, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__180)) __PYX_ERR(0, 956, __pyx_L1_error)
 
-  /* "curlparse.pyx":952
+  /* "curlparse.pyx":978
  *     return ''.join([quoter(char) for char in bs])
  * 
  * def urlencode(query, doseq=False, safe='', encoding=None, errors=None,             # <<<<<<<<<<<<<<
  *               quote_via=quote_plus):
  *     """Encode a dict or sequence of two-element tuples into a URL query string.
  */
-  __pyx_tuple__168 = PyTuple_Pack(14, __pyx_n_s_query, __pyx_n_s_doseq, __pyx_n_s_safe, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_quote_via, __pyx_n_s_ty, __pyx_n_s_va, __pyx_n_s_tb, __pyx_n_s_l, __pyx_n_s_k, __pyx_n_s_v, __pyx_n_s_x, __pyx_n_s_elt); if (unlikely(!__pyx_tuple__168)) __PYX_ERR(0, 952, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__168);
-  __Pyx_GIVEREF(__pyx_tuple__168);
-  __pyx_codeobj__169 = (PyObject*)__Pyx_PyCode_New(6, 0, 14, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__168, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urlencode, 952, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__169)) __PYX_ERR(0, 952, __pyx_L1_error)
+  __pyx_tuple__181 = PyTuple_Pack(14, __pyx_n_s_query, __pyx_n_s_doseq, __pyx_n_s_safe, __pyx_n_s_encoding, __pyx_n_s_errors, __pyx_n_s_quote_via, __pyx_n_s_ty, __pyx_n_s_va, __pyx_n_s_tb, __pyx_n_s_l, __pyx_n_s_k, __pyx_n_s_v, __pyx_n_s_x, __pyx_n_s_elt); if (unlikely(!__pyx_tuple__181)) __PYX_ERR(0, 978, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__181);
+  __Pyx_GIVEREF(__pyx_tuple__181);
+  __pyx_codeobj__182 = (PyObject*)__Pyx_PyCode_New(6, 0, 14, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__181, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_urlencode, 978, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__182)) __PYX_ERR(0, 978, __pyx_L1_error)
 
-  /* "curlparse.pyx":1032
+  /* "curlparse.pyx":1058
  *     return '&'.join(l)
  * 
  * def unwrap(url):             # <<<<<<<<<<<<<<
  *     """unwrap('<URL:type://host/path>') --> 'type://host/path'."""
  *     url = str(url).strip()
  */
-  __pyx_tuple__170 = PyTuple_Pack(1, __pyx_n_s_url); if (unlikely(!__pyx_tuple__170)) __PYX_ERR(0, 1032, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__170);
-  __Pyx_GIVEREF(__pyx_tuple__170);
-  __pyx_codeobj__171 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__170, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_unwrap, 1032, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__171)) __PYX_ERR(0, 1032, __pyx_L1_error)
+  __pyx_tuple__183 = PyTuple_Pack(1, __pyx_n_s_url); if (unlikely(!__pyx_tuple__183)) __PYX_ERR(0, 1058, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__183);
+  __Pyx_GIVEREF(__pyx_tuple__183);
+  __pyx_codeobj__184 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__183, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_unwrap, 1058, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__184)) __PYX_ERR(0, 1058, __pyx_L1_error)
 
-  /* "curlparse.pyx":1041
+  /* "curlparse.pyx":1067
  * 
  * _typeprog = None
  * def splittype(url):             # <<<<<<<<<<<<<<
  *     """splittype('type:opaquestring') --> 'type', 'opaquestring'."""
  *     global _typeprog
  */
-  __pyx_tuple__172 = PyTuple_Pack(4, __pyx_n_s_url, __pyx_n_s_match, __pyx_n_s_scheme, __pyx_n_s_data); if (unlikely(!__pyx_tuple__172)) __PYX_ERR(0, 1041, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__172);
-  __Pyx_GIVEREF(__pyx_tuple__172);
-  __pyx_codeobj__173 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__172, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splittype, 1041, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__173)) __PYX_ERR(0, 1041, __pyx_L1_error)
+  __pyx_tuple__185 = PyTuple_Pack(4, __pyx_n_s_url, __pyx_n_s_match, __pyx_n_s_scheme, __pyx_n_s_data); if (unlikely(!__pyx_tuple__185)) __PYX_ERR(0, 1067, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__185);
+  __Pyx_GIVEREF(__pyx_tuple__185);
+  __pyx_codeobj__186 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__185, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splittype, 1067, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__186)) __PYX_ERR(0, 1067, __pyx_L1_error)
 
-  /* "curlparse.pyx":1054
+  /* "curlparse.pyx":1080
  * 
  * _hostprog = None
  * def splithost(url):             # <<<<<<<<<<<<<<
  *     """splithost('//host[:port]/path') --> 'host[:port]', '/path'."""
  *     global _hostprog
  */
-  __pyx_tuple__174 = PyTuple_Pack(4, __pyx_n_s_url, __pyx_n_s_match, __pyx_n_s_host_port, __pyx_n_s_path); if (unlikely(!__pyx_tuple__174)) __PYX_ERR(0, 1054, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__174);
-  __Pyx_GIVEREF(__pyx_tuple__174);
-  __pyx_codeobj__175 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__174, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splithost, 1054, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__175)) __PYX_ERR(0, 1054, __pyx_L1_error)
+  __pyx_tuple__187 = PyTuple_Pack(4, __pyx_n_s_url, __pyx_n_s_match, __pyx_n_s_host_port, __pyx_n_s_path); if (unlikely(!__pyx_tuple__187)) __PYX_ERR(0, 1080, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__187);
+  __Pyx_GIVEREF(__pyx_tuple__187);
+  __pyx_codeobj__188 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__187, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splithost, 1080, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__188)) __PYX_ERR(0, 1080, __pyx_L1_error)
 
-  /* "curlparse.pyx":1068
+  /* "curlparse.pyx":1094
  *     return None, url
  * 
  * def splituser(host):             # <<<<<<<<<<<<<<
  *     """splituser('user[:passwd]@host[:port]') --> 'user[:passwd]', 'host[:port]'."""
  *     user, delim, host = host.rpartition('@')
  */
-  __pyx_tuple__176 = PyTuple_Pack(3, __pyx_n_s_host, __pyx_n_s_user, __pyx_n_s_delim); if (unlikely(!__pyx_tuple__176)) __PYX_ERR(0, 1068, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__176);
-  __Pyx_GIVEREF(__pyx_tuple__176);
-  __pyx_codeobj__177 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__176, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splituser, 1068, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__177)) __PYX_ERR(0, 1068, __pyx_L1_error)
+  __pyx_tuple__189 = PyTuple_Pack(3, __pyx_n_s_host, __pyx_n_s_user, __pyx_n_s_delim); if (unlikely(!__pyx_tuple__189)) __PYX_ERR(0, 1094, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__189);
+  __Pyx_GIVEREF(__pyx_tuple__189);
+  __pyx_codeobj__190 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__189, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splituser, 1094, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__190)) __PYX_ERR(0, 1094, __pyx_L1_error)
 
-  /* "curlparse.pyx":1073
+  /* "curlparse.pyx":1099
  *     return (user if delim else None), host
  * 
  * def splitpasswd(user):             # <<<<<<<<<<<<<<
  *     """splitpasswd('user:passwd') -> 'user', 'passwd'."""
  *     user, delim, passwd = user.partition(':')
  */
-  __pyx_tuple__178 = PyTuple_Pack(3, __pyx_n_s_user, __pyx_n_s_delim, __pyx_n_s_passwd); if (unlikely(!__pyx_tuple__178)) __PYX_ERR(0, 1073, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__178);
-  __Pyx_GIVEREF(__pyx_tuple__178);
-  __pyx_codeobj__179 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__178, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitpasswd, 1073, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__179)) __PYX_ERR(0, 1073, __pyx_L1_error)
+  __pyx_tuple__191 = PyTuple_Pack(3, __pyx_n_s_user, __pyx_n_s_delim, __pyx_n_s_passwd); if (unlikely(!__pyx_tuple__191)) __PYX_ERR(0, 1099, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__191);
+  __Pyx_GIVEREF(__pyx_tuple__191);
+  __pyx_codeobj__192 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__191, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitpasswd, 1099, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__192)) __PYX_ERR(0, 1099, __pyx_L1_error)
 
-  /* "curlparse.pyx":1080
+  /* "curlparse.pyx":1106
  * # splittag('/path#tag') --> '/path', 'tag'
  * _portprog = None
  * def splitport(host):             # <<<<<<<<<<<<<<
  *     """splitport('host:port') --> 'host', 'port'."""
  *     global _portprog
  */
-  __pyx_tuple__180 = PyTuple_Pack(3, __pyx_n_s_host, __pyx_n_s_match, __pyx_n_s_port); if (unlikely(!__pyx_tuple__180)) __PYX_ERR(0, 1080, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__180);
-  __Pyx_GIVEREF(__pyx_tuple__180);
-  __pyx_codeobj__181 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__180, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitport, 1080, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__181)) __PYX_ERR(0, 1080, __pyx_L1_error)
+  __pyx_tuple__193 = PyTuple_Pack(3, __pyx_n_s_host, __pyx_n_s_match, __pyx_n_s_port); if (unlikely(!__pyx_tuple__193)) __PYX_ERR(0, 1106, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__193);
+  __Pyx_GIVEREF(__pyx_tuple__193);
+  __pyx_codeobj__194 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__193, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitport, 1106, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__194)) __PYX_ERR(0, 1106, __pyx_L1_error)
 
-  /* "curlparse.pyx":1093
+  /* "curlparse.pyx":1119
  *     return host, None
  * 
  * def splitnport(host, defport=-1):             # <<<<<<<<<<<<<<
  *     """Split host and port, returning numeric port.
  *     Return given default port if no ':' found; defaults to -1.
  */
-  __pyx_tuple__182 = PyTuple_Pack(5, __pyx_n_s_host, __pyx_n_s_defport, __pyx_n_s_delim, __pyx_n_s_port, __pyx_n_s_nport); if (unlikely(!__pyx_tuple__182)) __PYX_ERR(0, 1093, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__182);
-  __Pyx_GIVEREF(__pyx_tuple__182);
-  __pyx_codeobj__183 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__182, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitnport, 1093, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__183)) __PYX_ERR(0, 1093, __pyx_L1_error)
+  __pyx_tuple__195 = PyTuple_Pack(5, __pyx_n_s_host, __pyx_n_s_defport, __pyx_n_s_delim, __pyx_n_s_port, __pyx_n_s_nport); if (unlikely(!__pyx_tuple__195)) __PYX_ERR(0, 1119, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__195);
+  __Pyx_GIVEREF(__pyx_tuple__195);
+  __pyx_codeobj__196 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__195, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitnport, 1119, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__196)) __PYX_ERR(0, 1119, __pyx_L1_error)
 
-  /* "curlparse.pyx":1109
+  /* "curlparse.pyx":1135
  *     return host, defport
  * 
  * def splitquery(url):             # <<<<<<<<<<<<<<
  *     """splitquery('/path?query') --> '/path', 'query'."""
  *     path, delim, query = url.rpartition('?')
  */
-  __pyx_tuple__184 = PyTuple_Pack(4, __pyx_n_s_url, __pyx_n_s_path, __pyx_n_s_delim, __pyx_n_s_query); if (unlikely(!__pyx_tuple__184)) __PYX_ERR(0, 1109, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__184);
-  __Pyx_GIVEREF(__pyx_tuple__184);
-  __pyx_codeobj__185 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__184, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitquery, 1109, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__185)) __PYX_ERR(0, 1109, __pyx_L1_error)
+  __pyx_tuple__197 = PyTuple_Pack(4, __pyx_n_s_url, __pyx_n_s_path, __pyx_n_s_delim, __pyx_n_s_query); if (unlikely(!__pyx_tuple__197)) __PYX_ERR(0, 1135, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__197);
+  __Pyx_GIVEREF(__pyx_tuple__197);
+  __pyx_codeobj__198 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__197, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitquery, 1135, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__198)) __PYX_ERR(0, 1135, __pyx_L1_error)
 
-  /* "curlparse.pyx":1116
+  /* "curlparse.pyx":1142
  *     return url, None
  * 
  * def splittag(url):             # <<<<<<<<<<<<<<
  *     """splittag('/path#tag') --> '/path', 'tag'."""
  *     path, delim, tag = url.rpartition('#')
  */
-  __pyx_tuple__186 = PyTuple_Pack(4, __pyx_n_s_url, __pyx_n_s_path, __pyx_n_s_delim, __pyx_n_s_tag); if (unlikely(!__pyx_tuple__186)) __PYX_ERR(0, 1116, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__186);
-  __Pyx_GIVEREF(__pyx_tuple__186);
-  __pyx_codeobj__187 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__186, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splittag, 1116, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__187)) __PYX_ERR(0, 1116, __pyx_L1_error)
+  __pyx_tuple__199 = PyTuple_Pack(4, __pyx_n_s_url, __pyx_n_s_path, __pyx_n_s_delim, __pyx_n_s_tag); if (unlikely(!__pyx_tuple__199)) __PYX_ERR(0, 1142, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__199);
+  __Pyx_GIVEREF(__pyx_tuple__199);
+  __pyx_codeobj__200 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__199, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splittag, 1142, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__200)) __PYX_ERR(0, 1142, __pyx_L1_error)
 
-  /* "curlparse.pyx":1123
+  /* "curlparse.pyx":1149
  *     return url, None
  * 
  * def splitattr(url):             # <<<<<<<<<<<<<<
  *     """splitattr('/path;attr1=value1;attr2=value2;...') ->
  *         '/path', ['attr1=value1', 'attr2=value2', ...]."""
  */
-  __pyx_tuple__188 = PyTuple_Pack(2, __pyx_n_s_url, __pyx_n_s_words); if (unlikely(!__pyx_tuple__188)) __PYX_ERR(0, 1123, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__188);
-  __Pyx_GIVEREF(__pyx_tuple__188);
-  __pyx_codeobj__189 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__188, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitattr, 1123, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__189)) __PYX_ERR(0, 1123, __pyx_L1_error)
+  __pyx_tuple__201 = PyTuple_Pack(2, __pyx_n_s_url, __pyx_n_s_words); if (unlikely(!__pyx_tuple__201)) __PYX_ERR(0, 1149, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__201);
+  __Pyx_GIVEREF(__pyx_tuple__201);
+  __pyx_codeobj__202 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__201, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitattr, 1149, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__202)) __PYX_ERR(0, 1149, __pyx_L1_error)
 
-  /* "curlparse.pyx":1129
+  /* "curlparse.pyx":1155
  *     return words[0], words[1:]
  * 
  * def splitvalue(attr):             # <<<<<<<<<<<<<<
  *     """splitvalue('attr=value') --> 'attr', 'value'."""
  *     attr, delim, value = attr.partition('=')
  */
-  __pyx_tuple__190 = PyTuple_Pack(3, __pyx_n_s_attr, __pyx_n_s_delim, __pyx_n_s_value); if (unlikely(!__pyx_tuple__190)) __PYX_ERR(0, 1129, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__190);
-  __Pyx_GIVEREF(__pyx_tuple__190);
-  __pyx_codeobj__191 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__190, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitvalue, 1129, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__191)) __PYX_ERR(0, 1129, __pyx_L1_error)
+  __pyx_tuple__203 = PyTuple_Pack(3, __pyx_n_s_attr, __pyx_n_s_delim, __pyx_n_s_value); if (unlikely(!__pyx_tuple__203)) __PYX_ERR(0, 1155, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__203);
+  __Pyx_GIVEREF(__pyx_tuple__203);
+  __pyx_codeobj__204 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__203, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_irina_repos_fast_urlparse, __pyx_n_s_splitvalue, 1155, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__204)) __PYX_ERR(0, 1155, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -25408,9 +26870,15 @@ PyMODINIT_FUNC PyInit_curlparse(void)
   if (PyType_Ready(&__pyx_type_9curlparse___pyx_scope_struct_6_urlsplit) < 0) __PYX_ERR(0, 419, __pyx_L1_error)
   __pyx_type_9curlparse___pyx_scope_struct_6_urlsplit.tp_print = 0;
   __pyx_ptype_9curlparse___pyx_scope_struct_6_urlsplit = &__pyx_type_9curlparse___pyx_scope_struct_6_urlsplit;
-  if (PyType_Ready(&__pyx_type_9curlparse___pyx_scope_struct_7_genexpr) < 0) __PYX_ERR(0, 491, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_9curlparse___pyx_scope_struct_7_genexpr) < 0) __PYX_ERR(0, 459, __pyx_L1_error)
   __pyx_type_9curlparse___pyx_scope_struct_7_genexpr.tp_print = 0;
   __pyx_ptype_9curlparse___pyx_scope_struct_7_genexpr = &__pyx_type_9curlparse___pyx_scope_struct_7_genexpr;
+  if (PyType_Ready(&__pyx_type_9curlparse___pyx_scope_struct_8_urlsplit) < 0) __PYX_ERR(0, 477, __pyx_L1_error)
+  __pyx_type_9curlparse___pyx_scope_struct_8_urlsplit.tp_print = 0;
+  __pyx_ptype_9curlparse___pyx_scope_struct_8_urlsplit = &__pyx_type_9curlparse___pyx_scope_struct_8_urlsplit;
+  if (PyType_Ready(&__pyx_type_9curlparse___pyx_scope_struct_9_genexpr) < 0) __PYX_ERR(0, 517, __pyx_L1_error)
+  __pyx_type_9curlparse___pyx_scope_struct_9_genexpr.tp_print = 0;
+  __pyx_ptype_9curlparse___pyx_scope_struct_9_genexpr = &__pyx_type_9curlparse___pyx_scope_struct_9_genexpr;
   /*--- Type import code ---*/
   __pyx_ptype_7cpython_4type_type = __Pyx_ImportType(__Pyx_BUILTIN_MODULE_NAME, "type", 
   #if CYTHON_COMPILING_IN_PYPY
@@ -25712,7 +27180,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
       __pyx_t_1 = 0;
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_7genexpr__pyx_v_9curlparse_scheme, __pyx_n_s_encode); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 57, __pyx_L4_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__72, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 57, __pyx_L4_error)
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__83, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 57, __pyx_L4_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (unlikely(PySet_Add(__pyx_t_2, (PyObject*)__pyx_t_6))) __PYX_ERR(0, 57, __pyx_L4_error)
@@ -25786,7 +27254,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
       __pyx_t_3 = 0;
       __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_8genexpr1__pyx_v_9curlparse_scheme, __pyx_n_s_encode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 58, __pyx_L10_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__73, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L10_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__84, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L10_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       if (unlikely(PySet_Add(__pyx_t_2, (PyObject*)__pyx_t_1))) __PYX_ERR(0, 58, __pyx_L10_error)
@@ -25860,7 +27328,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
       __pyx_t_6 = 0;
       __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_8genexpr2__pyx_v_9curlparse_scheme, __pyx_n_s_encode); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 59, __pyx_L16_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_tuple__74, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 59, __pyx_L16_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_tuple__85, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 59, __pyx_L16_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       if (unlikely(PySet_Add(__pyx_t_2, (PyObject*)__pyx_t_3))) __PYX_ERR(0, 59, __pyx_L16_error)
@@ -26177,9 +27645,9 @@ PyMODINIT_FUNC PyInit_curlparse(void)
  *         return self._encoded_counterpart(*(x.encode(encoding, errors) for x in self))
  * 
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_15_ResultMixinStr_1encode, 0, __pyx_n_s_ResultMixinStr_encode, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__85)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_15_ResultMixinStr_1encode, 0, __pyx_n_s_ResultMixinStr_encode, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__96)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_6, __pyx_tuple__86);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_6, __pyx_tuple__97);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_encode, __pyx_t_6) < 0) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
@@ -26231,9 +27699,9 @@ PyMODINIT_FUNC PyInit_curlparse(void)
  *         return self._decoded_counterpart(*(x.decode(encoding, errors) for x in self))
  * 
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_17_ResultMixinBytes_1decode, 0, __pyx_n_s_ResultMixinBytes_decode, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__88)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 139, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_17_ResultMixinBytes_1decode, 0, __pyx_n_s_ResultMixinBytes_decode, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__99)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_6, __pyx_tuple__89);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_6, __pyx_tuple__100);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_decode, __pyx_t_6) < 0) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
@@ -26285,7 +27753,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
  *         return self._userinfo[0]
  * 
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_22_NetlocResultMixinBase_1username, 0, __pyx_n_s_NetlocResultMixinBase_username, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__91)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_22_NetlocResultMixinBase_1username, 0, __pyx_n_s_NetlocResultMixinBase_username, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__102)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 148, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
 
   /* "curlparse.pyx":147
@@ -26313,7 +27781,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
  *         return self._userinfo[1]
  * 
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_22_NetlocResultMixinBase_3password, 0, __pyx_n_s_NetlocResultMixinBase_password, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__93)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_22_NetlocResultMixinBase_3password, 0, __pyx_n_s_NetlocResultMixinBase_password, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__104)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 152, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
 
   /* "curlparse.pyx":151
@@ -26341,7 +27809,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
  *         hostname = self._hostinfo[0]
  *         if not hostname:
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_22_NetlocResultMixinBase_5hostname, 0, __pyx_n_s_NetlocResultMixinBase_hostname, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__95)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_22_NetlocResultMixinBase_5hostname, 0, __pyx_n_s_NetlocResultMixinBase_hostname, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__106)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 156, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
 
   /* "curlparse.pyx":155
@@ -26369,7 +27837,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
  *         port = self._hostinfo[1]
  *         if port is not None:
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_22_NetlocResultMixinBase_7port, 0, __pyx_n_s_NetlocResultMixinBase_port, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__97)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_22_NetlocResultMixinBase_7port, 0, __pyx_n_s_NetlocResultMixinBase_port, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__108)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 165, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
 
   /* "curlparse.pyx":164
@@ -26445,7 +27913,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
  *         netloc = self.netloc
  *         userinfo, have_info, hostinfo = netloc.rpartition('@')
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_21_NetlocResultMixinStr_1_userinfo, 0, __pyx_n_s_NetlocResultMixinStr__userinfo, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__99)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_21_NetlocResultMixinStr_1_userinfo, 0, __pyx_n_s_NetlocResultMixinStr__userinfo, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__110)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 178, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
 
   /* "curlparse.pyx":177
@@ -26473,7 +27941,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
  *         netloc = self.netloc
  *         _, _, hostinfo = netloc.rpartition('@')
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_21_NetlocResultMixinStr_3_hostinfo, 0, __pyx_n_s_NetlocResultMixinStr__hostinfo, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__102)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 190, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_21_NetlocResultMixinStr_3_hostinfo, 0, __pyx_n_s_NetlocResultMixinStr__hostinfo, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__113)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
 
   /* "curlparse.pyx":189
@@ -26549,7 +28017,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
  *         netloc = self.netloc
  *         userinfo, have_info, hostinfo = netloc.rpartition(b'@')
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_23_NetlocResultMixinBytes_1_userinfo, 0, __pyx_n_s_NetlocResultMixinBytes__userinf, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__104)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 208, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_23_NetlocResultMixinBytes_1_userinfo, 0, __pyx_n_s_NetlocResultMixinBytes__userinf, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__115)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 208, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
 
   /* "curlparse.pyx":207
@@ -26577,7 +28045,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
  *         netloc = self.netloc
  *         _, _, hostinfo = netloc.rpartition(b'@')
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_23_NetlocResultMixinBytes_3_hostinfo, 0, __pyx_n_s_NetlocResultMixinBytes__hostinf, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__106)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 220, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_23_NetlocResultMixinBytes_3_hostinfo, 0, __pyx_n_s_NetlocResultMixinBytes__hostinf, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__117)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 220, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
 
   /* "curlparse.pyx":219
@@ -26622,7 +28090,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
  */
   __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_namedtuple); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 234, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__107, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 234, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__118, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 234, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_DefragResultBase, __pyx_t_1) < 0) __PYX_ERR(0, 234, __pyx_L1_error)
@@ -26637,7 +28105,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_namedtuple); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 235, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__108, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 235, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__119, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 235, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_SplitResultBase, __pyx_t_2) < 0) __PYX_ERR(0, 235, __pyx_L1_error)
@@ -26652,7 +28120,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
  */
   __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_namedtuple); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 237, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__109, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 237, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__120, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 237, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_ParseResultBase, __pyx_t_1) < 0) __PYX_ERR(0, 237, __pyx_L1_error)
@@ -26986,7 +28454,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
  *         if self.fragment:
  *             return self.url + '#' + self.fragment
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_12DefragResult_1geturl, 0, __pyx_n_s_DefragResult_geturl, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__111)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 309, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_12DefragResult_1geturl, 0, __pyx_n_s_DefragResult_geturl, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__122)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 309, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_geturl, __pyx_t_6) < 0) __PYX_ERR(0, 309, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -27046,7 +28514,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
  *         return urlunsplit(self)
  * 
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_11SplitResult_1geturl, 0, __pyx_n_s_SplitResult_geturl, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__113)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 317, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_11SplitResult_1geturl, 0, __pyx_n_s_SplitResult_geturl, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__124)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 317, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_geturl, __pyx_t_6) < 0) __PYX_ERR(0, 317, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -27106,7 +28574,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
  *         return urlunparse(self)
  * 
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_11ParseResult_1geturl, 0, __pyx_n_s_ParseResult_geturl, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__115)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 322, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_11ParseResult_1geturl, 0, __pyx_n_s_ParseResult_geturl, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__126)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_geturl, __pyx_t_6) < 0) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -27166,7 +28634,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
  *         if self.fragment:
  *             return self.url + b'#' + self.fragment
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_17DefragResultBytes_1geturl, 0, __pyx_n_s_DefragResultBytes_geturl, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__117)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 328, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_17DefragResultBytes_1geturl, 0, __pyx_n_s_DefragResultBytes_geturl, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__128)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 328, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_geturl, __pyx_t_6) < 0) __PYX_ERR(0, 328, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -27226,7 +28694,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
  *         return urlunsplit(self)
  * 
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_16SplitResultBytes_1geturl, 0, __pyx_n_s_SplitResultBytes_geturl, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__119)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 336, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_16SplitResultBytes_1geturl, 0, __pyx_n_s_SplitResultBytes_geturl, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__130)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 336, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_geturl, __pyx_t_6) < 0) __PYX_ERR(0, 336, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -27286,7 +28754,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
  *         return urlunparse(self)
  * 
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_16ParseResultBytes_1geturl, 0, __pyx_n_s_ParseResultBytes_geturl, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__121)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 341, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_16ParseResultBytes_1geturl, 0, __pyx_n_s_ParseResultBytes_geturl, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__132)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 341, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_geturl, __pyx_t_6) < 0) __PYX_ERR(0, 341, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -27419,7 +28887,7 @@ PyMODINIT_FUNC PyInit_curlparse(void)
   /* "curlparse.pyx":419
  * 
  * 
- * def urlsplit(url, scheme='', allow_fragments=True):             # <<<<<<<<<<<<<<
+ * def urlsplit(bytes url, bytes scheme=b'', bool allow_fragments=True):             # <<<<<<<<<<<<<<
  *     """Parse a URL into 5 components:
  *     <scheme>://<netloc>/<path>?<query>#<fragment>
  */
@@ -27428,485 +28896,497 @@ PyMODINIT_FUNC PyInit_curlparse(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_urlsplit, __pyx_t_2) < 0) __PYX_ERR(0, 419, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":509
+  /* "curlparse.pyx":477
+ * 
+ * 
+ * def urlsplit(str url, str scheme='', bool allow_fragments=True):             # <<<<<<<<<<<<<<
+ *     """Parse a URL into 5 components:
+ *     <scheme>://<netloc>/<path>?<query>#<fragment>
+ */
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_25urlsplit, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 477, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_urlsplit, __pyx_t_2) < 0) __PYX_ERR(0, 477, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "curlparse.pyx":535
  * 
  * 
  * def urlunparse(components):             # <<<<<<<<<<<<<<
  *     """Put a parsed URL back together again.  This may result in a
  *     slightly different, but equivalent URL, if the URL that was parsed
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_25urlunparse, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 509, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_27urlunparse, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 535, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_urlunparse, __pyx_t_2) < 0) __PYX_ERR(0, 509, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_urlunparse, __pyx_t_2) < 0) __PYX_ERR(0, 535, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":523
+  /* "curlparse.pyx":549
  * 
  * 
  * def urlunsplit(components):             # <<<<<<<<<<<<<<
  *     """Combine the elements of a tuple as returned by urlsplit() into a
  *     complete URL as a string. The data argument can be any five-item iterable.
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_27urlunsplit, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 523, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_29urlunsplit, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 549, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_urlunsplit, __pyx_t_2) < 0) __PYX_ERR(0, 523, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_urlunsplit, __pyx_t_2) < 0) __PYX_ERR(0, 549, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":560
+  /* "curlparse.pyx":586
  * 
  * 
  * def urljoin(base, url, allow_fragments=True):             # <<<<<<<<<<<<<<
  *     """Join a base URL and a possibly relative URL to form an absolute
  *     interpretation of the latter."""
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_29urljoin, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 560, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_31urljoin, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 586, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_urljoin, __pyx_t_2) < 0) __PYX_ERR(0, 560, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_urljoin, __pyx_t_2) < 0) __PYX_ERR(0, 586, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":641
+  /* "curlparse.pyx":667
  * 
  * 
  * def urldefrag(url):             # <<<<<<<<<<<<<<
  *     """Removes any existing fragment from URL.
  * 
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_31urldefrag, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 641, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_33urldefrag, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 667, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_urldefrag, __pyx_t_2) < 0) __PYX_ERR(0, 641, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_urldefrag, __pyx_t_2) < 0) __PYX_ERR(0, 667, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":665
+  /* "curlparse.pyx":691
  * 
  * 
  * _hexdig = '0123456789ABCDEFabcdef'             # <<<<<<<<<<<<<<
  * _hextobyte = None
  * 
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_hexdig, __pyx_kp_s_0123456789ABCDEFabcdef) < 0) __PYX_ERR(0, 665, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_hexdig, __pyx_kp_s_0123456789ABCDEFabcdef) < 0) __PYX_ERR(0, 691, __pyx_L1_error)
 
-  /* "curlparse.pyx":666
+  /* "curlparse.pyx":692
  * 
  * _hexdig = '0123456789ABCDEFabcdef'
  * _hextobyte = None             # <<<<<<<<<<<<<<
  * 
  * def unquote_to_bytes(string):
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_hextobyte, Py_None) < 0) __PYX_ERR(0, 666, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_hextobyte, Py_None) < 0) __PYX_ERR(0, 692, __pyx_L1_error)
 
-  /* "curlparse.pyx":668
+  /* "curlparse.pyx":694
  * _hextobyte = None
  * 
  * def unquote_to_bytes(string):             # <<<<<<<<<<<<<<
  *     """unquote_to_bytes('abc%20def') -> b'abc def'."""
  *     # Note: strings are encoded as UTF-8. This is only an issue if it contains
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_33unquote_to_bytes, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 668, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_35unquote_to_bytes, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 694, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_unquote_to_bytes, __pyx_t_2) < 0) __PYX_ERR(0, 668, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_unquote_to_bytes, __pyx_t_2) < 0) __PYX_ERR(0, 694, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":698
+  /* "curlparse.pyx":724
  *     return b''.join(res)
  * 
  * _asciire = re.compile('([\x00-\x7f]+)')             # <<<<<<<<<<<<<<
  * 
  * def unquote(string, encoding='utf-8', errors='replace'):
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 698, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 724, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_compile); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 698, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_compile); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 724, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__147, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 698, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__160, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 724, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_asciire, __pyx_t_2) < 0) __PYX_ERR(0, 698, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_asciire, __pyx_t_2) < 0) __PYX_ERR(0, 724, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":700
+  /* "curlparse.pyx":726
  * _asciire = re.compile('([\x00-\x7f]+)')
  * 
  * def unquote(string, encoding='utf-8', errors='replace'):             # <<<<<<<<<<<<<<
  *     """Replace %xx escapes by their single-character equivalent. The optional
  *     encoding and errors parameters specify how to decode percent-encoded
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_35unquote, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 700, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_37unquote, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 726, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_unquote, __pyx_t_2) < 0) __PYX_ERR(0, 700, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_unquote, __pyx_t_2) < 0) __PYX_ERR(0, 726, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":731
+  /* "curlparse.pyx":757
  *     return blank.join(res)
  * 
  * def parse_qs(qs, keep_blank_values=False, strict_parsing=False,             # <<<<<<<<<<<<<<
  *              encoding='utf-8', errors='replace'):
  *     """Parse a query given as a string argument.
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_37parse_qs, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 731, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_39parse_qs, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 757, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_parse_qs, __pyx_t_2) < 0) __PYX_ERR(0, 731, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_parse_qs, __pyx_t_2) < 0) __PYX_ERR(0, 757, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":763
+  /* "curlparse.pyx":789
  *     return parsed_result
  * 
  * def parse_qsl(qs, keep_blank_values=False, strict_parsing=False,             # <<<<<<<<<<<<<<
  *               encoding='utf-8', errors='replace'):
  *     """Parse a query given as a string argument.
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_39parse_qsl, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 763, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_41parse_qsl, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 789, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_parse_qsl, __pyx_t_2) < 0) __PYX_ERR(0, 763, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_parse_qsl, __pyx_t_2) < 0) __PYX_ERR(0, 789, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":822
+  /* "curlparse.pyx":848
  *     return r
  * 
  * def unquote_plus(string, encoding='utf-8', errors='replace'):             # <<<<<<<<<<<<<<
  *     """Like unquote(), but also replace plus signs by spaces, as required for
  *     unquoting HTML form values.
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_41unquote_plus, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 822, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_43unquote_plus, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 848, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_unquote_plus, __pyx_t_2) < 0) __PYX_ERR(0, 822, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_unquote_plus, __pyx_t_2) < 0) __PYX_ERR(0, 848, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":837
+  /* "curlparse.pyx":863
  *     return unquote(string, encoding, errors)
  * 
  * _ALWAYS_SAFE = frozenset(b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'             # <<<<<<<<<<<<<<
  *                          b'abcdefghijklmnopqrstuvwxyz'
  *                          b'0123456789'
  */
-  __pyx_t_2 = __Pyx_PyFrozenSet_New(__pyx_kp_b_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 837, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyFrozenSet_New(__pyx_kp_b_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 863, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ALWAYS_SAFE, __pyx_t_2) < 0) __PYX_ERR(0, 837, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ALWAYS_SAFE, __pyx_t_2) < 0) __PYX_ERR(0, 863, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":841
+  /* "curlparse.pyx":867
  *                          b'0123456789'
  *                          b'_.-')
  * _ALWAYS_SAFE_BYTES = bytes(_ALWAYS_SAFE)             # <<<<<<<<<<<<<<
  * _safe_quoters = {}
  * 
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ALWAYS_SAFE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 841, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ALWAYS_SAFE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 867, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 841, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 867, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)(&PyBytes_Type)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 841, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)(&PyBytes_Type)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 867, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ALWAYS_SAFE_BYTES, __pyx_t_2) < 0) __PYX_ERR(0, 841, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ALWAYS_SAFE_BYTES, __pyx_t_2) < 0) __PYX_ERR(0, 867, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":842
+  /* "curlparse.pyx":868
  *                          b'_.-')
  * _ALWAYS_SAFE_BYTES = bytes(_ALWAYS_SAFE)
  * _safe_quoters = {}             # <<<<<<<<<<<<<<
  * 
  * class Quoter(collections.defaultdict):
  */
-  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 842, __pyx_L1_error)
+  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 868, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_safe_quoters, __pyx_t_2) < 0) __PYX_ERR(0, 842, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_safe_quoters, __pyx_t_2) < 0) __PYX_ERR(0, 868, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":844
+  /* "curlparse.pyx":870
  * _safe_quoters = {}
  * 
  * class Quoter(collections.defaultdict):             # <<<<<<<<<<<<<<
  *     """A mapping from bytes (in range(0,256)) to strings.
  * 
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_collections); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 844, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_collections); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 870, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_defaultdict); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 844, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_defaultdict); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 870, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 844, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 870, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3);
   __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_CalculateMetaclass(NULL, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 844, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CalculateMetaclass(NULL, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 870, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_Py3MetaclassPrepare(__pyx_t_3, __pyx_t_2, __pyx_n_s_Quoter, __pyx_n_s_Quoter, (PyObject *) NULL, __pyx_n_s_curlparse, __pyx_kp_s_A_mapping_from_bytes_in_range_0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 844, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Py3MetaclassPrepare(__pyx_t_3, __pyx_t_2, __pyx_n_s_Quoter, __pyx_n_s_Quoter, (PyObject *) NULL, __pyx_n_s_curlparse, __pyx_kp_s_A_mapping_from_bytes_in_range_0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 870, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "curlparse.pyx":852
+  /* "curlparse.pyx":878
  *     # Keeps a cache internally, using defaultdict, for efficiency (lookups
  *     # of cached keys don't call Python code at all).
  *     def __init__(self, safe):             # <<<<<<<<<<<<<<
  *         """safe: bytes object."""
  *         self.safe = _ALWAYS_SAFE.union(safe)
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_6Quoter_1__init__, 0, __pyx_n_s_Quoter___init, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__157)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 852, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_6Quoter_1__init__, 0, __pyx_n_s_Quoter___init, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__170)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 878, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_init, __pyx_t_6) < 0) __PYX_ERR(0, 852, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_init, __pyx_t_6) < 0) __PYX_ERR(0, 878, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "curlparse.pyx":856
+  /* "curlparse.pyx":882
  *         self.safe = _ALWAYS_SAFE.union(safe)
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
  *         # Without this, will just display as a defaultdict
  *         return "<%s %r>" % (self.__class__.__name__, dict(self))
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_6Quoter_3__repr__, 0, __pyx_n_s_Quoter___repr, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__159)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 856, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_6Quoter_3__repr__, 0, __pyx_n_s_Quoter___repr, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__172)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 882, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_repr, __pyx_t_6) < 0) __PYX_ERR(0, 856, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_repr, __pyx_t_6) < 0) __PYX_ERR(0, 882, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "curlparse.pyx":860
+  /* "curlparse.pyx":886
  *         return "<%s %r>" % (self.__class__.__name__, dict(self))
  * 
  *     def __missing__(self, b):             # <<<<<<<<<<<<<<
  *         # Handle a cache miss. Store quoted string in cache and return.
  *         res = chr(b) if b in self.safe else '%{:02X}'.format(b)
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_6Quoter_5__missing__, 0, __pyx_n_s_Quoter___missing, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__161)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 860, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_9curlparse_6Quoter_5__missing__, 0, __pyx_n_s_Quoter___missing, NULL, __pyx_n_s_curlparse, __pyx_d, ((PyObject *)__pyx_codeobj__174)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 886, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_missing, __pyx_t_6) < 0) __PYX_ERR(0, 860, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_missing, __pyx_t_6) < 0) __PYX_ERR(0, 886, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "curlparse.pyx":844
+  /* "curlparse.pyx":870
  * _safe_quoters = {}
  * 
  * class Quoter(collections.defaultdict):             # <<<<<<<<<<<<<<
  *     """A mapping from bytes (in range(0,256)) to strings.
  * 
  */
-  __pyx_t_6 = __Pyx_Py3ClassCreate(__pyx_t_3, __pyx_n_s_Quoter, __pyx_t_2, __pyx_t_1, NULL, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 844, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_Py3ClassCreate(__pyx_t_3, __pyx_n_s_Quoter, __pyx_t_2, __pyx_t_1, NULL, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 870, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Quoter, __pyx_t_6) < 0) __PYX_ERR(0, 844, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Quoter, __pyx_t_6) < 0) __PYX_ERR(0, 870, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":866
+  /* "curlparse.pyx":892
  *         return res
  * 
  * def quote(string, safe='/', encoding=None, errors=None):             # <<<<<<<<<<<<<<
  *     """quote('abc def') -> 'abc%20def'
  * 
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_43quote, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 866, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_45quote, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 892, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_quote, __pyx_t_2) < 0) __PYX_ERR(0, 866, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_quote, __pyx_t_2) < 0) __PYX_ERR(0, 892, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":910
+  /* "curlparse.pyx":936
  *     return quote_from_bytes(string, safe)
  * 
  * def quote_plus(string, safe='', encoding=None, errors=None):             # <<<<<<<<<<<<<<
  *     """Like quote(), but also replace ' ' with '+', as required for quoting
  *     HTML form values. Plus signs in the original string are escaped unless
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_45quote_plus, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 910, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_47quote_plus, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 936, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_quote_plus, __pyx_t_2) < 0) __PYX_ERR(0, 910, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_quote_plus, __pyx_t_2) < 0) __PYX_ERR(0, 936, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":930
+  /* "curlparse.pyx":956
  *     return string.replace(space, plus)
  * 
  * def quote_from_bytes(bs, safe='/'):             # <<<<<<<<<<<<<<
  *     """Like quote(), but accepts a bytes object rather than a str, and does
  *     not perform string-to-bytes encoding.  It always returns an ASCII string.
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_47quote_from_bytes, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 930, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_49quote_from_bytes, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 956, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_quote_from_bytes, __pyx_t_2) < 0) __PYX_ERR(0, 930, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_quote_from_bytes, __pyx_t_2) < 0) __PYX_ERR(0, 956, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":953
+  /* "curlparse.pyx":979
  * 
  * def urlencode(query, doseq=False, safe='', encoding=None, errors=None,
  *               quote_via=quote_plus):             # <<<<<<<<<<<<<<
  *     """Encode a dict or sequence of two-element tuples into a URL query string.
  * 
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_quote_plus); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 953, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_quote_plus); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 979, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_k__53 = __pyx_t_2;
+  __pyx_k__64 = __pyx_t_2;
   __Pyx_GIVEREF(__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":952
+  /* "curlparse.pyx":978
  *     return ''.join([quoter(char) for char in bs])
  * 
  * def urlencode(query, doseq=False, safe='', encoding=None, errors=None,             # <<<<<<<<<<<<<<
  *               quote_via=quote_plus):
  *     """Encode a dict or sequence of two-element tuples into a URL query string.
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_49urlencode, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 952, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_51urlencode, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 978, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_urlencode, __pyx_t_2) < 0) __PYX_ERR(0, 952, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_urlencode, __pyx_t_2) < 0) __PYX_ERR(0, 978, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":1032
+  /* "curlparse.pyx":1058
  *     return '&'.join(l)
  * 
  * def unwrap(url):             # <<<<<<<<<<<<<<
  *     """unwrap('<URL:type://host/path>') --> 'type://host/path'."""
  *     url = str(url).strip()
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_51unwrap, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1032, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_53unwrap, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1058, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_unwrap, __pyx_t_2) < 0) __PYX_ERR(0, 1032, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_unwrap, __pyx_t_2) < 0) __PYX_ERR(0, 1058, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":1040
+  /* "curlparse.pyx":1066
  *     return url
  * 
  * _typeprog = None             # <<<<<<<<<<<<<<
  * def splittype(url):
  *     """splittype('type:opaquestring') --> 'type', 'opaquestring'."""
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_typeprog, Py_None) < 0) __PYX_ERR(0, 1040, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_typeprog, Py_None) < 0) __PYX_ERR(0, 1066, __pyx_L1_error)
 
-  /* "curlparse.pyx":1041
+  /* "curlparse.pyx":1067
  * 
  * _typeprog = None
  * def splittype(url):             # <<<<<<<<<<<<<<
  *     """splittype('type:opaquestring') --> 'type', 'opaquestring'."""
  *     global _typeprog
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_53splittype, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1041, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_55splittype, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1067, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splittype, __pyx_t_2) < 0) __PYX_ERR(0, 1041, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splittype, __pyx_t_2) < 0) __PYX_ERR(0, 1067, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":1053
+  /* "curlparse.pyx":1079
  *     return None, url
  * 
  * _hostprog = None             # <<<<<<<<<<<<<<
  * def splithost(url):
  *     """splithost('//host[:port]/path') --> 'host[:port]', '/path'."""
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_hostprog, Py_None) < 0) __PYX_ERR(0, 1053, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_hostprog, Py_None) < 0) __PYX_ERR(0, 1079, __pyx_L1_error)
 
-  /* "curlparse.pyx":1054
+  /* "curlparse.pyx":1080
  * 
  * _hostprog = None
  * def splithost(url):             # <<<<<<<<<<<<<<
  *     """splithost('//host[:port]/path') --> 'host[:port]', '/path'."""
  *     global _hostprog
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_55splithost, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1054, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_57splithost, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1080, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splithost, __pyx_t_2) < 0) __PYX_ERR(0, 1054, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splithost, __pyx_t_2) < 0) __PYX_ERR(0, 1080, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":1068
+  /* "curlparse.pyx":1094
  *     return None, url
  * 
  * def splituser(host):             # <<<<<<<<<<<<<<
  *     """splituser('user[:passwd]@host[:port]') --> 'user[:passwd]', 'host[:port]'."""
  *     user, delim, host = host.rpartition('@')
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_57splituser, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1068, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_59splituser, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1094, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splituser, __pyx_t_2) < 0) __PYX_ERR(0, 1068, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splituser, __pyx_t_2) < 0) __PYX_ERR(0, 1094, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":1073
+  /* "curlparse.pyx":1099
  *     return (user if delim else None), host
  * 
  * def splitpasswd(user):             # <<<<<<<<<<<<<<
  *     """splitpasswd('user:passwd') -> 'user', 'passwd'."""
  *     user, delim, passwd = user.partition(':')
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_59splitpasswd, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1073, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_61splitpasswd, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1099, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splitpasswd, __pyx_t_2) < 0) __PYX_ERR(0, 1073, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splitpasswd, __pyx_t_2) < 0) __PYX_ERR(0, 1099, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":1079
+  /* "curlparse.pyx":1105
  * 
  * # splittag('/path#tag') --> '/path', 'tag'
  * _portprog = None             # <<<<<<<<<<<<<<
  * def splitport(host):
  *     """splitport('host:port') --> 'host', 'port'."""
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_portprog, Py_None) < 0) __PYX_ERR(0, 1079, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_portprog, Py_None) < 0) __PYX_ERR(0, 1105, __pyx_L1_error)
 
-  /* "curlparse.pyx":1080
+  /* "curlparse.pyx":1106
  * # splittag('/path#tag') --> '/path', 'tag'
  * _portprog = None
  * def splitport(host):             # <<<<<<<<<<<<<<
  *     """splitport('host:port') --> 'host', 'port'."""
  *     global _portprog
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_61splitport, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1080, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_63splitport, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splitport, __pyx_t_2) < 0) __PYX_ERR(0, 1080, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splitport, __pyx_t_2) < 0) __PYX_ERR(0, 1106, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":1093
+  /* "curlparse.pyx":1119
  *     return host, None
  * 
  * def splitnport(host, defport=-1):             # <<<<<<<<<<<<<<
  *     """Split host and port, returning numeric port.
  *     Return given default port if no ':' found; defaults to -1.
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_63splitnport, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1093, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_65splitnport, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splitnport, __pyx_t_2) < 0) __PYX_ERR(0, 1093, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splitnport, __pyx_t_2) < 0) __PYX_ERR(0, 1119, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":1109
+  /* "curlparse.pyx":1135
  *     return host, defport
  * 
  * def splitquery(url):             # <<<<<<<<<<<<<<
  *     """splitquery('/path?query') --> '/path', 'query'."""
  *     path, delim, query = url.rpartition('?')
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_65splitquery, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1109, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_67splitquery, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1135, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splitquery, __pyx_t_2) < 0) __PYX_ERR(0, 1109, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splitquery, __pyx_t_2) < 0) __PYX_ERR(0, 1135, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":1116
+  /* "curlparse.pyx":1142
  *     return url, None
  * 
  * def splittag(url):             # <<<<<<<<<<<<<<
  *     """splittag('/path#tag') --> '/path', 'tag'."""
  *     path, delim, tag = url.rpartition('#')
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_67splittag, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1116, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_69splittag, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splittag, __pyx_t_2) < 0) __PYX_ERR(0, 1116, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splittag, __pyx_t_2) < 0) __PYX_ERR(0, 1142, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":1123
+  /* "curlparse.pyx":1149
  *     return url, None
  * 
  * def splitattr(url):             # <<<<<<<<<<<<<<
  *     """splitattr('/path;attr1=value1;attr2=value2;...') ->
  *         '/path', ['attr1=value1', 'attr2=value2', ...]."""
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_69splitattr, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1123, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_71splitattr, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splitattr, __pyx_t_2) < 0) __PYX_ERR(0, 1123, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splitattr, __pyx_t_2) < 0) __PYX_ERR(0, 1149, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "curlparse.pyx":1129
+  /* "curlparse.pyx":1155
  *     return words[0], words[1:]
  * 
  * def splitvalue(attr):             # <<<<<<<<<<<<<<
  *     """splitvalue('attr=value') --> 'attr', 'value'."""
  *     attr, delim, value = attr.partition('=')
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_71splitvalue, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1129, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9curlparse_73splitvalue, NULL, __pyx_n_s_curlparse); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splitvalue, __pyx_t_2) < 0) __PYX_ERR(0, 1129, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_splitvalue, __pyx_t_2) < 0) __PYX_ERR(0, 1155, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "curlparse.pyx":1
@@ -28901,126 +30381,110 @@ bad:
     return NULL;
 }
 
-/* BytesEquals */
-        static CYTHON_INLINE int __Pyx_PyBytes_Equals(PyObject* s1, PyObject* s2, int equals) {
-#if CYTHON_COMPILING_IN_PYPY
-    return PyObject_RichCompareBool(s1, s2, equals);
-#else
-    if (s1 == s2) {
-        return (equals == Py_EQ);
-    } else if (PyBytes_CheckExact(s1) & PyBytes_CheckExact(s2)) {
-        const char *ps1, *ps2;
-        Py_ssize_t length = PyBytes_GET_SIZE(s1);
-        if (length != PyBytes_GET_SIZE(s2))
-            return (equals == Py_NE);
-        ps1 = PyBytes_AS_STRING(s1);
-        ps2 = PyBytes_AS_STRING(s2);
-        if (ps1[0] != ps2[0]) {
-            return (equals == Py_NE);
-        } else if (length == 1) {
-            return (equals == Py_EQ);
-        } else {
-            int result = memcmp(ps1, ps2, (size_t)length);
-            return (equals == Py_EQ) ? (result == 0) : (result != 0);
-        }
-    } else if ((s1 == Py_None) & PyBytes_CheckExact(s2)) {
-        return (equals == Py_NE);
-    } else if ((s2 == Py_None) & PyBytes_CheckExact(s1)) {
-        return (equals == Py_NE);
-    } else {
-        int result;
-        PyObject* py_result = PyObject_RichCompare(s1, s2, equals);
-        if (!py_result)
-            return -1;
-        result = __Pyx_PyObject_IsTrue(py_result);
-        Py_DECREF(py_result);
-        return result;
+/* bytes_tailmatch */
+        static int __Pyx_PyBytes_SingleTailmatch(PyObject* self, PyObject* arg,
+                                         Py_ssize_t start, Py_ssize_t end, int direction) {
+    const char* self_ptr = PyBytes_AS_STRING(self);
+    Py_ssize_t self_len = PyBytes_GET_SIZE(self);
+    const char* sub_ptr;
+    Py_ssize_t sub_len;
+    int retval;
+    Py_buffer view;
+    view.obj = NULL;
+    if ( PyBytes_Check(arg) ) {
+        sub_ptr = PyBytes_AS_STRING(arg);
+        sub_len = PyBytes_GET_SIZE(arg);
+    }
+#if PY_MAJOR_VERSION < 3
+    else if ( PyUnicode_Check(arg) ) {
+        return (int) PyUnicode_Tailmatch(self, arg, start, end, direction);
     }
 #endif
+    else {
+        if (unlikely(PyObject_GetBuffer(self, &view, PyBUF_SIMPLE) == -1))
+            return -1;
+        sub_ptr = (const char*) view.buf;
+        sub_len = view.len;
+    }
+    if (end > self_len)
+        end = self_len;
+    else if (end < 0)
+        end += self_len;
+    if (end < 0)
+        end = 0;
+    if (start < 0)
+        start += self_len;
+    if (start < 0)
+        start = 0;
+    if (direction > 0) {
+        if (end-sub_len > start)
+            start = end - sub_len;
+    }
+    if (start + sub_len <= end)
+        retval = !memcmp(self_ptr+start, sub_ptr, (size_t)sub_len);
+    else
+        retval = 0;
+    if (view.obj)
+        PyBuffer_Release(&view);
+    return retval;
+}
+static int __Pyx_PyBytes_Tailmatch(PyObject* self, PyObject* substr,
+                                   Py_ssize_t start, Py_ssize_t end, int direction) {
+    if (unlikely(PyTuple_Check(substr))) {
+        Py_ssize_t i, count = PyTuple_GET_SIZE(substr);
+        for (i = 0; i < count; i++) {
+            int result;
+#if CYTHON_COMPILING_IN_CPYTHON
+            result = __Pyx_PyBytes_SingleTailmatch(self, PyTuple_GET_ITEM(substr, i),
+                                                   start, end, direction);
+#else
+            PyObject* sub = PySequence_ITEM(substr, i);
+            if (unlikely(!sub)) return -1;
+            result = __Pyx_PyBytes_SingleTailmatch(self, sub, start, end, direction);
+            Py_DECREF(sub);
+#endif
+            if (result) {
+                return result;
+            }
+        }
+        return 0;
+    }
+    return __Pyx_PyBytes_SingleTailmatch(self, substr, start, end, direction);
 }
 
-/* UnicodeEquals */
-        static CYTHON_INLINE int __Pyx_PyUnicode_Equals(PyObject* s1, PyObject* s2, int equals) {
-#if CYTHON_COMPILING_IN_PYPY
-    return PyObject_RichCompareBool(s1, s2, equals);
+/* unicode_tailmatch */
+        static int __Pyx_PyUnicode_Tailmatch(PyObject* s, PyObject* substr,
+                                     Py_ssize_t start, Py_ssize_t end, int direction) {
+    if (unlikely(PyTuple_Check(substr))) {
+        Py_ssize_t i, count = PyTuple_GET_SIZE(substr);
+        for (i = 0; i < count; i++) {
+            Py_ssize_t result;
+#if CYTHON_COMPILING_IN_CPYTHON
+            result = PyUnicode_Tailmatch(s, PyTuple_GET_ITEM(substr, i),
+                                         start, end, direction);
 #else
-#if PY_MAJOR_VERSION < 3
-    PyObject* owned_ref = NULL;
+            PyObject* sub = PySequence_ITEM(substr, i);
+            if (unlikely(!sub)) return -1;
+            result = PyUnicode_Tailmatch(s, sub, start, end, direction);
+            Py_DECREF(sub);
 #endif
-    int s1_is_unicode, s2_is_unicode;
-    if (s1 == s2) {
-        goto return_eq;
-    }
-    s1_is_unicode = PyUnicode_CheckExact(s1);
-    s2_is_unicode = PyUnicode_CheckExact(s2);
-#if PY_MAJOR_VERSION < 3
-    if ((s1_is_unicode & (!s2_is_unicode)) && PyString_CheckExact(s2)) {
-        owned_ref = PyUnicode_FromObject(s2);
-        if (unlikely(!owned_ref))
-            return -1;
-        s2 = owned_ref;
-        s2_is_unicode = 1;
-    } else if ((s2_is_unicode & (!s1_is_unicode)) && PyString_CheckExact(s1)) {
-        owned_ref = PyUnicode_FromObject(s1);
-        if (unlikely(!owned_ref))
-            return -1;
-        s1 = owned_ref;
-        s1_is_unicode = 1;
-    } else if (((!s2_is_unicode) & (!s1_is_unicode))) {
-        return __Pyx_PyBytes_Equals(s1, s2, equals);
-    }
-#endif
-    if (s1_is_unicode & s2_is_unicode) {
-        Py_ssize_t length;
-        int kind;
-        void *data1, *data2;
-        if (unlikely(__Pyx_PyUnicode_READY(s1) < 0) || unlikely(__Pyx_PyUnicode_READY(s2) < 0))
-            return -1;
-        length = __Pyx_PyUnicode_GET_LENGTH(s1);
-        if (length != __Pyx_PyUnicode_GET_LENGTH(s2)) {
-            goto return_ne;
+            if (result) {
+                return (int) result;
+            }
         }
-        kind = __Pyx_PyUnicode_KIND(s1);
-        if (kind != __Pyx_PyUnicode_KIND(s2)) {
-            goto return_ne;
-        }
-        data1 = __Pyx_PyUnicode_DATA(s1);
-        data2 = __Pyx_PyUnicode_DATA(s2);
-        if (__Pyx_PyUnicode_READ(kind, data1, 0) != __Pyx_PyUnicode_READ(kind, data2, 0)) {
-            goto return_ne;
-        } else if (length == 1) {
-            goto return_eq;
-        } else {
-            int result = memcmp(data1, data2, (size_t)(length * kind));
-            #if PY_MAJOR_VERSION < 3
-            Py_XDECREF(owned_ref);
-            #endif
-            return (equals == Py_EQ) ? (result == 0) : (result != 0);
-        }
-    } else if ((s1 == Py_None) & s2_is_unicode) {
-        goto return_ne;
-    } else if ((s2 == Py_None) & s1_is_unicode) {
-        goto return_ne;
-    } else {
-        int result;
-        PyObject* py_result = PyObject_RichCompare(s1, s2, equals);
-        if (!py_result)
-            return -1;
-        result = __Pyx_PyObject_IsTrue(py_result);
-        Py_DECREF(py_result);
-        return result;
+        return 0;
     }
-return_eq:
-    #if PY_MAJOR_VERSION < 3
-    Py_XDECREF(owned_ref);
-    #endif
-    return (equals == Py_EQ);
-return_ne:
-    #if PY_MAJOR_VERSION < 3
-    Py_XDECREF(owned_ref);
-    #endif
-    return (equals == Py_NE);
-#endif
+    return (int) PyUnicode_Tailmatch(s, substr, start, end, direction);
+}
+
+/* str_tailmatch */
+        static CYTHON_INLINE int __Pyx_PyStr_Tailmatch(PyObject* self, PyObject* arg, Py_ssize_t start,
+                                               Py_ssize_t end, int direction)
+{
+    if (PY_MAJOR_VERSION < 3)
+        return __Pyx_PyBytes_Tailmatch(self, arg, start, end, direction);
+    else
+        return __Pyx_PyUnicode_Tailmatch(self, arg, start, end, direction);
 }
 
 /* DelItemInt */
@@ -29379,6 +30843,128 @@ bad:
         Py_DECREF(retval);
     }
     return 0;
+}
+
+/* BytesEquals */
+          static CYTHON_INLINE int __Pyx_PyBytes_Equals(PyObject* s1, PyObject* s2, int equals) {
+#if CYTHON_COMPILING_IN_PYPY
+    return PyObject_RichCompareBool(s1, s2, equals);
+#else
+    if (s1 == s2) {
+        return (equals == Py_EQ);
+    } else if (PyBytes_CheckExact(s1) & PyBytes_CheckExact(s2)) {
+        const char *ps1, *ps2;
+        Py_ssize_t length = PyBytes_GET_SIZE(s1);
+        if (length != PyBytes_GET_SIZE(s2))
+            return (equals == Py_NE);
+        ps1 = PyBytes_AS_STRING(s1);
+        ps2 = PyBytes_AS_STRING(s2);
+        if (ps1[0] != ps2[0]) {
+            return (equals == Py_NE);
+        } else if (length == 1) {
+            return (equals == Py_EQ);
+        } else {
+            int result = memcmp(ps1, ps2, (size_t)length);
+            return (equals == Py_EQ) ? (result == 0) : (result != 0);
+        }
+    } else if ((s1 == Py_None) & PyBytes_CheckExact(s2)) {
+        return (equals == Py_NE);
+    } else if ((s2 == Py_None) & PyBytes_CheckExact(s1)) {
+        return (equals == Py_NE);
+    } else {
+        int result;
+        PyObject* py_result = PyObject_RichCompare(s1, s2, equals);
+        if (!py_result)
+            return -1;
+        result = __Pyx_PyObject_IsTrue(py_result);
+        Py_DECREF(py_result);
+        return result;
+    }
+#endif
+}
+
+/* UnicodeEquals */
+          static CYTHON_INLINE int __Pyx_PyUnicode_Equals(PyObject* s1, PyObject* s2, int equals) {
+#if CYTHON_COMPILING_IN_PYPY
+    return PyObject_RichCompareBool(s1, s2, equals);
+#else
+#if PY_MAJOR_VERSION < 3
+    PyObject* owned_ref = NULL;
+#endif
+    int s1_is_unicode, s2_is_unicode;
+    if (s1 == s2) {
+        goto return_eq;
+    }
+    s1_is_unicode = PyUnicode_CheckExact(s1);
+    s2_is_unicode = PyUnicode_CheckExact(s2);
+#if PY_MAJOR_VERSION < 3
+    if ((s1_is_unicode & (!s2_is_unicode)) && PyString_CheckExact(s2)) {
+        owned_ref = PyUnicode_FromObject(s2);
+        if (unlikely(!owned_ref))
+            return -1;
+        s2 = owned_ref;
+        s2_is_unicode = 1;
+    } else if ((s2_is_unicode & (!s1_is_unicode)) && PyString_CheckExact(s1)) {
+        owned_ref = PyUnicode_FromObject(s1);
+        if (unlikely(!owned_ref))
+            return -1;
+        s1 = owned_ref;
+        s1_is_unicode = 1;
+    } else if (((!s2_is_unicode) & (!s1_is_unicode))) {
+        return __Pyx_PyBytes_Equals(s1, s2, equals);
+    }
+#endif
+    if (s1_is_unicode & s2_is_unicode) {
+        Py_ssize_t length;
+        int kind;
+        void *data1, *data2;
+        if (unlikely(__Pyx_PyUnicode_READY(s1) < 0) || unlikely(__Pyx_PyUnicode_READY(s2) < 0))
+            return -1;
+        length = __Pyx_PyUnicode_GET_LENGTH(s1);
+        if (length != __Pyx_PyUnicode_GET_LENGTH(s2)) {
+            goto return_ne;
+        }
+        kind = __Pyx_PyUnicode_KIND(s1);
+        if (kind != __Pyx_PyUnicode_KIND(s2)) {
+            goto return_ne;
+        }
+        data1 = __Pyx_PyUnicode_DATA(s1);
+        data2 = __Pyx_PyUnicode_DATA(s2);
+        if (__Pyx_PyUnicode_READ(kind, data1, 0) != __Pyx_PyUnicode_READ(kind, data2, 0)) {
+            goto return_ne;
+        } else if (length == 1) {
+            goto return_eq;
+        } else {
+            int result = memcmp(data1, data2, (size_t)(length * kind));
+            #if PY_MAJOR_VERSION < 3
+            Py_XDECREF(owned_ref);
+            #endif
+            return (equals == Py_EQ) ? (result == 0) : (result != 0);
+        }
+    } else if ((s1 == Py_None) & s2_is_unicode) {
+        goto return_ne;
+    } else if ((s2 == Py_None) & s1_is_unicode) {
+        goto return_ne;
+    } else {
+        int result;
+        PyObject* py_result = PyObject_RichCompare(s1, s2, equals);
+        if (!py_result)
+            return -1;
+        result = __Pyx_PyObject_IsTrue(py_result);
+        Py_DECREF(py_result);
+        return result;
+    }
+return_eq:
+    #if PY_MAJOR_VERSION < 3
+    Py_XDECREF(owned_ref);
+    #endif
+    return (equals == Py_EQ);
+return_ne:
+    #if PY_MAJOR_VERSION < 3
+    Py_XDECREF(owned_ref);
+    #endif
+    return (equals == Py_NE);
+#endif
 }
 
 /* Import */

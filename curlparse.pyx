@@ -416,92 +416,118 @@ def _splitnetloc(url, start=0, *, delimiters):
     return url[start:delim], url[delim:]   # return (domain, rest)
 
 
-def urlsplit(url, scheme='', allow_fragments=True):
+def urlsplit(bytes url, bytes scheme=b'', bool allow_fragments=True):
     """Parse a URL into 5 components:
     <scheme>://<netloc>/<path>?<query>#<fragment>
     Return a 5-tuple: (scheme, netloc, path, query, fragment).
     Note that we don't break the components up in smaller bits
     (e.g. netloc is a single string) and we don't expand % escapes."""
-    allow_fragments = bool(allow_fragments)
-    if isinstance(url, bytes):
-        if scheme == '':
-            scheme = b''
-        blank = b''
-        colon = b':'
-        http = b'http'
-        l_bracket = b'['
-        r_bracket = b']'
-        pound = b'#'
-        question_mark = b'?'
-        digits = b'0123456789'
-        double_slash = b'//',
-        netloc_delimiters = b'/?#'
-        result_type = SplitResultBytes
-        scheme_chars = (b'abcdefghijklmnopqrstuvwxyz'
-                        b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-                        b'0123456789'
-                        b'+-.')
-    else:
-        blank = ''
-        colon = ':'
-        http = 'http'
-        l_bracket = '['
-        r_bracket = ']'
-        pound = '#'
-        question_mark = '?'
-        digits = '0123456789'
-        double_slash = '//'
-        netloc_delimiters = '/?#'
-        result_type = SplitResult
-        scheme_chars = ('abcdefghijklmnopqrstuvwxyz'
-                        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-                        '0123456789'
-                        '+-.')
     key = url, scheme, allow_fragments, type(url), type(scheme)
     cached = _parse_cache.get(key, None)
     if cached:
         return cached
     if len(_parse_cache) >= MAX_CACHE_SIZE: # avoid runaway growth
         clear_cache()
-    netloc = query = fragment = blank
-    i = url.find(colon)
+    netloc = query = fragment = b''
+    i = url.find(b':')
     if i > 0:
-        if url.startswith(http, i):  # optimize the common case
+        if url.startswith(b'http', i):  # optimize the common case
             scheme = url[:i].lower()
             url = url[i+1:]
-            if url.startswith(double_slash):
-                netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)
-                if ((l_bracket in netloc and r_bracket not in netloc) or
-                        (r_bracket in netloc and l_bracket not in netloc)):
+            if url.startswith(b'//'):
+                netloc, url = _splitnetloc(url, 2, delimiters=b'/?#')
+                if ((b'[' in netloc and b']' not in netloc) or
+                        (b']' in netloc and b'[' not in netloc)):
                     raise ValueError("Invalid IPv6 URL")
-            if allow_fragments and pound in url:
-                url, fragment = url.split(pound, 1)
-            if question_mark in url:
-                url, query = url.split(question_mark, 1)
-            v = result_type(scheme, netloc, url, query, fragment)
+            if allow_fragments and b'#' in url:
+                url, fragment = url.split(b'#', 1)
+            if b'?' in url:
+                url, query = url.split(b'?', 1)
+            v = SplitResultBytes(scheme, netloc, url, query, fragment)
             _parse_cache[key] = v
             return v
         for c in url[:i]:
-            if c not in scheme_chars:
+            if c not in (b'abcdefghijklmnopqrstuvwxyz'
+                         b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                         b'0123456789'
+                         b'+-.'):
                 break
         else:
             # make sure "url" is not actually a port number (in which case
             # "scheme" is really part of the path)
             rest = url[i+1:]
-            if not rest or any(c not in digits for c in rest):
+            if not rest or any(c not in b'0123456789' for c in rest):
                 # not a port number
                 scheme, url = url[:i].lower(), rest
 
-    if url.startswith(double_slash):
-        netloc, url = _splitnetloc(url, 2, delimiters=netloc_delimiters)
-        if ((l_bracket in netloc and r_bracket not in netloc) or
-                (r_bracket in netloc and l_bracket not in netloc)):
+    if url.startswith(b'//'):
+        netloc, url = _splitnetloc(url, 2, delimiters=b'/?#')
+        if ((b'[' in netloc and b']' not in netloc) or
+                (b']' in netloc and b'[' not in netloc)):
             raise ValueError("Invalid IPv6 URL")
-    if allow_fragments and pound in url:
-        url, fragment = url.split(pound, 1)
-    if question_mark in url:
-        url, query = url.split(question_mark, 1)
-    v = result_type(scheme, netloc, url, query, fragment)
+    if allow_fragments and b'#' in url:
+        url, fragment = url.split(b'#', 1)
+    if b'?' in url:
+        url, query = url.split(b'?', 1)
+    v = SplitResultBytes(scheme, netloc, url, query, fragment)
+    _parse_cache[key] = v
+    return v
+
+
+def urlsplit(str url, str scheme='', bool allow_fragments=True):
+    """Parse a URL into 5 components:
+    <scheme>://<netloc>/<path>?<query>#<fragment>
+    Return a 5-tuple: (scheme, netloc, path, query, fragment).
+    Note that we don't break the components up in smaller bits
+    (e.g. netloc is a single string) and we don't expand % escapes."""
+    key = url, scheme, allow_fragments, type(url), type(scheme)
+    cached = _parse_cache.get(key, None)
+    if cached:
+        return cached
+    if len(_parse_cache) >= MAX_CACHE_SIZE: # avoid runaway growth
+        clear_cache()
+    netloc = query = fragment = ''
+    i = url.find(':')
+    if i > 0:
+        if url.startswith('http', i):  # optimize the common case
+            scheme = url[:i].lower()
+            url = url[i+1:]
+            if url.startswith('//'):
+                netloc, url = _splitnetloc(url, 2, delimiters='/?#')
+                if (('[' in netloc and ']' not in netloc) or
+                        (']' in netloc and '[' not in netloc)):
+                    raise ValueError("Invalid IPv6 URL")
+            if allow_fragments and '#' in url:
+                url, fragment = url.split('#', 1)
+            if '?' in url:
+                url, query = url.split('?', 1)
+            v = SplitResult(scheme, netloc, url, query, fragment)
+            _parse_cache[key] = v
+            return v
+        for c in url[:i]:
+            if c not in ('abcdefghijklmnopqrstuvwxyz'
+                         'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                         '0123456789'
+                         '+-.'):
+                break
+        else:
+            # make sure "url" is not actually a port number (in which case
+            # "scheme" is really part of the path)
+            rest = url[i+1:]
+            if not rest or any(c not in '0123456789' for c in rest):
+                # not a port number
+                scheme, url = url[:i].lower(), rest
+
+    if url.startswith('//'):
+        netloc, url = _splitnetloc(url, 2, delimiters='/?#')
+        if (('[' in netloc and ']' not in netloc) or
+                (']' in netloc and '[' not in netloc)):
+            raise ValueError("Invalid IPv6 URL")
+    if allow_fragments and '#' in url:
+        url, fragment = url.split('#', 1)
+    if '?' in url:
+        url, query = url.split('?', 1)
+    v = SplitResult(scheme, netloc, url, query, fragment)
     _parse_cache[key] = v
     return v
 
