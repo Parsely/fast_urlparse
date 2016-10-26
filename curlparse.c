@@ -8090,7 +8090,7 @@ static PyObject *__pyx_f_9curlparse__splitparams_str(PyObject *__pyx_v_url, PyOb
  *         if i < 0:
  *             result.append(url)             # <<<<<<<<<<<<<<
  *             result.append(blank)
- *             return url, blank
+ *             return result
  */
       __pyx_t_10 = __Pyx_PyList_Append(__pyx_v_result, __pyx_v_url); if (unlikely(__pyx_t_10 == -1)) __PYX_ERR(0, 401, __pyx_L1_error)
 
@@ -8098,7 +8098,7 @@ static PyObject *__pyx_f_9curlparse__splitparams_str(PyObject *__pyx_v_url, PyOb
  *         if i < 0:
  *             result.append(url)
  *             result.append(blank)             # <<<<<<<<<<<<<<
- *             return url, blank
+ *             return result
  *     else:
  */
       __pyx_t_10 = __Pyx_PyList_Append(__pyx_v_result, __pyx_v_blank); if (unlikely(__pyx_t_10 == -1)) __PYX_ERR(0, 402, __pyx_L1_error)
@@ -8106,22 +8106,13 @@ static PyObject *__pyx_f_9curlparse__splitparams_str(PyObject *__pyx_v_url, PyOb
       /* "curlparse.pyx":403
  *             result.append(url)
  *             result.append(blank)
- *             return url, blank             # <<<<<<<<<<<<<<
+ *             return result             # <<<<<<<<<<<<<<
  *     else:
  *         i = url.find(semicolon)
  */
       __Pyx_XDECREF(__pyx_r);
-      __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 403, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_INCREF(__pyx_v_url);
-      __Pyx_GIVEREF(__pyx_v_url);
-      PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_url);
-      __Pyx_INCREF(__pyx_v_blank);
-      __Pyx_GIVEREF(__pyx_v_blank);
-      PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_blank);
-      if (!(likely(PyList_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 403, __pyx_L1_error)
-      __pyx_r = ((PyObject*)__pyx_t_1);
-      __pyx_t_1 = 0;
+      __Pyx_INCREF(__pyx_v_result);
+      __pyx_r = __pyx_v_result;
       goto __pyx_L0;
 
       /* "curlparse.pyx":400
@@ -8144,7 +8135,7 @@ static PyObject *__pyx_f_9curlparse__splitparams_str(PyObject *__pyx_v_url, PyOb
   }
 
   /* "curlparse.pyx":405
- *             return url, blank
+ *             return result
  *     else:
  *         i = url.find(semicolon)             # <<<<<<<<<<<<<<
  *     result.append(url[:i])

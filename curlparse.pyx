@@ -400,7 +400,7 @@ cdef list _splitparams_str(str url, str semicolon, str slash, str blank):
         if i < 0:
             result.append(url)
             result.append(blank)
-            return url, blank
+            return result
     else:
         i = url.find(semicolon)
     result.append(url[:i])
