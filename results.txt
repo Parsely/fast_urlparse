@@ -1,0 +1,44 @@
+===========
+Comparison:
+===========
+urllib.parse                  0.0000091104  100%
+fast_urlparse (python)        0.0000094766  104%
+fast_urlparse (cython, str)   0.0000055828  61%
+fast_urlparse (cython, bytes) 0.0000071456  78%
+===========
+Urls: 10,000,000
+Total time: 0:05:33.450991
+
+===========
+Comparison:
+===========
+urllib.parse                  0.0000096135  100%
+fast_urlparse (python)        0.0000100187  104%
+fast_urlparse (cython, str)   0.0000059350  62%
+fast_urlparse (cython, bytes) 0.0000077908  81%
+===========
+Urls: 10,000,000
+Total time: 0:05:55.359594
+
+===========
+Comparison:
+===========
+urllib.parse                  0.0000106470  100%
+fast_urlparse (python)        0.0000110808  104%
+fast_urlparse (cython, str)   0.0000066026  62%
+fast_urlparse (cython, bytes) 0.0000088386  83%
+===========
+Urls: 10,000,000
+Total time: 0:06:37.016914
+
+===========
+Comparison:
+===========
+urllib.parse                  0.0000090817  100%
+fast_urlparse (python)        0.0000094143  104%
+fast_urlparse (cython, str)   0.0000054501  60%
+fast_urlparse (cython, bytes) 0.0000074755  82%
+===========
+Urls: 10,000,000
+Total time: 0:05:34.665309
+
